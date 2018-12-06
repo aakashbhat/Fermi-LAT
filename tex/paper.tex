@@ -73,6 +73,25 @@ Title (centered) &  {\Large\bfseries Lecture Notes} & 14 point, bold\\
 \hline
 \end{tabular}
 \end{table}
+\section{Work}
+\subsection{Machine Learning}
+
+We began our work by sorting the data into known and unknown sources. Since our work is supervised learning we only choose known sources for training. The known sources were a total of 1933, with 1739 AGNs and 166 pulasars, after cleaning up of the data. Then our work was sorted into two parts. The first was to train using tree based machine learning techniques and the second was to train using nueral networks. 
+
+\section{Tree-based methods}
+
+We used the following tree based methods and developed simple scripts in python: Random Forests, Extra trees classifier, AdaBoost, Gradient boosting. The modules for tree-based methods were imported from sk-learn which is available in python. The primary parameters were the number of trees and the maximum depth of nodes. \\
+\begin{figure}{H}
+\includegraphics[width=\textwidth]{rfnumoftreesvsscore.png}
+\caption{OOB score for random forest based learning vs. number of trees}
+\end{figure}
+As can be seen above the score tends to saturate around 1000 and 5000 trees respectively. A similar approach shows the following with regards to the maximum depth of trees for 50 trees.\\
+
+\begin{figure}{H}
+\includegraphics[width=\textwidth]{Rf_maxdepth_oobscore_glat.png}
+\caption{OOB score for random forest based learning vs. maximum depth of trees}
+\end{figure}
+
 
 
 \noindent Displayed equations are centered and set on a separate
