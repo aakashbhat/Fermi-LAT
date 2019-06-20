@@ -1,0 +1,214 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This file is a template using the "beamer" package to create slides for a talk or presentation
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+% MODIFIED by Jonathan Kew, 2008-07-06
+% The header comments and encoding in this file were modified for inclusion with TeXworks.
+% The content is otherwise unchanged from the original distributed with the beamer package.
+
+\documentclass{beamer}
+
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[english]{babel}
+\usepackage[export]{adjustbox}
+% or whatever
+\usepackage{subcaption}
+\usepackage[font={scriptsize}]{caption}
+\usepackage[utf8]{inputenc}
+%\usepackage{amsmath}
+% or whatever
+%\usepackage[font=small]{caption}
+\usepackage{graphicx,caption}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\newcommand{\source}[1]{\caption*{\hfill Source: {#1}} }
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+
+\title[MMA] % (optional, use only with long paper titles)
+{Classification of AGNs and Pulsars using Machine Learning techniques }
+
+%\subtitle
+%{Include Only If Paper Has a Subtitle}
+
+\author{Aakash Bhat}%(optional, use only with lots of authors)
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute % (optional, but mostly needed)
+{
+ FAU Erlangen-Nurnberg
+ % University of Somewhere
+  %\and
+ % \inst{2}%
+ % Department of Theoretical Philosophy\\
+ % University of Elsewhere}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+}
+\date{Juli 2019} % (optional, should be abbreviation of conference name)
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+\subject{Astronomy}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Table of contents}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+
+% Structuring a talk is a difficult task and the following structure
+% may not be suitable. Here are some rules that apply for this
+% solution: 
+
+% - Exactly two or three sections (other than the summary).
+% - At *most* three subsections per section.
+% - Talk about 30s to 2min per frame. So there should be between about
+%   15 and 30 frames, all told.
+
+% - A conference audience is likely to know very little of what you
+%   are going to talk about. So *simplify*!
+% - In a 20min talk, getting the main ideas across is hard
+%   enough. Leave out details, even if it means being less precise than
+%   you think necessary.
+% - If you omit details that are vital to the proof/implementation,
+%   just say so once. Everybody will be happy with that.
+
+\section{Introduction}
+
+\subsection{General Idea}
+
+\begin{frame}
+
+  \begin{itemize}
+  \item
+Create machine learning algorithms capable of classifying AGNs and Pulsars
+  \item
+   Use 4-year Fermi LAT catalog to train and test the algorithms
+  \item
+Apply the algorithms on the newly released 8-year list
+
+  \end{itemize}
+\end{frame}
+
+
+\subsection{Application}
+
+\begin{frame}{Types of sources and algorithms}
+ \begin{itemize}
+  \item
+Use the classified AGNs (BL lacs etc) and Pulsars
+  \item
+	Find the appropriate "features" to use
+  \item
+Algorithms include: Random forests, Logistic regression, Neural Networks
+  \item
+	Estimate performance by focusing on individual models (Number and depth of trees in forest based models, Number of layers in Neural networks)
+\end{itemize}
+\end{frame}
+
+
+\section{The Data}
+
+\subsection{AGNs and PSRs}
+
+\begin{frame}{}
+\begin{itemize}
+ \item
+Total of 1905 sources classified
+ \item
+Features: Flux, uncertainty, Significant curvature, spectral index, Hardness ratios,  Galactic latitude
+ \item
+70\% training and 30\% testing 
+ \item
+$hr_{ij}=\frac{EnergyFlux_j - EnergyFlux_i}{EnergyFlux_j + EnergyFlux_i}$
+\end{itemize} 
+
+\end{frame}
+
+\begin{frame}{Summary}
+
+  % Keep the summary *very short*.
+  \begin{itemize}
+  \item
+    The \alert{first main message} of your talk in one or two lines.
+  \item
+    The \alert{second main message} of your talk in one or two lines.
+  \item
+    Perhaps a \alert{third message}, but not more than that.
+  \end{itemize}
+  
+\end{frame}
+
+
+
+
+\end{document}
+
+
