@@ -1,0 +1,11 @@
+.DS_Store
+paper/0head_ML_3FGL.pdf
+*.blg
+*.aux
+*.log
+*.out
+*.toc
+*synctex*
+*.pyc
+
+

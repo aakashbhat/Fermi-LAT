@@ -1,0 +1,233 @@
+\documentclass[preprint]{aa}
+\pdfoutput=1
+
+\bibliographystyle{aa}
+%\AuthorCallLimit=200
+
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{dsfont}
+\usepackage{amsxtra}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{upgreek}
+
+\usepackage{multirow}
+\usepackage{url}
+
+\usepackage{graphicx,epsfig}
+%\usepackage{dcolumn}
+%\usepackage{bm}
+%\usepackage{ulem}
+
+\usepackage{xspace} 
+
+\usepackage{color}
+\usepackage{xcolor}
+
+\usepackage{lineno}
+\linenumbers
+
+\renewcommand{\baselinestretch}{1.2}
+
+%\setlength{\textwidth}{17.5cm} 
+%\setlength{\textheight}{24.cm}
+%\setlength{\topmargin}{-1.5cm}
+%\setlength{\oddsidemargin}{-0.4cm}
+
+
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\beaa}{\begin{eqnarray*}}
+\newcommand{\eeaa}{\end{eqnarray*}}
+\newcommand{\ba}{\begin{array}}
+\newcommand{\ea}{\end{array}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+
+\newcommand{\bra}{\langle}
+\newcommand{\ket}{\rangle}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\overar}{\overrightarrow}
+\newcommand{\wt}{\widetilde}
+\newcommand{\td}{\tilde}
+
+
+\newcommand{\lb}{\label}
+\newcommand{\g}{\ensuremath{\gamma}\xspace}
+\newcommand{\G}{\Gamma}
+\newcommand{\e}{\epsilon}
+\newcommand{\al}{\alpha}
+\newcommand{\bt}{\beta}
+\newcommand{\p}{\partial}
+\newcommand{\dl}{\delta}
+\newcommand{\Dl}{\Delta}
+\newcommand{\ld}{\lambda}
+\newcommand{\Ld}{\Lambda}
+\newcommand{\vp}{\varphi}
+\newcommand{\te}{\theta}
+\newcommand{\Om}{\Omega}
+\newcommand{\om}{\omega}
+\newcommand{\sm}{\sigma}
+\newcommand{\Sm}{\Sigma}
+
+\newcommand{\A}{{\rm A}}
+\newcommand{\B}{{\rm B}}
+\newcommand{\U}{{\rm U}}
+\newcommand{\F}{{\rm F}}
+\newcommand{\SU}{{\rm SU}}
+\newcommand{\Tr}{{\rm Tr}}
+\newcommand{\Hom}{{\rm Hom}}
+
+\newcommand{\FF}{{\mathsf F}}
+
+\newcommand{\mcE}{{\mathcal{E}}}
+\newcommand{\N}{{\mathcal{N}}}
+\newcommand{\D}{{\mathcal{D}}}
+\newcommand{\La}{{\mathcal{L}}}
+\newcommand{\OO}{{\mathcal{O}}}
+\newcommand{\M}{{\mathcal{M}}}
+
+
+\newcommand{\mbE}{{\mathbb{E}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\NN}{{\mathbb{N}}}
+\newcommand{\PP}{{\mathbb{C}}{\rm P}}
+
+\newcommand{\HH}{{\mathcal{H}}}
+\newcommand{\Hd}{{\mathcal{H}}^*}
+
+\newcommand{\HI}{H~\textsc{i}\xspace}
+\newcommand{\Htwo}{$\mathrm{H}_2$\xspace}
+\newcommand{\hi}{$\mathrm{H\,\scriptstyle{I}}$\xspace}
+\newcommand{\hii}{$\mathrm{H\,\scriptstyle{II}}$\xspace}
+\newcommand{\hd}{$\mathrm{H}_2$\xspace}
+\newcommand{\xco}{$X_\mathrm{CO}$\xspace}
+
+\newcommand{\vx}{{\bf x}}
+
+\newcommand{\Fermi}{\textit{Fermi}\xspace}
+\newcommand{\LAT}{\textsl{LAT}\xspace}
+\newcommand{\WMAP}{\textsl{WMAP}\xspace}
+\newcommand{\Planck}{\textsl{Planck}\xspace}
+\newcommand{\Suzaku}{\textsl{Suzaku}\xspace}
+
+\newcommand{\SM}{Sample Model\xspace}
+
+\newcommand{\sigmav}{\ensuremath{\langle \sigma v \rangle}\xspace}
+\newcommand{\bbbar}{\ensuremath{b \bar b}\xspace}
+\newcommand{\tautau}{\ensuremath{\tau^{+}\tau^{-}}\xspace}
+\newcommand{\relic}{\ensuremath{2.2\times10^{-26}\cm^{3}\second^{-1}}\xspace}
+\newcommand{\beff}{\ensuremath{b_{\rm eff}}\xspace}
+\newcommand{\DM}{\ensuremath{\mathrm{DM}}}
+\newcommand{\mDM}{\ensuremath{m_\DM}\xspace}
+
+
+% local options
+\newcommand{\onepic}{0.45}
+\newcommand{\twopic}{0.38}
+\newcommand{\twopicsp}{0.45}
+\newcommand{\threepic}{0.25}
+%\newcommand{\threepic}{0.18}
+\newcommand{\fourpic}{0.28}
+\newcommand{\twopicwca}{0.35}
+
+\newcommand{\cmap}{_afmhot}
+
+
+\newcommand{\red}{\textcolor{red}}
+\newcommand{\blue}{\textcolor{blue}}
+\definecolor{darkgreen}{rgb}{0.0, 0.7, 0.0}
+\newcommand{\green}{\textcolor{darkgreen}}
+
+\newcommand{\dima}[1]{\textcolor{blue}{(Dima: #1)}}
+% local options
+
+\begin{document} 
+
+
+   \title{Machine learning methods for classification of unassociated \Fermi LAT sources}
+
+   %\subtitle{}
+
+   \author{A. Bhat \thanks{\email{aakash.bhat@fau.de}}
+          \inst{1}
+          \and
+          D. Malyshev \thanks{\email{dmitry.mayshev@fau.de}}
+          \inst{1}
+          }
+
+   \institute{
+             Erlangen Centre for Astroparticle Physics, Erwin-Rommel-Str. 1, Erlangen, Germany
+             }
+
+   \date{Received September 15, 1996; accepted March 16, 1997}
+
+% \abstract{}{}{}{}{} 
+% 5 {} token are mandatory
+ 
+\abstract
+% context heading (optional)
+% {} leave it empty if necessary  
+{
+Classification of sources is one of the most important tasks in astronomy.
+%It enables one to determine common features of the sources and understand better their nature.
+Sources detected in one wavelength band, e.g., in gamma rays, may have several possible associations in other wavebands or
+there may be no plausible association candidates.
+}
+% aims heading (mandatory)
+{
+In this work, we take unassociated sources in the third \Fermi-LAT point source catalog (3FGL) and suggest associations
+to known classes of gamma-ray sources using machine learning methods trained on associated sources in the 3FGL.
+}
+% methods heading (mandatory)
+{
+We use several machine learning methods to separate \Fermi-LAT sources into two major classes: pulsars and active galactic nuclei (AGNs).
+We evaluate the dependence of results on meta-parameters of the ML methods, such as the depth of the tree in tree-based classification methods and 
+the number of layers in neural networks.
+We test the performance of the methods with a test sample drawn from the associated sources in 3FGL.
+We compare the predictions with the preliminary forth \Fermi-LAT catalog (4FGL).
+}
+% results heading (mandatory)
+{
+Summary of results
+}
+% conclusions heading (optional), leave it empty if necessary 
+{}
+
+\keywords{Methods: statistical --
+                Catalogs
+                %Galaxy: halo --
+                %Galaxy: structure -- 
+                %ISM: jets and outflows
+               }
+
+\maketitle
+   
+   
+\tableofcontents
+
+
+\input{1intro}
+\input{2methods}
+\input{3prediction}
+\input{4comparison}
+\input{5conclusions}
+
+\newpage
+\bibliography{gp_bubbles_papers}  
+
+\begin{appendix}
+\input{app1}
+\end{appendix}
+
+\end{document}
+
