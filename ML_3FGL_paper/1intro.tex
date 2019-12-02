@@ -1,10 +1,34 @@
 \section{Introduction}
 
-Machine learning algorithms have been around for some time. Their use in classification, etc. is well studied. However, it is only recently that machine learning has found it's way to astronomical classifications and tasks. Their use, especially with the growth of neural networks has increased exponentially in the past few years. They are now being used in classification of astrophysical sources, as well as in other areas such as reconsttruction of particle tracks (for instance in Icecube etc.). \\
-The fermi large area telescope (LAT) was launched in 2008 for the detection of photons in the 	gamma-ray regime. The LAT team has since then released 4 catalogs with the 8-year list being released in 2019. These catalogs provide a list of sources, which include AGNs and Pulsars. While a lot of them are associated, many of the sources still remain unassociated.\\
-Attempts to classify these unassociated sources have previously been performed. In 2016, Parkinson et. al. used statistical and machine learning methods like Random Forests and logistic regression to try and classify sources in the 3rd catalog released by the LAT team. They trained on 70 \% of the associated sources in the catalog and then tested their results on the rest of the 30 \% sources. The methods were used to classify AGNS and Pulsars (and seperately young and millisecond pulsars) and showed accuracy of up to 97\%.\\
-In our paper we present our machine learning algorithms and go deeper into their working and data analysis strategies.\\
-\lb{sec:intro}
+
+Catalogs of gamma-ray sources such as 3FGL or 4FGL contain many sources without associations, e.g., X for 3FGL and Y for 4FGL.
+In order for a source to be associated with a known source, such as a blazar or a pulsar, it has to pass relatively strict selection criteria, which ensure that the rate of errors in associations is low.
+However, in some problems the desired property is completeness rather than purity. In other words, one may need to select as many members of a particular class as it is possible, which usually comes at the expense of higher rate of false associations.
+For example, this situation can arise if we look for something new or unusual, in this case one would like to pay attention to all possible members of the class, even though there may be many non-members added to this list.
+In this case it is useful to have a softer selection criterion, such as a probability to belong to a certain class, rather than a discrete classification.
+Then one has an option to select a pure subsample with very high probability to belong to the class, or a larger subsample where the probability to miss a source is low but for some of the sources the probability to belong to the class can be also not high, e.g., even less than 50\%.
+
+Discrete or probabilistic classification of unassociated gamma-ray sources can be achieved with machine learning (ML) algorithms.
+The basic idea is that the algorithms are trained to classify sources based on their characteristics, such as the spectral index and position on the sky, for a set of sources with known classifications. Then the application of the classification algorithm for a sources with unknown classification allows one to make a prediction to which class it belongs.
+The main goal of this paper is to apply several ML algorithms for the classification of sources in 3FGL and 4FGL catalogs.
+In particular we will use logistic regression, decision trees, random forest, neural networks algorithms.
+We will 
+\ben
+\item
+Train the classifies on associated sources in the 3FGL catalog in Section \ref{sec:methods};
+\item
+Make prediction for unassociated sources in the 3FGL catalog and compare with the associations in the newer 4FGL catalog in Section \ref{sec:3FGLprediction};
+\item
+Retrain the classifies for the 4FGL catalog and make predictions for the unassociated sources in 4FGL in Section \ref{sec:4FGLprediction}.
+\een
+
+Discussion of literature and what is new in this paper.
+
+
+%Machine learning algorithms have been around for some time. Their use in classification, etc. is well studied. However, it is only recently that machine learning has found it's way to astronomical classifications and tasks. Their use, especially with the growth of neural networks has increased exponentially in the past few years. They are now being used in classification of astrophysical sources, as well as in other areas such as reconsttruction of particle tracks (for instance in Icecube etc.). \\
+%The fermi large area telescope (LAT) was launched in 2008 for the detection of photons in the 	gamma-ray regime. The LAT team has since then released 4 catalogs with the 8-year list being released in 2019. These catalogs provide a list of sources, which include AGNs and Pulsars. While a lot of them are associated, many of the sources still remain unassociated.\\
+%Attempts to classify these unassociated sources have previously been performed. In 2016, Parkinson et. al. used statistical and machine learning methods like Random Forests and logistic regression to try and classify sources in the 3rd catalog released by the LAT team. They trained on 70 \% of the associated sources in the catalog and then tested their results on the rest of the 30 \% sources. The methods were used to classify AGNS and Pulsars (and seperately young and millisecond pulsars) and showed accuracy of up to 97\%.\\
+%In our paper we present our machine learning algorithms and go deeper into their working and data analysis strategies.
 
 
 
