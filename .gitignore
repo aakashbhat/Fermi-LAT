@@ -1,5 +1,6 @@
 .DS_Store
 paper/0head_ML_3FGL.pdf
+ML_3FGL_paper/0head_ML_3FGL.pdf
 *.blg
 *.aux
 *.log
@@ -7,5 +8,6 @@ paper/0head_ML_3FGL.pdf
 *.toc
 *synctex*
 *.pyc
+*.bbl
 
 
