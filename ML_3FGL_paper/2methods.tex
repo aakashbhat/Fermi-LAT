@@ -39,6 +39,7 @@ The total number of sources, including unassociated and associated, in the two c
 The features used for our analysis follow the same idea as the previous studies. The features, along with statistical and methodological details, are given below. A correlation matrix is presented for the most important features as well. The matrix is important for the case where there might be redundant features, in which case using only one of the two features would be a better idea.\\
 
 
+
 [Add Table of features for both catalogs]\\
 
 Our initial hypothesis was that certain features would be more important for classification than others. For instance, as shown below, one can see a clear distinction between the regimes of AGNs and Pulsars, based on spectral idex and significant curvature. [Add image] While not clearly obvious from the get go, we were also interested in comparing the importance of features based on the algorithms that we were using. Due to the difference in the basic method of Random Forests and Neural Networks, we expected a slight shift in their reliance on certain features. Despite that we hypothesized that features with the most contribution would be among spectral index, variability, and the curvature; as already observed by Parkinson et. al.\\
@@ -100,8 +101,69 @@ Final probability: the probability for one of the algorithms (for the most preci
 
 Discuss a few examples where algorithms give different predictions (are these sources at the boundaries of the domains).
 
-Discuss examples where algorithms misclassify sources from the test sample.
+Discuss examples where algorithms misclassify sources from the test sample.\\
 
+
+In the case of test data, we worked with three different classification algortithms, namely Random Forests, Ada Boost, and Neural Networks. Here we were mostly concerned with tweaking the parameters of the classification algorithms involved, minimizing the cost of computation and aiming for the most efficient way of classification. \\
+
+\subsubsection{Random Forests}
+
+The two main parameters involved in Random Forests are the number of trees and the maximum depth of the trees involved. Figures below shows one instance of the accuracy as a function of maximum depth when the number of trees was kept constant, and as a function of number of trees when the maximum depth was kept constant. \\
+
+\begin{figure*}[h]
+%\centering
+\includegraphics[width=\twopicsp\textwidth]{depthvsscore_rf_10seeds_20trees.pdf}
+\includegraphics[width=\twopicsp\textwidth]{treesvsscore_RF_10seeds_10maxdepth}
+\caption{
+Random Forests on Testing Data
+}
+\label{fig:Maps_data}
+\end{figure*}
+
+
+\subsubsection{Neural Networks}
+
+In the case of neural networks we were concerned with the number of epochs that one would need to tweak, along with a dependence on the number of neurons in the hidden layers. A final improvement involved checking whether multiple hidden layers would actually add to such a classification algorithm or not.\\
+As can be seen in the figure, a complex network with two hidden layers (100 and 5 neurons) reaches the maximum accuracy pretty fast. The results becoming more consistent at higher epochs. A similar result was found for a network having two hidden layers but with only 20 neurons in the first layer. However, such networks could also lead to overtraining, and therefore it is important to check whether such a high accuracy could perhaps be reached by less complicated algorithms, which would drastically reduce the chances of overtraining and allow for a more flexible classificaition methodology.\\
+\begin{figure}[h]
+%\centering
+\includegraphics[width=\onepic\textwidth]{epochsvsscore_10seeds_100_2}
+\caption{
+Example of a figure for one column.
+}
+\label{fig:Maps_data}
+\end{figure}
+
+\begin{figure}[h]
+%\centering
+\includegraphics[width=\onepic\textwidth]{epochsvsscore3_10seeds.pdf}
+\caption{
+Neural Network
+}
+\label{fig:Maps_data}
+\end{figure}
+
+A consistent and accurate result is found even for networks with only one hidden layer with 20 and 5 neurons in the hidden layer respectively. There seems to be no significant dependence for the number of epochs above 30, and even a simple network with one layer and 5 neurons shows a high accuracy for only 30-40 epochs.\\
+
+
+\begin{figure*}[h]
+%\centerin
+\includegraphics[width=\twopicsp\textwidth]{epochsvsscore1_10seeds.pdf}
+\includegraphics[width=\twopicsp\textwidth]{epochsvsscore2_10seeds.pdf}
+\caption{
+Neural networks
+}
+\label{fig:Maps_data}
+\end{figure*}
+
+\begin{figure}[h]
+%\centering
+\includegraphics[width=\onepic\textwidth]{epochsvsscore1_10seeds_1layer_5.pdf}
+\caption{
+Neural Network
+}
+\label{fig:Maps_data}
+\end{figure}	
 
 
 
