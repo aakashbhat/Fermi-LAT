@@ -1,0 +1,27 @@
+\section{Introduction}
+
+Catalogs of gamma-ray point sources are typically designed to have low false detection rate. False detections may arise, for example, from statistical fluctuations of the background emission, from deficiencies in the diffuse emission model, or from an overlap of faint sources, which results in a detection of a single source.
+The low false detection rate is achieved by setting a high statistical significance threshold, e.g., 4 or 5 sigma.
+Although a high detection threshold helps to eliminate most of the false detections due to statistical fluctuations, it is not very effective against deficiencies of the background model or overlapping sources. 
+Moreover, a high threshold removes many objects, which have a high chance to be point-like sources.
+%In some problems including more sources with a higher contamination is beneficial, for example, in correlating gamma-ray PS with astrophysical neutrinos or in cross-correlation of the distribution of gamma-ray sources and large scale structures at different redshifts.
+In other words, the catalogs are typically designed to be clean, but in some cases one may be interested to have a complete catalog. For example, one may want to have a list of all possible pulsar candidates among the unassociated sources in a catalog, which can be derived at the expense of many non-pulsars in the list.
+
+The idea of probabilistic catalogs [Finkbeiner] is to include additional information, which describes a probability that a particular object is a point source or that a particular unassociated PS belongs to a certain class. 
+%The probabilistic catalog can be implemented at the level of the PS detection, or it can also be implemented at the level of associations of already detected PS. 
+For example, about one third of \Fermi-LAT sources have no firm associations with known Galactic or extragalactic sources. 
+Although the associations are unknown, these sources can still be classified with some probabilities into, e.g., extragalactic or Galactic sources based on their position on the sky, properties of the gamma-ray flux and other features.
+The classes can be further subdivided into various types of blazars or galaxies for extragalactic sources, or pulsars, pulsar wind nebulae, or supernova remnants for Galactic sources.
+The classification probability is not unique, it depends on the classification method. The range of probabilities corresponding to different methods can serve as an estimate of the modeling uncertainty of the classification. In case of PS detection, one can derives probabilities that an object is a point source, a statistical fluctuation of the background, a deficiency of the background model, or an overlap of point sources. 
+In this case, the probability will include not only the statistical probability but also the modeling uncertainties.
+
+In this paper we will construct a probabilistic catalog using as an example classification of unassociated sources in the \Fermi-LAT catalogs. 
+We will start with the Third \Fermi-LAT catalog (3FGL) and classify the unassociated sources into pulsars and AGNs using the associated sources in 3FGL for training of the classification algorithms.
+We will use several machine learning algorithms for the classification, e.g., random forest, boosted decision trees, and neural nets
+(since the number of features and the training sample are small, the neural networks will be rather shallow).
+We will show applications of the probabilistic catalog for predicting the number of pulsars among the unassociated source and in construction of the source counts as a function of their flux, $dN/dS$.
+Since unassociated sources on average have smaller flux than the associated ones, the $dN/dS$ distribution for the probabilistic catalog extends to lower fluxes relative to counting only the associated sources.
+We will compare the prediction for the number of pulsars and the $dN/dS$ functions with the Forth \Fermi-LAT catalog (4FGL).
+
+
+
