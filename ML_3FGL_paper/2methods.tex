@@ -23,11 +23,39 @@ are determined from the best performance on the test sample.
 
 After the above had been completed we were ready both with our final data and our optimum algorithms. We then applied and sought the results using both the catalogs in our possession. This is discussed in detail in section 4 and 5.\\
 
+
+When applied on the 3FGL known sources, using 1500 sources to train and the rest to test on, we found (for 10 seeds) the following: \\
+
+\begin{table}[!h]
+    \tiny
+    \centering
+    \renewcommand{\tabcolsep}{1mm}
+\renewcommand{\arraystretch}{1.5}
+
+    \begin{tabular}{|c|c|c|}
+    \hline
+    Algorithm Name&Parameters & Accuracy\\
+    \hline
+    Random Forest& 50 trees and 12 max depth & 97.91        \\
+    \hline
+    Neural Network & 200 epochs and 20 neurons in 1 layers       &  98.2 \\
+    \hline %\midrule   -> aakash do you mean this?
+    Gradient Boost& 50,15      &   96.78  \\
+    \hline %\midrule   -> aakash do you mean this?
+    Logistic Regression& all solvers &<94  \\
+    \hline
+     
+    \end{tabular}
+
+    \caption{Testing Accuracy of 4 algorithms on 3FGL data}
+    \label{tab:my_labe2l}
+\end{table}
+
 \subsection{Details of the analysis}
 
 \subsection{Data and Features}
 
-The total number of sources, including unassociated and associated, in the two catalogs is show below. \\
+The total number of sources, including unassociated and associated, in the two catalogs is shown below. \\
 \begin{figure}[h]
 %\centering
 \includegraphics[width=\onepic\textwidth]{plots/correlation.pdf}
@@ -43,6 +71,13 @@ The features used for our analysis follow the same idea as the previous studies.
 [Add Table of features for both catalogs]\\
 
 Our initial hypothesis was that certain features would be more important for classification than others. For instance, as shown below, one can see a clear distinction between the regimes of AGNs and Pulsars, based on spectral idex and significant curvature. [Add image] While not clearly obvious from the get go, we were also interested in comparing the importance of features based on the algorithms that we were using. Due to the difference in the basic method of Random Forests and Neural Networks, we expected a slight shift in their reliance on certain features. Despite that we hypothesized that features with the most contribution would be among spectral index, variability, and the curvature; as already observed by Parkinson et. al.\\
+
+\begin{figure}[h]
+%\centering
+\includegraphics[width=\onepic\textwidth]{plots/signifcurvvsspecind.pdf}
+\caption{Differences in AGNs and PSRs from the 3FGL catalog}
+\label{fig:corr}
+\end{figure}
 
 
 \subsection{}
@@ -68,7 +103,7 @@ Train the final classifier.
 {\it Table: classification accuracy of the final classifiers for different algorithms using the test sample from 3FGL.}
 \een
 
-Discuss the general features of the optimal algorithms: which features turn out to be important, what is the depth of the trees, the number of trees in random forests, the depth and number of internal nodes in the neural networks. 
+Discuss the general features of the optimal algorithms: which features turn out to be important, what is the depth of the trees, the number of trees in random forests, the depth and number of internal nodes in the neural networks. \\
 
 \begin{figure}[h]
 %\centering
@@ -90,7 +125,45 @@ Example of a figure for both columns.
 \label{fig:Maps_data}
 \end{figure*}
 
+Our hypothesis about feature importances turned out to be correct, as curvature, variability, and spectral index were the most important features. The last hardness ratio was also seen to be quite important, most probably reflecting the end of the spectrum where the AGNs and PSRs shift from each other. These values are given in the table below. \\
 
+\begin{table}[!h]
+    \tiny
+    \centering
+    \renewcommand{\tabcolsep}{1mm}
+\renewcommand{\arraystretch}{1}
+
+    \begin{tabular}{|c|c|c|}
+    \hline
+    Feature Name&  RF (50,15)& GB (50,15)\\
+    \hline
+    Flux Density& 0 & 0        \\
+    \hline
+    Unc Energy Flux100& 0     & 0 \\
+    \hline %\midrule   -> aakash do you mean this?
+   Spectral Index & 0.16      &   0.07  \\
+    \hline %\midrule   -> aakash do you mean this?
+    Significant curvature& 0.28 &0.47  \\
+    \hline
+   var&  0.11    &  0.21  \\
+    \hline %\midrule   -> aakash do you mean this?
+    hr12& 0.06 &0.04 \\
+    \hline
+     hr23& 0.04 &0.02 \\
+    \hline
+    hr34& 0.06 &0.04 \\
+    \hline
+   hr45& 0.22 &0.10 \\
+    \hline
+    GLAT&0.04&0.01\\
+    \hline
+    \end{tabular}
+
+    \caption{Feature importances for different Algorithm}
+    \label{tab:feat_imp}
+\end{table}
+
+These importances were found to be consistent for various different algorithm parameters. So while the value might change a bit for different tree architechtures, for instance, the importances of these features were still pronounced. \\
 \subsection{Comparison of the classification algorithms}
 
 {\it Plot: classification domains for a pair of features (or different pairs of features, e.g., latitude vs index, index vs curvature, latitude vs variability).}
