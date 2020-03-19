@@ -1,11 +1,54 @@
 \section{Introduction}
 
-Catalogs of gamma-ray point sources are typically designed to have low false detection rate. False detections may arise, for example, from statistical fluctuations of the background emission, from deficiencies in the diffuse emission model, or from an overlap of faint sources, which results in a detection of a single source.
+Catalogs of gamma-ray point sources are typically designed to have low false detection rate. 
+Nevertheless, 469 sources out of 3033 in the third \Fermi-LAT catalog (3FGL) [3FGL] have no associations 
+in the forth \Fermi-LAT catalog (4FGL) [4FGL].
+This is much larger than the expected false detection rate in 3FGL arising from statistical fluctuations.
+For the majority of sources in 3FGL, which have no associations in 4FGL, the problem is not the false detection, 
+but rather the association.
+For example, some sources can be detected due to deficiencies in the Galactic diffuse emission model.
+In this case, the statistical significance of the detection is high, but the association is wrong: the sources should be classified as
+a part of the Galactic diffuse emission rather than point-like sources.
+Another reason could be that two (or more) point-like sources in 3FGL are associated to a single extended source in 4FGL,
+or a single source is resolved into two sources.
+Again, this is a problem of classification (or association) rather than false detection.
+
+Another reason for an absence of a previously detected source in a new catalog is variability.
+In particular, flat spectrum radio quasars (FSRQs) are highly variable active galactic nuclei (AGNs).
+If a source was active during the observation time of 3FGL but inactive afterwards, 
+then its significance in the 4FGL can be below the detection threshold.
+The problem here is connected to a selection of a hard detection threshold of $TS = 16$ for 3FGL and 4FGL catalogs.
+Selection of a lower detection threshold could help to keep the variable sources inside the catalog, 
+but it will not solve the problem, since the variable sources near the lower threshold can also disappear in the new catalog.
+Moreover, lower threshold would lead to more false detections due to fluctuations of the background.
+Thus, on the one hand, lower threshold can be useful in studies, where a more complete list of sources is desirable,
+while the higher false detection rate is not a problem. On the other hand, lower threshold can be problematic for studies where 
+a clean sample is necessary. 
+
+The problems of the miss-classification of the sources and the detection threshold can be ameliorated
+with the development of a probabilistic catalog.
+In this catalog, each point-like object detected above a certain threshold
+would be classified into several classes with a set of probabilities, rather than associated to one class (or deemed unassociated).
+The classes can be various types of Galactic and extra-galactic sources, diffuse emission deficiency, extended source.
+Even the statistical fluctuation of the background can be viewed as one of the classes: in this case, objects with small statistical significance
+will have a high probability to the associated to the statistical fluctuation class.
+A user of such a catalog will have the freedom to choose the probability threshold for the class that he or she is interested in.
+
+
+
+
+
+
+
+
+\begin{comment}
+False detections may arise, for example, from statistical fluctuations of the background emission, from deficiencies in the diffuse emission model, or from an overlap of faint sources, which results in a detection of a single source.
 The low false detection rate is achieved by setting a high statistical significance threshold, e.g., 4 or 5 sigma.
 Although a high detection threshold helps to eliminate most of the false detections due to statistical fluctuations, it is not very effective against deficiencies of the background model or overlapping sources. 
 Moreover, a high threshold removes many objects, which have a high chance to be point-like sources.
 %In some problems including more sources with a higher contamination is beneficial, for example, in correlating gamma-ray PS with astrophysical neutrinos or in cross-correlation of the distribution of gamma-ray sources and large scale structures at different redshifts.
 In other words, the catalogs are typically designed to be clean, but in some cases one may be interested to have a complete catalog. For example, one may want to have a list of all possible pulsar candidates among the unassociated sources in a catalog, which can be derived at the expense of many non-pulsars in the list.
+
 
 The idea of probabilistic catalogs [Finkbeiner] is to include additional information, which describes a probability that a particular object is a point source or that a particular unassociated PS belongs to a certain class. 
 %The probabilistic catalog can be implemented at the level of the PS detection, or it can also be implemented at the level of associations of already detected PS. 
@@ -14,6 +57,10 @@ Although the associations are unknown, these sources can still be classified wit
 The classes can be further subdivided into various types of blazars or galaxies for extragalactic sources, or pulsars, pulsar wind nebulae, or supernova remnants for Galactic sources.
 The classification probability is not unique, it depends on the classification method. The range of probabilities corresponding to different methods can serve as an estimate of the modeling uncertainty of the classification. In case of PS detection, one can derives probabilities that an object is a point source, a statistical fluctuation of the background, a deficiency of the background model, or an overlap of point sources. 
 In this case, the probability will include not only the statistical probability but also the modeling uncertainties.
+
+\end{comment}
+
+
 
 In this paper we will construct a probabilistic catalog using as an example classification of unassociated sources in the \Fermi-LAT catalogs. 
 We will start with the Third \Fermi-LAT catalog (3FGL) and classify the unassociated sources into pulsars and AGNs using the associated sources in 3FGL for training of the classification algorithms.
