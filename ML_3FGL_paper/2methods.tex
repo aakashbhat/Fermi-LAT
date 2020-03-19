@@ -181,23 +181,25 @@ In the case of test data, we worked with three different classification algortit
 
 \subsubsection{Random Forests}
 
-The two main parameters involved in Random Forests are the number of trees and the maximum depth of the trees involved. Figures below shows one instance of the accuracy as a function of maximum depth when the number of trees was kept constant, and as a function of number of trees when the maximum depth was kept constant. \\
 
-\begin{figure*}[h]
+\begin{figure}[h]
 %\centering
-\includegraphics[width=\twopicsp\textwidth]{plots/depthvsscore_rf_10seeds_20trees.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/depthvsscore_rf_10seeds_20trees.pdf} \\
 \includegraphics[width=\twopicsp\textwidth]{plots/treesvsscore_RF_10seeds_10maxdepth}
 \caption{
 Random Forests on Testing Data
 }
 \label{fig:Maps_data}
-\end{figure*}
+\end{figure}
+
+The two main parameters involved in Random Forests are the number of trees and the maximum depth of the trees involved. Figures below shows one instance of the accuracy as a function of maximum depth when the number of trees was kept constant, and as a function of number of trees when the maximum depth was kept constant. \\
 
 
 \subsubsection{Neural Networks}
 
 In the case of neural networks we were concerned with the number of epochs that one would need to tweak, along with a dependence on the number of neurons in the hidden layers. A final improvement involved checking whether multiple hidden layers would actually add to such a classification algorithm or not.\\
 As can be seen in the figure, a complex network with two hidden layers (100 and 5 neurons) reaches the maximum accuracy pretty fast. The results becoming more consistent at higher epochs. A similar result was found for a network having two hidden layers but with only 20 neurons in the first layer. However, such networks could also lead to overtraining, and therefore it is important to check whether such a high accuracy could perhaps be reached by less complicated algorithms, which would drastically reduce the chances of overtraining and allow for a more flexible classificaition methodology.\\
+
 \begin{figure}[h]
 %\centering
 \includegraphics[width=\onepic\textwidth]{plots/epochsvsscore_10seeds_100_2}
