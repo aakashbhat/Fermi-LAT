@@ -1,0 +1,4 @@
+gb: 50,3 and 0.1 lr: 94.4 %accuracy on unassoc
+    20,3 and 0.1 lr: 95.4 %
+    20,5 and 0.1 lr: 95.8
+
