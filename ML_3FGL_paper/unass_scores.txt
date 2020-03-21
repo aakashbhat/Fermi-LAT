@@ -2,3 +2,21 @@ gb: 50,3 and 0.1 lr: 94.4 %accuracy on unassoc
     20,3 and 0.1 lr: 95.4 %
     20,5 and 0.1 lr: 95.8
 
+For NN we use all features except flux, error on flux, and glat
+NN: 200,5, relu : 95.8
+    200,20, relu: 95.5 
+    200,5,tanh: 95.97
+    200,20, tanh:95.28
+    50,20,tanh: 95.86
+    50,5, tanh: 94.14
+    50,5, relu: 94.46
+    50,5, relu,lbfgs: 94.62
+    200,5,relu,lbfgs: 94.76
+    200,20,relu,lbfgs: 95.92   and with alpha=0.001 it is 95.66
+    200,20,tanh,lbfgs: 94.27
+    300,20,relu,lbfgs: 95.03
+    
+
+with all features:
+
+95.58 with 200,5 with adam solver
