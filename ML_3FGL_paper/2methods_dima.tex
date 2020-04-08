@@ -61,7 +61,39 @@ In this paper, for LR $m(x)$ will be constructed as a combination of low-order p
 while for NN, $m(x)$ will be constructed by taking linear input features and several hidden layers, e.g., 4 or 5, 
 in a fully connected neural network.
 
-\subsection{Feature selection}
+\subsection{Data and feature selection}
+
+As an example of the construction of a probabilistic catalog, we will use with the 3FGL catalog.
+For training and testing the methods, we use sources which have associations and no missing values in the catalog table.
+In this paper we will perform a two-class classification to separate PS into pulsars and AGNs.
+Thus, we subselect the sources, which are associated to either a pulsar or an AGN.
+After the training of the algorithms, we test the performance with the test sources and predict the classes of sources without associations,
+but have all features present in the catalog table.
+The general workflow will have the following steps:
+\ben
+\item
+Select data for learning and testing.
+\item
+Train algorithms using the learning dataset.
+Tune hyper-parameters of the algorithms and test the performance on the test dataset, in particular, to avoid overfitting.
+\item
+Choose the most important features and
+retrain the algorithms using the subset of the most important features.
+\item
+Make prediction for unassociated point sources of the 3FGL.
+We also apply the classification for associated source. In this case we check if there are any outliers among the associated sources.
+\een
+As a result of the analysis in this section, we obtain a catalog with probabilistic associations of sources in 3FGL.
+We will report the classification probabilities for all four algorithms and each source.
+In the next section we compare the predictions in the catalog with the new 4FGL catalog.
+We also construct a probabilistic catalog starting with the 4FGL.
+
+
+\subsection{Details on data selection}
+We restrict attention to associated and unassociated source but without missing values. 
+We use the associated sources which were classified as either AGNs (FSRQ, BLL, BCU etc.) or Pulsars 
+\dima{would be nice to list all labels that we used for AGNs and pulsars in parentheses here}, to get a list of 1905 sources. 
+The rest of the sources without problematic values were then used as unassociated sources, which we used later on for testing and prediction. 
 
 \subsection{Details of algorithms}
 
