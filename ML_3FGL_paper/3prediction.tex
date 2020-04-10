@@ -12,8 +12,37 @@ In this section we use the best algorithms from the previous section to predict 
 
 
 \subsection{3FGL Unassociated sources with Association in 4FGL}
+There were a total of 286 sources without associations in 3FGL but which had a corresponding assocation in 4FGL. We trained our algorithms on the entire associated data from the 3FGL, and then used tested our algorithms on these 286 sources. The probabilistic version is discussed in the next section.  \\
+
+The following were the optimized results we obtained for this case:\\
+
+\begin{table}[!h]
+    \tiny
+    \centering
+    \renewcommand{\tabcolsep}{1mm}
+\renewcommand{\arraystretch}{1.5}
+
+    \begin{tabular}{|c|c|c|}
+    \hline
+    Algorithm Name&Parameters & Accuracy\\
+    \hline
+    Random Forest& 50 trees and 12 max depth & 96.22   \\
+    \hline
+    Neural Network & 200 epochs, 20 neurons, tanh     &  95.97 \\
+    \hline %\midrule   -> aakash do you mean this?
+    Gradient Boost& 20,5    &   95.8  \\
+    \hline %\midrule   -> aakash do you mean this?
+    Logistic Regression& all solvers &to put  \\
+    \hline
+     
+    \end{tabular}
+
+    \caption{Testing Accuracy of 4 algorithms on 3FGL unassociated data}
+    \label{tab:my_labe2l}
+\end{table}
 
 
+As can be seen above, the best accuracies were found with less complicated models, which allowed bias to be low. The models were complicated enough to neither under, nor overtrain. \\
 
 \subsection{3FGL Probabilistic classification} 
 
