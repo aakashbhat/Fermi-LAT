@@ -91,39 +91,27 @@ We also construct a probabilistic catalog starting with the 4FGL.
 
 \subsection{Details on data selection}
 We restrict attention to associated and unassociated source but without missing values. 
-We use the associated sources which were classified as either AGNs (FSRQ, BLL, BCU etc.) or Pulsars 
+We use the associated sources which were classified as either AGNs (agn, FSRQ, fsrq, BLL, bll, BCU, bcu, RDG, rdg, NLSY1, nlsy1, ssrq, and sey) or Pulsars (PSR, psr). 
 \dima{would be nice to list all labels that we used for AGNs and pulsars in parentheses here}, to get a list of 1905 sources. 
-The rest of the sources without problematic values were then used as unassociated sources, which we used later on for testing and prediction. 
+The rest of the sources without problematic values were then used as unassociated sources, which we used later on for testing and prediction. \\
+
+Our methodology for classification was dependent on two things: The data that we had, which needed to be cleaned and the algorithms that we needed to apply. For this we decided on using the 3rd catalog of F-LAT (3FGL from hereon) for initial training and testing, the 4th catalog (FL8Y from hereon) for further testing and predictions.
+Our data was similar to that used by Parkinson et. al. We cleaned the 3FGL catalog to have sources which were both associated and unassociated but with no missing values.\\
+
+The raw data of the catalog had a lot of different features that could be used for classification. However, going by the previous studies, we decided on using the most important features, which included Flux density and the error on it, spectral index, the curvature, hardness ratios (as defined by Parkinson et. al.), variablity, and also the galactic latitude, the last of which was used even in the classification of AGN and Pulsars (as opposed to Parkinson, who used it only for the young and milli-second pulsar distinction). In features where the values were high, we used the logarithmic scale to better seperate the sources. This includes Flux Density, curvature, error on flux, and the variability. The complete list of sources, along with some statistics, is given in the appendix. The influence of the features on the classification, especially the differences in the various methodologies is discussed in much more detail in the next section.\\
+
+One of the main aims of our project was to understand and optimize the machine learning methods which we were using. So apart from the features which were in the data itself, we also theorized and experimented with the parameters of the algorithms themselves. We wanted to find the fastest and cost-effective way of using certain methods, without going into regimes of under and over-fitting the data. Parameters which we studied range from Depth and Number of trees in Forest based methods to the number of hidden layers and epochs in neural networks. The details are given in the next section, where we discuss our expectations and the resulting behaviour of our algorithms.\\
+  
 
 \subsection{Details of algorithms}
 
-
+ All of the machine learning algorithms were taken from the python module sklearn, including Neural Networks. A neural network using Keras was also attempted; however, due to the classification being on only two classes, we discarded it in favour of the sklearn algorithm which was much faster.\\
+One of the main aims of our project was to understand and optimize the machine learning methods which we were using. So apart from the features which were in the data itself, we also theorized and experimented with the parameters of the algorithms themselves. We wanted to find the fastest and cost-effective way of using certain methods, without going into regimes of under and over-fitting the data. Parameters which we studied range from Depth and Number of trees in Forest based methods to the number of hidden layers and epochs in neural networks. The details are given in the next section, where we discuss our expectations and the resulting behaviour of our algorithms.\\	
 
 
 
 \subsection{Old}
 
-Our methodology for classification was dependent on two things: The data that we had, which needed to be cleaned and the algorithms that we needed to apply. For this we decided on using the 3rd catalog of F-LAT (3FGL from hereon) for initial training and testing, the 4th catalog (FL8Y from hereon) for further testing and predictions, and machine learning algorithms like Random Forests, Logistic Regression, Decision Trees, and Neural Networks. All of the machine learning algorithms were taken from the python module sklearn, including Neural Networks. A neural network using Keras was also attempted; however, due to the classification being on only two classes, we discarded it in favour of the sklearn algorithm which was much faster.\\
-
-Our data was similar to that used by Parkinson et. al. We cleaned the 3FGL catalog to have sources which were both associated and unassociated but with no missing values. We then used the associated sources which were classified as either AGNs (with multiplpe labels) or Pulsars, to get a list of 1905 sources. The rest of the sources without problematic values were then used as unassociated sources, which we used later on for testing and prediction. The FL8Y presented us with another way of testing the accuracy of our methods. We predicted the classifications of unasssociated sources in the 3FGL and used the FL8Y to check how many of these unassociated sources, which now had associations in the FL8Y, actually had the right prediction.\\
-
-The raw data of the catalog had a lot of different features that could be used for classification. However, going by the previous studies, we decided on using the most important features, which included Flux density and the error on it, spectral index, the curvature, hardness ratios (as defined by Parkinson et. al.), variablity, and also the galactic latitude, the last of which was used even in the classification of AGN and Pulsars (as opposed to Parkinson, who used it only for the young and milli-second pulsar distinction). In features where the values were high, we used the logarithmic scale to better seperate the sources. The complete list of sources, along with some statistics, is given in the table below. The influence of the features on the classification, especially the differences in the various methodologies is discussed in much more detail in the next section.\\
-
-One of the main aims of our project was to understand and optimize the machine learning methods which we were using. So apart from the features which were in the data itself, we also theorized and experimented with the parameters of the algorithms themselves. We wanted to find the fastest and cost-effective way of using certain methods, without going into regimes of under and over-fitting the data. Parameters which we studied range from Depth and Number of trees in Forest based methods to the number of hidden layers and epochs in neural networks. The details are given in the next section, where we discuss our expectations and the resulting behaviour of our algorithms.\\
-  
-In our general the Methodology was as follows.
-\ben
-\item
-Split the PS with known classification into learning and test samples.
-\item
-Use the learning sample for training and for selection of features.
-In particular, continuous parameters, such as the thresholds in the decision trees or mixing matrices in neural networks, are determined from the learning sample. 
-\item
-Meta-parameters, which encode the complexity of the methods, such as the depth of the decision trees,
-are determined from the best performance on the test sample.
-\een
-
-After the above had been completed we were ready both with our final data and our optimum algorithms. We then applied and sought the results using both the catalogs in our possession. This is discussed in detail in section 4 and 5.\\
 
 
 When applied on the 3FGL known sources, using 1500 sources to train and the rest to test on, we found (for 10 seeds) the following: \\
@@ -138,13 +126,13 @@ When applied on the 3FGL known sources, using 1500 sources to train and the rest
     \hline
     Algorithm Name&Parameters & Accuracy\\
     \hline
-    Random Forest& 50 trees and 12 max depth & 97.91        \\
+    Random Forest& 50 trees and 12 max depth &      \\
     \hline
-    Neural Network & 200 epochs and 20 neurons in 1 layers       &  98.2 \\
+    Neural Network & 200 epochs, 20 neurons, tanh        &  95.97\\
     \hline %\midrule   -> aakash do you mean this?
-    Gradient Boost& 50,15      &   96.78  \\
+    Gradient Boost& 20,5 (0.1 lr)      &   95.8  \\
     \hline %\midrule   -> aakash do you mean this?
-    Logistic Regression& all solvers &<94  \\
+    Logistic Regression& all solvers &to put  \\
     \hline
      
     \end{tabular}
@@ -176,7 +164,7 @@ Our initial hypothesis was that certain features would be more important for cla
 
 \begin{figure}[h]
 %\centering
-\includegraphics[width=\onepic\textwidth]{plots/signifcurvvsspecind.pdf}
+\includegraphics[width=\onepic\textwidth]{plots/signifcurvvsspecind2.pdf}
 \caption{Differences in AGNs and PSRs from the 3FGL catalog}
 \label{fig:corr}
 \end{figure}
@@ -207,63 +195,7 @@ Train the final classifier.
 
 Discuss the general features of the optimal algorithms: which features turn out to be important, what is the depth of the trees, the number of trees in random forests, the depth and number of internal nodes in the neural networks. \\
 
-\begin{figure}[h]
-%\centering
-\includegraphics[width=\onepic\textwidth]{plots/Rf_maxdepth_oobscore_glat}
-\caption{
-Example of a figure for one column.
-}
-\label{fig:Maps_data}
-\end{figure}
 
-
-\begin{figure*}[h]
-%\centering
-\includegraphics[width=\twopicsp\textwidth]{plots/Rf_maxdepth_oobscore_glat}
-\includegraphics[width=\twopicsp\textwidth]{plots/Rf_maxdepth_oobscore_glat}
-\caption{
-Example of a figure for both columns.
-}
-\label{fig:Maps_data}
-\end{figure*}
-
-Our hypothesis about feature importances turned out to be correct, as curvature, variability, and spectral index were the most important features. The last hardness ratio was also seen to be quite important, most probably reflecting the end of the spectrum where the AGNs and PSRs shift from each other. These values are given in the table below. \\
-
-\begin{table}[!h]
-    \tiny
-    \centering
-    \renewcommand{\tabcolsep}{1mm}
-\renewcommand{\arraystretch}{1}
-
-    \begin{tabular}{|c|c|c|}
-    \hline
-    Feature Name&  RF (50,15)& GB (50,15)\\
-    \hline
-    Flux Density& 0 & 0        \\
-    \hline
-    Unc Energy Flux100& 0     & 0 \\
-    \hline %\midrule   -> aakash do you mean this?
-   Spectral Index & 0.16      &   0.07  \\
-    \hline %\midrule   -> aakash do you mean this?
-    Significant curvature& 0.28 &0.47  \\
-    \hline
-   var&  0.11    &  0.21  \\
-    \hline %\midrule   -> aakash do you mean this?
-    hr12& 0.06 &0.04 \\
-    \hline
-     hr23& 0.04 &0.02 \\
-    \hline
-    hr34& 0.06 &0.04 \\
-    \hline
-   hr45& 0.22 &0.10 \\
-    \hline
-    GLAT&0.04&0.01\\
-    \hline
-    \end{tabular}
-
-    \caption{Feature importances for different Algorithm}
-    \label{tab:feat_imp}
-\end{table}
 
 These importances were found to be consistent for various different algorithm parameters. So while the value might change a bit for different tree architechtures, for instance, the importances of these features were still pronounced. \\
 \subsection{Comparison of the classification algorithms}
@@ -279,23 +211,65 @@ Discuss a few examples where algorithms give different predictions (are these so
 Discuss examples where algorithms misclassify sources from the test sample.\\
 
 
-In the case of test data, we worked with three different classification algortithms, namely Random Forests, Ada Boost, and Neural Networks. Here we were mostly concerned with tweaking the parameters of the classification algorithms involved, minimizing the cost of computation and aiming for the most efficient way of classification. \\
+In the case of test data, we worked with all the different classification algortithms, namely Random Forests, Ada Boost, logistic regression, and Neural Networks. Here we were mostly concerned with tweaking the parameters of the classification algorithms involved, minimizing the cost of computation and aiming for the most efficient way of classification. \\
 
 \subsubsection{Random Forests}
 
 
 \begin{figure}[h]
 %\centering
-\includegraphics[width=\twopicsp\textwidth]{plots/depthvsscore_rf_10seeds_20trees.pdf} \\
-\includegraphics[width=\twopicsp\textwidth]{plots/treesvsscore_RF_10seeds_10maxdepth}
+\includegraphics[width=\twopicsp\textwidth]{plots/20trees_md_weighted} \\
+\includegraphics[width=\twopicsp\textwidth]{plots/6md_trees_weighted}
 \caption{
-Random Forests on Testing Data
+Random Forests in Training
 }
 \label{fig:Maps_data}
 \end{figure}
 
-The two main parameters involved in Random Forests are the number of trees and the maximum depth of the trees involved. Figures below shows one instance of the accuracy as a function of maximum depth when the number of trees was kept constant, and as a function of number of trees when the maximum depth was kept constant. \\
+The two main parameters involved in Random Forests are the number of trees and the maximum depth of the trees involved. Figures below shows one instance of the accuracy as a function of maximum depth when the number of trees was kept constant, and as a function of number of trees when the maximum depth was kept constant. We performed 100 runs for different numbers of trees (also called esimators in the code) and for the maximum depth. In the case of training, we found no significant differences when using weights for our data set. However, we chose to use a inversly weighted dataset since that allows us to generalize the algorithm more. The influence of weights will also be discussed more in the case of unassociated data, in the next section. \\
 
+After running tests on various architectures we chose a Random Forest with 20 trees to avoid over-fitting, and a maximum depth of 12. \\
+
+Since Random forests are based on decision trees, they allow us to characterize feature importances based on how helpful a feature was to split a tree. In our case, using all 10 features discussed above we found the following feature importances for two architectures of random forests with similar accuracies of 97.5:\\
+
+
+\begin{table}[!h]
+    \tiny
+    \centering
+    \renewcommand{\tabcolsep}{1mm}
+\renewcommand{\arraystretch}{1}
+
+    \begin{tabular}{|c|c|c|}
+    \hline
+    Feature Name&  RF (20,12)& RF (50,6)\\
+    \hline
+    Flux Density& 0 & 0        \\
+    \hline
+    Unc Energy Flux100& 0     & 0 \\
+    \hline %\midrule   -> aakash do you mean this?
+   Spectral Index & 0.13     &   0.17 \\
+    \hline %\midrule   -> aakash do you mean this?
+    Significant curvature& 0.33 &0.29  \\
+    \hline
+   var&  0.13   &  0.11  \\
+    \hline %\midrule   -> aakash do you mean this?
+    hr12& 0.07 &0.06 \\
+    \hline
+     hr23& 0.06 &0.05 \\
+    \hline
+    hr34& 0.05 &0.05 \\
+    \hline
+   hr45& 0.20 &0.23 \\
+    \hline
+    GLAT&0.04&0.04\\
+    \hline
+    \end{tabular}
+
+    \caption{Feature importances for different Algorithm}
+    \label{tab:feat_imp}
+\end{table}
+
+Our hypothesis about feature importances turned out to be correct, as curvature, variability, and spectral index were the most important features. The last hardness ratio was also seen to be quite important, most probably reflecting the end of the spectrum where the AGNs and PSRs shift from each other.\\
 
 \subsubsection{Neural Networks}
 
