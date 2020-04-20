@@ -125,36 +125,6 @@ One of the main aims of our project was to understand and optimize the machine l
 
 
 
-\subsection{Old}
-
-
-
-When applied on the 3FGL known sources, using 1500 sources to train and the rest to test on, we found (for 10 seeds) the following: \\
-
-\begin{table}[!h]
-    \tiny
-    \centering
-    \renewcommand{\tabcolsep}{1mm}
-\renewcommand{\arraystretch}{1.5}
-
-    \begin{tabular}{|c|c|c|}
-    \hline
-    Algorithm Name&Parameters & Accuracy\\
-    \hline
-    Random Forest& 50 trees and 12 max depth &      \\
-    \hline
-    Neural Network & 200 epochs, 20 neurons, tanh        &  95.97\\
-    \hline %\midrule   -> aakash do you mean this?
-    Gradient Boost& 20,5 (0.1 lr)      &   95.8  \\
-    \hline %\midrule   -> aakash do you mean this?
-    Logistic Regression& all solvers &to put  \\
-    \hline
-     
-    \end{tabular}
-
-    \caption{Testing Accuracy of 4 algorithms on 3FGL data}
-    \label{tab:my_labe2l}
-\end{table}
 
 \subsection{Details of the analysis}
 
@@ -173,67 +143,31 @@ The features used for our analysis follow the same idea as the previous studies.
 
 
 
-[Add Table of features for both catalogs]\\
 
-Our initial hypothesis was that certain features would be more important for classification than others. For instance, as shown below, one can see a clear distinction between the regimes of AGNs and Pulsars, based on spectral idex and significant curvature. [Add image] While not clearly obvious from the get go, we were also interested in comparing the importance of features based on the algorithms that we were using. Due to the difference in the basic method of Random Forests and Neural Networks, we expected a slight shift in their reliance on certain features. Despite that we hypothesized that features with the most contribution would be among spectral index, variability, and the curvature; as already observed by Parkinson et. al.\\
+Our initial hypothesis was that certain features would be more important for classification than others. For instance, as shown below, one can see a clear distinction between the regimes of AGNs and Pulsars, based on spectral idex and significant curvature. [Add image] While not clearly obvious from the get go, we were also interested in comparing the importance of features based on the algorithms that we were using. Due to the difference in the basic method of Random Forests and Neural Networks, we expected a slight shift in their reliance on certain features. Despite that we hypothesized that features with the most contribution would be among spectral index, variability, and the curvature; as already observed by Parkinson et. al. This is made clearer by the two figures below, which highlight the separation of PSR and AGN. The separation is seen to be much easier when spectral index and curvature are used, as opposed to the flux and uncertainty on the flux.\\
 
 \begin{figure}[h]
 %\centering
 \includegraphics[width=\onepic\textwidth]{plots/signifcurvvsspecind2.pdf}
-\caption{Differences in AGNs and PSRs from the 3FGL catalog}
+\includegraphics[width=\onepic\textwidth]{plots/fluxvsunc.pdf}
+\caption{Separation of AGNs and PSRs from the 3FGL catalog based on different features}
 \label{fig:corr}
 \end{figure}
 
-
-\subsection{}
-
-
-\ben
-\item
-Describe the features that we use for the analysis.
-\item
-Describe the objective function for minimization (accuracy of classification on learning sample).
-Weighted objective function: give more weight to pulsars, since there are fewer of them in the catalog.
-\item
-Learning curve using all features?
-{\it Plot: classification accuracy using the total list of features for learning and test sample as a function of complexity parameter.}
-\item
-Selection of the most important features.
-{\it Table: features vs algorithms. Columns: algorithms, rows: features, values: significance.}
-\item
-Selection of meta-parameters.
-{\it Plot: classification results for the test sample using a subset of features.}
-\item
-Train the final classifier.
-{\it Table: classification accuracy of the final classifiers for different algorithms using the test sample from 3FGL.}
-\een
-
-Discuss the general features of the optimal algorithms: which features turn out to be important, what is the depth of the trees, the number of trees in random forests, the depth and number of internal nodes in the neural networks. \\
 
 
 
 These importances were found to be consistent for various different algorithm parameters. So while the value might change a bit for different tree architechtures, for instance, the importances of these features were still pronounced. \\
 \subsection{Comparison of the classification algorithms}
 
-{\it Plot: classification domains for a pair of features (or different pairs of features, e.g., latitude vs index, index vs curvature, latitude vs variability).}
 
-Probabilistic classification? Result: probability for a source to belong to a particular class.
-Result of classification: table of sources with probabilities for different algorithms.
-Final probability: the probability for one of the algorithms (for the most precise one?) and uncertainties determined from the other algorithms.
-
-Discuss a few examples where algorithms give different predictions (are these sources at the boundaries of the domains).
-
-Discuss examples where algorithms misclassify sources from the test sample.\\
-
-
-In the case of test data, we worked with all the different classification algortithms, namely Random Forests, Ada Boost, logistic regression, and Neural Networks. Here we were mostly concerned with tweaking the parameters of the classification algorithms involved, minimizing the cost of computation and aiming for the most efficient way of classification. \\
 
 \subsubsection{Random Forests}
 
 
 \begin{figure}[h]
 %\centering
-\includegraphics[width=\twopicsp\textwidth]{plots/20trees_md_weighted} \\
+\includegraphics[width=\twopicsp\textwidth]{plots/assocvstrees} \\
 \includegraphics[width=\twopicsp\textwidth]{plots/6md_trees_weighted}
 \caption{
 Random Forests in Training
@@ -289,47 +223,71 @@ Our hypothesis about feature importances turned out to be correct, as curvature,
 \subsubsection{Neural Networks}
 
 In the case of neural networks we were concerned with the number of epochs that one would need to tweak, along with a dependence on the number of neurons in the hidden layers. A final improvement involved checking whether multiple hidden layers would actually add to such a classification algorithm or not.\\
-As can be seen in the figure, a complex network with two hidden layers (100 and 5 neurons) reaches the maximum accuracy pretty fast. The results becoming more consistent at higher epochs. A similar result was found for a network having two hidden layers but with only 20 neurons in the first layer. However, such networks could also lead to overtraining, and therefore it is important to check whether such a high accuracy could perhaps be reached by less complicated algorithms, which would drastically reduce the chances of overtraining and allow for a more flexible classificaition methodology.\\
+As can be seen in the figure, with the specific stochastic gradient method ADAM, the number of epochs required are higher since ADAM converges slow. However, after around 200 epochs the accuracy saturates. \\
 
 \begin{figure}[h]
 %\centering
-\includegraphics[width=\onepic\textwidth]{plots/epochsvsscore_10seeds_100_2}
+\includegraphics[width=\onepic\textwidth]{plots/iter1}
 \caption{
-Example of a figure for one column.
+Dependence on epochs for different solvers and activation function
 }
 \label{fig:Maps_data}
 \end{figure}
 
+In order to fasten our calculations, we tried the lbfgs solver instead. This is much faster than ADAM, and converges easily for small data-sets. As can be seen, the results are better even for small epochs, and the accuracy saturates earlier. Therefore, we decided to chose lbfgs solver, along with 200 epochs for training, and tanh activation function. \\
 \begin{figure}[h]
 %\centering
-\includegraphics[width=\onepic\textwidth]{plots/epochsvsscore3_10seeds.pdf}
+\includegraphics[width=\onepic\textwidth]{plots/iter2.pdf}
 \caption{
 Neural Network
 }
 \label{fig:Maps_data}
 \end{figure}
 
-A consistent and accurate result is found even for networks with only one hidden layer with 20 and 5 neurons in the hidden layer respectively. There seems to be no significant dependence for the number of epochs above 30, and even a simple network with one layer and 5 neurons shows a high accuracy for only 30-40 epochs.\\
+The next step was to see the effect of multiple hidden layers and number of neurons on the accuracy. In this case we found no clear dependence, and it seems as though the network doesn't overtraiin even for a higher number of neurons. This could be explained by the less number of iterations. Higher number of hidden layers added nothing more to the accuracy and serve to only over-fit the data.\\
 
 
-\begin{figure*}[h]
+\begin{figure}[h]
 %\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore1_10seeds.pdf}
-\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
-\caption{
-Neural networks
-}
+\includegraphics[width=\twopicsp\textwidth]{plots/neurons3.pdf}
+%\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
+\caption{Dependence of accuracy on number of neurons for different models}
 \label{fig:Maps_data}
-\end{figure*}
+\end{figure}
+
+
+\subsection{Boosted Decision Trees}
+Boosted Decision Trees or Gradient boosting algorithms are similar to Random Forests, having number of trees and maximum depth as parameters. However, here we also have the learning rate which specifies how fast (or slow) a model learns. This parameter is quite important, as a high value will converge faster but under-fit, whereas a lower value will over-fit. Therefore, we first chose an architecture of (50,6) and (20,6) to look at the dependence on number of trees. Here we found that low learning rate is preferred, and the maximum accuracy is reached at around 0.1-0.3. After a maximum the accuracy falls drastically since the BDT doesn't have enough time to learn properly. However, after a certain maximum depth, this doesn't hold true anymore irrespective of the number of trees. In this case, the BDT is complex enough that it learns fast and the accuracy doesn't fall even for higher learning rates. The figures below illustrate this.\\
+
+
 
 \begin{figure}[h]
-%\centering
-\includegraphics[width=\onepic\textwidth]{plots/epochsvsscore1_10seeds_1layer_5.pdf}
-\caption{
-Neural Network
-}
+%\centerin
+\includegraphics[width=\twopicsp\textwidth]{plots/lr.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/lr3.pdf}
+\caption{Dependence of BDT accuracy on learning rate with number of trees and maximum depth kept constant respectively}
 \label{fig:Maps_data}
-\end{figure}	
+\end{figure}
 
 
+Choosing a learning rate of 0.3, we find for 20 and 50 trees, that as one increases the maximum depth, the accuracy of the architecture decreases, until a limit is reached.\\
+\begin{figure}[h]
+%\centerin
+\includegraphics[width=\twopicsp\textwidth]{plots/assoc_complex.pdf}
+%\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
+\caption{Dependence of BDT accuracy on maximum depth}
+\label{fig:Maps_data}
+\end{figure}
+
+\subsection{Logistic Regression}
+
+Logisitc Regression parameters include maximum iterations, tolerance, and a regularization parameter. In the figure below on can see that iterations change the accuracy only for the saga solver, and both lbfgs and liblinear are unchanged. The latter are faster algorithms good for smaller datasets like ours. Furthermore for our data set there is no strict dependence on the tolerance and after a threshold vale the regularization also produces the same result.\\
+
+\begin{figure}[h]
+%\centerin
+\includegraphics[width=\twopicsp\textwidth]{plots/solver.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/tol.png}
+\caption{Dependence of Logistic Regression accuracy on iterations (top), and on the regularization parameter (bottom)	}
+\label{fig:Maps_data}
+\end{figure}
 
