@@ -220,6 +220,17 @@ Since Random forests are based on decision trees, they allow us to characterize 
 
 Our hypothesis about feature importances turned out to be correct, as curvature, variability, and spectral index were the most important features. The last hardness ratio was also seen to be quite important, most probably reflecting the end of the spectrum where the AGNs and PSRs shift from each other.\\
 
+To see the difference in the results of models we used, we plotted the classification domains of the algorithms. \\
+\begin{figure}[h]
+%\centering
+\includegraphics[width=\onepic\textwidth]{plots/classdom_rf_200,12.pdf}
+\includegraphics[width=\onepic\textwidth]{plots/classdom_rf_20,2.pdf}
+\caption{Classification Domains of Random Forests
+}
+\label{fig:Maps_data}
+\end{figure}
+
+
 \subsubsection{Neural Networks}
 
 In the case of neural networks we were concerned with the number of epochs that one would need to tweak, along with a dependence on the number of neurons in the hidden layers. A final improvement involved checking whether multiple hidden layers would actually add to such a classification algorithm or not.\\
@@ -255,6 +266,14 @@ The next step was to see the effect of multiple hidden layers and number of neur
 \label{fig:Maps_data}
 \end{figure}
 
+The classification Domains for Neural Networks look different than the tree based model of Random Forests.\\
+\begin{figure}[h]
+%\centerin
+\includegraphics[width=\twopicsp\textwidth]{plots/classdom_nn_200_adam_tanh_5.pdf}
+%\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
+\caption{Classification Domains for Neural Networks}
+\label{fig:Maps_data}
+\end{figure}
 
 \subsection{Boosted Decision Trees}
 Boosted Decision Trees or Gradient boosting algorithms are similar to Random Forests, having number of trees and maximum depth as parameters. However, here we also have the learning rate which specifies how fast (or slow) a model learns. This parameter is quite important, as a high value will converge faster but under-fit, whereas a lower value will over-fit. Therefore, we first chose an architecture of (50,6) and (20,6) to look at the dependence on number of trees. Here we found that low learning rate is preferred, and the maximum accuracy is reached at around 0.1-0.3. After a maximum the accuracy falls drastically since the BDT doesn't have enough time to learn properly. However, after a certain maximum depth, this doesn't hold true anymore irrespective of the number of trees. In this case, the BDT is complex enough that it learns fast and the accuracy doesn't fall even for higher learning rates. The figures below illustrate this.\\
@@ -279,6 +298,16 @@ Choosing a learning rate of 0.3, we find for 20 and 50 trees, that as one increa
 \label{fig:Maps_data}
 \end{figure}
 
+Boosted Decision Trees again show a similar effect as Random forests in their classification, and have a significant difference when the model complexity is changed.\\
+
+
+\begin{figure}[h]
+%\centerin
+\includegraphics[width=\twopicsp\textwidth]{plots/classdom_bdt_100_3.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/classdom_bdt_100_15.pdf}
+\caption{Classification Domains for BDT}
+\label{fig:Maps_data}
+\end{figure}
 \subsection{Logistic Regression}
 
 Logisitc Regression parameters include maximum iterations, tolerance, and a regularization parameter. In the figure below on can see that iterations change the accuracy only for the saga solver, and both lbfgs and liblinear are unchanged. The latter are faster algorithms good for smaller datasets like ours. Furthermore for our data set there is no strict dependence on the tolerance and after a threshold vale the regularization also produces the same result.\\
