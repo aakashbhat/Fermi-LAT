@@ -234,23 +234,13 @@ To see the difference in the results of models we used, we plotted the classific
 \subsubsection{Neural Networks}
 
 In the case of neural networks we were concerned with the number of epochs that one would need to tweak, along with a dependence on the number of neurons in the hidden layers. A final improvement involved checking whether multiple hidden layers would actually add to such a classification algorithm or not.\\
-As can be seen in the figure, with the specific stochastic gradient method ADAM, the number of epochs required are higher since ADAM converges slow. However, after around 200 epochs the accuracy saturates. \\
+As can be seen in the figure, with the specific stochastic gradient method ADAM, the number of epochs required are higher since ADAM converges slow. However, after around 200 epochs the accuracy saturates and reached the same as the lbfgs solver, which converges faster for smaller data-sets. \\
 
 \begin{figure}[h]
 %\centering
-\includegraphics[width=\onepic\textwidth]{plots/iter1}
+\includegraphics[width=\onepic\textwidth]{plots/nn_assoc_four.pdf}
 \caption{
 Dependence on epochs for different solvers and activation function
-}
-\label{fig:Maps_data}
-\end{figure}
-
-In order to fasten our calculations, we tried the lbfgs solver instead. This is much faster than ADAM, and converges easily for small data-sets. As can be seen, the results are better even for small epochs, and the accuracy saturates earlier. Therefore, we decided to chose lbfgs solver, along with 200 epochs for training, and tanh activation function. \\
-\begin{figure}[h]
-%\centering
-\includegraphics[width=\onepic\textwidth]{plots/iter2.pdf}
-\caption{
-Neural Network
 }
 \label{fig:Maps_data}
 \end{figure}
