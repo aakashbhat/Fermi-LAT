@@ -10,14 +10,14 @@ For the methods, we will consider four machine learning algorithms: boosted deci
 logistic regression (LG), and neural networks (NN).
 The resulting probabilities of classification depend on the choice of the classification algorithm.
 Although some algorithms have slightly better performance on the test sample then others,
-the overall performance is relatively similar.
+the overall performances are relatively similar.
 As a result, we will report the classification probabilities for all four algorithms in the catalog, instead of selecting the 
 ``best'' one.
 The difference among the predictions will serve as a measure of modeling uncertainty related to the choice of the classification algorithm.
 
 \subsection{Discussion of the choice of the classification algorithms}
 {\it Decision trees}
-One of the most simple and transparent algorithms for classification is a decision tree.
+One of the most simple and transparent algorithms for classification is decision trees.
 In this algorithm, at each step the sample is split into two subsets using one of the input features.
 The choice of the feature and the separating value are determined by minimizing an objective function, such as misclassification
 error, Gini index, or cross-entropy.
@@ -46,12 +46,12 @@ A nice feature of the LR method is that it, by construction, provides probabilit
 A limitation is that the form of the probability function is limited by the sigmoid function in Equation (\ref{eq:logit}).
 
 We notice that if $m(x)$ is a linear function of features $x$, then the logistic regression model is obtained by an application of sigmoid function to a linear combination of input features.
-This is in fact a single layer perceptron, or a neural network without hidden layers, with several input nodes (each node corresponds to
+This is in fact a single layer perceptron, or a neural network with one hidden layer, with several input nodes (each node corresponds to
 a features) and one output node, which corresponds to $p_0(x)$.
 The output value is obtained by a non-linear transformation (sigmoid) of a linear combination of features.
 Neural network with several hidden layers is obtained by a sequence of nonlinear transformations of linear combinations of features.
 In particular, the values in the first hidden layer are obtained by a non-linear transformation of linear combinations of input features.
-Then the values in second hidden layer are non-linear transformations of linear combinations of values in the first hidden layer etc.
+Then the values in second hidden layer are obtained by a non-linear transformation of  linear combinations of values in the first hidden layer etc.
 In the context of neural networks, the non-linear transformations are called activation functions.
 If the activation function for the output layer is sigmoid, then the output value (values) can be interpreted as probabilities.
 We notice that in this case the neural network is can be expressed by a logistic regression for some function $m(x)$,
@@ -61,7 +61,7 @@ In this paper, for LR $m(x)$ will be constructed as a combination of low-order p
 while for NN, $m(x)$ will be constructed by taking linear input features and several hidden layers, e.g., 4 or 5, 
 in a fully connected neural network.
 
-\subsection{Construction of a probabilistic catalog}
+\section{Construction of a probabilistic catalog}
 
 As an example of the construction of a probabilistic catalog, we will use with the 3FGL catalog.
 For training and testing the methods, we use sources which have associations and no missing values in the catalog table.
@@ -76,9 +76,6 @@ Select data for learning and testing.
 \item
 Train algorithms using the learning dataset.
 Tune hyper-parameters of the algorithms and test the performance on the test dataset, in particular, to avoid overfitting.
-\item
-Choose the most important features and
-retrain the algorithms using the subset of the most important features.
 \item
 Make prediction for unassociated point sources of the 3FGL.
 We also apply the classification for associated source. In this case we check if there are any outliers among the associated sources.
@@ -98,19 +95,41 @@ We use the associated sources which were classified as either AGNs (classificati
 %Our data was similar to that used by Parkinson et. al. We cleaned the 3FGL catalog to have sources which were both associated and unassociated but with no missing values.\\
 
 There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties.
-In our example, we will start with 10 features:
-flux density and the error on it, spectral index, spectral curvature, hardness ratios (as defined by Parkinson et. al.), variability, and the galactic latitude. 
-We used the logarithmic scale for features with large spread of values, e.g., for the flux density, the error on flux, the curvature, and the variability. %The complete list of sources, along with some statistics, is given in the appendix. 
+In our example, we use the following ten features:
+flux density and the error on it, spectral index, spectral curvature, four hardness ratios (as defined in \cite{2016ApJ...820....8S}), variability, and the galactic latitude. 
+We used the logarithmic scale for features with large spread of values, e.g., for the flux density, the error on flux, the curvature, and the variability. 
+\begin{comment}
+%The complete list of sources, along with some statistics, is given in the appendix. 
 The influence of the features on the classification, especially the differences in the various methodologies is discussed in more details in the next section.
 Not all of these parameters are independent, for example, log of the ratio of fluxes is proportional to the spectral index (if the spectrum is represented well by a power law) etc.
 If two variables are highly correlated, then one can discard one of them, since the corresponding information can be recovered from the other one, the corresponding correlation matrix is shown in Figure \ref{fig:corr}.
 In the following we will see that not all features are important for classification and further restrict our attention to the four features, which have the largest separating power for tree-based algorithms.
 
-  
+\end{comment}  
 
-\subsection{Details of algorithms}
+\subsection{Construction of classification algorithms}
 
-In this section we provide details on the training of the ML algorithms for the classification of the PS.
+The number of tunable parameters in the classification algorithms are not fixed a priori. 
+Moreover there is a certain freedom in the choice of the architecture of the algorithms, such as
+the number of hidden layers and the number of neurons in the hidden layers in neural networks.
+In general one starts with a simple model and increases the complexity (the number of tunable parameters)
+until the model can describe the data well, but does not overfit it.
+The overfitting is avoided by splitting the training data into the training sample, which is used for tuning the parameters,
+and test sample, used to check that the model is not overtrained (for overtrained models the accuracy on the test
+sample is significantly worse than the performance on the training sample).
+We will split the data into 70\% training and 30\% testing samples.
+
+The construction of the algorithms will proceed in two steps:
+\bi
+\item
+Choose the number of free parameters in the model and tune them, so that the model fits the training data.
+\item
+Test the model in the testing sample.
+\ei
+The details of this procedure are given in the subsections below.
+
+\begin{comment}
+%In this section we provide details on the training of the ML algorithms for the classification of the PS.
 We will split the sources with known classifications into training (70\%) and test samples (30\%).
 One of the main objectives is to increase the accuracy of classification: this is achieved by adding more parameters to the model
 and tuning them using the training sample.
@@ -122,9 +141,6 @@ One of the main aims of our project was to understand and optimize the machine l
 
  All of the machine learning algorithms were taken from the python module sklearn, including Neural Networks. A neural network using Keras was also attempted; however, due to the classification being on only two classes, we discarded it in favour of the sklearn algorithm which was much faster.\\
 One of the main aims of our project was to understand and optimize the machine learning methods which we were using. So apart from the features which were in the data itself, we also theorized and experimented with the parameters of the algorithms themselves. We wanted to find the fastest and cost-effective way of using certain methods, without going into regimes of under and over-fitting the data. Parameters which we studied range from Depth and Number of trees in Forest based methods to the number of hidden layers and epochs in neural networks. The details are given in the next section, where we discuss our expectations and the resulting behaviour of our algorithms.\\	
-
-
-
 
 \subsection{Details of the analysis}
 
@@ -160,26 +176,40 @@ Our initial hypothesis was that certain features would be more important for cla
 These importances were found to be consistent for various different algorithm parameters. So while the value might change a bit for different tree architechtures, for instance, the importances of these features were still pronounced. \\
 \subsection{Comparison of the classification algorithms}
 
-
+\end{comment}
 
 \subsubsection{Random Forests}
 
 
 \begin{figure}[h]
 %\centering
-\includegraphics[width=\twopicsp\textwidth]{plots/assocvstrees} \\
-\includegraphics[width=\twopicsp\textwidth]{plots/6md_trees_weighted}
+\includegraphics[width=\twopicsp\textwidth]{plots/assocvstrees}
+%\includegraphics[width=\twopicsp\textwidth]{plots/6md_trees_weighted}
 \caption{
-Random Forests in Training
+Test score of RF classification as a function of the number of trees and maximal depth of trees.
+\dima{I think we should stop at 15 here since results don't change for max depth above 15.}
 }
-\label{fig:Maps_data}
+\label{fig:RF_complexity}
 \end{figure}
 
-The two main parameters involved in Random Forests are the number of trees and the maximum depth of the trees involved. Figures below shows one instance of the accuracy as a function of maximum depth when the number of trees was kept constant, and as a function of number of trees when the maximum depth was kept constant. We performed 100 runs for different numbers of trees (also called esimators in the code) and for the maximum depth. In the case of training, we found no significant differences when using weights for our data set. However, we chose to use a inversly weighted dataset since that allows us to generalize the algorithm more. The influence of weights will also be discussed more in the case of unassociated data, in the next section. \\
+The two main parameters characterizing the random forest algorithm are the number of trees and the maximum depth. 
+Figure \ref{fig:RF_complexity} shows the dependence of the accuracy on the test sample as a function of maximum depth and the number of trees. For each line the number of trees is fixed.
+The results for each point are averaged over 100 runs.
+We have performed weighting the data by the inverse numbers of pulsars and AGNs to take into account that there are more AGNs than pulsars. Training on data without the inverse weighting did not have a significant effect on the accuracy.
+We notice that the test score does not decrease with larger complexity of the model 
+(larger number of free parameters due to larger maximal depth of trees).
+This is due to the random choice of a subset of features at each node.
+For the final algorithm, we use a RF with 20 trees and a maximum depth of 12 trained on inversely weighted data.
+%In the case of training, we found no significant differences when using weights for our data set. However, we chose to use a inversely weighted dataset since that allows us to generalize the algorithm more. The influence of weights will also be discussed more in the case of unassociated data, in the next section.
+%After running tests on various architectures we chose a Random Forest with 20 trees to avoid over-fitting, and a maximum depth of 12.
+\dima{
+Why 12? It looks like 4 or 5 is already good enough.
+We should write here an equation for test score in case of weighted data.
+What is the objective function: Gini index, entropy, or misclassification?}
 
-After running tests on various architectures we chose a Random Forest with 20 trees to avoid over-fitting, and a maximum depth of 12. \\
-
-Since Random forests are based on decision trees, they allow us to characterize feature importances based on how helpful a feature was to split a tree. In our case, using all 10 features discussed above we found the following feature importances for two architectures of random forests with similar accuracies of 97.5:\\
+In tree-based algorithms, one can calculate feature importance by using the averaged reduction of impurity for nodes involving the different features. The feature importances for the case of two different RF algorithms: 20 trees with max depth 12 and 50 trees with max depth of 6 are shown in Table \ref{tab:feat_imp}.
+We find that the four most important features are spectral curvature, hardness ratio of the last two energy bins, spectral index, and variability.
+%Since Random forests are based on decision trees, they allow us to characterize feature importances based on how helpful a feature was to split a tree. In our case, using all 10 features discussed above we found the following feature importances for two architectures of random forests with similar accuracies of 97.5:\\
 
 
 \begin{table}[!h]
@@ -190,7 +220,7 @@ Since Random forests are based on decision trees, they allow us to characterize 
 
     \begin{tabular}{|c|c|c|}
     \hline
-    Feature Name&  RF (20,12)& RF (50,6)\\
+    Feature &  20 trees, depth 12& 50 trees, depth 6\\
     \hline
     Flux Density& 0 & 0        \\
     \hline
@@ -214,27 +244,39 @@ Since Random forests are based on decision trees, they allow us to characterize 
     \hline
     \end{tabular}
 
-    \caption{Feature importances for different Algorithm}
+    \caption{Feature importances for two RF algorithms.}
     \label{tab:feat_imp}
 \end{table}
 
-Our hypothesis about feature importances turned out to be correct, as curvature, variability, and spectral index were the most important features. The last hardness ratio was also seen to be quite important, most probably reflecting the end of the spectrum where the AGNs and PSRs shift from each other.\\
+%Our hypothesis about feature importances turned out to be correct, as curvature, variability, and spectral index were the most important features. The last hardness ratio was also seen to be quite important, most probably reflecting the end of the spectrum where the AGNs and PSRs shift from each other.\\
 
-To see the difference in the results of models we used, we plotted the classification domains of the algorithms. \\
+In order to illustrate the separation of the PS into AGNs and pulsars, we retrain the RF algorithm using only two features: curvature significance and spectral index, and plot the resulting probabilities of classes in Figure \ref{fig:RF_domains}.
+\dima{Add discussion of the domains, e.g., overfitting, and selection of the final model for classification.}
+
 \begin{figure}[h]
 %\centering
 \includegraphics[width=\onepic\textwidth]{plots/classdom_rf_200,12.pdf}
 \includegraphics[width=\onepic\textwidth]{plots/classdom_rf_20,2.pdf}
-\caption{Classification Domains of Random Forests
-}
-\label{fig:Maps_data}
+\caption{Classification Domains of RF.  \dima{Why don't we show the domains for the final model, which we use for predictions?
+Moreover, it looks like for max depth 12 the model overfits the data, i.e., using max depth of 4 or 5 would be better for the final model.
+We should also add color bars for all domain plots and make the labels larger.}}
+\label{fig:RF_domains}
 \end{figure}
 
 
 \subsubsection{Neural Networks}
 
-In the case of neural networks we were concerned with the number of epochs that one would need to tweak, along with a dependence on the number of neurons in the hidden layers. A final improvement involved checking whether multiple hidden layers would actually add to such a classification algorithm or not.\\
+In the case of NN, the number of free parameters depends on the number of hidden layers and on the numbers of nodes.
+Adding more than one hidden layer did not improve the accuracy of the classification.
+In the following we will use NNs with only one hidden layer.
+Dependence of the accuracy for test sample on the number of neurons in the hidden layer is shown in Figure \ref{fig:NN_neurons}.
+Dependence on the number of epochs (number of iterations in fitting) is presented in Figure \ref{fig:NN_epochs}.
+\dima{Discuss L-BFGS and ADAM methods here. I don't understand where you can use tanh and relu activations, if we have only one hidden layer with classification for output.}
+
+\begin{comment}
+ we were concerned with the number of epochs that one would need to tweak, along with a dependence on the number of neurons in the hidden layers. A final improvement involved checking whether multiple hidden layers would actually add to such a classification algorithm or not.\\
 As can be seen in the figure, with the specific stochastic gradient method ADAM, the number of epochs required are higher since ADAM converges slow. However, after around 200 epochs the accuracy saturates and reached the same as the lbfgs solver, which converges faster for smaller data-sets. \\
+\end{comment}
 
 \begin{figure}[h]
 %\centering
@@ -242,30 +284,67 @@ As can be seen in the figure, with the specific stochastic gradient method ADAM,
 \caption{
 Dependence on epochs for different solvers and activation function
 }
-\label{fig:Maps_data}
+\label{fig:NN_epochs}
 \end{figure}
 
-The next step was to see the effect of multiple hidden layers and number of neurons on the accuracy. In this case we found no clear dependence, and it seems as though the network doesn't overtraiin even for a higher number of neurons. This could be explained by the less number of iterations. Higher number of hidden layers added nothing more to the accuracy and serve to only over-fit the data.\\
+%The next step was to see the effect of multiple hidden layers and number of neurons on the accuracy. In this case we found no clear dependence, and it seems as though the network doesn't overtraiin even for a higher number of neurons. This could be explained by the less number of iterations. Higher number of hidden layers added nothing more to the accuracy and serve to only over-fit the data.\\
 
 
 \begin{figure}[h]
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/neurons3.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
-\caption{Dependence of accuracy on number of neurons for different models}
-\label{fig:Maps_data}
+\caption{Dependence of accuracy on number of neurons for different models.
+\dima{Since there are only ten features, one hidden layer and one output node, NNs with more than 10 nodes
+in the hidden layer are equivalent to NN with 10 hidden layers: the dimension of the space of linear combinations of input features is at most 10. If there are more nodes in the hidden layer, then the model is degenerate. So in this case it doesn't make sense to plot more than 10 neurons in the hidden layer, we could also plot up to 20 and comment on the degeneracy of the model. I'm not sure I understand where you use Tanh or RELU activations, if we have only one hidden layer with sigmoid activation (I guess) for classification?}}
+\label{fig:NN_neurons}
 \end{figure}
 
-The classification Domains for Neural Networks look different than the tree based model of Random Forests.\\
+Domains for NN with only two input features are shown in Figure \ref{fig:NN_domains}.
+\dima{As above, I don't think it makes sense to use more than 2 nodes in the hidden layer here, since there are only two input features.}
+
+
 \begin{figure}[h]
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/classdom_nn_200_adam_tanh_5.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
 \caption{Classification Domains for Neural Networks}
-\label{fig:Maps_data}
+\label{fig:NN_domains}
 \end{figure}
 
 \subsection{Boosted Decision Trees}
+
+The free parameters for BDT algorithms are similar to RF algorithms: the number of trees and the maximal depth.
+We will use the gradient boosting algorithm for the construction of BDT.
+The classification is performed by a weighted average of trees, where the trees are constructed recursively in order to better address 
+misclassifications from the previous step. The new trees are added with an additional parameter $\nu$ called learning rate.
+We will use learning rate $\nu = 0.3$.
+\dima{I'm not sure we need to discuss the learning rate, since we haven't done so in, e.g., neural networks}
+Dependence of the test accuracy on tree depth is shown in Figure \ref{fig:BDT_depth}.
+\dima{Which depth do we use for the final algorithm, it looks like depth 2 gives the best results. What about depth = 1?}
+
+\begin{figure}[h]
+%\centerin
+\includegraphics[width=\twopicsp\textwidth]{plots/assoc_complex.pdf}
+%\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
+\caption{Dependence of BDT accuracy on maximum depth}
+\label{fig:BDT_depth}
+\end{figure}
+
+Classification domains in case of two features for the maximal depth of 3 and 15 is presented in Figure \ref{fig:BDT_domains}.
+%Boosted Decision Trees again show a similar effect as Random forests in their classification, and have a significant difference when the model complexity is changed.
+
+\begin{figure}[h]
+%\centerin
+\includegraphics[width=\twopicsp\textwidth]{plots/classdom_bdt_100_3.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/classdom_bdt_100_15.pdf}
+\caption{Classification Domains for BDT}
+\label{fig:BDT_domains}
+\end{figure}
+
+
+\begin{comment}
+Is learning rate equivalent to the 
 Boosted Decision Trees or Gradient boosting algorithms are similar to Random Forests, having number of trees and maximum depth as parameters. However, here we also have the learning rate which specifies how fast (or slow) a model learns. This parameter is quite important, as a high value will converge faster but under-fit, whereas a lower value will over-fit. Therefore, we first chose an architecture of (50,6) and (20,6) to look at the dependence on number of trees. Here we found that low learning rate is preferred, and the maximum accuracy is reached at around 0.1-0.3. After a maximum the accuracy falls drastically since the BDT doesn't have enough time to learn properly. However, after a certain maximum depth, this doesn't hold true anymore irrespective of the number of trees. In this case, the BDT is complex enough that it learns fast and the accuracy doesn't fall even for higher learning rates. The figures below illustrate this.\\
 
 
@@ -274,50 +353,43 @@ Boosted Decision Trees or Gradient boosting algorithms are similar to Random For
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/lr.pdf}
 \includegraphics[width=\twopicsp\textwidth]{plots/lr3.pdf}
-\caption{Dependence of BDT accuracy on learning rate with number of trees and maximum depth kept constant respectively}
-\label{fig:Maps_data}
+\caption{Dependence of BDT accuracy on learning rate with number of trees and maximum depth kept constant.
+\dima{I'd include the name of the algorithm in the filenames, so that we can easier find them in the folder. ``lr'' sounds more like logistic regression.}}
+\label{fig:BDT_learning_rate}
 \end{figure}
+\end{comment}
 
 
-Choosing a learning rate of 0.3, we find for 20 and 50 trees, that as one increases the maximum depth, the accuracy of the architecture decreases, until a limit is reached.\\
-\begin{figure}[h]
-%\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/assoc_complex.pdf}
-%\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
-\caption{Dependence of BDT accuracy on maximum depth}
-\label{fig:Maps_data}
-\end{figure}
-
-Boosted Decision Trees again show a similar effect as Random forests in their classification, and have a significant difference when the model complexity is changed.\\
 
 
-\begin{figure}[h]
-%\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/classdom_bdt_100_3.pdf}
-\includegraphics[width=\twopicsp\textwidth]{plots/classdom_bdt_100_15.pdf}
-\caption{Classification Domains for BDT}
-\label{fig:Maps_data}
-\end{figure}
 \subsection{Logistic Regression}
 
-Logisitc Regression parameters include maximum iterations, tolerance, and a regularization parameter. In the figure below on can see that iterations change the accuracy only for the saga solver, and both lbfgs and liblinear are unchanged. The latter are faster algorithms good for smaller datasets like ours. Furthermore for our data set there is no strict dependence on the tolerance and after a threshold vale the regularization also produces the same result.\\
+Logisitc Regression parameters include maximum iterations, tolerance, and a regularization parameter. In the figure below on can see that iterations change the accuracy only for the saga solver, and both lbfgs and liblinear are unchanged. The latter are faster algorithms good for smaller datasets like ours. Furthermore for our data set there is no strict dependence on the tolerance and after a threshold vale the regularization also produces the same result.
+\dima{Which parameters do we use for the final algorithm? For some set of parameters, the LR should be equivalent to NN in our case,
+in particular, the domains should be exactly the same (up to numerical convergence). 
+We can discuss several solvers, but for plots and further calculations I'd suggest to choose one solver and use only it, 
+I'm not sure if many people would be interested to see a dependence on the solver.}
+
 
 \begin{figure}[h]
 %\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/solver.pdf}
+%\includegraphics[width=\twopicsp\textwidth]{plots/solver.pdf}
 \includegraphics[width=\twopicsp\textwidth]{plots/tol.png}
-\caption{Dependence of Logistic Regression accuracy on iterations (top), and on the regularization parameter (bottom)	}
-\label{fig:Maps_data}
+\caption{Dependence of LR accuracy on the regularization parameter.
+\dima{I think it's a wrong plot for regularization (it says tolerance in the plot title). 
+I'm not sure we need to plot accuracy vs tolerance or iterations.
+Also please add the algorithm names in the filenames.}}
+\label{fig:LR_accuracy}
 \end{figure}
 
-Classification domains:\\
+Classification domains are presented in Figure \ref{fig:LR_domains}.
 
 \begin{figure}[h]
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/classdom_lr_100_lbfgs.pdf}
 \includegraphics[width=\twopicsp\textwidth]{plots/classdom_lr_200_saga.pdf}
-\caption{Classification domains for Logistic Regression with lbfgs (top) and saga (bottom) solvers	}
-\label{fig:Maps_data}
+\caption{Classification domains for Logistic Regression with lbfgs (top) and saga (bottom) solvers.}
+\label{fig:LR_domains}
 \end{figure}
 
 

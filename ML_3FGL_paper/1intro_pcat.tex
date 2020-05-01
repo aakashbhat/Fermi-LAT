@@ -1,10 +1,10 @@
 \section{Introduction}
 
 Catalogs of gamma-ray point sources are typically designed to have low false detection rate. 
-Nevertheless, 469 sources out of 3033 in the third \Fermi-LAT catalog (3FGL) [3FGL] have no associations 
+Nevertheless, 469 sources out of 3033 in the third \Fermi-LAT catalog (3FGL) [3FGL] have no counterparts 
 in the forth \Fermi-LAT catalog (4FGL) [4FGL].
 This is much larger than the expected false detection rate in 3FGL arising from statistical fluctuations.
-For the majority of sources in 3FGL, which have no associations in 4FGL, the problem is not the false detection, 
+For the majority of sources in 3FGL without counterparts in 4FGL the problem is not the false detection, 
 but rather the association.
 For example, some sources can be detected due to deficiencies in the Galactic diffuse emission model.
 In this case, the statistical significance of the detection is high, but the association is wrong: the sources should be classified as
@@ -63,7 +63,7 @@ In this case, the probability will include not only the statistical probability 
 
 
 In this paper we will construct a probabilistic catalog using as an example classification of unassociated sources in the \Fermi-LAT catalogs. 
-We will start with the Third \Fermi-LAT catalog (3FGL) and classify the unassociated sources into pulsars and AGNs using the associated sources in 3FGL for training of the classification algorithms.
+We will start with the 3FGL and classify the unassociated sources into pulsars and AGNs using the associated sources in 3FGL for training of the classification algorithms.
 We will use several machine learning algorithms for the classification, e.g., random forest, boosted decision trees, logistic regression,
 and neural networks (since the number of features and the training sample are small, the neural networks will be rather shallow).
 We will show applications of the probabilistic catalog for predicting the number of pulsars among the unassociated source and in construction of the source counts as a function of their flux, $dN/dS$.

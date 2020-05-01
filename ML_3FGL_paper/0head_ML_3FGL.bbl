@@ -1,0 +1,8 @@
+\begin{thebibliography}{1}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{{Saz Parkinson} {et~al.}(2016){Saz Parkinson}, {Xu}, {Yu},
+  {Salvetti}, {Marelli}, \& {Falcone}}]{2016ApJ...820....8S}
+{Saz Parkinson}, P.~M., {Xu}, H., {Yu}, P.~L.~H., {et~al.} 2016, \apj, 820, 8
+
+\end{thebibliography}
