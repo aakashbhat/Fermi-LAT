@@ -255,8 +255,8 @@ In order to illustrate the separation of the PS into AGNs and pulsars, we retrai
 
 \begin{figure}[h]
 %\centering
-\includegraphics[width=\onepic\textwidth]{plots/classdom_rf_200,12.pdf}
-\includegraphics[width=\onepic\textwidth]{plots/classdom_rf_20,2.pdf}
+\includegraphics[width=\onepic\textwidth]{plots/classification_domains/rf_200_12.pdf}
+\includegraphics[width=\onepic\textwidth]{plots/classification_domains/rf_20_2.pdf}
 \caption{Classification Domains of RF.  \dima{Why don't we show the domains for the final model, which we use for predictions?
 Moreover, it looks like for max depth 12 the model overfits the data, i.e., using max depth of 4 or 5 would be better for the final model.
 We should also add color bars for all domain plots and make the labels larger.}}
@@ -292,7 +292,7 @@ Dependence on epochs for different solvers and activation function
 
 \begin{figure}[h]
 %\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/neurons3.pdf}
+\includegraphics[width=0.5\textwidth]{plots/neurons3.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
 \caption{Dependence of accuracy on number of neurons for different models.
 \dima{Since there are only ten features, one hidden layer and one output node, NNs with more than 10 nodes
@@ -325,7 +325,7 @@ Dependence of the test accuracy on tree depth is shown in Figure \ref{fig:BDT_de
 
 \begin{figure}[h]
 %\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/assoc_complex.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/bdt_assoc_depth.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
 \caption{Dependence of BDT accuracy on maximum depth}
 \label{fig:BDT_depth}
@@ -373,7 +373,7 @@ I'm not sure if many people would be interested to see a dependence on the solve
 
 \begin{figure}[h]
 %\centerin
-%\includegraphics[width=\twopicsp\textwidth]{plots/solver.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/solver.pdf}
 \includegraphics[width=\twopicsp\textwidth]{plots/tol.png}
 \caption{Dependence of LR accuracy on the regularization parameter.
 \dima{I think it's a wrong plot for regularization (it says tolerance in the plot title). 
