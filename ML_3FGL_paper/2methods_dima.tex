@@ -46,8 +46,7 @@ A nice feature of the LR method is that it, by construction, provides probabilit
 A limitation is that the form of the probability function is limited by the sigmoid function in Equation (\ref{eq:logit}).
 
 We notice that if $m(x)$ is a linear function of features $x$, then the logistic regression model is obtained by an application of sigmoid function to a linear combination of input features.
-This is in fact a single layer perceptron, or a neural network with one hidden layer, with several input nodes (each node corresponds to
-a features) and one output node, which corresponds to $p_0(x)$.
+This is in fact a single layer perceptron, or a neural network, with several input nodes (each node corresponds to a features), one node in the hidden layer, and one output node, which corresponds to $p_0(x)$.
 The output value is obtained by a non-linear transformation (sigmoid) of a linear combination of features.
 Neural network with several hidden layers is obtained by a sequence of nonlinear transformations of linear combinations of features.
 In particular, the values in the first hidden layer are obtained by a non-linear transformation of linear combinations of input features.
@@ -187,7 +186,7 @@ These importances were found to be consistent for various different algorithm pa
 %\includegraphics[width=\twopicsp\textwidth]{plots/6md_trees_weighted}
 \caption{
 Test score of RF classification as a function of the number of trees and maximal depth of trees.
-\dima{I think we should stop at 15 here since results don't change for max depth above 15.}
+%\dima{I think we should stop at 15 here since results don't change for max depth above 15.}
 }
 \label{fig:RF_complexity}
 \end{figure}
@@ -295,8 +294,7 @@ Dependence on epochs for different solvers and activation function
 \includegraphics[width=0.5\textwidth]{plots/neurons3.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
 \caption{Dependence of accuracy on number of neurons for different models.
-\dima{Since there are only ten features, one hidden layer and one output node, NNs with more than 10 nodes
-in the hidden layer are equivalent to NN with 10 hidden layers: the dimension of the space of linear combinations of input features is at most 10. If there are more nodes in the hidden layer, then the model is degenerate. So in this case it doesn't make sense to plot more than 10 neurons in the hidden layer, we could also plot up to 20 and comment on the degeneracy of the model. I'm not sure I understand where you use Tanh or RELU activations, if we have only one hidden layer with sigmoid activation (I guess) for classification?}}
+\dima{I'm not sure I understand where you use Tanh or RELU activations, if we have only one hidden layer with sigmoid activation (I guess) for classification?}}
 \label{fig:NN_neurons}
 \end{figure}
 
