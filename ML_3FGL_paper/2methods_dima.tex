@@ -198,7 +198,7 @@ We have performed weighting the data by the inverse numbers of pulsars and AGNs 
 We notice that the test score does not decrease with larger complexity of the model 
 (larger number of free parameters due to larger maximal depth of trees).
 This is due to the random choice of a subset of features at each node.
-For the final algorithm, we use a RF with 20 trees and a maximum depth of 12 trained on inversely weighted data.
+For the final algorithm, we use a RF with 20 trees and a maximum depth of 12 trained on inversely weighted data. For the objective function we chose the gini index, which uses the square of the class probabililties for minimization.\\
 %In the case of training, we found no significant differences when using weights for our data set. However, we chose to use a inversely weighted dataset since that allows us to generalize the algorithm more. The influence of weights will also be discussed more in the case of unassociated data, in the next section.
 %After running tests on various architectures we chose a Random Forest with 20 trees to avoid over-fitting, and a maximum depth of 12.
 \dima{
