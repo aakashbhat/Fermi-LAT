@@ -252,15 +252,15 @@ We find that the four most important features are spectral curvature, hardness r
 In order to illustrate the separation of the PS into AGNs and pulsars, we retrain the RF algorithm using only two features: curvature significance and spectral index, and plot the resulting probabilities of classes in Figure \ref{fig:RF_domains}.
 \dima{Add discussion of the domains, e.g., overfitting, and selection of the final model for classification.}
 
-\begin{figure}[h]
+\begin{figure*}[h]
 %\centering
-\includegraphics[width=\onepic\textwidth]{plots/classification_domains/rf_200_12.pdf}
-\includegraphics[width=\onepic\textwidth]{plots/classification_domains/rf_20_2.pdf}
+\includegraphics[width=\twocolumnwidth\textwidth]{plots/classification_domains/rf_200_12.pdf}\\
+\includegraphics[width=\twocolumnwidth\textwidth]{plots/classification_domains/rf_20_2.pdf}
 \caption{Classification Domains of RF.  \dima{Why don't we show the domains for the final model, which we use for predictions?
 Moreover, it looks like for max depth 12 the model overfits the data, i.e., using max depth of 4 or 5 would be better for the final model.
 We should also add color bars for all domain plots and make the labels larger.}}
 \label{fig:RF_domains}
-\end{figure}
+\end{figure*}
 
 
 \subsubsection{Neural Networks}
