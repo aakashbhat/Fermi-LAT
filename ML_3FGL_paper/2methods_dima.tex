@@ -198,13 +198,12 @@ We have performed weighting the data by the inverse numbers of pulsars and AGNs 
 We notice that the test score does not decrease with larger complexity of the model 
 (larger number of free parameters due to larger maximal depth of trees).
 This is due to the random choice of a subset of features at each node.
-For the final algorithm, we use a RF with 20 trees and a maximum depth of 12 trained on inversely weighted data. For the objective function we chose the gini index, which uses the square of the class probabililties for minimization.\\
+For the final algorithm, we will use a RF with 20 trees and a maximum depth of 8 trained on inversely weighted data. A depth greater than 8 results in a drop in performance. For the objective function we chose the gini index, which uses the square of the class probabililties for minimization.\\
 %In the case of training, we found no significant differences when using weights for our data set. However, we chose to use a inversely weighted dataset since that allows us to generalize the algorithm more. The influence of weights will also be discussed more in the case of unassociated data, in the next section.
 %After running tests on various architectures we chose a Random Forest with 20 trees to avoid over-fitting, and a maximum depth of 12.
 \dima{
 Why 12? It looks like 4 or 5 is already good enough.
-We should write here an equation for test score in case of weighted data.
-What is the objective function: Gini index, entropy, or misclassification?}
+We should write here an equation for test score in case of weighted data.}
 
 In tree-based algorithms, one can calculate feature importance by using the averaged reduction of impurity for nodes involving the different features. The feature importances for the case of two different RF algorithms: 20 trees with max depth 12 and 50 trees with max depth of 6 are shown in Table \ref{tab:feat_imp}.
 We find that the four most important features are spectral curvature, hardness ratio of the last two energy bins, spectral index, and variability.
@@ -253,9 +252,11 @@ In order to illustrate the separation of the PS into AGNs and pulsars, we retrai
 \dima{Add discussion of the domains, e.g., overfitting, and selection of the final model for classification.}
 
 \begin{figure}[h]
-%\centering
-\includegraphics[width=\onepic\textwidth]{plots/classification_domains/rf_200_12.pdf}
-\includegraphics[width=\onepic\textwidth]{plots/classification_domains/rf_20_2.pdf}
+\centering
+\hspace*{-2.5cm}
+\includegraphics[width=0.55\textwidth,left]{plots/classification_domains/rf_20_8.pdf}
+\hspace*{-2.5cm}
+\includegraphics[width=0.55\textwidth,left]{plots/classification_domains/rf_20_2.pdf}
 \caption{Classification Domains of RF.  \dima{Why don't we show the domains for the final model, which we use for predictions?
 Moreover, it looks like for max depth 12 the model overfits the data, i.e., using max depth of 4 or 5 would be better for the final model.
 We should also add color bars for all domain plots and make the labels larger.}}
@@ -382,13 +383,13 @@ Also please add the algorithm names in the filenames.}}
 \label{fig:LR_accuracy}
 \end{figure}
 
-Classification domains are presented in Figure \ref{fig:LR_domains}.
+Classification domains are presented in Figure \ref{fig:LR_domains}. As can be seen, when a Neural Network with no hidden layer is compared, the results are almost identical. \\
 
 \begin{figure}[h]
 %\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/classdom_lr_100_lbfgs.pdf}
-\includegraphics[width=\twopicsp\textwidth]{plots/classdom_lr_200_saga.pdf}
-\caption{Classification domains for Logistic Regression with lbfgs (top) and saga (bottom) solvers.
+\includegraphics[width=\twopicsp\textwidth]{plots/classification_domains/LR_300_LBFGS_noweight.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/classification_domains/NN_300_LBFGS_Identity.pdf}
+\caption{Classification domains for Logistic Regression and Neural Network without a hidden layer
 \dima{There should be a set of parameters, which gives the same result as for the NN in Figure \ref{fig:NN_domains}.}}
 \label{fig:LR_domains}
 \end{figure}
