@@ -198,7 +198,7 @@ We have performed weighting the data by the inverse numbers of pulsars and AGNs 
 We notice that the test score does not decrease with larger complexity of the model 
 (larger number of free parameters due to larger maximal depth of trees).
 This is due to the random choice of a subset of features at each node.
-For the final algorithm, we will use a RF with 20 trees and a maximum depth of 8 trained on inversely weighted data. A depth greater than 8 results in a drop in performance. For the objective function we chose the gini index, which uses the square of the class probabililties for minimization.\\
+For the final algorithm, we will use a RF with 200 trees and a maximum depth of 8 trained on inversely weighted data. A depth greater than 8 results in a drop in performance. For the objective function we chose the gini index, which uses the square of the class probabililties for minimization.\\
 %In the case of training, we found no significant differences when using weights for our data set. However, we chose to use a inversely weighted dataset since that allows us to generalize the algorithm more. The influence of weights will also be discussed more in the case of unassociated data, in the next section.
 %After running tests on various architectures we chose a Random Forest with 20 trees to avoid over-fitting, and a maximum depth of 12.
 \dima{
@@ -206,7 +206,7 @@ Why 12? It looks like 4 or 5 is already good enough.
 We should write here an equation for test score in case of weighted data.}
 
 In tree-based algorithms, one can calculate feature importance by using the averaged reduction of impurity for nodes involving the different features. The feature importances for the case of two different RF algorithms: 20 trees with max depth 12 and 50 trees with max depth of 6 are shown in Table \ref{tab:feat_imp}.
-We find that the four most important features are spectral curvature, hardness ratio of the last two energy bins, spectral index, and variability.
+We find that the four most important features are spectral curvature, hardness ratio of the last two energy bins, spectral index, and variability, which follow the trend regardless of hyper-parameters chosen.
 %Since Random forests are based on decision trees, they allow us to characterize feature importances based on how helpful a feature was to split a tree. In our case, using all 10 features discussed above we found the following feature importances for two architectures of random forests with similar accuracies of 97.5:\\
 
 
@@ -248,27 +248,29 @@ We find that the four most important features are spectral curvature, hardness r
 
 %Our hypothesis about feature importances turned out to be correct, as curvature, variability, and spectral index were the most important features. The last hardness ratio was also seen to be quite important, most probably reflecting the end of the spectrum where the AGNs and PSRs shift from each other.\\
 
-In order to illustrate the separation of the PS into AGNs and pulsars, we retrain the RF algorithm using only two features: curvature significance and spectral index, and plot the resulting probabilities of classes in Figure \ref{fig:RF_domains}.
+In order to illustrate the separation of the PS into AGNs and pulsars, we retrain the RF algorithm using only two features: curvature significance and spectral index, and plot the resulting probabilities of classes in Figure \ref{fig:RF_domains}. These classification domains provide us with a look at the complexity of the network. As we can see the depth 4 outperforms depth 2. We decide to go higher on the depth and trees, since this plot is a 2-d estimation of a 10 feature problem, as we have only plotted for two of the main features. As can be seen in the figure, the colourer is redder closer to cluster of AGNs and bluer in areas with higher PSRs. The probabilities are shown for only one run, as a way of illustrating how the algorithm seperates different regions of the data-set. The higher the depth the more the probabilities becomes denser and the dense areas become smaller. For instance, one can see region of near zero probabilities in the depth of 4, as opposed to a depth of 2.  
 \dima{Add discussion of the domains, e.g., overfitting, and selection of the final model for classification.}
 
-<<<<<<< HEAD
+%<<<<<<< HEAD
 \begin{figure}[h]
 \centering
 \hspace*{-2.5cm}
-\includegraphics[width=0.55\textwidth,left]{plots/classification_domains/rf_20_8.pdf}
+\includegraphics[width=0.55\textwidth,left]{plots/classification_domains/rf_20_4.pdf}
 \hspace*{-2.5cm}
 \includegraphics[width=0.55\textwidth,left]{plots/classification_domains/rf_20_2.pdf}
-=======
-\begin{figure*}[h]
+\end{figure}
+
+%=======
+%\begin{figure*}[h]
 %\centering
-\includegraphics[width=\twocolumnwidth\textwidth]{plots/classification_domains/rf_200_12.pdf}\\
-\includegraphics[width=\twocolumnwidth\textwidth]{plots/classification_domains/rf_20_2.pdf}
->>>>>>> a522eecb66fa0cf6f440bc2907db2c42d74cac67
-\caption{Classification Domains of RF.  \dima{Why don't we show the domains for the final model, which we use for predictions?
-Moreover, it looks like for max depth 12 the model overfits the data, i.e., using max depth of 4 or 5 would be better for the final model.
-We should also add color bars for all domain plots and make the labels larger.}}
-\label{fig:RF_domains}
-\end{figure*}
+%\includegraphics[width=\twocolumnwidth\textwidth]{plots/classification_domains/rf_200_12.pdf}\\
+%\includegraphics[width=\twocolumnwidth\textwidth]{plots/classification_domains/rf_20_2.pdf}
+%>>>>>>> a522eecb66fa0cf6f440bc2907db2c42d74cac67
+%\caption{Classification Domains of RF.  \dima{Why don't we show the domains for the final model, which we use for predictions?
+%Moreover, it looks like for max depth 12 the model overfits the data, i.e., using max depth of 4 or 5 would be better for the final model.
+%We should also add color bars for all domain plots and make the labels larger.}}
+%\label{fig:RF_domains}
+%\end{figure*}
 
 
 \subsubsection{Neural Networks}
@@ -328,7 +330,7 @@ The classification is performed by a weighted average of trees, where the trees 
 misclassifications from the previous step. The new trees are added with an additional parameter $\nu$ called learning rate.
 We will use learning rate $\nu = 0.3$.
 \dima{I'm not sure we need to discuss the learning rate, since we haven't done so in, e.g., neural networks}
-Dependence of the test accuracy on tree depth is shown in Figure \ref{fig:BDT_depth}.
+Dependence of the accuracy on tree depth is shown in Figure \ref{fig:BDT_depth}. The plot shows that depth of 2 and 100 trees is near the optimal limit. 
 \dima{Which depth do we use for the final algorithm, it looks like depth 2 gives the best results. What about depth = 1?}
 
 \begin{figure}[h]
@@ -339,7 +341,7 @@ Dependence of the test accuracy on tree depth is shown in Figure \ref{fig:BDT_de
 \label{fig:BDT_depth}
 \end{figure}
 
-Classification domains in case of two features for the maximal depth of 3 and 15 is presented in Figure \ref{fig:BDT_domains}.
+The Classification domains in case of two features for the maximal depth of 3 and 15 is presented in Figure \ref{fig:BDT_domains}. The greater than a percent decrease in the accuracy from a max depth of 3 to a max depth of 15 can be explained by the domains, where we see a pattern of almost over-fitting the data. While for 2 features the decrease is small, it should increase as we increase the number of features, with a lower complexity network being enough for a good accuracy.
 %Boosted Decision Trees again show a similar effect as Random forests in their classification, and have a significant difference when the model complexity is changed.
 
 \begin{figure}[h]
