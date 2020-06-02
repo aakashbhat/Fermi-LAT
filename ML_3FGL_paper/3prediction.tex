@@ -7,7 +7,46 @@ We then use the associations, which exist for some of these sources in the 4FGL,
 
 %\subsection{Unassociated sources in 3FGL with associations in 4FGL}
 %There were a total of 286 sources without associations in 3FGL but associations in 4FGL. We trained our algorithms on the entire set of associated data from the 3FGL, and then tested our algorithms on these 286 sources. The probabilistic version is discussed in the next section.  \\
+
+Accuracies of our chosen algorithms are given in table 2, averaged over 1000 runs. It contains both training and testing accuracies, where testing now refers to the 3FGL unassociated data with associations in 4FGL. 
+
+
+\begin{table}[!h]
+    \tiny
+ %  \centering
+    \renewcommand{\tabcolsep}{0.3mm}
+\renewcommand{\arraystretch}{1.5}
+
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    Algorithm&Parameters & Training Accuracy & Testing Accuracy\\
+    \hline
+    RF& 200 trees, max depth 8  &97.56& 95.65   \\
+    \hline
+    NN & 200 epochs, 1 hidden layer, 10neurons & 97.50& 95.46 \\
+    \hline %\midrule   -> aakash do you mean this?
+    BDT & 100 trees, max depth 2    &   97.56&95.45  \\
+%    \hline %\midrule   -> aakash do you mean this?
+%    BDT & 200 trees, max depth 2    &   95.8  \\
+    \hline
+    LR & LBFGS solver, 200 iterations & 97.1&88.81 (balanced), 95.45 \\
+    \hline
+     
+    \end{tabular}
+
+    \caption{Accuracy of the 4 selected algorithms on 3FGL unassociated data.}
+    \label{tab:selected_algs}
+\end{table}
+
+%As can be seen above, the best accuracies were found with less complicated models, which allowed bias to be low. The models were complicated enough to neither under, nor overtrain.
+
+Feature importance for RF: [0.         0.         0.12236186 0.31656891 0.12013348 0.04952569  0.05523149 0.05632573 0.23685429 0.04299855]
+
+
 Accuracy of the prediction of the source classes compared to the 4FGL classes for RF and BDT algorithms is shown in Figure \ref{fig:RF_BDT_4FGL_accuracy}.
+
+
+
 The accuracy of the RF algorithm increases with the depth of the trees and the number of trees in the forest
 up to maximal depth of about 15 and 200 trees in the forest, after that the accuracy stays constant.
 For the BDT, the accuracy decreases for depth larger than about 10, it does not depend on the number of trees above XXX trees.
@@ -44,34 +83,6 @@ otherwise there is a danger of overfitting, which we cannot evaluate. Table \ref
 
 
 
-\begin{table}[!h]
-    \tiny
-    \centering
-    \renewcommand{\tabcolsep}{1mm}
-\renewcommand{\arraystretch}{1.5}
-
-    \begin{tabular}{|c|c|c|}
-    \hline
-    Algorithm&Parameters & Accuracy\\
-    \hline
-    RF& 200 trees, max depth 15  & 96.55   \\
-    \hline
-    NN & 200 epochs, 1 hidden layer, 5 neurons &  95.58 \\
-    \hline %\midrule   -> aakash do you mean this?
-    BDT & 50 trees, max depth 10    &   95.27  \\
-%    \hline %\midrule   -> aakash do you mean this?
-%    BDT & 200 trees, max depth 2    &   95.8  \\
-    \hline
-    LR & SAGA solver, 200 iterations & 95.45 \\
-    \hline
-     
-    \end{tabular}
-
-    \caption{Testing Accuracy of the 4 selected algorithms on 3FGL unassociated data.}
-    \label{tab:selected_algs}
-\end{table}
-
-%As can be seen above, the best accuracies were found with less complicated models, which allowed bias to be low. The models were complicated enough to neither under, nor overtrain.
 
 \subsection{3FGL Probabilistic classification} 
 
