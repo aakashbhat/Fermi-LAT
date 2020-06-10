@@ -1,3 +1,39 @@
 \section{Appendix}
 
-If we need one.
+\subsection{Testing on unassociated data}
+
+
+Accuracy of the prediction of the source classes compared to the 4FGL classes for RF and BDT algorithms is shown in Figure \ref{fig:RF_BDT_4FGL_accuracy}.
+
+
+
+The accuracy of the RF algorithm increases with the depth of the trees and the number of trees in the forest
+up to maximal depth of about 15 and 200 trees in the forest, after that the accuracy stays constant.
+For the BDT, the accuracy decreases for depth larger than about 10, it does not depend on the number of trees above XXX trees.
+%\dima{We should plot BDT with fewer numbers of trees, e.g., 5, 10, 20, 50, it looks like soon after 20 trees BDT converges and accuracy does not change for larger number of trees.}
+
+%Here we can see how Random Forests and BDT accuracies depend on the complexity of the network. Random Forests follow the same pattern as seen with the associated data with greater complexity allowing for a higher accuracy of the sources. Boosted Decision Trees also lower the accuracy as the maximum depth increases, although there seem to be certain points where the accuracy suddenly rises up. As seen with the training data, here also the BDT models converge to an accuracy value which is only dependent on the number of trees\\
+
+\begin{figure}[h]
+%\centerin
+\includegraphics[width=\twopicsp\textwidth]{plots/unassoc2.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/unassoc_complex.pdf}
+\caption{RF and BDT accuracy of class prediction for unassociated 3FGL sources compared to associations in the 4FGL}
+\label{fig:RF_BDT_4FGL_accuracy}
+\end{figure}
+
+%Neural Networks, unlike random forests are susceptible to overtraining, as can be seen in the figures below. Increase the complexity of the network leads to a slight decrease in accuracy. This is seen for both single hidden layer networks and two hidden layer networks where the first layer has 5 neurons. Here Adam slightly outperforms lbfgs, especially when different activation functions are used. \\
+Accuracies for NN and LR algorithms are presented in Figure \ref{fig:NN_LR_4FGL_accuracy}.
+%\dima{As in the previous section, I think we should plot NN for neurons from 2 (or even 1) to about 20, although it really makes sense to plot only up to 10 neurons.}
+An interesting result is found for LR case where the SAGA solver performs better than the L-BFGS, which is different from the results obtained with the training dataset. 
+%This is likely because the SAGA solver allows for a more general model than the L-BFGS one. \dima{Why?}
+
+\begin{figure}[h]
+%\centerin
+\includegraphics[width=\twopicsp\textwidth]{plots/neurons4.pdf}
+%\includegraphics[width=\twopicsp\textwidth]{plots/neurons5.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/solver_unass.pdf}
+\caption{Logistic Regression and Neural Network accuracies}
+\label{fig:NN_LR_4FGL_accuracy}
+\end{figure}
+
