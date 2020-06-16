@@ -21,15 +21,15 @@ Accuracies of our chosen algorithms are given in table 2, averaged over 1000 run
     \hline
     Algorithm&Parameters & Training Accuracy & Testing Accuracy\\
     \hline
-    RF& 200 trees, max depth 8  &97.56& 95.65   \\
+    RF& 50 trees, max depth 6  &97.69& 95.76   \\
     \hline
-    NN & 200 epochs, 1 hidden layer, 10neurons & 97.50& 95.46 \\
+    NN & 300, 10 Neurons, Adam & 97.40& 95.35 \\
     \hline %\midrule   -> aakash do you mean this?
-    BDT & 100 trees, max depth 2    &   97.56&95.45  \\
+    BDT & 100 trees, max depth 2    &   97.80&95.45  \\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
     \hline
-    LR & LBFGS solver, 200 iterations & 97.1&88.81 (balanced), 95.45 \\
+    LR & LBFGS solver, 200 iterations & 97.6&87.14 (balanced), 95.08 \\
     \hline
      
     \end{tabular}

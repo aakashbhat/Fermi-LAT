@@ -218,27 +218,27 @@ We find that the four most important features are spectral curvature, hardness r
 
     \begin{tabular}{|c|c|c|}
     \hline
-    Feature &  20 trees, depth 12& 50 trees, depth 6\\
+    Feature &  20 trees, depth 2& 50 trees, depth 6\\
     \hline
-    Flux Density& 0 & 0        \\
+    Flux Density& 0.04 & 0.05        \\
     \hline
-    Unc Energy Flux100& 0     & 0 \\
+    Unc Energy Flux100& 0.07     & 0.08 \\
     \hline %\midrule   -> aakash do you mean this?
-   Spectral Index & 0.13     &   0.17 \\
+   Spectral Index & 0.13     &   0.11\\
     \hline %\midrule   -> aakash do you mean this?
     Significant curvature& 0.33 &0.29  \\
     \hline
-   var&  0.13   &  0.11  \\
+   var&  0.06   &  0.10  \\
     \hline %\midrule   -> aakash do you mean this?
-    hr12& 0.07 &0.06 \\
+    hr12& 0.03 &0.03 \\
     \hline
-     hr23& 0.06 &0.05 \\
+     hr23& 0.03 &0.04 \\
     \hline
-    hr34& 0.05 &0.05 \\
+    hr34& 0.02 &0.03 \\
     \hline
-   hr45& 0.20 &0.23 \\
+   hr45& 0.25 &0.21 \\
     \hline
-    GLAT&0.04&0.04\\
+    GLAT&0.01&0.02\\
     \hline
     \end{tabular}
 
@@ -336,7 +336,7 @@ Dependence of the accuracy on tree depth is shown in Figure \ref{fig:BDT_depth}.
 
 \begin{figure}[h]
 %\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/bdt_assoc_depth.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/bdt_train.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
 \caption{Dependence of BDT accuracy on maximum depth}
 \label{fig:BDT_depth}
@@ -384,12 +384,12 @@ I'm not sure if many people would be interested to see a dependence on the solve
 
 \begin{figure}[h]
 %\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/solver.pdf}
-\includegraphics[width=\twopicsp\textwidth]{plots/tol.png}
-\caption{Dependence of LR accuracy on the regularization parameter.
-\dima{I think it's a wrong plot for regularization (it says tolerance in the plot title). 
-I'm not sure we need to plot accuracy vs tolerance or iterations.
-Also please add the algorithm names in the filenames.}}
+\includegraphics[width=\twopicsp\textwidth]{plots/lr_train.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/lr_train_reg.pdf}
+\caption{Dependence of LR accuracy on the regularization parameter}
+%\dima{I think it's a wrong plot for regularization (it says tolerance in the plot title). 
+%I'm not sure we need to plot accuracy vs tolerance or iterations.
+%Also please add the algorithm names in the filenames.}}
 \label{fig:LR_accuracy}
 \end{figure}
 
