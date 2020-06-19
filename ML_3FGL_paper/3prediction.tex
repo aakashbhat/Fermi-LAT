@@ -47,11 +47,47 @@ Accuracies of our chosen algorithms are given in table 2, averaged over 1000 run
 \subsection{3FGL Probabilistic classification} 
 
 Here we discuss the results of our probabilistic classification on the unassociated data.
-\begin{figure}[h]
+\begin{figure*}[h]
 %\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/AGN.pdf}
-\includegraphics[width=\twopicsp\textwidth]{plots/PSR3.pdf}
+\includegraphics[width=\textwidth]{plots/plot_4fglassoc_3fglunassoc_242.pdf}
+%\includegraphics[width=\twopicsp\textwidth]{plots/PSR3.pdf}
 \caption{Comparison of class prediction for unassociated 3FGL sources with classes in 4FGL. }
 %\includegraphics[width=\twopicsp\textwidth]{plots/final_catalog.pdf}
 \label{fig:Maps_data}
-\end{figure}
+\end{figure*}
+
+%\csvreader[tabular=|l|l|c|,
+  %  table head=\hline & Source Name &Flux \\\hline,
+ %   late after line=\\\hline,
+%filter={\value{csvrow}<2},]%%
+%{data/3fglunassoc_4fglassoc_withprob.csv}{Source_Name_3FGL=\source,ln(Flux_Density_3FGL)=\flux}%
+%{\thecsvrow & \source & \flux}
+
+
+
+\pgfplotstableread[col sep=comma]{data/3fgl.csv}\loadedtable
+\pgfplotstabletypeset[columns={Source_Name_3FGL,AGN_BDT,AGN_RF,AGN_LR,AGN_NN},
+column type=l,
+string type,
+every head row/.style={before row={\toprule & \multicolumn{4}{c}{AGN Probability} \\},after row=\midrule,},
+every last row/.style={after row=\vdots },
+%every first column/.style={column type/.add={|}{}},
+%every last column/.style={column type/.add={}{|}},
+columns/Source_Name_3FGL/.style={column name=Source Name},
+columns/AGN_BDT/.style={column name=BDT,numeric type,fixed,precision=3},
+columns/AGN_NN/.style={column name=NN,numeric type,fixed,precision=3},
+columns/AGN_RF/.style={column name=RF,numeric type,fixed,precision=3},
+columns/AGN_LR/.style={column name=LR,numeric type,fixed,precision=3},
+skip rows between index={4}{242}
+]\loadedtable
+
+%\pgfplotstabletypeset[
+%    col sep=comma,
+ %   string type,
+%table head=\hline & Source Name &Flux \\\hline
+ %  every head row/.style={ before row={\hline\multicolumn{2}{c}{Full Name} & \\ },after row=\hline},
+    %every last row/.style={after row=\hline},
+  %  columns/hr12/.style={column name=Name, column type=l},
+   % columns/hr23/.style={column name=Surname, column type=l},
+   % columns/hr34/.style={column name=Age, column type=c},
+  %  ]

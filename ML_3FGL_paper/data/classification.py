@@ -30,18 +30,20 @@ plt.rcParams['axes.labelsize'] = 22
 plt.rcParams['axes.titlesize'] = 28
 plt.rcParams['font.size'] = 23
 plt.rcParams['ytick.labelsize'] = 22
+plt.rcParams['lines.markersize'] = 10
+
 
 
 #Training Fata:
 se=1
 np.random.seed(se)
-dataframe = pandas.read_csv("3fgl_associated_AGNandPSR_final_newindices_withclasses2_nn_allfeat.csv", header=None)
+dataframe = pandas.read_csv("3fgl_associated_AGNandPSR_final_newindices_withclasses2_all.csv", header=None)
 dataset1 = dataframe.values 
 np.random.shuffle(dataset1[1:])
 X = dataset1[1:,0:10].astype(float)
 print(dataset1[0])
 #Y = dataset[1:1933,5]
-Y = dataset1[1:,10]
+Y = dataset1[1:,11]
 #dataset=dataset[:,:5]
 num=[]
 num2=[]
@@ -57,7 +59,7 @@ encoder.fit(Y)
 Y = encoder.transform(Y)
 
 #Testing Data, although we aren't using it at the moment since we are more concerned with the classfication domains of the training data:
-dataframe = pandas.read_csv("3fgl_unass_withclasses.csv", header=None)
+dataframe = pandas.read_csv("3fgl_unass_withclasses_nn_allfeat.csv", header=None)
 dataset = dataframe.values
 X2 = dataset[1:,3:9].astype(float)
 Y2 = dataset[1:,11]
@@ -160,44 +162,65 @@ plt.show()
 
 #Main part of code:
 
-ax2 = plt.subplot()
+fig1,ax2 = plt.subplots()
 
 #Choose classifier:
-#clf=RandomForestClassifier(max_depth=4, n_estimators=200, class_weight='balanced',oob_score=True)
-clf= MLPClassifier(max_iter=300,hidden_layer_sizes=(), activation='identity', solver='sgd',batch_size=1000).fit(X_train,y_train)
+clf=RandomForestClassifier(max_depth=6, n_estimators=50, class_weight='balanced',oob_score=True)
+#clf= MLPClassifier(max_iter=50,hidden_layer_sizes=(10,), activation='tanh', solver='adam',batch_size=1000).fit(X_train,y_train)
 #clf=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=3, random_state=0).fit(X_train,y_train)
-#clf=LogisticRegression(max_iter=300, C=0.1,solver='saga',class_weight="balanced").fit(X_train,y_train)
+#clf=LogisticRegression(max_iter=300, C=0.1,solver='lbfgs').fit(X_train,y_train)
 clf.fit(X_train, y_train)
 
-
+lenth=len(X_test)
 score = clf.score(X_test, y_test)       #Score of our classifier
-        
+i=0
+
+
+X_test_spec_agn=[]
+X_test_sig_agn=[]
+y_test_agn=[]
+X_test_spec_psr=[]
+X_test_sig_psr=[]
+y_test_psr=[]
+for i in range(lenth):
+    if y_test[i]==0:
+        X_test_spec_agn.append(X_test[i,0])
+        X_test_sig_agn.append(X_test[i,1])
+        y_test_agn.append(y_test[i])
+    else:
+        X_test_spec_psr.append(X_test[i,0])
+        X_test_sig_psr.append(X_test[i,1])
+        y_test_psr.append(y_test[i])
         # Plot the decision boundary. For that, we will assign a color to each
         # point in the mesh [x_min, x_max]x[y_min, y_max].
 if hasattr(clf, "decision_function"):
     Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
 else:
     Z = clf.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
-
+print(y_test_psr)
         # Put the result into a color plot
 Z = Z.reshape(xx.shape)
-ax2.contourf(xx, yy, Z, cmap=cm, alpha=.8)
-
+cs=ax2.contourf(xx, yy, Z, cmap='binary', alpha=.8)
+fig1.colorbar(cs)
         # Plot the training points
-scatter1=ax2.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=cm_bright,edgecolors='k')
+scatter1=ax2.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap='tab20b',edgecolors='k',marker='x')
         # Plot the testing points
-scatter2=ax2.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm_bright, alpha=0.6,edgecolors='k')
+
+scatter2=ax2.scatter(X_test_spec_agn, X_test_sig_agn, c=y_test_agn, cmap='tab20b', alpha=0.8,edgecolors='k')
+scatter3=ax2.scatter(X_test_spec_psr, X_test_sig_psr, c=y_test_psr, cmap='cool', alpha=1,edgecolors='k')
 
 #Make legends:
 k=scatter1.legend_elements()[0]
 k2=scatter2.legend_elements()[0]
-k3=k+k2
-k3=np.asarray(k3)
-legend1 = ax2.legend(k3,('Train AGN', 'Train PSR','Test AGN','Test PSR'),loc='upper right',fontsize=16)
+k3=scatter3.legend_elements()[0]
 
+k4=k+k2+k3
+k4=np.asarray(k4)
+legend1 = ax2.legend(k4,('Train AGN', 'Train PSR','Test AGN','Test PSR'),loc='upper right',fontsize=16)
 
+#print(clf.n_layers_)
 ax2.set_xlim(xx.min(), xx.max())
-ax2.set_title('Random Forest (200,4)')
+ax2.set_title('Random Forest (50,6)')
 #ax2.set_ylim(yy.min(), yy.max())
 ax2.set_xlabel('Spectral Index')
 ax2.set_ylabel('Log(Significant_Curvature)')
@@ -207,7 +230,7 @@ ax2.set_ylim((-2,5))
   #      if ds_cnt == 0:
    #         ax.set_title(name)
 ax2.text(xx.max() , yy.max() + .3, ('%.2f' % score).lstrip('0'),
-                size=15, horizontalalignment='right')
+               size=15, horizontalalignment='right')
  #       i += 1
 
 '''        
