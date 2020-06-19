@@ -105,6 +105,31 @@ If two variables are highly correlated, then one can discard one of them, since 
 In the following we will see that not all features are important for classification and further restrict our attention to the four features, which have the largest separating power for tree-based algorithms.
 
 \end{comment}  
+The feature statistics can be seen in the table 1.
+\vspace{1cm}
+
+\pgfplotstableread[col sep=comma]{data/3fglassocfeatures.csv}\tablea
+\begin{table}
+\resizebox{0.45\textwidth}{!}{
+\pgfplotstabletypeset[
+columns={Name,Mean,SD,Minimum,Maximum},
+column type=c,
+string type,
+every head row/.style={before row=\toprule,after row=\midrule,},
+every last row/.append style={after row={\hline} },
+every first column/.style={column type/.add={|}{}},
+every last column/.style={column type/.add={}{|}},
+columns/Name/.style={column name=Feature Name,string replace*={_}{\textunderscore}},
+columns/Mean/.style={column name=Mean,column type=c,numeric type,fixed,precision=2},
+columns/SD/.style={column name=StandardDeviation,numeric type,fixed,precision=2},
+columns/Minimum/.style={column name=Minimum,numeric type,fixed,precision=2},
+columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
+skip rows between index={10}{25}
+]{\tablea}
+}
+\caption{Statistics for used features}
+\end{table}
+
 
 \subsection{Construction of classification algorithms}
 
@@ -254,7 +279,7 @@ In order to illustrate the separation of the PS into AGNs and pulsars, we retrai
 \begin{figure}[h]
 \centering
 \hspace*{-2.5cm}
-\includegraphics[width=0.55\textwidth,left]{plots/classification_domains/rf_20_4.pdf}
+\includegraphics[width=0.55\textwidth,left]{plots/classification_domains/rf_50_6_final.pdf}
 \caption{Classification Domains of RF.  \dima{Why don't we show the domains for the final model, which we use for predictions?
 Moreover, it looks like for max depth 12 the model overfits the data, i.e., using max depth of 4 or 5 would be better for the final model.
 We should also add color bars for all domain plots and make the labels larger.}}
