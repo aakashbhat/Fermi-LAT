@@ -12,6 +12,8 @@ Accuracies of our chosen algorithms are given in table 2, averaged over 1000 run
 
 
 \begin{table}[!h]
+
+\resizebox{0.45\textwidth}{!}{
     \tiny
  %  \centering
     \renewcommand{\tabcolsep}{0.3mm}
@@ -32,8 +34,8 @@ Accuracies of our chosen algorithms are given in table 2, averaged over 1000 run
     LR & LBFGS solver, 200 iterations & 97.6&87.14 (balanced), 95.08 \\
     \hline
      
-    \end{tabular}
-
+    \end{tabular}}
+    \vspace{0.2cm}
     \caption{Accuracy of the 4 selected algorithms on 3FGL unassociated data.}
     \label{tab:selected_algs}
 \end{table}
@@ -66,6 +68,7 @@ Here we discuss the results of our probabilistic classification on the unassocia
 
 
 \pgfplotstableread[col sep=comma]{data/3fgl.csv}\loadedtable
+\begin{table}
 \pgfplotstabletypeset[columns={Source_Name_3FGL,AGN_BDT,AGN_RF,AGN_LR,AGN_NN},
 column type=l,
 string type,
@@ -80,7 +83,8 @@ columns/AGN_RF/.style={column name=RF,numeric type,fixed,precision=3},
 columns/AGN_LR/.style={column name=LR,numeric type,fixed,precision=3},
 skip rows between index={4}{242}
 ]\loadedtable
-
+\caption{Catalog Rows and Columns for 3FGL unassociated data}
+\end{table}
 %\pgfplotstabletypeset[
 %    col sep=comma,
  %   string type,
