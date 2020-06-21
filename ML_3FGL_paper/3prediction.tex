@@ -3,8 +3,7 @@
 
 
 In this section we use of the selected algorithms from the previous section to predict classes for the unassociated sources in the 3FGL. 
-We then use the associations, which exist for some of these sources in the 4FGL, to check the accuracy of our methods on the unassociated data.  A total of 286 such sources were identified. These contain 20 pulsars and 266 AGNs.
-
+We then use the associations, which exist for some of these sources in the 4FGL, to check the accuracy of our methods on the unassociated data.  A total of 242 such sources were identified for which we could find associations. All of these sources have an FGL counterpart name in the 4FGL. There were also those which had an FHL counterpart name, but we ignored them for the purpose of this study.\\
 %\subsection{Unassociated sources in 3FGL with associations in 4FGL}
 %There were a total of 286 sources without associations in 3FGL but associations in 4FGL. We trained our algorithms on the entire set of associated data from the 3FGL, and then tested our algorithms on these 286 sources. The probabilistic version is discussed in the next section.  \\
 
@@ -23,15 +22,15 @@ Accuracies of our chosen algorithms are given in table 2, averaged over 1000 run
     \hline
     Algorithm&Parameters & Training Accuracy & Testing Accuracy\\
     \hline
-    RF& 50 trees, max depth 6  &97.69& 95.76   \\
+    RF& 50 trees, max depth 6  &97.69& 95.32  \\
     \hline
-    NN & 300, 10 Neurons, Adam & 97.40& 95.35 \\
+    NN & 300, 10 Neurons, Adam & 97.40& 95.56 \\
     \hline %\midrule   -> aakash do you mean this?
-    BDT & 100 trees, max depth 2    &   97.80&95.45  \\
+    BDT & 100 trees, max depth 2    &   97.80&95.86 \\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
     \hline
-    LR & LBFGS solver, 200 iterations & 97.6&87.14 (balanced), 95.08 \\
+    LR & LBFGS solver, 200 iterations & 97.60&87.14 (balanced), 95.08 \\
     \hline
      
     \end{tabular}}
@@ -48,10 +47,10 @@ Accuracies of our chosen algorithms are given in table 2, averaged over 1000 run
 
 \subsection{3FGL Probabilistic classification} 
 
-Here we discuss the results of our probabilistic classification on the unassociated data.
+Here we discuss the results of our probabilistic classification on the unassociated data. The 242 sources for whom FGL counterparts existed were plotted in figure 10. This figure shows all AGNs and PSRs, including those which were correctly identified by all the 4 algorithms (given by keyword classified) and those which were misclassified by all 4 algorithms (given by keyword misclassified). 
 \begin{figure*}[h]
-%\centerin
-\includegraphics[width=\textwidth]{plots/plot_4fglassoc_3fglunassoc_242.pdf}
+\centering
+\includegraphics[width=\textwidth]{plots/plot_final.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/PSR3.pdf}
 \caption{Comparison of class prediction for unassociated 3FGL sources with classes in 4FGL. }
 %\includegraphics[width=\twopicsp\textwidth]{plots/final_catalog.pdf}
@@ -65,7 +64,7 @@ Here we discuss the results of our probabilistic classification on the unassocia
 %{data/3fglunassoc_4fglassoc_withprob.csv}{Source_Name_3FGL=\source,ln(Flux_Density_3FGL)=\flux}%
 %{\thecsvrow & \source & \flux}
 
-
+Table 4 shows an example of the probabilistic catalog we created for these 242 sources.
 
 \pgfplotstableread[col sep=comma]{data/3fgl.csv}\loadedtable
 \begin{table}

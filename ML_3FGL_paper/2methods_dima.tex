@@ -121,14 +121,14 @@ every first column/.style={column type/.add={|}{}},
 every last column/.style={column type/.add={}{|}},
 columns/Name/.style={column name=Feature Name,string replace*={_}{\textunderscore}},
 columns/Mean/.style={column name=Mean,column type=c,numeric type,fixed,precision=2},
-columns/SD/.style={column name=StandardDeviation,numeric type,fixed,precision=2},
+columns/SD/.style={column name=Standard Deviation,numeric type,fixed,precision=2},
 columns/Minimum/.style={column name=Minimum,numeric type,fixed,precision=2},
 columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
 skip rows between index={10}{25}
 ]{\tablea}
 }
 \vspace{0.2cm}
-\caption{Statistics for used features}
+\caption{Statistics of features from the 3FGL which were used}
 \end{table}
 
 
@@ -334,8 +334,8 @@ Dependence on epochs for different solvers and activation function
 \hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/nn_neurons_300epochs.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
-\caption{Dependence of accuracy on number of neurons for different models.
-\dima{I'm not sure I understand where you use Tanh or RELU activations, if we have only one hidden layer with sigmoid activation (I guess) for classification?}}
+\caption{Dependence of accuracy on number of neurons for different models.}
+%\dima{I'm not sure I understand where you use Tanh or RELU activations, if we have only one hidden layer with sigmoid activation (I guess) for classification?}}
 \label{fig:NN_neurons}
 \end{figure}
 
@@ -362,7 +362,7 @@ misclassifications from the previous step. The new trees are added with an addit
 We will use learning rate $\nu = 0.3$.
 \dima{I'm not sure we need to discuss the learning rate, since we haven't done so in, e.g., neural networks}
 Dependence of the accuracy on tree depth is shown in Figure \ref{fig:BDT_depth}. The plot shows that depth of 2 and 100 trees is near the optimal limit. 
-\dima{Which depth do we use for the final algorithm, it looks like depth 2 gives the best results. What about depth = 1?}
+%\dima{Which depth do we use for the final algorithm, it looks like depth 2 gives the best results. What about depth = 1?}
 
 \begin{figure}[h]
 %\centerin
@@ -408,10 +408,10 @@ Boosted Decision Trees or Gradient boosting algorithms are similar to Random For
 \subsection{Logistic Regression}
 
 Logisitc Regression parameters include maximum iterations, tolerance, and a regularization parameter. In the figure below on can see that iterations change the accuracy only for the saga solver, and both lbfgs and liblinear are unchanged. The latter are faster algorithms good for smaller datasets like ours. Furthermore for our data set there is no strict dependence on the tolerance and after a threshold vale the regularization also produces the same result.
-\dima{Which parameters do we use for the final algorithm? For some set of parameters, the LR should be equivalent to NN in our case,
-in particular, the domains should be exactly the same (up to numerical convergence). 
-We can discuss several solvers, but for plots and further calculations I'd suggest to choose one solver and use only it, 
-I'm not sure if many people would be interested to see a dependence on the solver.}
+%\dima{Which parameters do we use for the final algorithm? For some set of parameters, the LR should be equivalent to NN in our case,
+%in particular, the domains should be exactly the same (up to numerical convergence). 
+%We can discuss several solvers, but for plots and further calculations I'd suggest to choose one solver and use only it, 
+%I'm not sure if many people would be interested to see a dependence on the solver.}
 
 
 \begin{figure}[h]
