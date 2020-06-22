@@ -23,6 +23,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, Gradien
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 from sklearn.linear_model import LogisticRegression
+import matplotlib.colors as colors
 
 
 plt.rcParams['xtick.labelsize'] = 22
@@ -35,7 +36,7 @@ plt.rcParams['lines.markersize'] = 10
 
 
 #Training Fata:
-se=1
+se=4
 np.random.seed(se)
 dataframe = pandas.read_csv("3fgl_associated_AGNandPSR_final_newindices_withclasses2_all.csv", header=None)
 dataset1 = dataframe.values 
@@ -161,20 +162,36 @@ ax1.set_title('Input Data')
 plt.show()
 
 #Main part of code:
+c1_train_inds = [i for i in range(len(y_train)) if y_train[i] > 0.5]
+c1_test_inds = [i for i in range(len(y_test)) if y_test[i] > 0.5]
+c2_train_inds = [i for i in range(len(y_train)) if y_train[i] <= 0.5]
+c2_test_inds = [i for i in range(len(y_test)) if y_test[i] <= 0.5]
 
 fig1,ax2 = plt.subplots()
 
+trainc1_color = 'green'
+trainc1_marker = 's'
+testc1_color = 'yellow'
+testc1_marker = 'd'
+    
+trainc2_color = 'blue'
+trainc2_marker = '^'
+testc2_color = 'magenta'
+testc2_marker = 'v'
 #Choose classifier:
-clf=RandomForestClassifier(max_depth=6, n_estimators=50, class_weight='balanced',oob_score=True)
-#clf= MLPClassifier(max_iter=50,hidden_layer_sizes=(10,), activation='tanh', solver='adam',batch_size=1000).fit(X_train,y_train)
-#clf=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=3, random_state=0).fit(X_train,y_train)
-#clf=LogisticRegression(max_iter=300, C=0.1,solver='lbfgs').fit(X_train,y_train)
-clf.fit(X_train, y_train)
+#clf=RandomForestClassifier(max_depth=20, n_estimators=100, class_weight='balanced',oob_score=True)
+clf= MLPClassifier(max_iter=50,hidden_layer_sizes=(2,), activation='tanh', solver='adam').fit(X_train,y_train)
+#clf=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2, random_state=0).fit(X_train,y_train)
+#clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
+#clf.fit(X_train, y_train)
 
 lenth=len(X_test)
 score = clf.score(X_test, y_test)       #Score of our classifier
 i=0
+levels = np.arange(0., 1.01, 0.1)
+cm = plt.cm.GnBu_r
 
+norm = colors.Normalize(vmin=0, vmax=0.9)
 
 X_test_spec_agn=[]
 X_test_sig_agn=[]
@@ -193,34 +210,51 @@ for i in range(lenth):
         y_test_psr.append(y_test[i])
         # Plot the decision boundary. For that, we will assign a color to each
         # point in the mesh [x_min, x_max]x[y_min, y_max].
-if hasattr(clf, "decision_function"):
-    Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
-else:
-    Z = clf.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
+#if hasattr(clf, "decision_function"):
+#    Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
+#else:
+Z = clf.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
 print(y_test_psr)
         # Put the result into a color plot
 Z = Z.reshape(xx.shape)
-cs=ax2.contourf(xx, yy, Z, cmap='binary', alpha=.8)
-fig1.colorbar(cs)
+cs=ax2.contourf(xx, yy, Z, cmap=cm, alpha=.8,levels=levels)
+fig1.colorbar(cs,ax=ax2,shrink=0.9)
         # Plot the training points
-scatter1=ax2.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap='tab20b',edgecolors='k',marker='x')
-        # Plot the testing points
+alpha=0.9
 
-scatter2=ax2.scatter(X_test_spec_agn, X_test_sig_agn, c=y_test_agn, cmap='tab20b', alpha=0.8,edgecolors='k')
-scatter3=ax2.scatter(X_test_spec_psr, X_test_sig_psr, c=y_test_psr, cmap='cool', alpha=1,edgecolors='k')
+# Training points for class 2
+ax2.scatter(X_train[c2_train_inds, 0], X_train[c2_train_inds, 1], c=trainc2_color, alpha=alpha,
+                   marker=trainc2_marker, edgecolors='k', label='AGN training')
+        # Testing points for class 2
+ax2.scatter(X_test[c2_test_inds, 0], X_test[c2_test_inds, 1], c=testc2_color, alpha=alpha,
+                   marker=testc2_marker, edgecolors='k', label='AGN testing')
+        # Training points for class 1
+ax2.scatter(X_train[c1_train_inds, 0], X_train[c1_train_inds, 1], c=trainc1_color, alpha=alpha,
+                   marker=trainc1_marker, edgecolors='k', label='PSR training')
+        # Testing points for class 1
+ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, alpha=alpha,
+                   marker=testc1_marker, edgecolors='k', label='PSR testing')
+
+#scatter1=ax2.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap='tab20b',edgecolors='k',marker='x')
+        # Plot the testing points
+ax2.text(0.02,-1.6,"Solver: ADAM",fontsize=17)
+ax2.text(0.02,-1.9,"Epochs: 50",fontsize=17)
+
+#scatter2=ax2.scatter(X_test_spec_agn, X_test_sig_agn, c=y_test_agn, cmap='tab20b', alpha=0.8,edgecolors='k')
+#scatter3=ax2.scatter(X_test_spec_psr, X_test_sig_psr, c=y_test_psr, cmap='cool', alpha=1,edgecolors='k')
 
 #Make legends:
-k=scatter1.legend_elements()[0]
-k2=scatter2.legend_elements()[0]
-k3=scatter3.legend_elements()[0]
+#k=scatter1.legend_elements()[0]
+#k2=scatter2.legend_elements()[0]
+#k3=scatter3.legend_elements()[0]
 
-k4=k+k2+k3
-k4=np.asarray(k4)
-legend1 = ax2.legend(k4,('Train AGN', 'Train PSR','Test AGN','Test PSR'),loc='upper right',fontsize=16)
+#k4=k+k2+k3
+#k4=np.asarray(k4)
+ax2.legend()
 
 #print(clf.n_layers_)
 ax2.set_xlim(xx.min(), xx.max())
-ax2.set_title('Random Forest (50,6)')
+ax2.set_title('Neural Network')
 #ax2.set_ylim(yy.min(), yy.max())
 ax2.set_xlabel('Spectral Index')
 ax2.set_ylabel('Log(Significant_Curvature)')
