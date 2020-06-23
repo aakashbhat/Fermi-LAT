@@ -12,28 +12,6 @@ After having perused the 3FGL data we moved on to the 4FGL associated data. The 
 \label{fig:Maps_data}
 \end{figure*}
 
-\pgfplotstableread[col sep=comma]{data/4fglassocfeatures.csv}\tableaf
-\begin{table}
-\resizebox{0.45\textwidth}{!}{
-\pgfplotstabletypeset[
-columns={Name,Mean,SD,Minimum,Maximum},
-column type=c,
-string type,
-every head row/.style={before row=\toprule,after row=\midrule,},
-every last row/.append style={after row={\hline} },
-every first column/.style={column type/.add={|}{}},
-every last column/.style={column type/.add={}{|}},
-columns/Name/.style={column name=Feature Name,string replace*={_}{\textunderscore}},
-columns/Mean/.style={column name=Mean,column type=c,numeric type,fixed,precision=2},
-columns/SD/.style={column name=Standard Deviation,numeric type,fixed,precision=2},
-columns/Minimum/.style={column name=Minimum,numeric type,fixed,precision=2},
-columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
-skip rows between index={17}{28}
-]{\tableaf}
-}
-\vspace{0.2cm}
-\caption{Statistics for finalized features from 4FGL}
-\end{table}
 
 In this section, we chose not to do another preliminary analysis of the algorithms. Therefore we used the same chosen algorithms as before. However, due to the number of features being higher, we hypothesized that the Neural Network should under-perform as compared to before. 
 \begin{table}[!h]
@@ -46,11 +24,11 @@ In this section, we chose not to do another preliminary analysis of the algorith
 
     \begin{tabular}{|c|c|c|}
     \hline
-    Algorithm&Parameters & Training Accuracy \\
+    Algorithm&Parameters & Testing Accuracy \\
     \hline
     RF& 50 trees, max depth 6  &98.27\\
     \hline
-    NN & 300, 10 Neurons, Adam & 95.36\\
+    NN & 300, 17 Neurons, Adam & 96.78\\
     \hline %\midrule   -> aakash do you mean this?
     BDT & 100 trees, max depth 2    &   98.23\\
 %    \hline %\midrule   -> aakash do you mean this?
