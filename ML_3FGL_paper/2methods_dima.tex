@@ -105,31 +105,9 @@ If two variables are highly correlated, then one can discard one of them, since 
 In the following we will see that not all features are important for classification and further restrict our attention to the four features, which have the largest separating power for tree-based algorithms.
 
 \end{comment}  
-The feature statistics can be seen in the table 1.
-\vspace{1cm}
+The feature statistics can be seen in the appendix.
 
-\pgfplotstableread[col sep=comma]{data/3fglassocfeatures.csv}\tablea
-\begin{table}
-\resizebox{0.45\textwidth}{!}{
-\pgfplotstabletypeset[
-columns={Name,Mean,SD,Minimum,Maximum},
-column type=c,
-string type,
-every head row/.style={before row=\toprule,after row=\midrule,},
-every last row/.append style={after row={\hline} },
-every first column/.style={column type/.add={|}{}},
-every last column/.style={column type/.add={}{|}},
-columns/Name/.style={column name=Feature Name,string replace*={_}{\textunderscore}},
-columns/Mean/.style={column name=Mean,column type=c,numeric type,fixed,precision=2},
-columns/SD/.style={column name=Standard Deviation,numeric type,fixed,precision=2},
-columns/Minimum/.style={column name=Minimum,numeric type,fixed,precision=2},
-columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
-skip rows between index={10}{25}
-]{\tablea}
-}
-\vspace{0.2cm}
-\caption{Statistics of features from the 3FGL which were used}
-\end{table}
+
 
 
 \subsection{Construction of classification algorithms}
@@ -349,7 +327,7 @@ Domains for NN with only two input features are shown in Figure \ref{fig:NN_doma
 \includegraphics[width=0.6\textwidth]{plots/classification_domains/nn_adam_10_tanh_50_final.pdf}
 \hspace*{-1.5cm}
 \includegraphics[width=0.6\textwidth]{plots/classification_domains/nn_adam_10_tanh_300_final.pdf}
-\caption{Classification Domains for Neural Networks for the same complexity of 10 Neurons and tanh activation, using ADAM solver. }
+\caption{Classification Domains for Neural Networks for the same complexity of 2 Neurons and tanh activation, using ADAM solver. }
 \label{fig:NN_domains}
 \end{figure}
 
@@ -417,8 +395,8 @@ Logisitc Regression parameters include maximum iterations, tolerance, and a regu
 \begin{figure}[h]
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/lr_train.pdf}
-\includegraphics[width=\twopicsp\textwidth]{plots/lr_train_reg.pdf}
-\caption{Dependence of LR accuracy on the regularization parameter}
+\includegraphics[width=\twopicsp\textwidth]{plots/lr_train_weights.pdf}
+\caption{Dependence of LR accuracy on Iterations for different solvers. The difference in accuracy due to weighting is almost 3\% and therefore a significnt effect.}
 %\dima{I think it's a wrong plot for regularization (it says tolerance in the plot title). 
 %I'm not sure we need to plot accuracy vs tolerance or iterations.
 %Also please add the algorithm names in the filenames.}}
