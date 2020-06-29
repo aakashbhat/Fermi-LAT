@@ -43,7 +43,8 @@ rng = np.random.RandomState(2)
 X += 2 * rng.uniform(size=X.shape)
 linearly_separable = (X, y)
 
-datasets = [make_moons(noise=0.3, random_state=0),
+
+datasets = [make_moons(noise=0.3, random_state=0, n_samples=(300, 3000)),
             #make_circles(noise=0.2, factor=0.5, random_state=1),
             #linearly_separable
             ]
@@ -71,7 +72,7 @@ for ds_cnt, ds in enumerate(datasets):
 
     # just plot the dataset first
     #cm = plt.cm.RdBu
-    cm = plt.cm.GnBu
+    cm = plt.cm.GnBu_r
     norm = colors.Normalize(vmin=0, vmax=0.9)
     
     #cm_bright = ListedColormap(['#00FF00', '#0000FF'])
