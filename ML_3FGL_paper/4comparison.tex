@@ -1,7 +1,7 @@
 \section{Prediction for unassociated source in the 4FGL catalog}
 \lb{sec:4FGLprediction}
 
-After having perused the 3FGL data we moved on to the 4FGL associated data. The 4FGL catalog has higher number of features, especially due to the difference in modeling when compared with the 3FGL. We selected 31 of these features and looked for the corelation between them. If Any feature was corelated or anti-corelated with a pearson index of $\pm$0.75 or higher with another, then only one of them was kept. This resulted in 17 features making it through in the end, which includes 10 of the original features we had used in the 3FGL catalog. The full corelation matrix with indices can be seen below.\\
+After having perused the 3FGL data we moved on to the 4FGL associated data. The 4FGL catalog has higher number of features, especially due to the difference in modeling when compared with the 3FGL. We selected 31 of these features and looked for the corelation between them. If Any feature was corelated or anti-corelated with a pearson index of $\pm$0.75 or higher with another, then only one of them was kept. This resulted in 17 features making it through in the end, which includes 10 of the original features we had used in the 3FGL catalog and and 2 more hardness ratios since 4FGL catalog has 2 more energy bands than 3FGL. The full corelation matrix with indices can be seen below.\\
 
 \begin{figure*}[h]
 \centering
@@ -13,7 +13,7 @@ After having perused the 3FGL data we moved on to the 4FGL associated data. The 
 \end{figure*}
 
 
-In this section, we chose not to do another preliminary analysis of the algorithms. Therefore we used the same chosen algorithms as before. However, due to the number of features being higher, we hypothesized that the Neural Network should under-perform as compared to before. 
+In this section, we chose not to do another preliminary analysis of the algorithms. Therefore we used the same chosen algorithms as before, except with the neural network where we increased the number of neurons to 17 (same as the number of features). However, due to the number of features being higher, we hypothesized that the Neural Network should under-perform as compared to before.
 \begin{table}[!h]
 
 \resizebox{0.45\textwidth}{!}{
