@@ -13,7 +13,10 @@ or that a source is an overlay of two sources etc.
 All these possibilities can be included in the probabilistic catalogs, which were previously introduced for optical sources [Hogg]
 and for gamma-ray sources [Finkbeiner].
 Bayesian association probabilities were also introduced in 4FGL for faint sources.
-The goal of this paper is to ...
+The goal of this paper is to construct probabilistic classification of sources in the 3FGL and 4FGL catalogs using ML algorithms.
+Previously most probable classes of unassociated sources in Fermi LAT catalogs were reported in
+[Saz-Parkinson etc.].
+In this work we report not only the most probable classes but rather probabilities of classes using four different ML algorithms.
 
 Catalogs of gamma-ray point sources are typically designed to have low false detection rate. 
 Nevertheless, 469 sources out of 3033 in the third \Fermi-LAT catalog (3FGL) [3FGL] have no counterparts 
@@ -32,7 +35,7 @@ Another reason for an absence of a previously detected source in a new catalog i
 In particular, flat spectrum radio quasars (FSRQs) are highly variable active galactic nuclei (AGNs).
 If a source was active during the observation time of 3FGL but inactive afterwards, 
 then its significance in the 4FGL can be below the detection threshold.
-The problem here is connected to a selection of a hard detection threshold of $TS = 16$ for 3FGL and 4FGL catalogs.
+The problem here is connected to a selection of a hard detection threshold of $TS = 25$ for 3FGL and 4FGL catalogs.
 Selection of a lower detection threshold could help to keep the variable sources inside the catalog, 
 but it will not solve the problem, since the variable sources near the lower threshold can also disappear in the new catalog.
 Moreover, lower threshold would lead to more false detections due to fluctuations of the background.
@@ -46,7 +49,7 @@ In this catalog, each point-like object detected above a certain threshold
 would be classified into several classes with a set of probabilities, rather than associated to one class (or deemed unassociated).
 The classes can be various types of Galactic and extra-galactic sources, diffuse emission deficiency, extended source.
 Even the statistical fluctuation of the background can be viewed as one of the classes: in this case, objects with small statistical significance
-will have a high probability to the associated to the statistical fluctuation class.
+will have a high probability to be associated to the statistical fluctuation class.
 A user of such a catalog will have the freedom to choose the probability threshold for the class that he or she is interested in.
 
 
@@ -80,10 +83,10 @@ In this case, the probability will include not only the statistical probability 
 In this paper we will construct a probabilistic catalog using as an example classification of unassociated sources in the \Fermi-LAT catalogs. 
 We will start with the 3FGL and classify the unassociated sources into pulsars and AGNs using the associated sources in 3FGL for training of the classification algorithms.
 We will use several machine learning algorithms for the classification, e.g., random forest, boosted decision trees, logistic regression,
-and neural networks (since the number of features and the training sample are small, the neural networks will be rather shallow).
-We will show applications of the probabilistic catalog for predicting the number of pulsars among the unassociated source and in construction of the source counts as a function of their flux, $dN/dS$.
+and neural networks.
+We will show applications of the probabilistic catalog for predicting the number of pulsars and AGNs among the unassociated source and in construction of the source counts as a function of their flux, $dN/dS$.
 Since unassociated sources on average have smaller flux than the associated ones, the $dN/dS$ distribution for the probabilistic catalog extends to lower fluxes relative to counting only the associated sources.
 We will compare the prediction for the number of pulsars and the $dN/dS$ functions with the 4FGL.
-
+We will also probabilistically classify unassociated sources in the 4FGL catalog.
 
 
