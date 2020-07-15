@@ -3,13 +3,20 @@
 
 
 In this section we use the algorithms from the previous section to predict classes for the unassociated sources in the 3FGL. 
-We have selected RF with 50 trees and max depth of 6, BDT with 100 trees and max depth of 2, NN with 10 neurons, ADAM solver, 300 epochs, and LR with LBFGS solver, 200 iterations.
+We have selected the following four algorithms: RF with 50 trees and max depth of 6, BDT with 100 trees and max depth of 2, NN with 10 neurons, ADAM solver, 300 epochs, and LR with LBFGS solver, 200 iterations.
 The details of the selected algorithms are summaries in Table \ref{tab:selected_algs}.
 ``Average testing accuracy" is computed by taking 1000 times 70\% - 30\% split into training testing samples and averaging over the 
 accuracies computed for the testing samples.
 In addition, we look at sources, which are unassociated in 3FGL but have either pulsar or AGN association in 4FGL: there are 242 such sources.
 The accuracy of our prediction for the four selected algorithms, taking the 4FGL classes as the true values, is reported in the column ``Accuracy from Comparison with 4FGL''.
-The correct classifications and misclassifications for the 242 sources with associations in 4FGL are also presented in Figure \ref{fig:Maps_data}.
+The correct classifications and misclassifications for the 242 sources with associations in 4FGL are also presented in Figure \ref{fig:3FGL_vs_4FGL_classes}.
+The class at the beginning of the label names corresponds to the association in the 4FGL, while the second half of the labels corresponds to classification of unassociated sources in 3FGL, for example, ``PSRs classified only as PSRs'' shows sources which have PSR association in 4FGL and all four algorithms classified the corresponding unassociated sources in 3FGL as PSRs, while ``PSRs classified as wither PSRs or AGNs'' labels sources with PSR associations in 4FGL but the corresponding unassociated sources in 3FGL have both PSR and AGN classifications by different ML algorithms.
+The unassociated sources are classified as PSRs or AGNs if the corresponding probability is larger than 0.5.
+We notice that misclassified or partially misclassified sources in Figure \ref{fig:3FGL_vs_4FGL_classes} typically happen on the boundary between the two classes or even inside the opposite class.
+Many of these sources also have flags in the 3FGL catalog, such as a potential problem with the background diffuse emission model in the location of the source, which can lead to a poor reconstruction of the source spectrum and, as a result, misclassification of the source.
+
+%Here we discuss the results of our probabilistic classification on the unassociated data. The 242 sources for whom FGL counterparts existed were plotted in figure 10. This figure shows all AGNs and PSRs, including those which were correctly or incorrectly identified by all the 4 algorithms (given by keyword only) and those which are a mix of correct and incorrect classification by at least one of the 4 algorithms (given by keywords either/or). 
+
 
 
 \begin{table}[!h]
@@ -42,17 +49,31 @@ The correct classifications and misclassifications for the 242 sources with asso
     \label{tab:selected_algs}
 \end{table}
 
-Here we discuss the results of our probabilistic classification on the unassociated data. The 242 sources for whom FGL counterparts existed were plotted in figure 10. This figure shows all AGNs and PSRs, including those which were correctly or incorrectly identified by all the 4 algorithms (given by keyword only) and those which are a mix of correct and incorrect classification by at least one of the 4 algorithms (given by keywords either/or). 
 \begin{figure*}[h]
 \centering
 \includegraphics[width=\textwidth]{plots/plot_final.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/PSR3.pdf}
 \caption{Comparison of class prediction for unassociated 3FGL sources with classes in 4FGL. }
 %\includegraphics[width=\twopicsp\textwidth]{plots/final_catalog.pdf}
-\label{fig:Maps_data}
+\label{fig:3FGL_vs_4FGL_classes}
 \end{figure*}
 
-Table 4 shows an example of the probabilistic catalog we created for these 242 sources.
+As a result of the classification of 3FGL sources with the four ML algorithms,
+we created probabilistic catalogs for unassociated and, separately, for associated 3FGL sources.
+We have also subselected 242 unassociated 3FGL sources, which have PSR or AGN associations in 4FGL,
+and saved them for convenience of comparison as a separate file, including characteristics from both 3FGL and 4FGL catalogs.
+In the probabilistic catalogs we add columns with corresponding probabilities for each algorithm and each class,
+i.e., provided that there are 4 algorithms and 2 classes, we add 8 columns.
+Although the class probabilities for each algorithms should add up to one for every source, we still keep the columns for all classes for convenience.
+Table \ref{tab:prob_cat} shows an example of the probabilistic catalog for a few unassociated 3FGL sources.
+Notice that the first source is classified as a pulsar by BDT and as an AGN by RF, LR, and NN algorithms,
+i.e., it will have a label ``classified either as PSRs or AGNs'' in Figure \ref{fig:3FGL_vs_4FGL_classes}.
+The second and third sources are classified as AGNs by all four algorithms, i.e., they will have a label
+``classified only as AGNs'',
+while the last source is classified as a pulsar by all four algorithms, i.e., it will have a label
+``classified only as PSRs''.
+
+We have found that out of the 
 
 \pgfplotstableread[col sep=comma]{data/catalogs/3FGL_unassoc_vs_4FGL_assoc.csv}\loadedtable
 \begin{table}
@@ -61,12 +82,16 @@ column type=l,
 string type,
 every head row/.style={before row={\toprule & \multicolumn{4}{c}{AGN Probability} \\},after row=\midrule,},
 every last row/.style={after row=\vdots },
-columns/Source_Name_3FGL/.style={column name=Source Name},
+columns/Source_Name_3FGL/.style={column name=Source\_Name},
 columns/AGN_BDT/.style={column name=BDT,numeric type,fixed,precision=3},
 columns/AGN_NN/.style={column name=NN,numeric type,fixed,precision=3},
 columns/AGN_RF/.style={column name=RF,numeric type,fixed,precision=3},
 columns/AGN_LR/.style={column name=LR,numeric type,fixed,precision=3},
 skip rows between index={4}{242}
 ]\loadedtable
-\caption{Catalog Rows and Columns for 3FGL unassociated data}
+\caption{\label{tab:prob_cat}
+Example of the AGN classification probabilities for a few unassociated sources in the 3FGL catalog.}
 \end{table}
+
+
+

@@ -96,7 +96,7 @@ We use the associated sources which were classified as either AGNs (classificati
 
 There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties.
 In the first part of our work, we use the following ten features:
-$\log_{10}$(Flux\_Density), $\log_{10}$(Unc\_Energy\_Flux100), Spectral\_Index, $\log_{10}$(Signif\_Curve), four hardness ratios (as defined in \cite{2016ApJ...820....8S}), $\log_{10}$(Variability\_Index), and the galactic latitude GLAT.
+$\ln$(Flux\_Density), $\ln$(Unc\_Energy\_Flux100), Spectral\_Index, $\ln$(Signif\_Curve), four hardness ratios (as defined in \cite{2016ApJ...820....8S}), $\ln$(Variability\_Index), and the galactic latitude GLAT.
 The table of features and their statistics can be found in the appendix.
 \begin{comment}
 %The complete list of sources, along with some statistics, is given in the appendix. 
@@ -231,13 +231,13 @@ We find that the four most important features are significance of curvature, har
     \hline
     Feature &  20 trees, depth 2& 50 trees, depth 6\\
     \hline
-    $\log_{10}$(Flux\_Density) & 0.04 & 0.05        \\
+    $\ln$(Flux\_Density) & 0.04 & 0.05        \\
     \hline
-    $\log_{10}$(Unc\_Energy\_Flux100) & 0.07     & 0.08 \\
+    $\ln$(Unc\_Energy\_Flux100) & 0.07     & 0.08 \\
     \hline %\midrule   -> aakash do you mean this?
    Spectral\_Index & 0.13     &   0.11\\
     \hline %\midrule   -> aakash do you mean this?
-    $\log_{10}$(Signif\_Curve) & 0.33 &0.29  \\
+    $\ln$(Signif\_Curve) & 0.33 &0.29  \\
     \hline
    var&  0.06   &  0.10  \\
     \hline %\midrule   -> aakash do you mean this?
@@ -320,9 +320,9 @@ The Classification domains in case of two features for the maximal depth of 2 an
 \begin{figure}[h]
 %\centerin
 \hspace*{-1cm}
-\includegraphics[width=0.6\textwidth]{plots/bdt_100_2.pdf}
+\includegraphics[width=0.5\textwidth]{plots/bdt_100_2.pdf}
 \hspace*{-1cm}
-\includegraphics[width=0.6\textwidth]{plots/bdt_100_12.pdf}
+\includegraphics[width=0.5\textwidth]{plots/bdt_100_12.pdf}
 \caption{Classification Domains for BDT}
 \label{fig:BDT_domains}
 \end{figure}
