@@ -72,8 +72,10 @@ The second and third sources are classified as AGNs by all four algorithms, i.e.
 ``classified only as AGNs'',
 while the last source is classified as a pulsar by all four algorithms, i.e., it will have a label
 ``classified only as PSRs''.
+Overall, there are 97 unassociated sources classified as pulsars by all four algorithms, 729 sources classified as AGNs by all four algorithms,
+and 182 sources with mixed classifications.
+Out of 97 sources classified as pulsars, 6 sources have counterparts in Parkes survey within 2 arc minutes.
 
-We have found that out of the 
 
 \pgfplotstableread[col sep=comma]{data/catalogs/3FGL_unassoc_vs_4FGL_assoc.csv}\loadedtable
 \begin{table}
@@ -93,5 +95,68 @@ skip rows between index={4}{242}
 Example of the AGN classification probabilities for a few unassociated sources in the 3FGL catalog.}
 \end{table}
 
+
+
+\pgfplotstableread[col sep=comma]{data/catalogs/3fgl_unassoc_predictions_matches_with_Parkes(2015)_1.csv}\loadedtable
+\begin{table}
+\pgfplotstabletypeset[columns={3FGL,GLON,GLAT,Separation},
+every head row/.style={before row={\toprule},after row=\midrule,},
+every last row/.style={after row=\midrule },
+columns/3FGL/.style={column name=Source\_Name,string type},
+columns/GLON/.style={column name=GLON,numeric type,fixed,precision=1},
+columns/GLAT/.style={column name=GLAT,numeric type,fixed,precision=1},
+columns/Separation/.style={column name=Sep (arksec),numeric type,fixed,precision=1}
+]\loadedtable
+\caption{\label{tab:parkes}
+Connection of unassociated 3FGL sources classified as PSRs with Parkes PSRs.}
+\end{table}
+
+
+\section{Prediction for unassociated source in the 4FGL catalog}
+\lb{sec:4FGLprediction}
+
+After having perused the 3FGL data we moved on to the 4FGL associated data. The 4FGL catalog has higher number of features, especially due to the difference in modeling when compared with the 3FGL. We selected 31 of these features and looked for the corelation between them. If Any feature was corelated or anti-corelated with a pearson index of $\pm$0.75 or higher with another, then only one of them was kept. This resulted in 17 features making it through in the end, which includes 10 of the original features we had used in the 3FGL catalog and and 2 more hardness ratios since 4FGL catalog has 2 more energy bands than 3FGL. The full corelation matrix with indices can be seen below.\\
+
+\begin{figure*}[h]
+\centering
+\includegraphics[width=\textwidth]{plots/correlation_4fgl_assoc.pdf}
+%\includegraphics[width=\twopicsp\textwidth]{plots/PSR3.pdf}
+\caption{Corelation matrix for 4FGL associated data }
+%\includegraphics[width=\twopicsp\textwidth]{plots/final_catalog.pdf}
+\label{fig:corr_mat}
+\end{figure*}
+
+
+In this section, we chose not to do another preliminary analysis of the algorithms. Therefore we used the same chosen algorithms as before, except with the neural network where we increased the number of neurons to 17 (same as the number of features). However, due to the number of features being higher, we hypothesized that the Neural Network should under-perform as compared to before.
+\begin{table}[!h]
+
+\resizebox{0.45\textwidth}{!}{
+    \tiny
+ %  \centering
+    \renewcommand{\tabcolsep}{0.3mm}
+\renewcommand{\arraystretch}{1.5}
+
+    \begin{tabular}{|c|c|c|}
+    \hline
+    Algorithm&Parameters & Testing Accuracy \\
+    \hline
+    RF& 50 trees, max depth 6  &98.27\\
+    \hline
+    NN & 300, 17 Neurons, Adam & 96.78\\
+    \hline %\midrule   -> aakash do you mean this?
+    BDT & 100 trees, max depth 2    &   98.23\\
+%    \hline %\midrule   -> aakash do you mean this?
+%    BDT & 200 trees, max depth 2    &   95.8  \\
+    \hline
+    LR & LBFGS solver, 200 iterations & 98.08\\
+    \hline
+     
+    \end{tabular}}
+    \vspace{0.2cm}
+    \caption{Accuracy of the 4 selected algorithms on 4FG associated data.}
+    \label{tab:selected_algs2}
+\end{table}
+
+As can be seen in the table above, all algorithms except the Neural Network perform better, reaching more than 98\% accuracy. 
 
 
