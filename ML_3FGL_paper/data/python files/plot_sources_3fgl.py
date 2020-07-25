@@ -38,25 +38,25 @@ plt.rcParams['lines.markersize'] = 13
 #Training Fata:
 se=4
 np.random.seed(se)
-dataframe = pandas.read_csv("3fgl_4fgl_cata.csv", header=None)
+dataframe = pandas.read_csv("./catas/3FGL_unassocvs4FGLassoc_AGN&PSR_catalog_unweighted.csv", header=None)
 dataset1 = dataframe.values 
 #np.random.shuffle(dataset1[1:])
-X = dataset1[1:,39:45]
+X = dataset1[1:,59:65]
 print(X)
 #Y = dataset[1:1933,5]
-y = dataset1[1:,2:4].astype(float)
+y = dataset1[1:,3:5].astype(float)
 print(y)
 #dataset=dataset[:,:5]
 num=[]
 num2=[]
 
 
-c1_mixed = [i for i in range(242) if X[i,0] =='true']
-c1_class_psr = [i for i in range(242) if X[i,1] =='true']
-c1_miss_psr = [i for i in range(242) if X[i,2] =='true']
-c1_mixed_agn = [i for i in range(242) if X[i,3] =='true']
-c1_class_agn = [i for i in range(242) if X[i,4] =='true']
-c1_missclass_agn = [i for i in range(242) if X[i,5] =='true']
+c1_mixed = [i for i in range(278) if X[i,0] =='true']
+c1_class_psr = [i for i in range(278) if X[i,1] =='true']
+c1_miss_psr = [i for i in range(278) if X[i,2] =='true']
+c1_mixed_agn = [i for i in range(278) if X[i,3] =='true']
+c1_class_agn = [i for i in range(278) if X[i,4] =='true']
+c1_missclass_agn = [i for i in range(278) if X[i,5] =='true']
 
 print(c1_miss_psr)
 trainc1_color = 'green'

@@ -43,7 +43,7 @@ dataframe = pandas.read_csv("./files/4fgl_assoc.csv", header=None)
 
 dataset2 = dataframe.values
 
-sourcenames=dataset2[1:,19]
+sourcenames=dataset2[1:,18]
 print(sourcenames)
 
 pro1=np.array((3441,10))
@@ -71,8 +71,8 @@ while se<1000:
     #dataframe = pandas.read_csv("4fgl_assoc_3.csv", header=None)
  
     np.random.shuffle(dataset1[1:])
-    X = dataset1[1:,0:17].astype(float)
-    Y = dataset1[1:,17]
+    X = dataset1[1:,0:16].astype(float)
+    Y = dataset1[1:,16]
 
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
@@ -81,7 +81,7 @@ while se<1000:
     train1=X[0:2408]                    
     train_truth1=Y[0:2408]
     val_inp1=X[2408:]
-    val_source=dataset1[2409:,19]
+    val_source=dataset1[2409:,18]
     val_out1=Y[2408:]
     print(val_source[1])
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
@@ -91,7 +91,7 @@ while se<1000:
     #pro2=pro1
 
     clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(train1, train_truth1)
-    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(10,), activation='tanh', solver='adam').fit(train1,train_truth1)
+    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(16,), activation='tanh', solver='adam').fit(train1,train_truth1)
     clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(train1, train_truth1)
     clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
     clf4.fit(train1,train_truth1)
@@ -108,7 +108,8 @@ while se<1000:
     fit3=clf3.predict_proba(val_inp1)
     fit4=clf4.predict_proba(val_inp1)
     print(se)
-    print(clf.score(val_inp1,val_out1))
+    
+    print(clf2.score(val_inp1,val_out1))
     for i in range(len(val_inp1)):
         for j in range(3441):
             if pro1[j,0]==val_source[i]:
