@@ -93,10 +93,10 @@ while se<1000:
     #prop2=prop1
     #pro2=pro1
     #clf4= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(train1, train_truth1)
-    #clf4= MLPClassifier(max_iter=300,hidden_layer_sizes=(10,), activation='tanh', solver='adam',early_stopping=False, validation_fraction=0.2,learning_rate='adaptive').fit(train1,train_truth1)
-    #clf4= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(train1, train_truth1)
-    clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
-    clf4.fit(train1,train_truth1)
+    #clf4= MLPClassifier(max_iter=300,hidden_layer_sizes=(10,), activation='tanh', solver='adam',early_stopping=False).fit(train1,train_truth1)
+    clf4= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(train1, train_truth1)
+    #clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
+    #clf4.fit(train1,train_truth1)
     valscore3=clf4.score(val_inp1,val_out1)
     '''
     pro=np.zeros((1008,8))
