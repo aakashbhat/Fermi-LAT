@@ -23,7 +23,7 @@ The choice of the feature and the separating value are determined by minimizing 
 error, Gini index, or cross-entropy.
 This method is very intuitive, since at each step the results can be described in words, 
 for example, at the first step, the sources can be split in "mostly" Galactic and extragalactic by a cut on the Galactic latitude.
-At the next step, the high latitude sources can be further subsplit into millisecond pulsars and other sources, buy a cut on the spectral index around 1 GeV (pulsars have a hard spectrum below a few GeV) etc.
+At the next step, the high latitude sources can be further subsplit into millisecond pulsars and other sources, by a cut on the spectral index around 1 GeV (pulsars have a hard spectrum below a few GeV) etc.
 One problem with decision trees is overfitting: if the tree is too deep, then it will pick up particular cases of the training sample, while too shallow tree would not be able to describe the data well. As a result, one needs to be very careful in selecting the depth of the tree.
 This problem can be avoided if a random subset of features is used to find a division at each node. This is the basis of the RF algorithm,
 where the final classification is given by an average of several trees with random subsets of features used at each node.
@@ -47,7 +47,7 @@ A nice feature of the LR method is that it, by construction, provides probabilit
 A limitation is that the form of the probability function is limited by the sigmoid function in Equation (\ref{eq:logit}).
 
 We notice that if $m(x)$ is a linear function of features $x$, then the logistic regression model is obtained by an application of sigmoid function to a linear combination of input features.
-This is in fact a single layer perceptron, or a neural network, with several input nodes (each node corresponds to a features), one node in the hidden layer, and one output node, which corresponds to $p_0(x)$.
+This is in fact a single layer perceptron, or a neural network, with several input nodes (each node corresponds to a feature), one node in the hidden layer, and one output node, which corresponds to $p_0(x)$.
 The output value is obtained by a non-linear transformation (sigmoid) of a linear combination of features.
 Neural network with several hidden layers is obtained by a sequence of nonlinear transformations of linear combinations of features.
 In particular, the values in the first hidden layer are obtained by a non-linear transformation of linear combinations of input features.
@@ -63,7 +63,7 @@ in a fully connected neural network.
 
 \section{Construction of a probabilistic catalog}
 
-As an example of the construction of a probabilistic catalog, we will use with the 3FGL catalog.
+As an example of the construction of a probabilistic catalog, we will use the 3FGL catalog.
 For training and testing the methods, we use sources which have associations and no missing values in the catalog table.
 In this paper we will perform a two-class classification to separate PS into pulsars and AGNs.
 Thus, we subselect the sources, which are associated to either a pulsar or an AGN.
@@ -266,7 +266,7 @@ In order to illustrate the separation of the PS into AGNs and PSRs, we retrain t
 These classification domains illustrate the separation of class probabilities.
 In our case, it can be seen that depth 6 outperforms depth 2 due to the much more nuanced probability distribution of the model. It is important to note here that this plot is for only 1 run and the model is trained on two features only. However, it illustrates well the result we got before, and shows why the higher depth outperforms the lesser one. The higher the depth the more the probabilities becomes denser and the dense areas become smaller. For instance, one can see regions of near zero probabilities in the depth of 6 as opposed to a depth of 2. This also illustrates that more complex algorithms can become biased and over-fit the data if the areas of zero probability are more in number or span larger areas. This situation is not so obvious for random forests, since random forests are especially good against over-fitting. However, we she shall see how other algorithms can over-fit instead.
 
-For the final algorithm, we will use a RF with 50 trees and a maximum depth of 6 trained on inversely weighted data.
+For the final algorithm, we will use a RF with 50 trees and a maximum depth of 6.
 %\dima{Add discussion of the domains, e.g., overfitting, and selection of the final model for classification.}
 
 \begin{figure}[h]
