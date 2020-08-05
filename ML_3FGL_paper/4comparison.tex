@@ -5,9 +5,9 @@
 
 \begin{figure}[h]
 %\hspace*{-1cm}
-\includegraphics[width=0.4\textwidth]{plots/logN_logS_AGN.pdf}
+\includegraphics[width=0.4\textwidth]{plots/logN_logS_AGN_unweighted.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.4\textwidth]{plots/logN_logS_PSR.pdf}
+\includegraphics[width=0.4\textwidth]{plots/logN_logS_PSR_unweighted.pdf}
 \caption{Log N - log S.}  
 \label{fig:logN_logS}
 \end{figure}
@@ -17,9 +17,9 @@
 
 \begin{figure}[h]
 %\hspace*{-1cm}
-\includegraphics[width=0.4\textwidth]{plots/logN_logS_diff_AGN.pdf}
+\includegraphics[width=0.4\textwidth]{plots/logN_logS_diff_AGN_unweighted.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.4\textwidth]{plots/logN_logS_diff_PSR.pdf}
+\includegraphics[width=0.4\textwidth]{plots/logN_logS_diff_PSR_unweighted.pdf}
 \caption{Fraction of unassociated sources relative to associated ones.}  
 \label{fig:unass_vs_ass_frac}
 \end{figure}
@@ -42,6 +42,7 @@ The bands show the envelop for the predicted number of sources using all four se
 The predictions for the number of AGNs and pulsars among the unassociated sources are corrected by the presence of other sources (neither AGNs nor pulsars) in the following way.
 We assume that the fractional contribution of other sources is the same for associated and unassociated sources in the different flux bands used in Figure \ref{fig:logN_logS}.
 In particular, the number of AGNs among unassociated sources in a certain flux band $\Delta F$ is estimated as
+
 \be
 n_{\rm AGN} = \sum_{i \in \rm unassoc.} p^i_{\rm AGN}\,\, - \sum_{i \in \rm assoc.\,other} p^i_{\rm AGN} \cdot \frac{n_{\rm unassoc.}}{n_{\rm assoc.}}
 \ee

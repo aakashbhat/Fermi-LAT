@@ -5,7 +5,7 @@ Unfortunately, in many cases a firm association of sources at different waveleng
 For example, about one third of gamma-ray sources in Fermi-LAT catalogs are unassociated.
 It is useful to know at least to which class the unassociated sources belong to or, which is more typical,
 what are the probabilities for the source to belong to different classes.
-In this paper we will use different machine learning algorithms to find probabilistic classification of
+In this paper we use different machine learning algorithms to find probabilistic classification of
 unassociated sources in Fermi LAT 3FGL and 4FGL catalogs.
 We will refer to the catalogs, where the classification of the sources is given by probabilities as probabilistic catalogs.
 In general, the classes may include the possibility that a source is not a real source but a fluctuation of a background 
@@ -40,13 +40,13 @@ Selection of a lower detection threshold could help to keep the variable sources
 but it will not solve the problem, since the variable sources near the lower threshold can also disappear in the new catalog.
 Moreover, lower threshold would lead to more false detections due to fluctuations of the background.
 Thus, on the one hand, lower threshold can be useful in studies, where a more complete list of sources is desirable,
-while the higher false detection rate is not a problem. On the other hand, lower threshold can be problematic for studies where 
+while the higher false detection rate is admissible. On the other hand, lower threshold can be problematic for studies where 
 a clean sample is necessary. 
 
 The problems of the miss-classification of the sources and the detection threshold can be ameliorated
 with the development of a probabilistic catalog.
 In this catalog, each point-like object detected above a certain threshold
-would be classified into several classes with a set of probabilities, rather than associated to one class (or deemed unassociated).
+is classified into several classes with a set of probabilities, rather than associated to one class (or deemed unassociated).
 The classes can be various types of Galactic and extra-galactic sources, diffuse emission deficiency, extended source.
 Even the statistical fluctuation of the background can be viewed as one of the classes: in this case, objects with small statistical significance
 will have a high probability to be associated to the statistical fluctuation class.
@@ -80,13 +80,15 @@ In this case, the probability will include not only the statistical probability 
 
 
 
-In this paper we will construct a probabilistic catalog using as an example classification of unassociated sources in the \Fermi-LAT catalogs. 
-We will start with the 3FGL and classify the unassociated sources into pulsars and AGNs using the associated sources in 3FGL for training of the classification algorithms.
-We will use several machine learning algorithms for the classification, e.g., random forest, boosted decision trees, logistic regression,
+In this paper we construct a probabilistic catalog using, as an example, classification of unassociated sources in \Fermi-LAT catalogs. 
+We start with the 3FGL catalog and classify the unassociated sources into pulsars and AGNs using the associated sources in 3FGL for training of the classification algorithms.
+We use several machine learning algorithms for the classification, e.g., random forest, boosted decision trees, logistic regression,
 and neural networks.
-We will show applications of the probabilistic catalog for predicting the number of pulsars and AGNs among the unassociated source and in construction of the source counts as a function of their flux, $dN/dS$.
-Since unassociated sources on average have smaller flux than the associated ones, the $dN/dS$ distribution for the probabilistic catalog extends to lower fluxes relative to counting only the associated sources.
-We will compare the prediction for the number of pulsars and the $dN/dS$ functions with the 4FGL.
-We will also probabilistically classify unassociated sources in the 4FGL catalog.
+We show applications of the probabilistic catalog for predicting the number of pulsars and AGNs among the unassociated source and in construction of the source counts as a function of their flux, $N(S)$.
+Since unassociated sources on average have smaller flux than the associated ones, 
+we expect that the $N(S)$ distribution for unassociated sources has a more important contribution to the total expected number of sources
+for smaller fluxes compared to counting only the associated sources.
+We compare the predictions for the $N(S)$ functions based on the 3FGL catalog with the 4FGL catalog.
+We also probabilistically classify unassociated sources in the 4FGL catalog.
 
 
