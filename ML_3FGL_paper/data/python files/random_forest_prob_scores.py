@@ -41,7 +41,7 @@ feat2=np.zeros(17)
 prop1=np.zeros((1008,4))
 
 
-while se<1000:
+while se<10:
     #data:
     np.random.seed(se)
     #dataframe = pandas.read_csv("4fgl_assoc_3.csv", header=None)
@@ -53,8 +53,8 @@ while se<1000:
     X = dataset1[1:,0:10].astype(float)
     #print(dataset1[0:,2:16])
     #print(dataset1[0,:])
-    Y = dataset1[1:,10]
-    print(len(Y))
+    Y = dataset1[1:,11]
+    print(Y)
     '''
     weight1=800/166
     weight2=800/1739
@@ -65,10 +65,12 @@ while se<1000:
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
+    print(Y)
     #dataframe = pandas.read_csv("4fgl_unassoc_3_2.csv", header=None)
     #dataframe = pandas.read_csv("3fgl_allunassoc.csv", header=None)
     #dataframe = pandas.read_csv("3fgl_assoc_notagnpsr.csv", header=None)
     #dataframe = pandas.read_csv("4fgl_others_3.csv", header=None)
+    '''
     dataframe = pandas.read_csv("./catas/3FGL_unassocvs4FGLassoc_AGN&PSR_catalog_unweighted.csv", header=None)
     dataset = dataframe.values 
 
@@ -78,14 +80,15 @@ while se<1000:
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y2)
     Y2j = encoder.transform(Y2)
-
+    '''
     #print(Y2)
-    #train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.3, random_state=se)       #Split into training and validation
+    train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.3, random_state=se)       #Split into training and validation
+    '''
     train1=X[0:]                    
     train_truth1=Y[0:]
     val_inp1=X2[0:]
     val_out1=Y2j[0:]
-
+    '''
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     train_truth1=np.ravel(train_truth1)
     valscore2=valscore3
@@ -93,9 +96,9 @@ while se<1000:
     #prop2=prop1
     #pro2=pro1
     #clf4= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(train1, train_truth1)
-    #clf4= MLPClassifier(max_iter=300,hidden_layer_sizes=(10,), activation='tanh', solver='adam',early_stopping=False).fit(train1,train_truth1)
-    clf4= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(train1, train_truth1)
-    #clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
+    clf4= MLPClassifier(max_iter=500,hidden_layer_sizes=(10,10,), activation='tanh', solver='adam',early_stopping=False).fit(train1,train_truth1)
+    #clf4= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(train1, train_truth1)
+    #clf4 = RandomForestClassifier(n_estimators=100,max_depth=12,oob_score=True)
     #clf4.fit(train1,train_truth1)
     valscore3=clf4.score(val_inp1,val_out1)
     '''
@@ -134,7 +137,7 @@ while se<1000:
 
 #print(clf.feature_importances_)
 #print(result)
-print(valscore3/1000)
+print(valscore3/10)
 #print(feat2/1000)
 #result=pandas.DataFrame(result)
 #result2=pandas.DataFrame(result2)

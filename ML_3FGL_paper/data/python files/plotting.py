@@ -36,7 +36,7 @@ pyplot.rcParams['lines.linewidth'] = 4
 pyplot.rcParams['lines.markersize'] = 10
 
 
-dataframe = pandas.read_csv("result_4fglassoc3_rf_depth_logtaken.csv", header=None)
+dataframe = pandas.read_csv("./files/result_3fglassoc_rf_weighted.csv", header=None)
 dataset1 = dataframe.values 
 fig,ax=plt.subplots()
 numi=dataset1[1]
@@ -49,17 +49,17 @@ plt.plot(numi, valscore4, 'b-.',marker='o')
 plt.plot(numi, valscore12, 'r--',marker='>')
 plt.plot(numi, valscore22, 'y:',marker='<')
 
-ax.set_xlabel('Number of Neurons',fontsize='xx-large')
+ax.set_xlabel('Maximum Depth',fontsize='xx-large')
 ax.set_ylabel('Testing Score',fontsize='xx-large')
 plt.yticks(fontsize='large')
 #plt.yticks(np.arange(92,99,step=1))
 #plt.xticks(fontsize='large')
 #ax.set_zlabel('Validation score')
-plt.legend(["LBFGS, Tanh","LBFGS, Relu","ADAM, Tanh","ADAM, Relu"])
-#plt.legend(["20 Trees","50 Trees","100 Trees","200 Trees"])
+#plt.legend(["LBFGS, Tanh","LBFGS, Relu","ADAM, Tanh","ADAM, Relu"])
+plt.legend(["20 Trees","50 Trees","100 Trees","200 Trees"])
 
 #plt.legend(["LBFGS","Liblinear","SAG","SAGA"])
 #plt.legend(["Tol = 0.001","Tol = 1","Tol = 10"])
 
-ax.set_title('Neural Network (300 Epochs): Accuracy vs. Complexity',fontsize='xx-large')
+ax.set_title('Random Forests with weighted data',fontsize='xx-large')
 plt.show()

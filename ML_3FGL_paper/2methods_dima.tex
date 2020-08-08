@@ -380,7 +380,7 @@ The first hidden layer consists of several nodes with values $y_j$. For the acti
 The activation function between the second hidden layer and the output node is sigmoid, which we use to make sure that the output value can be interpreted as a class probability.
 The unknown parameters are weights of the input features and the output of the first hidden layer, $w_{ji}$ and $v_j$ respectively,
 and offsets $w_0$ and $v_0$.
-The unknown parameters are optimized by minimizing the loss function \dima{what do we use for the loss function?}.
+The unknown parameters are optimized by minimizing the loss function. The loss function used is the log loss, defined as: $-\text{log}(\frac{y_t}{y_p})=-(y_t\text{log}(y_p)+(1-y_t)\text{log}(1-y_p))$, where $y_t$ are the true labels and $y_p$ are the predicted values.
 We have also tried to use three hidden layers with several nodes in the first two hidden layers and one node in the third hidden layer.
 The accuracy was similar to the networks with two hidden layers. Consequently, we have chosen to use a simpler model with two hidden layers.
 
