@@ -142,7 +142,7 @@ e.g., GLAT, PL\_Index (instead of Spectral\_Index), LP\_SigCurv (instead of ln(S
 \end{figure*}
 
 
-For this part, we chose to not do another preliminary analysis of the algorithms. Therefore we used the same hyperparameters for the four algorithms as in the construction of the probabilistic catalog based on the 3FGL catalog, except for the neural network where we increased the number of neurons to 16.
+For this part, we do not perform another preliminary analysis of the algorithms, i.e., we used the same hyperparameters for the four algorithms as in the construction of the probabilistic catalog based on the 3FGL catalog, except for the neural network where we increased the number of neurons to 16.
 We retrain these algorithms using the 16 features for the 4FGL sources.
 The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
 All algorithms have a better accuracy for the 4FGL catalog compared to the 3FGL catalog, which is likely due to a higher number of features and more associated sources used as training data. 
@@ -177,7 +177,23 @@ All algorithms have a better accuracy for the 4FGL catalog compared to the 3FGL 
     \label{tab:selected_algs2}
 \end{table}
 
-%\dima{This section is a bit short. If there is something we can discuss about 4FGL predictions, we should add it here, otherwise, I'd suggest to merge it with the previous section.}
+The expected number of AGNs and pulsars among the unassociated source in the 4FGL catalog is reported in Table \ref{tab:4FGL_prediction}.
+The ``AGNs'' column shows the number of unassociated sources where all four algorithms from table \ref{tab:selected_algs2} give the probability for a source to be an AGN above 50\%.
+Similarly the ``Pulsars'' column shows the number of unassociated sources where all four algorithms predict the source to be more likely a pulsar.
+The ``Mixed'' column shows the number of sources with mixed classification, i.e., some algorithms predict that the source is more likely an AGN while the other algorithms predict that it is more likely a pulsar.
+In the ``Uncorrected'' row we do not take into account that there can be sources other than AGNs or pulsars among the unassociated sources.
+We correct for the presence of the other sources by assuming that the fraction of AGN-like and pulsar-like sources among the other sources is the same for associated and for unassociated sources.
+In particular, we denote by $N_{\rm AGN}$ the number of unassociated sources with AGN-like classification by all four algorithms,
+by $N_{\rm AGN}^{\rm ass\,other}$ the number of sources with AGN-like classification among associated other sources,
+by $N_{\rm ass}$ ($N_{\rm unass}$) the total number of associated (unassociated) sources.
+The number of AGN-like sources among the unassociated source corrected for the presence of other sources is estimated as
+
+\be
+\lb{eq:other_correction}
+N_{\rm AGN}^{\rm corr} = N_{\rm AGN} - N_{\rm AGN}^{\rm ass\,other} \,\frac{N_{\rm unass}}{N_{\rm ass}}.
+\ee
+Analogous corrections are applied for the number of unassociated sources with pulsar-like classification by all four algorithms,
+and for unassociated sources with mixed classification.
 
 \begin{table}[!h]
 \resizebox{0.45\textwidth}{!}{
@@ -188,7 +204,7 @@ All algorithms have a better accuracy for the 4FGL catalog compared to the 3FGL 
 
     \begin{tabular}{| l |c|c|c|}
     \hline
-    Correction for other sources & AGNs & pulsars & mixed \\
+    Correction for other sources & AGNs & Pulsars & Mixed \\
     \hline
     Uncorrected &  949 & 137  &  250 \\
     \hline
@@ -197,8 +213,10 @@ All algorithms have a better accuracy for the 4FGL catalog compared to the 3FGL 
      
     \end{tabular}}
     \vspace{0.2cm}
-    \caption{Expected number of AGNs and pulsars among the unassociated 4FGL sources.}
-    \label{tab:selected_algs2}
+    \caption{Expected number of AGNs and pulsars among the unassociated 4FGL sources.
+    Uncorrected (corrected) rows show the number of predicted AGNs and pulsars among the unassociated sources, which are
+    uncorrected (corrected) for the presence of sources other than AGNs and pulsars among the unassociated sources.}
+    \label{tab:4FGL_prediction}
 \end{table}
 
 
