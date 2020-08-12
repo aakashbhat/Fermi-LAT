@@ -1,5 +1,8 @@
-\section{Prediction for unassociated sources in 3FGL and comparison with 4FGL}
+\section{Probabilistic catalogs based on the 3FGL and 4FGL catalogs}
+
+\subsection{Prediction for unassociated sources in 3FGL and comparison with 4FGL}
 \lb{sec:3FGLprediction}
+
 
 
 In this section we use the algorithms from the previous section to predict classes for the unassociated sources in the 3FGL. 
@@ -112,7 +115,7 @@ Connection of unassociated 3FGL sources classified as PSRs with Parkes PSRs.}
 \end{table}
 
 
-\section{Prediction for unassociated source in the 4FGL catalog}
+\subsection{Prediction for unassociated source in the 4FGL catalog}
 \lb{sec:4FGLprediction}
 
 In this section we construct a probabilistic classification of sources in the 4FGL catalog.
@@ -171,7 +174,29 @@ All algorithms have a better accuracy for the 4FGL catalog compared to the 3FGL 
     \label{tab:selected_algs2}
 \end{table}
 
-\dima{This section is a bit short. If there is something we can discuss about 4FGL predictions, we should add it here, otherwise, I'd suggest to merge it with the previous section.}
+%\dima{This section is a bit short. If there is something we can discuss about 4FGL predictions, we should add it here, otherwise, I'd suggest to merge it with the previous section.}
+
+\begin{table}[!h]
+\resizebox{0.45\textwidth}{!}{
+    \tiny
+ %  \centering
+    \renewcommand{\tabcolsep}{0.3mm}
+\renewcommand{\arraystretch}{1.5}
+
+    \begin{tabular}{| l |c|c|c|}
+    \hline
+    Correction for other sources & AGNs & pulsars & mixed \\
+    \hline
+    Uncorrected &  949 & 137  &  250 \\
+    \hline
+    Corrected & 896.3  & 115.5  & 221.3 \\
+    \hline
+     
+    \end{tabular}}
+    \vspace{0.2cm}
+    \caption{Expected number of AGNs and pulsars among the unassociated 4FGL sources.}
+    \label{tab:selected_algs2}
+\end{table}
 
 
 
