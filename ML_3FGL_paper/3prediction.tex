@@ -2,7 +2,9 @@
 
 \subsection{Prediction for unassociated sources in 3FGL and comparison with 4FGL}
 \lb{sec:3FGLprediction}
-
+Having optimized our algorithms, we decided to test them on 3FGL data which was initially unassociated but then became associated in 4FGL. Furthermore, we tested the algorithms on 4FGL associated data, and also predicted for unassociated data.
+\subsection{Prediction for unassociated sources in 3FGL and comparison with 4FGL}
+\lb{sec:3FGLprediction1}
 
 
 In this section we use the algorithms from the previous section to predict classes for the unassociated sources in the 3FGL. 
@@ -115,10 +117,11 @@ Connection of unassociated 3FGL sources classified as PSRs with Parkes PSRs.}
 \end{table}
 
 
+
 \subsection{Prediction for unassociated source in the 4FGL catalog}
 \lb{sec:4FGLprediction}
 
-In this section we construct a probabilistic classification of sources in the 4FGL catalog.
+Building upon what we had done so far we were now ready to construct a probabilistic classification of sources in the 4FGL catalog.
 As in the previous section, we use for training and testing sources associated with either AGNs or pulsars and have no missing values.
 We then calculate the classification probabilities of AGN and PSR classes for both the associated and the unassociated sources.
 The 4FGL catalog has higher number of features, especially due to the difference in modeling of the spectra compared with the 3FGL catalog. 
@@ -139,7 +142,7 @@ e.g., GLAT, PL\_Index (instead of Spectral\_Index), LP\_SigCurv (instead of ln(S
 \end{figure*}
 
 
-In this section, we chose not to do another preliminary analysis of the algorithms. Therefore we used the same hyperparameters for the four algorithms as in the construction of the probabilistic catalog based on the 3FGL catalog, except for the neural network where we increased the number of neurons to 16.
+For this part, we chose to not do another preliminary analysis of the algorithms. Therefore we used the same hyperparameters for the four algorithms as in the construction of the probabilistic catalog based on the 3FGL catalog, except for the neural network where we increased the number of neurons to 16.
 We retrain these algorithms using the 16 features for the 4FGL sources.
 The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
 All algorithms have a better accuracy for the 4FGL catalog compared to the 3FGL catalog, which is likely due to a higher number of features and more associated sources used as training data. 
