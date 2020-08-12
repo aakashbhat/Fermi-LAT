@@ -1,7 +1,6 @@
 \section{Probabilistic catalogs based on the 3FGL and 4FGL catalogs}
 
-\subsection{Prediction for unassociated sources in 3FGL and comparison with 4FGL}
-\lb{sec:3FGLprediction}
+
 Having optimized our algorithms, we decided to test them on 3FGL data which was initially unassociated but then became associated in 4FGL. Furthermore, we tested the algorithms on 4FGL associated data, and also predicted for unassociated data.
 \subsection{Prediction for unassociated sources in 3FGL and comparison with 4FGL}
 \lb{sec:3FGLprediction1}
@@ -79,7 +78,7 @@ The second and third sources are classified as AGNs by all four algorithms, i.e.
 while the last source is classified as a pulsar by all four algorithms, i.e., it will have a label
 ``classified only as PSRs''.
 Overall, there are 97 unassociated sources classified as pulsars by all four algorithms, 729 sources classified as AGNs by all four algorithms, and 182 sources with mixed classifications.
-Out of 97 sources classified as pulsars, 6 sources have counterparts in Parkes survey within 2 arc minutes (see Table 4).
+Out of 97 sources classified as pulsars, 6 sources have counterparts in Parkes survey \cite{Camilo2015} within 2 arc minutes (see Table 4).
 
 
 \pgfplotstableread[col sep=comma]{data/catalogs/3FGL_unassoc_vs_4FGL_assoc.csv}\loadedtable
@@ -219,5 +218,5 @@ and for unassociated sources with mixed classification.
     \label{tab:4FGL_prediction}
 \end{table}
 
-
+Finally, we looked at sources which were unassociated in both 3FGL and 4FGL (306 sources). 38 sources are predicted to be PSRs using 3FGL features and 71 sources using 4FGL features. This leads to a total of 29 sources which were predicted by all four algorithms to be PSRs for features taken from both 3FGL and 4FGL. Amongst these 29 PSRs, four are again belonging to the Parkes survey (of the other two, one is now associated as a PSR in 4FGL, and the second is not there in 4FGL). These 29 sources can be looked at as having the strongest case to be PSRs amongst all unassociated sources. 
 
