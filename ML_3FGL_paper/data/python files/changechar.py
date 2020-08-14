@@ -1,14 +1,16 @@
 import os
 import pandas
 import numpy as np
-directory = 'D:/work_projects/fermilat/Fermi-LAT/ML_3FGL_paper/data/catalogs/'
+directory = 'D:/work_projects/fermilat/Fermi-LAT/ML_3FGL_paper/data/'
 
+df = pandas.read_csv("sazparkinson.csv", header=None)
+print(df)
 for filename in os.listdir(directory):
     if filename.endswith(".csv"):
         print(filename)
         df = pandas.read_csv(filename, header=None)
-        findL1 = ['Other','CLASS2']
-        replaceL1=['OTHER','Category_4FGL']
+        #findL1 = ['Other','CLASS2']
+        #replaceL1=['OTHER','Category_4FGL']
         coll=0
         k=np.shape(df)
         print(k[1])
