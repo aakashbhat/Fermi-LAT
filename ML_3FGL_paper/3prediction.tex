@@ -78,7 +78,10 @@ The second and third sources are classified as AGNs by all four algorithms, i.e.
 while the last source is classified as a pulsar by all four algorithms, i.e., it will have a label
 ``classified only as PSRs''.
 Overall, there are 97 unassociated sources classified as pulsars by all four algorithms, 729 sources classified as AGNs by all four algorithms, and 182 sources with mixed classifications.
-Out of 97 sources classified as pulsars, 6 sources have counterparts in Parkes survey \cite{Camilo2015} within 2 arc minutes (see Table 4).
+We summarize the results in Table \ref{tab:3FGL_prediction}, where we also show corrections for the presence of sources other than AGNs and pulsars.
+Out of 97 sources classified as pulsars, 6 sources have counterparts in Parkes survey \cite{Camilo2015} within 2 arc minutes (see Table \ref{tab:parkes}).
+
+
 
 
 \pgfplotstableread[col sep=comma]{data/catalogs/3FGL_unassoc_vs_4FGL_assoc.csv}\loadedtable
@@ -97,6 +100,30 @@ skip rows between index={4}{242}
 ]\loadedtable
 \caption{\label{tab:prob_cat}
 Example of the AGN classification probabilities for a few unassociated sources in the 3FGL catalog.}
+\end{table}
+
+\begin{table}[!h]
+\resizebox{0.45\textwidth}{!}{
+    \tiny
+ %  \centering
+    \renewcommand{\tabcolsep}{0.3mm}
+\renewcommand{\arraystretch}{1.5}
+
+    \begin{tabular}{| l |c|c|c|}
+    \hline
+    Correction for other sources & AGNs & Pulsars & Mixed \\
+    \hline
+    Uncorrected &  729 & 97  &  182 \\
+    \hline
+    Corrected & 708.0  & 81.5  & 164.5 \\
+    \hline
+     
+    \end{tabular}}
+    \vspace{0.2cm}
+    \caption{Expected number of AGNs and pulsars among the unassociated 3FGL sources.
+    Uncorrected (corrected) rows show the number of predicted AGNs and pulsars among the unassociated sources, which are
+    uncorrected (corrected) for the presence of sources other than AGNs and pulsars among the unassociated sources.}
+    \label{tab:3FGL_prediction}
 \end{table}
 
 
@@ -212,9 +239,7 @@ and for unassociated sources with mixed classification.
      
     \end{tabular}}
     \vspace{0.2cm}
-    \caption{Expected number of AGNs and pulsars among the unassociated 4FGL sources.
-    Uncorrected (corrected) rows show the number of predicted AGNs and pulsars among the unassociated sources, which are
-    uncorrected (corrected) for the presence of sources other than AGNs and pulsars among the unassociated sources.}
+    \caption{For definitions see Table \ref{tab:4FGL_prediction}.}
     \label{tab:4FGL_prediction}
 \end{table}
 
