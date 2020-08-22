@@ -152,12 +152,13 @@ As in the previous section, we use for training and testing sources associated w
 We then calculate the classification probabilities of AGN and PSR classes for both the associated and the unassociated sources.
 The 4FGL catalog has higher number of features, especially due to the difference in modeling of the spectra compared with the 3FGL catalog. 
 We selected 31 of these features and looked for the correlation among them. If any feature was correlated or anti-correlated with a Pearson index of $\pm$0.75 or higher with another feature, then only one of these features was kept. 
-The correlation matrix is shown in Figure \ref{fig:corr_mat}.
+%The correlation matrix is shown in Figure \ref{fig:corr_mat}.
 The resulting 16 features are:
 GLON, GLAT, ln(Pivot\_Energy), ln(Flux1000), PL\_Index, Unc\_LP\_Index, LP\_beta, LP\_SigCurv, Unc\_PLEC\_Expfactor, PLEC\_Exp\_Index, hr12, hr23, hr34, hr45, hr56, hr67, ln(Variability\_Index).
 Some of these features are directly related to the features, which we used in the 3FGL catalog,
 e.g., GLAT, PL\_Index (instead of Spectral\_Index), LP\_SigCurv (instead of ln(Signif\_Curve)), ln(Variability\_Index), hardness ratios (in the 4FGL catalog there are two more energy bins compared to the 3FGL catalog).
 
+\begin{comment}
 \begin{figure*}[h]
 \centering
 \includegraphics[width=\textwidth]{plots/correlation_4fgl_assoc.pdf}
@@ -166,7 +167,7 @@ e.g., GLAT, PL\_Index (instead of Spectral\_Index), LP\_SigCurv (instead of ln(S
 %\includegraphics[width=\twopicsp\textwidth]{plots/final_catalog.pdf}
 \label{fig:corr_mat}
 \end{figure*}
-
+\end{comment}
 
 For this part, we do not perform another preliminary analysis of the algorithms, i.e., we used the same hyperparameters for the four algorithms as in the construction of the probabilistic catalog based on the 3FGL catalog, except for the neural network where we increased the number of neurons to 16.
 We retrain these algorithms using the 16 features for the 4FGL sources.
