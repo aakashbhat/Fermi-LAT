@@ -1,9 +1,9 @@
 \section{Appendix}
 
-\subsection{Feature Statistics}
+\subsection{Tests with other meta-parameters}
 
 Features and their statistics are given in the tables A.1 and A.2. An overlap can be seen but due to the different modelling in 4FGL there is a difference in the features.
-\dima{The description here is too short, in particular Figures A.1 and A.2 are not mentioned. Also the next appendix is very short. I think we can join the two appendices and call it something like ``Further tests of metaparameters''.}
+%\dima{The description here is too short, in particular Figures A.1 and A.2 are not mentioned. Also the next appendix is very short. I think we can join the two appendices and call it something like ``Further tests of metaparameters''.}
 
 \vspace{1cm}
 
@@ -53,7 +53,7 @@ columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
 \caption{Statistics for finalized features from 4FGL }
 \end{table}
 
-\subsection{Dependence of accuracy on minor parameters}
+
 Amongst all the algorithms, there exist certain hyper-parameters which haven't been discussed before. This was due to the fact that the impact of these hyper-parameters was not significant enough. For instance, logistic regression has two hyper-paramteres called regularization and tolererance. These features are the limit up to which one wants to go before accepting a solution. 
 \begin{figure}[h]
 %\centerin
@@ -62,13 +62,13 @@ Amongst all the algorithms, there exist certain hyper-parameters which haven't b
 \caption{Dependence of LR on tolerance and regularization}
 \label{fig:Lr_tol_reg}
 \end{figure}
-As can be seen the effect is not as significant as one would expect, and therefore only the default value of the two was considered. A similar effect is seen with neural networks, where increasing the hidden layer number to two also doesn't change the accuracy significantly, at least for the solvers we consider.
+As can be seen in figure \ref{fig:Lr_tol_reg} the effect is not as significant as one would expect, and therefore only the default value of the two was considered. A similar effect is seen with neural networks in figure \ref{fig:nn_nn}, where increasing the hidden layer number to two also doesn't change the accuracy significantly, at least for the solvers we consider.
 \begin{figure}[h]
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/nn_2layers_3fgl.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/unassoc_complex.pdf}
 \caption{Dependence of NN on the second hidden layer, for 10 neurons in the first layer}
-\label{fig:Lr_tol_reg}
+\label{fig:nn_nn}
 \end{figure}
 
 %\subsection{Testing on unassociated data}
