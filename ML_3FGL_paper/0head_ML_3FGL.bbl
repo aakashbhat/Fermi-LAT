@@ -1,4 +1,4 @@
-\begin{thebibliography}{9}
+\begin{thebibliography}{12}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{{Abdo} {et~al.}(2010){Abdo}, {Ackermann}, {Ajello},
@@ -31,12 +31,25 @@ Camilo, F., Kerr, M., Ray, P.~S., {et~al.} 2015, The Astrophysical Journal,
 {Hogg}, D.~W. \& {Lang}, D. 2010, in EAS Publications Series, Vol.~45, EAS
   Publications Series, 351--358
 
+\bibitem[{Hunter(2007)}]{Hunter:2007}
+Hunter, J.~D. 2007, Computing In Science \& Engineering, 9, 90
+
 \bibitem[{{Nolan} {et~al.}(2012){Nolan}, {Abdo}, {Ackermann},
   {et~al.}}]{2012ApJS..199...31N}
 {Nolan}, P.~L., {Abdo}, A.~A., {Ackermann}, M., {et~al.} 2012, \apjs, 199, 31
 
+\bibitem[{{Robitaille} {et~al.}(2013){Robitaille}, {Tollerud}, {Greenfield},
+  {et~al.}}]{2013A&A...558A..33A}
+{Robitaille}, T.~P., {Tollerud}, E.~J., {Greenfield}, P., {et~al.} 2013, \aap,
+  558, A33
+
 \bibitem[{{Saz Parkinson} {et~al.}(2016){Saz Parkinson}, {Xu}, {Yu},
   {Salvetti}, {Marelli}, \& {Falcone}}]{2016ApJ...820....8S}
 {Saz Parkinson}, P.~M., {Xu}, H., {Yu}, P.~L.~H., {et~al.} 2016, \apj, 820, 8
+
+\bibitem[{{Taylor}(2005)}]{2005ASPC..347...29T}
+{Taylor}, M.~B. 2005, in Astronomical Society of the Pacific Conference Series,
+  Vol. 347, Astronomical Data Analysis Software and Systems XIV, ed.
+  P.~{Shopbell}, M.~{Britton}, \& R.~{Ebert}, 29
 
 \end{thebibliography}
