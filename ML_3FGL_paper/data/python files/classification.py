@@ -27,26 +27,26 @@ import matplotlib.colors as colors
 
 
 plt.rcParams['xtick.labelsize'] = 22
-plt.rcParams['axes.labelsize'] = 22
+plt.rcParams['axes.labelsize'] = 30
 plt.rcParams['axes.titlesize'] = 28
-plt.rcParams['font.size'] = 23
-plt.rcParams['ytick.labelsize'] = 22
-plt.rcParams['lines.markersize'] = 10
+plt.rcParams['font.size'] = 25
+plt.rcParams['ytick.labelsize'] = 25
+plt.rcParams['lines.markersize'] = 12
 
 
 
 #Training Fata:
 se=4
 np.random.seed(se)
-dataframe = pandas.read_csv("./files/4fgl_assoc.csv", header=None)
+dataframe = pandas.read_csv("./files/3fgl_associated_AGNandPSR.csv", header=None)
 dataset1 = dataframe.values 
 np.random.shuffle(dataset1[1:])
 
 
 
-X = dataset1[1:,0:17].astype(float)
+X = dataset1[1:,0:10].astype(float)
 print(X)
-Y = dataset1[1:,17]
+Y = dataset1[1:,10]
 encoder = preprocessing.LabelEncoder()
 encoder.fit(Y)
 Y = encoder.transform(Y)
@@ -62,8 +62,8 @@ h = .02  # step size in the mesh
  #                         random_state=1, n_clusters_per_class=1)
 
 #Making datsets, these were initially with different features and not the same:
-X1=dataset1[1:,6:8]
-print(dataset1[0,6:8])
+X1=dataset1[1:,2:4]
+print(dataset1[0,2:4])
 y1=Y
 linearly_separable = (X1, y1)
 print(linearly_separable)
@@ -139,11 +139,11 @@ testc2_marker = 'v'
 
 
 #Choose classifier:
-#clf=RandomForestClassifier(max_depth=20, n_estimators=100, class_weight='balanced',oob_score=True)
-clf= MLPClassifier(max_iter=300,hidden_layer_sizes=(2,), activation='tanh', solver='adam').fit(X_train,y_train)
-#clf=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2, random_state=0).fit(X_train,y_train)
+clf=RandomForestClassifier(max_depth=6, n_estimators=50, class_weight='balanced',oob_score=True)
+#clf= MLPClassifier(max_iter=300,hidden_layer_sizes=(2,), activation='tanh', solver='adam').fit(X_train,y_train)
+#clf=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=2, random_state=0).fit(X_train,y_train)
 #clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
-#clf.fit(X_train, y_train)
+clf.fit(X_train, y_train)
 
 lenth=len(X_test)
 score = clf.score(X_test, y_test)       #Score of our classifier
@@ -195,19 +195,21 @@ ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, al
                    marker=testc1_marker, edgecolors='k', label='PSR testing')
 
 ax2.legend()
-
+#ax2.text(0.02,-1.0,"Solver: Adam",fontsize=23)
+ax2.text(0.02,-1.3,"Trees: 50",fontsize=23)
+ax2.text(0.02,-1.6,"Maximum Depth: 6",fontsize=23)
 ax2.set_xlim(xx.min(), xx.max())
-ax2.set_title('Neural Network')
+ax2.set_title('Random Forest')
 #ax2.set_ylim(yy.min(), yy.max())
-ax2.set_xlabel('LP_beta')
-ax2.set_ylabel('LP_Sigcurv')
-ax2.set_ylim((-1,20))
+ax2.set_xlabel('Spectral Index')
+ax2.set_ylabel('Ln(Significant_Curvature)')
+ax2.set_ylim((-2,5))
 #ax.set_xticks(np.arange(-5,3,step=1))
  #       ax.set_yticks(())
   #      if ds_cnt == 0:
    #         ax.set_title(name)
-ax2.text(xx.max() , yy.max() + 1, ('%.2f' % score).lstrip('0'),
-               size=15, horizontalalignment='right')
+ax2.text(0.02 , -1.9, ('Testing Score:%.2f' % score).lstrip('0'),
+               size=23)
  #       i += 1
 
 
