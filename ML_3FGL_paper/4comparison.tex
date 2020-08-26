@@ -32,7 +32,7 @@
 In this section we show how probabilistic catalogs can be used, for instance, for population studies.
 One of the most important questions in gamma-ray astronomy is contribution of point sources, e.g., AGNs, to the extragalactic gamma-ray
 flux:
-if most of the extra-galactic emission is explained by the point sources, then one can put stringent constraints, e.g., on 
+if most of the extra-galactic emission is explained by point sources, then one can put stringent constraints, e.g., on 
 dark matter annihilation into gamma rays, on evaporation of primordial black holes, and on the origin of astrophysical high energy neutrino flux.
 In particular, it is important to understand the contribution to the population of AGNs from the unassociated sources.
 A probabilistic catalog provides an answer to the question: how many sources among the unassociated ones are expected to belong to different classes, such as pulsars or AGNs. 
@@ -49,7 +49,7 @@ we subtract the corresponding AGN-like probabilities in each flux band:
 
 \be
 \lb{eq:assoc_ev}
-N_{\rm AGN}^{\rm ass}  = \sum_{i \in \rm ass} p^i_{\rm AGN}\,\, - \sum_{i \in \rm ass\,other} p^i_{\rm AGN}
+N_{\rm AGN}^{\rm ass}  = \sum_{i \in \rm ass} p^i_{\rm AGN}\,\, - \sum_{i \in \rm ass\,other} p^i_{\rm AGN}.
 \ee
 The corrected sums of probabilities for LR method are shown by dashed purple lines.
 The purple bands show the envelope of the sum of corrected probabilities for the four methods used in this paper.
@@ -72,7 +72,7 @@ i.e., a pulsar has more weight in training than an AGN.
 This can be a reason for an overprediction of the number of associated pulsars, compared to the actual count.
 
 
-The predictions for the number of AGNs and pulsars among the unassociated sources corrected for ``other'' sources and 
+The predictions for the number of AGNs and pulsars among the unassociated sources corrected for ``other'' sources 
 added to the 3FGL and 4FGL source counts are shown by green dashed lines (for the LR case).
 The green bands show the corresponding envelopes for the four ML algorithms.
 We assume that the fractional contribution of other sources is the same for associated and unassociated sources in the different flux bands.
@@ -100,7 +100,7 @@ AGNs are the largest class of sources. It is important to note, however, that th
 \item
 The number of pulsars among the unassociated sources is about the same as the number of associated pulsars, i.e., the total number of pulsars among the detected sources is expected to be twice the number of associated pulsars.
 \een
-In particular, we predict that the expected number of pulsars among the unassociated sources in the 3FGL catalog
+We predict that the expected number of pulsars among the unassociated sources in the 3FGL catalog
 is $200 \pm 40$, where the range is the envelop of the sums of probabilities in Equation (\ref{eq:unassoc_ev})
 for different ML methods corrected for other sources among the unassociated sources.
 The expected number of pulsars among the unassociated sources in the 4FGL catalog corrected for other sources is $260 \pm 50$.
@@ -113,9 +113,10 @@ is about two times larger than the range of values for the expected number of pu
 It means that the decision which sources are considered to be more likely pulsars is more sensitive to the choice of the ML method
 and the probability threshold than the expected number of pulsars (based on the sum of probabilities).
 
-In Figure \ref{fig:unass_vs_ass_frac} we show the ratio of expected number of AGNs and pulsars among unassociated sources computed according to Equation \ref{eq:unassoc_ev} to the number of associated sources.
+We also note that the probabilistic classification mostly affects sources with smaller fluxes,
+which we illustrate in Figure \ref{fig:unass_vs_ass_frac}, where we show that the ratio of expected number of AGNs and pulsars among unassociated sources computed according to Equation \ref{eq:unassoc_ev} to the number of associated sources decreases as the flux increases.
 Negative values (e.g., at high fluxes for AGNs) are due to subtraction of probabilities for the ``other'' associated sources.
-One can see that the fraction of AGNs or pulsars among unassociated sources to the associated ones is higher at smaller fluxes.
+%One can see that the fraction of AGNs or pulsars among unassociated sources to the associated ones is higher at smaller fluxes.
 
 
 

@@ -5,7 +5,7 @@ In the paper we determine the probabilities of classification of unassociated so
 The probabilities are calculated with 4 different ML methods: random forests, boosted decision trees, logistic regression and neural networks.
 The algorithms were trained and tested with associated sources.
 We have also scanned some meta-parameters of the algorithms, such as depth of the trees, the number of trees, the number of neurons etc. in order to determine optimal parameters which do not create overfitting of data and provide good accuracy of classification.
-The accuracy which we obtained for the 3FGL catalog for all four algorithms was about 97\%.
+The accuracy, which we obtained for the 3FGL catalog for all four algorithms, was about 97\%.
 We have also checked the accuracy of classification by selecting unassociated sources in 3FGL, which have associations in 4FGL.
 If we take the 4FGL associations as the true value, then the accuracy of classification in this subset of sources is between 93\% and 95\%.
 As one can see from Figure \ref{fig:3FGL_vs_4FGL_classes}, the misclassified sources have spectral parameters in 3FGL which are typical of the other class, i.e., the misclassification can be due to problems with reconstructing the spectrum of the sources.
@@ -22,5 +22,5 @@ As an example of the application of the probabilistic catalogs, we derive the ex
 As a consistency check, we compare the counts of associated sources to the sums of probabilities for associated sources.
 We find that correcting for the contribution of sources other than AGNs and pulsars plays an important role for estimation of the expected number of sources in a particular class.
 We find the total expected number of AGNs and pulsars in 3FGL and 4FGL catalogs by adding the class probabilities in the unassociated sources to the source counts of associated sources and correcting for the contribution of other classes in the unassociated sources.
-In particular, we find that the total expected number of pulsars is about twice larger than the number of associated pulsars.
+In particular, we find that the total expected number of pulsars is about two times larger than the number of associated pulsars.
 
