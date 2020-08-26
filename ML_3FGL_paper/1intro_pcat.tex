@@ -2,11 +2,12 @@
 
 Multiwavelength association of astronomical sources is important for understanding their nature.
 Unfortunately, in many cases a firm association of sources at different wavelength is not possible.
-For example, about one third of gamma-ray sources in Fermi-LAT catalogs are unassociated.
+For example, about one third of gamma-ray sources in Fermi-LAT catalogs are unassociated
+\citep{2010ApJS..188..405A, 2012ApJS..199...31N, 2015ApJS..218...23A, 2020ApJS..247...33A}.
 It is useful to know at least to which class the unassociated sources belong to or, which is more typical,
 what are the probabilities for the source to belong to different classes.
 In this paper we use different machine learning algorithms to find probabilistic classification of
-unassociated sources in \Fermi-LAT 3FGL \citep{2015ApJS..218...23A} and 4FGL \citep{2020ApJS..247...33A} catalogs.
+unassociated sources in \Fermi-LAT third (3FGL) and fourth (4FGL) catalogs \citep{2015ApJS..218...23A, 2020ApJS..247...33A}.
 We will refer to the catalogs, where the classification of the sources is given by probabilities as probabilistic catalogs.
 In general, the classes may include the possibility that a source is not a real source but a fluctuation of a background 
 or that a source is an overlay of two sources etc.
@@ -14,15 +15,20 @@ All these possibilities can be included in the probabilistic catalogs, which wer
 \citep[e.g.,][]{2010EAS....45..351H, 2013AJ....146....7B}
 and for gamma-ray sources \citep{2017ApJ...839....4D}.
 Bayesian association probabilities were also introduced in the 4FGL catalog \citep{2020ApJS..247...33A} for faint sources.
-Previous classification of unassociated \Fermi-LAT sources using machine learning methods include 
+%Previous classification of unassociated \Fermi-LAT sources using machine learning methods include 
 The goal of this paper is to construct probabilistic classification of sources in the 3FGL and 4FGL catalogs using ML algorithms.
-Previously most probable classes of unassociated sources in Fermi LAT catalogs were reported in
-[Saz-Parkinson etc.].
-In this work we report not only the most probable classes but rather probabilities of classes using four different ML algorithms.
+Previously probabilistic classification of unassociated 3FGL sources was performed by \cite{2016ApJ...820....8S}.
+In this work, we add neural networks for classification of 3FGL sources, compare results of classification
+with associations in 4FGL and perform probabilistic classification of unassociated 4FGL sources.
 
 Catalogs of gamma-ray point sources are typically designed to have low false detection rate. 
+<<<<<<< HEAD
 Nevertheless, 469 sources out of 3033 in the third \Fermi-LAT catalog (3FGL) [3FGL] have no counterparts 
 in the fourth \Fermi-LAT catalog (4FGL) [4FGL].
+=======
+Nevertheless, 469 sources out of 3033 in the 3FGL catalog \citep{2015ApJS..218...23A} have no counterparts 
+in the 4FGL catalog \citep{2020ApJS..247...33A}.
+>>>>>>> b1283f39fd6595f63b486877132a0a8596470373
 This is much larger than the expected false detection rate in 3FGL arising from statistical fluctuations.
 For the majority of sources in 3FGL without counterparts in 4FGL the problem is not the false detection, 
 but rather the association.
@@ -44,14 +50,13 @@ Moreover, lower threshold would lead to more false detections due to fluctuation
 Thus, on the one hand, lower threshold can be useful in studies, where a more complete list of sources is desirable,
 while the higher false detection rate is admissible. On the other hand, lower threshold can be problematic for studies where 
 a clean sample is necessary. 
-
-The problems of the miss-classification of the sources and the detection threshold can be ameliorated
-with the development of a probabilistic catalog.
-In this catalog, each point-like object detected above a certain threshold
-is classified into several classes with a set of probabilities, rather than associated to one class (or deemed unassociated).
-The classes can be various types of Galactic and extra-galactic sources, diffuse emission deficiency, extended source.
-Even the statistical fluctuation of the background can be viewed as one of the classes: in this case, objects with small statistical significance
-will have a high probability to be associated to the statistical fluctuation class.
+The problem of the detection threshold selection can be ameliorated with the development of a probabilistic catalog.
+In this catalog, each point-like object detected above a certain relatively low confidence level
+are probabilistically classified into classes, which include the statistical fluctuations class.
+At low confidence, the probability for a source to be due to a fluctuation is high.
+This probability is decreasing as the significance of sources increases.
+Apart from the statistical fluctuations class, classes can include various types of Galactic and extra-galactic sources, diffuse emission deficiencies, extended sources.
+%Even the statistical fluctuation of the background can be viewed as one of the classes: in this case, objects with small statistical significance will have a high probability to be associated to the statistical fluctuation class.
 A user of such a catalog will have the freedom to choose the probability threshold for the class that he or she is interested in.
 
 
