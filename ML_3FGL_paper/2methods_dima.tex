@@ -77,12 +77,13 @@ Train algorithms using the learning dataset.
 Tune hyper-parameters of the algorithms and test the performance on the test dataset, in particular, to avoid overfitting.
 \item
 Make prediction for unassociated point sources of the 3FGL.
-We also apply the classification for associated sources. In this case we check if there are any outliers among the associated sources.
+We also apply the classification for associated sources. 
+We will use probabilistic classification of associated sources for consistency checks.
 \een
-As a result of the analysis in this section, we obtain a catalog with probabilistic associations of sources in 3FGL.
-We report the classification probabilities for all four algorithms and each source.
-In the next section we compare the predictions in the catalog with the new 4FGL catalog.
-We also construct a probabilistic catalog for the sources in the 4FGL catalog.
+As a result of the analysis in this section, we select hyper-parameters for the four ML algorithms,
+which we use in the following section for a construction of probabilistic catalogs
+based on the \Fermi-LAT 3FGL and 4FGL catalogs.
+%obtain a catalog with probabilistic associations of sources in 3FGL. We report the classification probabilities for all four algorithms and each source. In the next section we compare the predictions in the catalog with the new 4FGL catalog. We also construct a probabilistic catalog for the sources in the 4FGL catalog.
 
 
 \subsection{Data and feature selection}

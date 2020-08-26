@@ -90,9 +90,7 @@ where all probabilities and the numbers of sources are computed for sources with
 The first term is the sum of AGN-like probabilities among the unassociated sources,
 while the second term is the sum of AGN-like probabilities among associated ``other'' sources rescaled by the total number
 of unassociated and associated sources in this flux band.
-The number of pulsars among the unassociated sources is calculated analogously.
-In particular, we predict that there are about 200 (300) pulsars among unassociated sources in the 3FGL (4FGL) catalog.
-
+The expected number of pulsars among the unassociated sources is calculated analogously.
 A few conclusions based on Figure \ref{fig:logN_logS} are in order:
 \ben
 \item
@@ -102,6 +100,18 @@ AGNs are the largest class of sources. It is important to note, however, that th
 \item
 The number of pulsars among the unassociated sources is about the same as the number of associated pulsars, i.e., the total number of pulsars among the detected sources is expected to be twice the number of associated pulsars.
 \een
+In particular, we predict that the expected number of pulsars among the unassociated sources in the 3FGL catalog
+is $200 \pm 40$, where the range is the envelop of the sums of probabilities in Equation (\ref{eq:unassoc_ev})
+for different ML methods corrected for other sources among the unassociated sources.
+The expected number of pulsars among the unassociated sources in the 4FGL catalog corrected for other sources is $260 \pm 50$.
+We note that according to Table \ref{tab:3FGL_prediction}, the number of unassociated 3FGL sources 
+with $p_{\rm PSR} > 0.5$ for all four ML algorithms is 97 (81.5), while there are 182 (164.5) sources with mixed classification,
+uncorrected (corrected) for other sources.
+The number of pulsars with mixed classification (164.5 for 3FGL or 221.3 for 4FGL)
+is about two times larger than the range of values for the expected number of pulsars calculated for the sum of probabilities 
+(80 for 3FGL or 100 for 4FGL).
+It means that the decision which sources are considered to be more likely pulsars is more sensitive to the choice of the ML method
+and the probability threshold than the expected number of pulsars (based on the sum of probabilities).
 
 In Figure \ref{fig:unass_vs_ass_frac} we show the ratio of expected number of AGNs and pulsars among unassociated sources computed according to Equation \ref{eq:unassoc_ev} to the number of associated sources.
 Negative values (e.g., at high fluxes for AGNs) are due to subtraction of probabilities for the ``other'' associated sources.
