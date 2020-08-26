@@ -272,8 +272,8 @@ In order to illustrate the separation of PS into AGNs and pulsars, we retrain th
 These classification domains illustrate the separation of class probabilities.
 In our case, it can be seen that depth 6 model has better accuracy than 
 depth 2 due to the much more nuanced probability distribution of the model. 
-It is important to note that this plot is for one run only and the model is trained on two features.
-\dima{What do we mean by run here: the split into training and test samples?}
+It is important to note that this plot is for one run only (we only split the it into one training and one testing sample) and the model is trained on two features.
+%\dima{What do we mean by run here: the split into training and test samples?}
 %however, it shows why the higher depth outperforms the lesser one. 
 %The higher the depth the more the probabilities becomes denser and the dense areas become smaller. For instance, one can see regions of near zero probabilities in the depth of 6 as opposed to a depth of 2. 
 It also illustrates how more complex algorithms can over-fit the data 
@@ -403,8 +403,8 @@ The accuracy was similar to the networks with two hidden layers. Consequently, w
 \hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/nn_neurons_300epochs.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
-\caption{Dependence of accuracy on the number of neurons for different models.
-\dima{It looks like Adam should not be written as ADAM: the labels should be changed.}}
+\caption{Dependence of accuracy on the number of neurons for different models.}
+%\dima{It looks like Adam should not be written as ADAM: the labels should be changed.}}
 %\dima{I'm not sure I understand where you use Tanh or RELU activations, if we have only one hidden layer with sigmoid activation (I guess) for classification?}}
 \label{fig:NN_neurons}
 \end{figure}
@@ -430,7 +430,7 @@ The accuracy increases with higher number of epochs and saturates at around 300.
 \includegraphics[width=0.5\textwidth]{plots/nn_epochs.pdf}
 \caption{
 Dependence of accuracy on the number of epochs in training for different solvers and activation functions.
-\dima{ADAM -> Adam}
+%\dima{ADAM -> Adam}
 }
 \label{fig:NN_epochs}
 \end{figure}

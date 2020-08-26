@@ -5,7 +5,7 @@ accuracy of the algorithms. For these tests we use the 3FGL catalog.
 
 LR algorithm has two hyper-parameters regularization and tolerance. 
 %These features are the limit up to which one wants to go before accepting a solution. 
-As can be seen in figure \ref{fig:LR_tol_reg} the effect on accuracy is less than 1\%. Therefore we used the default values for these parameters. \dima{If we mention the default value, we should say what the default values are}. 
+As can be seen in figure \ref{fig:LR_tol_reg} the effect on accuracy is less than 1\%. Therefore we used the default values for these parameters (tolerance is 1$e^{-4}$ and regularization parameter is set at 1).% \dima{If we mention the default value, we should say what the default values are}. 
 \begin{figure}[h]
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/lr_train_reg.pdf}
@@ -16,13 +16,13 @@ As can be seen in figure \ref{fig:LR_tol_reg} the effect on accuracy is less tha
 
 In Figure \ref{fig:nn_nn} we show the effect of adding the third hidden layer in the NN algorithm.
 The difference between the best accuracies with the additional hidden layer is less then 1\%
-compare to the NN with two hidden layers (cf. Table \ref{tab:selected_algs}).
+compared with the NN with two hidden layers (cf. Table \ref{tab:selected_algs}).
 \begin{figure}[h]
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/nn_2layers_3fgl.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/unassoc_complex.pdf}
-\caption{Dependence of NN on the second hidden layer, for 10 neurons in the first layer.
-\dima{Strictly speaking this is the case of 3 hidden layers.}}
+\caption{Dependence of NN on the second hidden layer, for 10 neurons in the first layer.}
+%\dima{Strictly speaking this is the case of 3 hidden layers.}}
 \label{fig:nn_nn}
 \end{figure}
 

@@ -67,9 +67,9 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
 \end{figure*}
 
 As a result of the classification with the four ML algorithms,
-we created a probabilistic catalogs based on the 3FGL sources without missing values.
-\dima{Classification of associated sources is done by averaging over testing-training samples splits.
-Do we also do averaging for unassociated sources?}
+we created a probabilistic catalogs based on the 3FGL sources without missing values. Like in the case of associated sources, where we split the data 1000 times, we also do a 1000 runs for the unassociated case. However in this case there is no split, since we use all the 3fgl associated sources for training. However due to a change in the shuffling and the initial seed used there are changes in  the initial states of the algorithms and we collect the final result for all the runs.
+%\dima{Classification of associated sources is done by averaging over testing-training samples splits.
+%Do we also do averaging for unassociated sources?}
 We have also subselected 278 unassociated 3FGL sources, which have PSR or AGN associations in 4FGL,
 and saved them for convenience of comparison as a separate file.
 In the probabilistic catalogs we add columns with corresponding probabilities for each algorithm and each class,
