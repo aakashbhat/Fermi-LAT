@@ -17,6 +17,8 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
+import plotting
+
 h = .02  # step size in the mesh
 
 names = ["Nearest Neighbors", #"Linear SVM", "RBF SVM", "Gaussian Process",
@@ -48,6 +50,8 @@ datasets = [make_moons(noise=0.3, random_state=0, n_samples=(300, 3000)),
             #make_circles(noise=0.2, factor=0.5, random_state=1),
             #linearly_separable
             ]
+
+plotting.setup_figure_pars()
 
 figure = plt.figure(figsize=(9, 6))
 i = 1
@@ -129,6 +133,8 @@ for ds_cnt, ds in enumerate(datasets):
         i += 1
         ax.legend()
         cbar = figure.colorbar(cs, ax=ax, shrink=0.9)
+        plt.xlabel('Spectral Index')
+        plt.ylabel('Ln(Significant Curvature)')
 
 #plt.tight_layout()
 #plt.show()
