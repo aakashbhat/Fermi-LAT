@@ -6,15 +6,15 @@ from matplotlib import pyplot
 
 def setup_figure_pars():
     # update plotting parameters from a dictionary
-    fig_width = 12  # width in inches
-    fig_height = 8    # height in inches
+    fig_width = 8  # width in inches
+    fig_height = 5    # height in inches
     fig_size =  [fig_width, fig_height]
     params = {'axes.labelsize': 25, #unit
               'axes.titlesize': 25,  #title
               'font.size': 20,
-              'legend.fontsize': 12,
+              'legend.fontsize': 18,
               'xtick.labelsize':18, #ticks
-              'ytick.labelsize':20,
+              'ytick.labelsize':18,
               #'text.usetex': True,
               'figure.figsize': fig_size,
               'xtick.major.size' : 6,
