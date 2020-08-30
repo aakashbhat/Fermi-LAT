@@ -106,7 +106,7 @@ and for unassociated sources with mixed classification.
 
 
 
-\pgfplotstableread[col sep=comma]{data/catalogs/3FGL_unassoc_vs_4FGL_assoc.csv}\loadedtable
+\pgfplotstableread[col sep=comma]{tables/3FGL_unassoc_vs_4FGL_assoc.csv}\loadedtable
 \begin{table}
 \pgfplotstabletypeset[columns={Source_Name_3FGL,AGN_BDT,AGN_RF,AGN_LR,AGN_NN},
 column type=l,
@@ -127,7 +127,7 @@ Example of the AGN classification probabilities for a few unassociated sources i
 
 
 
-\pgfplotstableread[col sep=comma]{data/catalogs/3fgl_unassoc_predictions_matches_with_Parkes(2015)_1.csv}\loadedtable
+\pgfplotstableread[col sep=comma]{tables/3fgl_unassoc_predictions_matches_with_Parkes(2015)_1.csv}\loadedtable
 \begin{table}
 \pgfplotstabletypeset[columns={3FGL,GLON,GLAT,Separation},
 every head row/.style={before row={\toprule},after row=\midrule,},
