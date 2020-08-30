@@ -46,8 +46,8 @@ Unknown parameters of the function $m(x)$ are determined by maximizing the log l
 A useful feature of the LR method is that it, by construction, provides probabilities of classes with smooth transitions among domains of different classes.
 A limitation is that the form of the probability function is limited by the sigmoid function in Equation (\ref{eq:logit}).
 
-We notice that if $m(x)$ is a linear function of features $x$, then the logistic regression model is obtained by an application of sigmoid function to a linear combination of input features.
-This is in fact a single layer perceptron, or a neural network, with several input nodes (each node corresponds to a feature), one node in the hidden layer, and one output node, which corresponds to $p_0(x)$.
+We notice that if $m(x)$ is a linear function of features $x$, then the LR model is obtained by an application of sigmoid function to a linear combination of input features.
+This is in fact a single layer perceptron, or a NN, with several input nodes (each node corresponds to a feature) and one output node, which corresponds to $p_0(x)$, but without any hidden layers.
 The output value is obtained by a non-linear transformation (sigmoid) of a linear combination of features.
 Neural network with several hidden layers is obtained by a sequence of nonlinear transformations of linear combinations of features.
 In particular, the values in the first hidden layer are obtained by a non-linear transformation of linear combinations of input features.
@@ -340,9 +340,9 @@ It is interesting to note that already for the maximal depth of 2, the domains s
 \begin{figure}[h]
 %\centerin
 \hspace*{-1cm}
-\includegraphics[width=0.5\textwidth]{plots/bdt_100_2.pdf}
+\includegraphics[width=0.5\textwidth]{plots/bdt_20_2.pdf}
 \hspace*{-1cm}
-\includegraphics[width=0.5\textwidth]{plots/bdt_100_12.pdf}
+\includegraphics[width=0.5\textwidth]{plots/bdt_100_6.pdf}
 \caption{Classification domains for BDT for training with two features.
 \dima{For a comparison with RF domains, it would be interesting to see 20 trees with depth 2 and 50 trees with depth 6.}}
 \label{fig:BDT_domains}
@@ -379,24 +379,25 @@ In the case of NN, the number of free parameters depends on the number of hidden
 \includegraphics[width=0.45\textwidth]{plots/CNN_network.pdf}
 \caption{
 NN architecture that we use in the construction of the probabilistic catalogs.
+The activation function in the output layer is sigmoid $S(x) = {e^{x}}/{(1 + e^{x})}$.
 }
 \label{fig:NN_structure}
 \end{figure}
 
 The general architecture of the NN that we use in this paper is shown in Figure \ref{fig:NN_structure}.
-It is a fully connected NN with 10 input nodes (shown by red circles with input features $x_i$), two hidden layers (shown by blue circles),
+It is a fully connected NN with 10 input nodes (shown by red circles with input features $x_i$), one hidden layer (shown by blue circles),
 and an output layer (shown by the green circle).
-The first hidden layer consists of several nodes with values $y_j$. For the activation function between the first and the second hidden layers we use either hyperbolic tangent (tanh - shown on the plot) or rectified linear unit (relu).
-The activation function between the second hidden layer and the output node is sigmoid, which we use to make sure that the output value can be interpreted as a class probability.
+The hidden layer consists of several nodes with values $y_j$. 
+For the activation function at the hidden layer we use either hyperbolic tangent (tanh - shown on the plot) or rectified linear unit (relu).
+The activation function for the output layer is sigmoid, which we use to make sure that the output value can be interpreted as a class probability.
 The unknown parameters are weights of features in the two hidden layers, $w_{ji}$ and $v_j$,
-and offsets $w_0$ and $v_0$.
+and offsets $w_{j0}$ and $v_0$.
 The unknown parameters are optimized by minimizing the loss function. 
 The loss function is
 $-\text{log}L = - \sum_i (y_i\text{log}(p_i)+(1-y_i)\text{log}(1 - p_i))$, 
 where $y_i = 0,\,1$ are the true labels of the sources and $p_i$ are the predicted class probabilities.
 This is the same loss function as in the LR case.
-We have also tried to use three hidden layers with several nodes in the first two hidden layers and one node in the third hidden layer.
-The accuracy was similar to the networks with two hidden layers. Consequently, we have chosen to use the simpler model with two hidden layers.
+We have also tried to use two hidden layers, but the accuracy was similar to the networks with one hidden layer (Appendix \ref{sec:app}). Consequently, we have chosen to use the simpler model with one hidden layer.
 
 \begin{figure}[h]
 %\centerin
@@ -460,13 +461,13 @@ One can also see that the separation boundary is smoother compared to the RF dom
 %Secondly, one can clearly see how different the network behaves to the random forests before. The non-linear nature of neural networks allows it to smoothen the domain junctions (regions where there is a shift in class probabilities); this is a feature which becomes important especially when the number of training features is higher.
 %\dima{As above, I don't think it makes sense to use more than 2 nodes in the hidden layer here, since there are only two input features.} 
 
-For our final model we chose 2 hidden layer with 10 neurons in the first hidden layer and 1 neuron in the second hidden layer. We chose 300 epochs with Adam solver. The activation function after the first hidden layer is tanh.
+For our final model we chose one hidden layer with ten neurons, 300 training epochs, Adam solver, and tanh activation function at the hidden layer.
 
 
 \begin{figure}[h]
-%\centerin
+\center
 %\hspace*{-1cm}
-\includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_adam_10_tanh_50_final.pdf}
+\includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_adam_10_tanh_50_final.pdf}\\
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_adam_10_tanh_300_final.pdf}
 \caption{NN classification domains for 2 input features, 2 neurons in the hidden layer. 
