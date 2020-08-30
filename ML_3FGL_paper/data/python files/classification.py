@@ -36,8 +36,6 @@ plt.rcParams['lines.markersize'] = 12
 import plotting_dima
 plotting_dima.setup_figure_pars()
 
-print(plt.rcParams)
-
 #Training Fata:
 se=4
 np.random.seed(se)
@@ -130,6 +128,10 @@ fig1,ax2 = plt.subplots()
 
 trainc1_color = 'green'
 trainc1_marker = 's'
+# for some reason squares look visually larger than triangles
+# this is a hack to make the a bit smaller
+trainc1_marker_size = plt.rcParams['lines.markersize'] - 0.5 
+
 testc1_color = 'yellow'
 testc1_marker = 'd'
     
@@ -192,7 +194,7 @@ ax2.scatter(X_test[c2_test_inds, 0], X_test[c2_test_inds, 1], c=testc2_color, al
                    marker=testc2_marker, edgecolors='k', label='AGN testing')
         # Training points for class 1
 ax2.scatter(X_train[c1_train_inds, 0], X_train[c1_train_inds, 1], c=trainc1_color, alpha=alpha,
-                   marker=trainc1_marker, edgecolors='k', label='PSR training')
+                   marker=trainc1_marker, s=trainc1_marker_size**2, edgecolors='k', label='PSR training')
         # Testing points for class 1
 ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, alpha=alpha,
                    marker=testc1_marker, edgecolors='k', label='PSR testing')
@@ -217,7 +219,6 @@ ax2.text(0.02 , -1.9, ('Testing Score:%.2f' % score).lstrip('0'))
 
 #plt.tight_layout()
 #plt.show()
-print(plt.rcParams)
 fn = 'plots/rf_20_2_final.pdf'
 print('save plot to file')
 print(fn)
