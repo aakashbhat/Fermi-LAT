@@ -144,11 +144,11 @@ testc2_marker = 'v'
 
 
 #Choose classifier:
-clf=RandomForestClassifier(max_depth=2, n_estimators=20, class_weight='balanced',oob_score=True)
+#clf=RandomForestClassifier(max_depth=6, n_estimators=50, class_weight='balanced',oob_score=True)
 #clf= MLPClassifier(max_iter=300,hidden_layer_sizes=(2,), activation='tanh', solver='adam').fit(X_train,y_train)
-#clf=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=2, random_state=0).fit(X_train,y_train)
+clf=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=6, random_state=0).fit(X_train,y_train)
 #clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
-clf.fit(X_train, y_train)
+#clf.fit(X_train, y_train)
 
 lenth=len(X_test)
 score = clf.score(X_test, y_test)       #Score of our classifier
@@ -201,10 +201,10 @@ ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, al
 
 ax2.legend()
 #ax2.text(0.02,-1.0,"Solver: Adam",fontsize=23)
-ax2.text(0.02,-1.3,"Trees: 20")
-ax2.text(0.02,-1.6,"Maximum Depth: 2")
+ax2.text(0.02,-1.3,"Trees: 100")
+ax2.text(0.02,-1.6,"Maximum Depth: 6")
 ax2.set_xlim(xx.min(), xx.max())
-ax2.set_title('Random Forest')
+ax2.set_title('Boosted Decision Trees')
 #ax2.set_ylim(yy.min(), yy.max())
 ax2.set_xlabel('Spectral Index')
 ax2.set_ylabel('Ln(Significant_Curvature)')
@@ -219,7 +219,7 @@ ax2.text(0.02 , -1.9, ('Testing Score:%.2f' % score).lstrip('0'))
 
 #plt.tight_layout()
 #plt.show()
-fn = 'plots/rf_20_2_final.pdf'
+fn = 'plots/bdt_100_6.pdf'
 print('save plot to file')
 print(fn)
 plt.savefig(fn)
