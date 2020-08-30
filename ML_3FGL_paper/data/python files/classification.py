@@ -36,7 +36,7 @@ plt.rcParams['lines.markersize'] = 12
 import plotting_dima
 plotting_dima.setup_figure_pars()
 
-
+print(plt.rcParams)
 
 #Training Fata:
 se=4
@@ -118,7 +118,7 @@ ax1.set_xlabel('1')
 ax1.set_ylabel('2')
 ax1.set_title('Input Data')
 
-plt.show()
+#plt.show()
 
 #Main part of code:
 c1_train_inds = [i for i in range(len(y_train)) if y_train[i] > 0.5]
@@ -199,8 +199,8 @@ ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, al
 
 ax2.legend()
 #ax2.text(0.02,-1.0,"Solver: Adam",fontsize=23)
-ax2.text(0.02,-1.3,"Trees: 20",fontsize=23)
-ax2.text(0.02,-1.6,"Maximum Depth: 2",fontsize=23)
+ax2.text(0.02,-1.3,"Trees: 20")
+ax2.text(0.02,-1.6,"Maximum Depth: 2")
 ax2.set_xlim(xx.min(), xx.max())
 ax2.set_title('Random Forest')
 #ax2.set_ylim(yy.min(), yy.max())
@@ -211,12 +211,15 @@ ax2.set_ylim((-2,5))
  #       ax.set_yticks(())
   #      if ds_cnt == 0:
    #         ax.set_title(name)
-ax2.text(0.02 , -1.9, ('Testing Score:%.2f' % score).lstrip('0'),
-               size=23)
+ax2.text(0.02 , -1.9, ('Testing Score:%.2f' % score).lstrip('0'))
  #       i += 1
 
 
 #plt.tight_layout()
 #plt.show()
-plt.savefig('plots/rf_20_2_final.pdf')
+print(plt.rcParams)
+fn = 'plots/rf_20_2_final.pdf'
+print('save plot to file')
+print(fn)
+plt.savefig(fn)
 

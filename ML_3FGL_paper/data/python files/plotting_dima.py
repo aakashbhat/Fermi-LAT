@@ -9,22 +9,24 @@ def setup_figure_pars():
     fig_width = 8  # width in inches
     fig_height = 5    # height in inches
     fig_size =  [fig_width, fig_height]
-    params = {'axes.labelsize': 25, #unit
-              'axes.titlesize': 25,  #title
-              'font.size': 20,
-              'legend.fontsize': 18,
-              'xtick.labelsize':18, #ticks
-              'ytick.labelsize':18,
+    params = {'axes.labelsize': 16, #unit
+              'axes.titlesize': 18,  #title
+              'font.size': 12,
+              'legend.fontsize': 12,
+              'xtick.labelsize':12, #ticks
+              'ytick.labelsize':12,
               #'text.usetex': True,
               'figure.figsize': fig_size,
               'xtick.major.size' : 6,
               'ytick.major.size' : 6,
               'xtick.minor.size' : 3,
               'ytick.minor.size' : 3,
-              'figure.subplot.left' : 0.1,
-              'figure.subplot.right' : 0.95,
-              'figure.subplot.bottom' : 0.1,
-              'figure.subplot.top' : 0.9
+              'figure.subplot.left' : 0.12,
+              'figure.subplot.right' : 0.98,
+              'figure.subplot.bottom' : 0.15,
+              'figure.subplot.top' : 0.9,
+              'lines.markersize' : 5,
+              "legend.labelspacing" : 0.3
             }
     pyplot.rcParams.update(params)
     return 0
