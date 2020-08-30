@@ -25,13 +25,16 @@ from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 from sklearn.linear_model import LogisticRegression
 import matplotlib.colors as colors
 
-
+'''
 plt.rcParams['xtick.labelsize'] = 22
 plt.rcParams['axes.labelsize'] = 30
 plt.rcParams['axes.titlesize'] = 28
 plt.rcParams['font.size'] = 25
 plt.rcParams['ytick.labelsize'] = 25
 plt.rcParams['lines.markersize'] = 12
+'''
+import plotting_dima
+plotting_dima.setup_figure_pars()
 
 
 
@@ -139,7 +142,7 @@ testc2_marker = 'v'
 
 
 #Choose classifier:
-clf=RandomForestClassifier(max_depth=6, n_estimators=50, class_weight='balanced',oob_score=True)
+clf=RandomForestClassifier(max_depth=2, n_estimators=20, class_weight='balanced',oob_score=True)
 #clf= MLPClassifier(max_iter=300,hidden_layer_sizes=(2,), activation='tanh', solver='adam').fit(X_train,y_train)
 #clf=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=2, random_state=0).fit(X_train,y_train)
 #clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
@@ -196,8 +199,8 @@ ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, al
 
 ax2.legend()
 #ax2.text(0.02,-1.0,"Solver: Adam",fontsize=23)
-ax2.text(0.02,-1.3,"Trees: 50",fontsize=23)
-ax2.text(0.02,-1.6,"Maximum Depth: 6",fontsize=23)
+ax2.text(0.02,-1.3,"Trees: 20",fontsize=23)
+ax2.text(0.02,-1.6,"Maximum Depth: 2",fontsize=23)
 ax2.set_xlim(xx.min(), xx.max())
 ax2.set_title('Random Forest')
 #ax2.set_ylim(yy.min(), yy.max())
@@ -213,5 +216,7 @@ ax2.text(0.02 , -1.9, ('Testing Score:%.2f' % score).lstrip('0'),
  #       i += 1
 
 
-plt.tight_layout()
-plt.show()
+#plt.tight_layout()
+#plt.show()
+plt.savefig('plots/rf_20_2_final.pdf')
+

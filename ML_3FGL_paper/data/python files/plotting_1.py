@@ -27,6 +27,9 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from matplotlib import pyplot
 
+import plotting_dima
+
+
 pyplot.rcParams['xtick.labelsize'] = 18
 pyplot.rcParams['axes.labelsize'] = 18
 pyplot.rcParams['axes.titlesize'] = 28
