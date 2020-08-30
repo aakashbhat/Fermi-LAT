@@ -9,12 +9,12 @@ def setup_figure_pars():
     fig_width = 8  # width in inches
     fig_height = 5    # height in inches
     fig_size =  [fig_width, fig_height]
-    params = {'axes.labelsize': 25, #unit
-              'axes.titlesize': 25,  #title
-              'font.size': 20,
-              'legend.fontsize': 18,
-              'xtick.labelsize':18, #ticks
-              'ytick.labelsize':18,
+    params = {'axes.labelsize': 18, #unit
+              'axes.titlesize': 22,  #title
+              'font.size': 14,
+              'legend.fontsize': 14,
+              'xtick.labelsize':14, #ticks
+              'ytick.labelsize':14,
               #'text.usetex': True,
               'figure.figsize': fig_size,
               'xtick.major.size' : 6,
