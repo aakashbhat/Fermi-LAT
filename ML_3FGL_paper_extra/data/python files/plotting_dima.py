@@ -25,7 +25,7 @@ def setup_figure_pars():
               'figure.subplot.right' : 0.98,
               'figure.subplot.bottom' : 0.15,
               'figure.subplot.top' : 0.9,
-              'lines.markersize' : 5.5,
+              'lines.markersize' : 6,
               "legend.labelspacing" : 0.3
             }
     pyplot.rcParams.update(params)
