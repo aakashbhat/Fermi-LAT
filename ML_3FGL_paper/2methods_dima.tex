@@ -5,8 +5,10 @@
 
 The first choice one has to make in constructing a probabilistic catalog is the input data and the machine learning methods.
 For the input data we take associated PS in the 3FGL catalog, which we split into training and testing subsets.
-We consider four machine learning algorithms: boosted decision trees (BDTs),  random forests (RF),
-logistic regression (LR), and neural networks (NN).
+We consider four machine learning algorithms: random forests \citep[RF,][]{709601, Breiman:2001hzm}, 
+boosted decision trees \citep[BDTs,][]{friedman2001},  
+logistic regression \citep[LR,][]{cox1958}, 
+and neural networks \citep[NN,][]{Hopfield:1982pe}.
 %The resulting probabilities of classes depend on the choice of the classification algorithm.
 Although the performance of algorithms on testing data is slightly different, the differences are relatively small.
 As a result, we report the classification probabilities for all four algorithms, instead of selecting the best one.
@@ -212,7 +214,7 @@ The results for each point are averaged over 100 realizations of the split into 
 As one can see from this figure,
 weighting the training data does not have a significant effect on the accuracy of PS classification into pulsars and AGNs.
 We also notice that the test score does not decrease significantly with a larger complexity of the model, e.g., there is little change in accuracy for maximal depths above $\sim$ 5.
-This is due to the random choice of a subset of features (maximum number of allowed features is $\sqrt{\text{features}}$) at each node.
+This is due to the random choice of a subset of features (maximum number of allowed features is $\sqrt{\text{\# features}}$) at each node.
 Furthermore, we find that the number of trees is not as important as the depth: a lower number of trees does not significantly change the accuracy, above, e.g., 20 for unweighted data (Figure \ref{fig:RF_complexity}). 
 %However, a lower depth certainly lessens the accuracy significantly, and therefore this threshold must be chosen carefully.
 %In the case of training, we found no significant differences when using weights for our data set. However, we chose to use a inversely weighted dataset since that allows us to generalize the algorithm more. The influence of weights will also be discussed more in the case of unassociated data, in the next section.

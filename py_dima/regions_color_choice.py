@@ -117,7 +117,7 @@ for ds_cnt, ds in enumerate(datasets):
                    marker=testc2_marker, edgecolors='k', label='AGN testing')
         # Training points for class 1
         ax.scatter(X_train[c1_train_inds, 0], X_train[c1_train_inds, 1], c=trainc1_color, alpha=alpha,
-                   marker=trainc1_marker, edgecolors='k', label='PSR training')
+                   marker=trainc1_marker, s=4, edgecolors='k', label='PSR training')
         # Testing points for class 1
         ax.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, alpha=alpha,
                    marker=testc1_marker, edgecolors='k', label='PSR testing')

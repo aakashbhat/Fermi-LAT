@@ -1,9 +1,15 @@
-\begin{thebibliography}{21}
+\begin{thebibliography}{42}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
-\bibitem[{{Abdo} {et~al.}(2010){Abdo}, {Ackermann}, {Ajello},
+\bibitem[{{Abdo} {et~al.}(2010{\natexlab{a}}){Abdo}, {Ackermann}, {Ajello},
   {et~al.}}]{2010ApJS..188..405A}
-{Abdo}, A.~A., {Ackermann}, M., {Ajello}, M., {et~al.} 2010, \apjs, 188, 405
+{Abdo}, A.~A., {Ackermann}, M., {Ajello}, M., {et~al.} 2010{\natexlab{a}},
+  \apjs, 188, 405
+
+\bibitem[{{Abdo} {et~al.}(2010{\natexlab{b}}){Abdo}, {Ackermann}, {Ajello},
+  {et~al.}}]{2010ApJ...720..435A}
+{Abdo}, A.~A., {Ackermann}, M., {Ajello}, M., {et~al.} 2010{\natexlab{b}},
+  \apj, 720, 435
 
 \bibitem[{{Abdollahi} {et~al.}(2020){Abdollahi}, {Acero}, {Ackermann},
   {et~al.}}]{2020ApJS..247...33A}
@@ -13,9 +19,27 @@
   {et~al.}}]{2015ApJS..218...23A}
 {Acero}, F., {Ackermann}, M., {Ajello}, M., {et~al.} 2015, \apjs, 218, 23
 
+\bibitem[{Ackermann {et~al.}(2015)Ackermann, Ajello, Albert,
+  {et~al.}}]{2015JCAP...09..008F}
+Ackermann, M., Ajello, M., Albert, A., {et~al.} 2015, \jcap, 2015, 008
+
+\bibitem[{{Ackermann} {et~al.}(2016){Ackermann}, {Ajello}, {Albert},
+  {et~al.}}]{2016PhRvL.116o1105A}
+{Ackermann}, M., {Ajello}, M., {Albert}, A., {et~al.} 2016, \prl, 116, 151105
+
 \bibitem[{{Ackermann} {et~al.}(2012){Ackermann}, {Ajello}, {Allafort},
   {et~al.}}]{2012ApJ...753...83A}
 {Ackermann}, M., {Ajello}, M., {Allafort}, A., {et~al.} 2012, \apj, 753, 83
+
+\bibitem[{{Ajello} {et~al.}(2015){Ajello}, {Gasparrini}, {S{\'a}nchez-Conde},
+  {Zaharijas}, {Gustafsson}, {Cohen-Tanugi}, {Dermer}, {Inoue}, {Hartmann},
+  {Ackermann}, {Bechtol}, {Franckowiak}, {Reimer}, {Romani}, \&
+  {Strong}}]{2015ApJ...800L..27A}
+{Ajello}, M., {Gasparrini}, D., {S{\'a}nchez-Conde}, M., {et~al.} 2015, \apjl,
+  800, L27
+
+\bibitem[{Breiman(2001)}]{Breiman:2001hzm}
+Breiman, L. 2001, Machine Learning, 45, 5
 
 \bibitem[{{Brewer} {et~al.}(2013){Brewer}, {Foreman-Mackey}, \&
   {Hogg}}]{2013AJ....146....7B}
@@ -27,25 +51,53 @@
 Camilo, F., Kerr, M., Ray, P.~S., {et~al.} 2015, The Astrophysical Journal,
   810, 85
 
+\bibitem[{{Carr} {et~al.}(2010){Carr}, {Kohri}, {Sendouda}, \&
+  {Yokoyama}}]{2010PhRvD..81j4019C}
+{Carr}, B.~J., {Kohri}, K., {Sendouda}, Y., \& {Yokoyama}, J. 2010, \prd, 81,
+  104019
+
 \bibitem[{{Chiaro} {et~al.}(2016){Chiaro}, {Salvetti}, {La Mura}, {Giroletti},
   {Thompson}, \& {Bastieri}}]{2016MNRAS.462.3180C}
 {Chiaro}, G., {Salvetti}, D., {La Mura}, G., {et~al.} 2016, \mnras, 462, 3180
+
+\bibitem[{Cox(1958)}]{cox1958}
+Cox, D.~R. 1958, J R Stat Soc B, 20, 215
 
 \bibitem[{{Daylan} {et~al.}(2017){Daylan}, {Portillo}, \&
   {Finkbeiner}}]{2017ApJ...839....4D}
 {Daylan}, T., {Portillo}, S. K.~N., \& {Finkbeiner}, D.~P. 2017, \apj, 839, 4
 
+\bibitem[{{Di Mauro} \& {Donato}(2015)}]{2015PhRvD..91l3001D}
+{Di Mauro}, M. \& {Donato}, F. 2015, \prd, 91, 123001
+
+\bibitem[{{Di Mauro} {et~al.}(2018){Di Mauro}, {Manconi}, {Zechlin}, {Ajello},
+  {Charles}, \& {Donato}}]{2018ApJ...856..106D}
+{Di Mauro}, M., {Manconi}, S., {Zechlin}, H.~S., {et~al.} 2018, \apj, 856, 106
+
 \bibitem[{{Doert} \& {Errando}(2014)}]{2014ApJ...782...41D}
 {Doert}, M. \& {Errando}, M. 2014, \apj, 782, 41
+
+\bibitem[{{Fornasa} \& {S{\'a}nchez-Conde}(2015)}]{2015PhR...598....1F}
+{Fornasa}, M. \& {S{\'a}nchez-Conde}, M.~A. 2015, \physrep, 598, 1
+
+\bibitem[{Friedman(2001)}]{friedman2001}
+Friedman, J.~H. 2001, Ann. Statist., 29, 1189
 
 \bibitem[{{Hassan} {et~al.}(2013){Hassan}, {Mirabal}, {Contreras}, \&
   {Oya}}]{2013MNRAS.428..220H}
 {Hassan}, T., {Mirabal}, N., {Contreras}, J.~L., \& {Oya}, I. 2013, \mnras,
   428, 220
 
+\bibitem[{Ho(1998)}]{709601}
+Ho, T.~K. 1998, IEEE Transactions on Pattern Analysis and Machine Intelligence,
+  20, 832
+
 \bibitem[{{Hogg} \& {Lang}(2010)}]{2010EAS....45..351H}
 {Hogg}, D.~W. \& {Lang}, D. 2010, in EAS Publications Series, Vol.~45, EAS
   Publications Series, 351--358
+
+\bibitem[{Hopfield(1982)}]{Hopfield:1982pe}
+Hopfield, J. 1982, Proc. Nat. Acad. Sci., 79, 2554
 
 \bibitem[{Hunter(2007)}]{Hunter:2007}
 Hunter, J.~D. 2007, Computing In Science \& Engineering, 9, 90
@@ -60,8 +112,30 @@ Hunter, J.~D. 2007, Computing In Science \& Engineering, 9, 90
 {Kova{\v{c}}evi{\'c}}, M., {Chiaro}, G., {Cutini}, S., \& {Tosti}, G. 2020,
   \mnras, 493, 1926
 
+\bibitem[{{Lee} {et~al.}(2012){Lee}, {Guillemot}, {Yue}, {Kramer}, \&
+  {Champion}}]{2012MNRAS.424.2832L}
+{Lee}, K.~J., {Guillemot}, L., {Yue}, Y.~L., {Kramer}, M., \& {Champion}, D.~J.
+  2012, \mnras, 424, 2832
+
 \bibitem[{{Lefaucheur} \& {Pita}(2017)}]{2017A&A...602A..86L}
 {Lefaucheur}, J. \& {Pita}, S. 2017, \aap, 602, A86
+
+\bibitem[{{Lisanti} {et~al.}(2016){Lisanti}, {Mishra-Sharma}, {Necib}, \&
+  {Safdi}}]{2016ApJ...832..117L}
+{Lisanti}, M., {Mishra-Sharma}, S., {Necib}, L., \& {Safdi}, B.~R. 2016, \apj,
+  832, 117
+
+\bibitem[{{Liu} {et~al.}(2017){Liu}, {Bi}, {Lin}, \&
+  {Yin}}]{2017ChPhC..41d5104L}
+{Liu}, W., {Bi}, X.-J., {Lin}, S.-J., \& {Yin}, P.-F. 2017, Chinese Physics C,
+  41, 045104
+
+\bibitem[{{Luo} {et~al.}(2020){Luo}, {Leung}, {Hui}, \&
+  {Li}}]{2020MNRAS.492.5377L}
+{Luo}, S., {Leung}, A.~P., {Hui}, C.~Y., \& {Li}, K.~L. 2020, \mnras, 492, 5377
+
+\bibitem[{{Malyshev} \& {Hogg}(2011)}]{2011ApJ...738..181M}
+{Malyshev}, D. \& {Hogg}, D.~W. 2011, \apj, 738, 181
 
 \bibitem[{{Mirabal} {et~al.}(2016){Mirabal}, {Charles}, {Ferrara}, {Gonthier},
   {Harding}, {S{\'a}nchez-Conde}, \& {Thompson}}]{2016ApJ...825...69M}
@@ -89,5 +163,19 @@ Hunter, J.~D. 2007, Computing In Science \& Engineering, 9, 90
 {Taylor}, M.~B. 2005, in Astronomical Society of the Pacific Conference Series,
   Vol. 347, Astronomical Data Analysis Software and Systems XIV, ed.
   P.~{Shopbell}, M.~{Britton}, \& R.~{Ebert}, 29
+
+\bibitem[{{Zechlin} {et~al.}(2016{\natexlab{a}}){Zechlin}, {Cuoco}, {Donato},
+  {Fornengo}, \& {Regis}}]{2016ApJ...826L..31Z}
+{Zechlin}, H.-S., {Cuoco}, A., {Donato}, F., {Fornengo}, N., \& {Regis}, M.
+  2016{\natexlab{a}}, \apjl, 826, L31
+
+\bibitem[{{Zechlin} {et~al.}(2016{\natexlab{b}}){Zechlin}, {Cuoco}, {Donato},
+  {Fornengo}, \& {Vittino}}]{2016ApJS..225...18Z}
+{Zechlin}, H.-S., {Cuoco}, A., {Donato}, F., {Fornengo}, N., \& {Vittino}, A.
+  2016{\natexlab{b}}, \apjs, 225, 18
+
+\bibitem[{{Zhu} {et~al.}(2020){Zhu}, {Kang}, \& {Zheng}}]{2020arXiv200106010Z}
+{Zhu}, K., {Kang}, S.-J., \& {Zheng}, Y.-G. 2020, arXiv e-prints,
+  arXiv:2001.06010
 
 \end{thebibliography}
