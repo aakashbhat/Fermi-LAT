@@ -32,24 +32,24 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
 \resizebox{0.47\textwidth}{!}{
     \tiny
   \centering
-    \renewcommand{\tabcolsep}{0.3mm}
+    \renewcommand{\tabcolsep}{0.4mm}
 \renewcommand{\arraystretch}{1.5}
 
 %\hspace{-3mm}
-    \begin{tabular}{|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|}
     \hline
-    Algorithm&Parameters & Average  & Accuracy from \\
-    & & Testing Accuracy & Comparison with 4FGL\\
+    Algorithm&Parameters & Average  &Std. Dev.&Accuracy from \\
+    & & Testing Accuracy & &Comparison with 4FGL\\
     \hline
-    RF& 50 trees, max depth 6  &97.42& 96.1  \\
+    RF& 50 trees, max depth 6  &97.42&0.60& 96.1  \\
     \hline %\midrule   -> aakash do you mean this?
-    BDT & 100 trees, max depth 2    &   97.80&95.34 \\
+    BDT & 100 trees, max depth 2    &   97.80&0.55&95.34 \\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
     \hline
-    NN & 300, 10 Neurons, Adam & 97.40& 94.55\\
+    NN & 300, 10 Neurons, Adam & 97.40&0.87& 94.55\\
     \hline
-    LR & LBFGS solver, 200 iterations & 97.60& 93.48 \\
+    LR & LBFGS solver, 200 iterations & 97.60&0.56& 93.48 \\
     \hline
      
     \end{tabular}}
@@ -213,19 +213,19 @@ All algorithms have a slightly better accuracy for the 4FGL catalog compared to 
     \renewcommand{\tabcolsep}{0.3mm}
 \renewcommand{\arraystretch}{1.5}
 
-    \begin{tabular}{|c|c|c|}
+    \begin{tabular}{|c|c|c|c|}
     \hline
-    Algorithm&Parameters & Testing Accuracy \\
+    Algorithm&Parameters & Testing Accuracy & Std. Dev. \\
     \hline
-    RF& 50 trees, max depth 6  &98.27\\
+    RF& 50 trees, max depth 6  &98.27 & 0.35\\
     \hline
-    NN & 300, 16 Neurons, Adam & 98.08\\
+    NN & 300, 16 Neurons, Adam & 98.08 & 0.39\\
     \hline %\midrule   -> aakash do you mean this?
-    BDT & 100 trees, max depth 2    &   98.23\\
+    BDT & 100 trees, max depth 2    &   98.23 &0.40\\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
     \hline
-    LR & LBFGS solver, 200 iterations & 98.08\\
+    LR & LBFGS solver, 200 iterations & 98.08&0.35\\
     \hline
      
     \end{tabular}}
