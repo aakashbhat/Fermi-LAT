@@ -519,3 +519,33 @@ For the final classification we will use LBFGs solver with 200 iterations.
 \end{figure}
 
 
+\subsection{Oversampling}
+
+
+\begin{figure}[h]
+%\centerin
+%\hspace*{-1cm}
+\includegraphics[width=\twopicsp\textwidth]{plots/All_algs_3FGL_precision_recall.pdf}
+\caption{Precision and recall for pulsars.}
+\label{fig:prec_recall}
+\end{figure}
+
+One of the features of the \Fermi-LAT sources dataset is that there are many more AGNs than pulsars, i.e., the datasets are imbalanced.
+In the previous subsections we have optimized overall accuracy. In this case, the algorithms try to identify AGNs rather than pulsars,
+since it gives better accuracy. As a result, in the region of parameter space, where both pulsars and AGNs are present, the algorithms
+will give higher probability for a source to be an AGNs, i.e., the pulsar domain is smaller than it would have been in the case of balanced datasets.
+
+The problem of classification of imbalanced datasets can be quantitatively described in terms of precision and recall.
+If we denote by ``\# true'' the number of pulsars in the dataset, by ``\# positive'' -- the number of sources predicted to be pulsars, and by 
+``\# true positive'' -- the number of pulsars predicted to be pulsars, then $\rm precision = \frac{\#\ true\ positive}{\#\ positive}$ is a measure how clean the prediction is, while $\rm recall = \frac{\#\ true\ positive}{\#\ true}$ is a measure how well the algorithm can detect the pulsars, i.e., how complete is the list of predicted pulsars.
+If we reduce the pulsar domain by attributing uncertain sources predominantly to AGNs, then the precision will increase, but the recall will decrease.
+In order to illustrate this point, we compare in Figure \ref{fig:prec_recall} two cases: 1) a source is attributed to the PSR class, if all four algorithms classify it as PSR, 2) a source is attributed to the PSR class, if any of the algorithms classifies it as a pulsar.
+It is clear that in case 1) the pulsar domain is smaller than in case 2), since in case 1) the domain is intersection of domains for individual algorithms, while in case 2) it is the union.
+In case 1) the precision is 100\% for most of latitudes, while the recall is between 50\% and 80\%, i.e., the list of pulsars is generally clean but incomplete.
+In case 2), the recall is increased by 10 - 20\% compared to case 1), but the precision drops to 60 - 80\%, i.e., the completeness improves at the expense of cleanliness of the sample.
+One can notice that even in case 2) the recall does not go above about 80\% -- this is a general problem of training with imbalanced datasets.
+This problem can be ameliorated by giving larger weights to pulsars in the training process or by oversampling, i.e., by using the same source several times, so that the numbers of pulsars and AGNs in training are similar.
+Provided that in some applications it is beneficial to have as complete as possible list of pulsar candidates among unassociated sources, we have retrained the algorithms using oversampling with the same meta-parameters as in the previous sections.
+
+
+
