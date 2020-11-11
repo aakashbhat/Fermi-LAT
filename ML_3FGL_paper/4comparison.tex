@@ -63,7 +63,8 @@ calculated from the class probabilities of associated sources.
 This conclusion is not very surprising since we used associated sources for training of ML algorithms.
 It is important to note that correction for ``other'' sources is important for consistency of the sum of probabilities and the number of associated sources.
 We have also compared the sums of probabilities for the 3FGL associated sources in \cite{2016ApJ...820....8S}.%
-\footnote{The data is downloaded from \url{https://www.physics.hku.hk/~pablo/pulsarness.html}.}
+%\footnote{The data is downloaded from \url{https://www.physics.hku.hk/~pablo/pulsarness.html}.}
+% !!! resolve the footnote issue?
 The sum of probabilities for associated sources in the LR case uncorrected for ``other'' sources are shown by dotted black line,
 while the sums corrected for ``other'' sources are shown by black dash-dotted lines.
 The gray band is the envelope of the two methods (LR and RF) used by \cite{2016ApJ...820....8S}.
@@ -123,7 +124,6 @@ which we illustrate in Figure \ref{fig:unass_vs_ass_frac}, where we show that th
 Negative values (e.g., at high fluxes for AGNs) are due to subtraction of probabilities for the ``other'' associated sources.
 %One can see that the fraction of AGNs or pulsars among unassociated sources to the associated ones is higher at smaller fluxes.
 
-
 \subsection{Latitude and longitude profiles}
 \lb{sec:lat-lon-profiles}
 
@@ -177,6 +177,8 @@ The predictions of the 4 algorithms, which we use for classification, added to t
 The average among the 4 algorithms added to the counts of associated sources is shown by solid orange line 
 (for AGNs we also show the mean of these points by dotted green line).
 We find that the number of associated AGNs is decreasing towards the GP, the expected number of AGNs among unassociated sources is increasing towards the GP, but the sum of the two is relatively uniform as a function of Galactic latitude.
+
+
 
 In Figure \ref{fig:lon_profile} we show plots analogous to Figure \ref{fig:lat_profile} for Galactic longitudes.
 We note that there is a significant increase in the number of unassociated sources in the 4FGL catalog for $|\ell | \lesssim 50^\circ$.
