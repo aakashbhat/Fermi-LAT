@@ -26,6 +26,7 @@ from sklearn.gaussian_process.kernels import RBF
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from matplotlib import pyplot
+from imblearn.over_sampling import RandomOverSampler
 
 pyplot.rcParams['xtick.labelsize'] = 16
 pyplot.rcParams['axes.labelsize'] = 16
@@ -33,18 +34,21 @@ pyplot.rcParams['axes.titlesize'] = 25
 pyplot.rcParams['font.size'] = 15
 pyplot.rcParams['ytick.labelsize'] = 16
 
-
+z1=287
+z2=1336
+z3=1670
+#z3=357
 se=0
 valscore3=0
-pro1=np.zeros((1336,8))
+pro1=np.zeros((z3,8))
 feat2=np.zeros(17)
-prop1=np.zeros((1336,4))
+prop1=np.zeros((z3,4))
 
 
 while se<1000:
     #data:
     np.random.seed(se)
-    dataframe = pandas.read_csv("./files/4fgl_assoc.csv", header=None)
+    dataframe = pandas.read_csv("./files/4fgldr2_assoc.csv", header=None)
     #dataframe = pandas.read_csv("./files/3fgl_associated_AGNandPSR.csv", header=None)
 
     dataset1 = dataframe.values 
@@ -63,15 +67,15 @@ while se<1000:
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
-    dataframe = pandas.read_csv("./files/4fgl_unassoc.csv", header=None)
+    dataframe = pandas.read_csv("./files/4fgldr2_unassoc.csv", header=None)
     #dataframe = pandas.read_csv("./files/3fgl_allunassoc.csv", header=None)
     #dataframe = pandas.read_csv("./files/3fgl_assoc_notagnpsr.csv", header=None)
-    #dataframe = pandas.read_csv("./files/4fgl_others_3.csv", header=None)
+    #dataframe = pandas.read_csv("./files/4fgldr2_other.csv", header=None)
     #dataframe = pandas.read_csv("3fgl_unassoc_4fgl_assoc.csv", header=None)
 
     dataset = dataframe.values
     print(Y)
-    X2 = dataset[1:,1:17].astype(float)
+    X2 = dataset[1:,0:16].astype(float)
     #Y2 = dataset[1:,10]
     #encoder = preprocessing.LabelEncoder()
     #encoder.fit(Y2)
@@ -89,16 +93,20 @@ while se<1000:
 
     prop2=prop1
     pro2=pro1
-    clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(train1, train_truth1)
-    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(16,), activation='tanh', solver='adam').fit(train1,train_truth1)
-    clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(train1, train_truth1)
+    #oversample = RandomOverSampler(sampling_strategy='minority')
+    #X_over, y_over = oversample.fit_resample(train1, train_truth1)
+    #oversample = RandomOverSampler(sampling_strategy=0.5)
+    X_over, y_over=train1, train_truth1
+    clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
+    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(16,), activation='tanh', solver='adam').fit(X_over, y_over)
+    clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
     clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
-    clf4.fit(train1,train_truth1)
+    clf4.fit(X_over, y_over)
     #valscore3=clf2.score(val_inp1,val_out1)
     
     
     
-    pro=np.zeros((1336,8))
+    pro=np.zeros((z3,8))
     pro[:,0:2]=clf.predict_proba(val_inp1)
     pro[:,2:4]=clf2.predict_proba(val_inp1)
     pro[:,4:6]=clf3.predict_proba(val_inp1)
@@ -106,8 +114,8 @@ while se<1000:
 
     #pro=clf.predict_proba(val_inp1)
     pro1=(pro2+pro)
-
-    prop=np.zeros((1336,4))
+    
+    prop=np.zeros((z3,4))
     prop[:,0]=clf.predict(val_inp1)
     prop[:,1]=clf2.predict(val_inp1)
     prop[:,2]=clf3.predict(val_inp1)
@@ -147,6 +155,6 @@ print(result2)
 #print(feat2/1000)
 #result=pandas.DataFrame(result)
 result2=pandas.DataFrame(result2)
-result2.to_csv(path_or_buf="./catas/4fgl_assoc_others_catalog_unweighted.csv",index=False)
+result2.to_csv(path_or_buf="./catas/4fgldr2_assoc_unassoc.csv",index=False)
     
 

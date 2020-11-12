@@ -24,6 +24,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 from sklearn.linear_model import LogisticRegression
 import matplotlib.colors as colors
+from imblearn.over_sampling import RandomOverSampler
 
 '''
 plt.rcParams['xtick.labelsize'] = 22
@@ -74,9 +75,12 @@ X, y = datasets[0]
 
 
 X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
-X_train, X_test, y_train, y_test = \
+X_t, X_test, y_t, y_test = \
  train_test_split(X, y, test_size=.3, random_state=0)       #Split into training and validation
 
+oversample = RandomOverSampler(sampling_strategy='minority')
+X_train, y_train = oversample.fit_resample(X_t, y_t)
+print(len(X_train))
 x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5   #Define minimumm and maximum of axes
 y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
 xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
@@ -144,10 +148,10 @@ testc2_marker = 'v'
 
 
 #Choose classifier:
-#clf=RandomForestClassifier(max_depth=6, n_estimators=50, class_weight='balanced',oob_score=True)
-#clf= MLPClassifier(max_iter=300,hidden_layer_sizes=(2,), activation='tanh', solver='adam').fit(X_train,y_train)
-clf=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=6, random_state=0).fit(X_train,y_train)
-#clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
+#clf=RandomForestClassifier(max_depth=2, n_estimators=20,oob_score=True)
+#clf= MLPClassifier(max_iter=50,hidden_layer_sizes=(2,), activation='tanh', solver='adam').fit(X_train,y_train)
+#clf=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=6, random_state=0).fit(X_train,y_train)
+clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
 #clf.fit(X_train, y_train)
 
 lenth=len(X_test)
@@ -185,6 +189,23 @@ cs=ax2.contourf(xx, yy, Z, cmap=cm, alpha=.8,levels=levels)
 fig1.colorbar(cs,ax=ax2,shrink=0.9)
         # Plot the training points
 alpha=0.9
+k=1
+for i in range(len(X_train)):
+    l=X_train[i]
+    j=i+1
+    while(j<len(X_train)):
+        m=X_train[j]
+        if l[0]==m[0]and l[1]==m[1]:
+            X_train[j]=X_train[j]+k*2/90
+            k=k+1
+        j=j+1
+    k=1
+alphas = np.linspace(1, 0.1, 1221)
+rgba_colors = np.zeros((1221,4))
+# for red the first column needs to be one
+rgba_colors[:,1] =1,
+# the fourth column needs to be your alphas
+rgba_colors[:, 3] = alphas
 
 # Training points for class 2
 ax2.scatter(X_train[c2_train_inds, 0], X_train[c2_train_inds, 1], c=trainc2_color, alpha=alpha,
@@ -193,18 +214,19 @@ ax2.scatter(X_train[c2_train_inds, 0], X_train[c2_train_inds, 1], c=trainc2_colo
 ax2.scatter(X_test[c2_test_inds, 0], X_test[c2_test_inds, 1], c=testc2_color, alpha=alpha,
                    marker=testc2_marker, edgecolors='k', label='AGN testing')
         # Training points for class 1
-ax2.scatter(X_train[c1_train_inds, 0], X_train[c1_train_inds, 1], c=trainc1_color, alpha=alpha,
+ax2.scatter(X_train[c1_train_inds, 0], X_train[c1_train_inds, 1], color=rgba_colors,
                    marker=trainc1_marker, s=trainc1_marker_size**2, edgecolors='k', label='PSR training')
         # Testing points for class 1
 ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, alpha=alpha,
                    marker=testc1_marker, edgecolors='k', label='PSR testing')
 
 ax2.legend()
-#ax2.text(0.02,-1.0,"Solver: Adam",fontsize=23)
-ax2.text(0.02,-1.3,"Trees: 100")
-ax2.text(0.02,-1.6,"Maximum Depth: 6")
+ax2.text(0.02,-1.6,"Solver: LBFGS")
+ax2.text(0.02,-1.3,"Epochs: 200")
+#ax2.text(0.02,-1.3,"Trees: 100")
+#ax2.text(0.02,-1.6,"Maximum Depth: 6")
 ax2.set_xlim(xx.min(), xx.max())
-ax2.set_title('Boosted Decision Trees')
+ax2.set_title('Logistic Regression (Oversampled)')
 #ax2.set_ylim(yy.min(), yy.max())
 ax2.set_xlabel('Spectral Index')
 ax2.set_ylabel('Ln(Significant_Curvature)')
@@ -219,7 +241,7 @@ ax2.text(0.02 , -1.9, ('Testing Score:%.2f' % score).lstrip('0'))
 
 #plt.tight_layout()
 #plt.show()
-fn = 'plots/bdt_100_6.pdf'
+fn = 'plots/lr_200_lbfgs_oversample.pdf'
 print('save plot to file')
 print(fn)
 plt.savefig(fn)

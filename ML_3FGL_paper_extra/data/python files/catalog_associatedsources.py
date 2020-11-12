@@ -26,6 +26,8 @@ from sklearn.gaussian_process.kernels import RBF
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from matplotlib import pyplot
+from imblearn.over_sampling import RandomOverSampler
+
 
 pyplot.rcParams['xtick.labelsize'] = 16
 pyplot.rcParams['axes.labelsize'] = 16
@@ -39,14 +41,14 @@ valscore3=0
 #pro1=np.zeros((1905,9))
 pro1source=[]
 #dataframe = pandas.read_csv("./files/3fgl_associated_AGNandPSR.csv", header=None)
-dataframe = pandas.read_csv("./files/4fgl_assoc.csv", header=None)
+dataframe = pandas.read_csv("./files/4fgldr2_assoc.csv", header=None)
 
 dataset2 = dataframe.values
 
-sourcenames=dataset2[1:,18]
+sourcenames=dataset2[1:,12]
 print(sourcenames)
 
-pro1=np.array((3441,10))
+pro1=np.array((3747,10))
 #pro1=pro1.tolist()
 print(dataset2)
 pro1=dataset2[1:,0:10]
@@ -54,12 +56,17 @@ pro1[:,0]=sourcenames
 pro1[:,1:9]=0
 pro1[:,9]=1
 print(dataset2)
+rf=97.42
+nn=97.40
+lr=97.60
+gb=97.80
 
-
-
-
+scorerf=0
+scorenn=0
+scorelr=0
+scoregb=0
 #dataframe = pandas.read_csv("./files/3fgl_associated_AGNandPSR.csv", header=None)
-dataframe = pandas.read_csv("./files/4fgl_assoc.csv", header=None)
+dataframe = pandas.read_csv("./files/4fgldr2_assoc.csv", header=None)
 dataset1 = dataframe.values
 
 #pro1=np.hstack((pro1source,pro1))
@@ -77,24 +84,30 @@ while se<1000:
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
-    print(Y)
-    train1=X[0:2408]                    
-    train_truth1=Y[0:2408]
-    val_inp1=X[2408:]
-    val_source=dataset1[2409:,18]
-    val_out1=Y[2408:]
-    print(val_source[1])
+    #print(Y)
+    train1=X[0:2622]                    
+    train_truth1=Y[0:2622]
+    val_inp1=X[2622:]
+    #print(val_inp1[1])
+    val_source=dataset1[2623:,12]
+    #print(val_source[1])
+    val_out1=Y[2622:]
+    #print(val_source[1])
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     train_truth1=np.ravel(train_truth1)
     #valscore2=valscore3
     count=0
     #pro2=pro1
-
-    clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(train1, train_truth1)
-    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(16,), activation='tanh', solver='adam').fit(train1,train_truth1)
-    clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(train1, train_truth1)
+    X_over=train1
+    y_over=train_truth1
+    oversample = RandomOverSampler(sampling_strategy='minority')
+    X_over, y_over = oversample.fit_resample(train1, train_truth1)
+    #oversample = RandomOverSampler(sampling_strategy=0.5)
+    clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
+    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(16,), activation='tanh', solver='adam').fit(X_over, y_over)
+    clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
     clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
-    clf4.fit(train1,train_truth1)
+    clf4.fit(X_over, y_over)
     
     '''
     pro=np.zeros((1008,8))
@@ -108,10 +121,18 @@ while se<1000:
     fit3=clf3.predict_proba(val_inp1)
     fit4=clf4.predict_proba(val_inp1)
     print(se)
-    
-    print(clf2.score(val_inp1,val_out1))
+    #rf1=clf4.score(val_inp1,val_out1)*100
+    #gb1=clf.score(val_inp1,val_out1)*100
+    #nn1=clf2.score(val_inp1,val_out1)*100
+    #lr1=clf3.score(val_inp1,val_out1)*100
+
+    #scorerf=scorerf+pow((rf1-rf),2)
+    #scorenn=scorenn+pow((nn1-nn),2)
+    #scoregb=scoregb+pow((gb1-gb),2)
+    #scorelr=scorelr+pow((lr1-lr),2)
+    #print(scorerf)
     for i in range(len(val_inp1)):
-        for j in range(3441):
+        for j in range(3747):
             if pro1[j,0]==val_source[i]:
 
                 pro1[j,1:3]=pro1[j,1:3]+fit1[i]
@@ -124,20 +145,27 @@ while se<1000:
     
     
     se=se+1
+'''
+scorerf=scorerf/1000
+scoregb=scoregb/1000
+scorelr=scorelr/1000
+scorenn=scorenn/1000
+'''
 
+#print(scorerf,scoregb,scorenn,scorelr)
 
-for i in range(3441):
+for i in range(3747):
     for j in range(8):
         if pro1[i,9]!=1:
             pro1[i,j+1]=pro1[i,j+1]/(pro1[i,9]-1)
 pro1[:,9]=pro1[:,9]-1
-print(np.mean(pro1[:,9]))
+#print(np.mean(pro1[:,9]))
 
 #prop1=prop1/1000
-print(pro1)
+#print(pro1)
 
 #dataframe = pandas.read_csv("./files/3fgl_associated_AGNandPSR.csv", header=None)
-dataframe = pandas.read_csv("./files/4fgl_assoc.csv", header=None)
+dataframe = pandas.read_csv("./files/4fgldr2_assoc.csv", header=None)
 dataset3 = dataframe.values
 pro2=["Source_Name","AGN_BDT","PSR_BDT","AGN_NN","PSR_NN","AGN_LR","PSR_LR","AGN_RF","PSR_RF","Times in Testing"]
 pro3=np.vstack((pro2,pro1))
@@ -152,5 +180,5 @@ result=np.hstack((dataset3[0:],pro3))
 #print(feat2/1000)
 #result=pandas.DataFrame(result)
 result=pandas.DataFrame(result)
-result.to_csv(path_or_buf="./catas/4fgl_assoc_catalog_unweighted.csv",index=False)
+result.to_csv(path_or_buf="./catas/4fgldr2_assoc_catalog_o.csv",index=False)
     
