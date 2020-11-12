@@ -539,8 +539,8 @@ Provided that in some applications it is beneficial to have as complete as possi
 The results of training with oversampling are presented in lines 5 and 6 (solid purple with circles and dashed brown with stars) in Figure \ref{fig:prec_recall}. These lines show precision and recall when a source is categorized as a pulsar, if all four algorithms classify it as a pulsar. The recall in this case is similar to the recall of the any-algorithm-classification for the training without oversampling,
 while the precision is much better than the precision in the any-algorithm-classification (the precision is 1 for $|\sin(b)| > 0.6$).
 
-\dima{Describe the oversampling procedure here and show oversampling domains plot}
-
+%\dima{Describe the oversampling procedure here and show oversampling domains plot}
+In general one can either under- or oversample in a dataset. Undersampling would reduce the number of AGNs to match the number of PSRs. However, since the total number of sources is not that high, and since PSRs themselves are an even smaller fraction, we chose oversampling. We used the python module 'imblearn' which works with imbalanced datasets. The naive method of increasing the number of PSRs to match the number of AGNs was used in our work. In this method existent PSR values are copied and appended again to the dataset till the training data has equal number of PSRs and AGNs. Though the PSR values are redundant, they help by increasing the weight the PSR values have in the final trained model. In figure \ref{fig:LR_domains_O} we plot the domains again for the oversampling case. This image however shouldn't be taken at face value. The pulsars are not new, and have the same values as before. Nevertheless, to show that we train with a higher number of pulsars, we have plotted all copies of the training pulsars with certain small shifts, such that the number of total pulsars can be graphically represented. As can be seen the increase in the PSR numbers changes the domains since now there are more training PSRs such that AGNs don't dominate completely.
 
 \begin{figure}[h]
 %\hspace*{-1cm}
