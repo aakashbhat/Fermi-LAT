@@ -5,11 +5,11 @@ Unfortunately, in many cases a firm association of sources at different waveleng
 For example, about one third of gamma-ray sources in Fermi-LAT catalogs are unassociated
 \citep{2010ApJS..188..405A, 2012ApJS..199...31N, 2015ApJS..218...23A, 2020ApJS..247...33A}.
 It is useful to know at least to which class the unassociated sources belong to or, which is more typical,
-what are the probabilities for the source to belong to different classes.
-In this paper we use different machine learning algorithms to find probabilistic classification of
+what are the probabilities for the source to belong to various classes.
+In this paper we use several machine learning (ML) algorithms to find probabilistic classification of
 unassociated sources in \Fermi-LAT third (3FGL) and fourth (4FGL) catalogs \citep{2015ApJS..218...23A, 2020ApJS..247...33A}.
 We will refer to the catalogs, where the classification of the sources is given by probabilities as probabilistic catalogs.
-In general, the classes may include the possibility that a source is not a real source but a fluctuation of a background 
+In general, the classes may include the possibility that a source is not a real source but a fluctuation of the background 
 or that a source is an overlay of two sources etc.
 All these possibilities can be included in the probabilistic catalogs, which were previously introduced for optical sources 
 \citep[e.g.,][]{2010EAS....45..351H, 2013AJ....146....7B}
@@ -22,9 +22,10 @@ Probabilistic classification of unassociated \Fermi-LAT sources was performed by
 or in the application for sub-classification of blazars by
 \cite{2013MNRAS.428..220H, 2014ApJ...782...41D, 2016MNRAS.462.3180C, 2017MNRAS.470.1291S, 2019MNRAS.490.4770K, 2020MNRAS.493.1926K}
 and of pulsars by \cite{2012MNRAS.424.2832L, 2016ApJ...820....8S}.
-In this work, we revisit probabilistic classification of 3FGL sources and compare results of classification of unassociated sources
+In this work, we consider classification of gamma-ray sources into two classes: AGNs and pulsars.
+We revisit probabilistic classification of 3FGL sources and compare results of classification of unassociated sources
 with associations in 4FGL.
-We also determine probabilistic classification of unassociated 4FGL sources.
+We also determine probabilistic classification of the 4FGL sources.
 We calculate the expected number of pulsars and AGNs among unassociated sources in 3FGL and 4FGL catalogs
 including correction for the presence of other sources, neither pulsars nor AGNs, among the unassociated sources.
 
@@ -46,7 +47,7 @@ Another reason for an absence of a previously detected source in a new catalog i
 In particular, flat spectrum radio quasars (FSRQs) are highly variable active galactic nuclei (AGNs).
 If a source was active during the observation time of 3FGL but inactive afterwards, 
 then its significance in the 4FGL can be below the detection threshold.
-The problem here is connected to a selection of a hard detection threshold of $TS = 25$ for 3FGL and 4FGL catalogs.
+This problem is connected to a selection of a hard detection threshold of $TS = 25$ for 3FGL and 4FGL catalogs.
 Selection of a lower detection threshold could help to keep the variable sources inside the catalog, 
 but it will not solve the problem, since the variable sources near the lower threshold can also disappear in the new catalog.
 Moreover, lower threshold would lead to more false detections due to fluctuations of the background.
@@ -56,18 +57,11 @@ a clean sample is necessary.
 The problem of the detection threshold selection can be ameliorated with the development of a probabilistic catalog.
 In this catalog, each point-like object detected above a certain relatively low confidence level
 are probabilistically classified into classes, which include the statistical fluctuations class.
-At low confidence, the probability for a source to be due to a fluctuation is high.
+At low confidence, the probability for a source to come from a background fluctuation is high.
 This probability is decreasing as the significance of sources increases.
 Apart from the statistical fluctuations class, classes can include various types of Galactic and extra-galactic sources, diffuse emission deficiencies, extended sources.
 %Even the statistical fluctuation of the background can be viewed as one of the classes: in this case, objects with small statistical significance will have a high probability to be associated to the statistical fluctuation class.
 A user of such a catalog will have the freedom to choose the probability threshold for the class that he or she is interested in.
-
-
-
-
-
-
-
 
 \begin{comment}
 False detections may arise, for example, from statistical fluctuations of the background emission, from deficiencies in the diffuse emission model, or from an overlap of faint sources, which results in a detection of a single source.
@@ -88,17 +82,22 @@ In this case, the probability will include not only the statistical probability 
 
 \end{comment}
 
+The paper is organized as follows.
+In Section \ref{sec:methods} we discuss general questions of constructing the probabilistic catalogs and the choice of the ML methods.
+%In this paper we use random forests (RF), boosted decision trees (BDT), logistic regression (LR), and neural networks (NN).
+In Section \ref{sec:training} we construct the classification algorithms using the associated source in the 3FGL catalog for training. We consider several aspects: 1) feature selection, 2) training of the algorithms and selection of the meta-parameters,
+%such as the depth of trees in RF and BDT and the number of neurons in NN, 
+3) oversampling of the training datasets in order to have approximately equal number of pulsars and AGNs (there are many more AGNs observed than pulsars).
 
-
-In this paper we construct a probabilistic catalog using, as an example, classification of unassociated sources in \Fermi-LAT catalogs. 
-We start with the 3FGL catalog and classify the unassociated sources into pulsars and AGNs using the associated sources in 3FGL for training of the classification algorithms.
-We use several machine learning algorithms for the classification, e.g., random forest, boosted decision trees, logistic regression,
-and neural networks.
-We show applications of the probabilistic catalog for predicting the number of pulsars and AGNs among the unassociated source and in construction of the source counts as a function of their flux, $N(S)$.
-Since unassociated sources on average have smaller flux than the associated ones, 
-we expect that the $N(S)$ distribution for unassociated sources has a more important contribution to the total expected number of sources
-for smaller fluxes compared to counting only the associated sources.
-We compare the predictions for the $N(S)$ functions based on the 3FGL catalog with the 4FGL catalog.
-We also probabilistically classify unassociated sources in the 4FGL catalog.
+In Section \ref{sec:prob_cats} we apply the classification algorithms determined in Section \ref{sec:training} for the classification of 3FGL sources.
+We compare the predictions for the unassociated sources in 3FGL with the associations in 4FGL.
+We also retrain the algorithms with the same meta-parameters as in the 3FGL case using associated 4FGL sources and construct
+a probabilistic catalog based on 4FGL.
+In Section \ref{sec:pop_studies} we show applications of the probabilistic catalogs for predicting the number of pulsars and AGNs among the unassociated source and in construction of the source counts as a function of their flux, $N(S)$, and as a function of 
+Galactic latitude and longitude, $N(b)$ and $N(\ell)$.
+%Since unassociated sources on average have smaller flux than the associated ones, we expect that the $N(S)$ distribution for unassociated sources has a more important contribution to the total expected number of sources for smaller fluxes compared to counting only the associated sources.
+We compare the $N(S)$, $N(b)$, and $N(\ell)$ distributions for associated and unassociated sources in the 3FGL and 4FGL catalogs.
+%We also probabilistically classify unassociated sources in the 4FGL catalog.
+In Section \ref{sec:conclusions} we present conclusions.
 
 
