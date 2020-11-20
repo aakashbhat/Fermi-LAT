@@ -29,28 +29,28 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
 
 
 \begin{table}[!h]
-
+\hspace{-0.2cm}
 \resizebox{0.47\textwidth}{!}{
     \tiny
   \centering
     \renewcommand{\tabcolsep}{0.4mm}
-\renewcommand{\arraystretch}{1.5}
+\renewcommand{\arraystretch}{1.6}
 
 %\hspace{-3mm}
-    \begin{tabular}{|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
     \hline
-    Algorithm&Parameters & Average  &Std. Dev.&Accuracy from \\
-    & & Testing Accuracy & &Comparison with 4FGL\\
+    Algorithm&Parameters &  Testing&Std. Dev.&Testing&Std. Dev(O)& Comparison Accuracy \\
+    & & Accuracy & &Accuracy (O)&& with 4FGL\\
     \hline
-    RF& 50 trees, max depth 6  &97.42&0.60& 96.1  \\
+    RF& 50 trees, max depth 6  &97.42&0.60&97.71&0.56& 96.1  \\
     \hline %\midrule   -> aakash do you mean this?
-    BDT & 100 trees, max depth 2    &   97.80&0.55&95.34 \\
+    BDT & 100 trees, max depth 2    &   97.80&0.55&97.82&0.51&95.34 \\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
     \hline
-    NN & 300, 10 Neurons, Adam & 97.40&0.87& 94.55\\
+    NN & 300, 10 Neurons, Adam & 97.40&0.87& 95.96&0.84&94.55\\
     \hline
-    LR & LBFGS solver, 200 iterations & 97.60&0.56& 93.48 \\
+    LR & LBFGS solver, 200 iterations & 97.60&0.56& 94.01&0.97&93.48 \\
     \hline
      
     \end{tabular}}
