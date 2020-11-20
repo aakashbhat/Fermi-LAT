@@ -25,7 +25,8 @@ error, Gini index, or cross-entropy.
 This method is very intuitive, since at each step the results can be described in words, 
 for example, at the first step, the sources can be split in mostly Galactic and extragalactic by a cut on the Galactic latitude.
 At the next step, the high latitude sources can be further subsplit into millisecond pulsars and other sources, by a cut on the spectral index around 1 GeV (pulsars have a hard spectrum below a few GeV) etc.
-One of the problems with decision trees is overfitting or bias: if the tree is too deep, then it will pick up particular cases of the training sample, while too shallow tree would not be able to describe the data well. As a result, one needs to be very careful in selecting the depth of the tree.
+One of the problems with decision trees is either overfitting or bias: if the tree is too deep, then it will pick up particular cases of the training sample resulting in overfitting, while too shallow trees would not be able to describe the data well, which can lead to bias. 
+As a result, one needs to be very careful in selecting the depth of the tree.
 This problem can be avoided if a random subset of features is used to find a division at each node. This is the basis of the RF algorithm,
 where the final classification is given by an average of several trees with random subsets of features used at each node.
 Another problem with the simple trees is that it can miss the classification of some subsets of data. In BDT algorithms, the final classification is given by a collection of trees, where each new tree is created by increasing the weights of misclassified samples of the previous step. 
@@ -76,14 +77,16 @@ The general workflow will have the following steps:
 \item
 Select data for learning and testing.
 \item
-Train algorithms using the learning dataset.
-Tune hyper-parameters of the algorithms and test the performance on the test dataset, in particular, to avoid overfitting.
+Optimize algorithms using training datasets.
+We select meta-parameters of the algorithms by optimizing accuracy of classification and test for overfitting using the test datasets.
+In order to get stable results, we repeat the separation of the data into training and testing samples 100 times and 
+average the accuracy.
 \item
 Make prediction for unassociated point sources of the 3FGL.
 We also apply the classification for associated sources. 
 We use probabilistic classification of associated sources for consistency checks.
 \een
-As a result of the analysis in this section, we select hyper-parameters for the four ML algorithms,
+As a result of the analysis in this section, we select meta-parameters for the four ML algorithms,
 which we use in the following section for a construction of probabilistic catalogs
 based on the \Fermi-LAT 3FGL and 4FGL catalogs.
 %obtain a catalog with probabilistic associations of sources in 3FGL. We report the classification probabilities for all four algorithms and each source. In the next section we compare the predictions in the catalog with the new 4FGL catalog. We also construct a probabilistic catalog for the sources in the 4FGL catalog.
@@ -126,8 +129,10 @@ The overfitting is tested by splitting the input data into the training and test
 The training sample is used for optimizing the parameters,
 while the test sample is used to check that the model is not overtrained (for overtrained models the accuracy on the test
 sample is significantly worse than the performance on the training sample).
-We will split the data into 70\% training and 30\% testing samples.
+We will split the data randomly into 70\% training and 30\% testing samples.
+We average the accuracy over 100 splits into training and testing samples .
 
+\begin{comment}
 The construction of the algorithms will proceed in two steps:
 \bi
 \item
@@ -137,7 +142,6 @@ Test the model performance on the testing sample.
 \ei
 The details of this procedure are given in the subsections below.
 
-\begin{comment}
 %In this section we provide details on the training of the ML algorithms for the classification of the PS.
 We will split the sources with known classifications into training (70\%) and test samples (30\%).
 One of the main objectives is to increase the accuracy of classification: this is achieved by adding more parameters to the model
@@ -190,16 +194,18 @@ These importances were found to be consistent for various different algorithm pa
 
 The two main parameters characterizing the random forest algorithm are the number of trees and the maximum depth allowed in these trees. 
 We use the Gini index as the objective function for the optimization of parameters (split values of features in the nodes).
+\begin{comment}
 Since the number of pulsars is about 10 times smaller than AGNs,
 we consider two cases of weighting the input data:
 equal weights -- all PS have equal weights in the objective function, and inverse weighting -- the contribution of the PS is inversely proportional to the total number of elements in the class, in this case the contribution of a pulsar is more significant than the contribution of an AGN so that the overall contributions of pulsars and AGNs to the objective function are similar.
+\end{comment}
 
 \begin{figure}[h]
 %\centering
 \hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/rf_train_unweighted}
-\hspace*{-0.5cm}
-\includegraphics[width=0.5\textwidth]{plots/rf_train_weighted}
+%\hspace*{-0.5cm}
+%\includegraphics[width=0.5\textwidth]{plots/rf_train_weighted}
 %\includegraphics[width=\twopicsp\textwidth]{plots/6md_trees_weighted}
 \caption{
 Test score (accuracy) of RF classification as a function of the number of trees and 
@@ -212,11 +218,11 @@ the maximal depth of trees for weighted and unweighted training data.
 Figure \ref{fig:RF_complexity} shows the dependence of the accuracy of the test sample as a function of maximum depth and the number of trees. 
 The results for each point are averaged over 100 realizations of the split into training and testing samples.
 %We perform weighting of the data by the inverse numbers of pulsars and AGNs to take into account that there are more AGNs than pulsars. However, for random forests, 
-As one can see from this figure,
-weighting the training data does not have a significant effect on the accuracy of PS classification into pulsars and AGNs.
-We also notice that the test score does not decrease significantly with a larger complexity of the model, e.g., there is little change in accuracy for maximal depths above $\sim$ 5.
+%As one can see from this figure,
+%weighting the training data does not have a significant effect on the accuracy of PS classification into pulsars and AGNs.
+We notice that the test score does not decrease significantly with a larger complexity of the model, e.g., there is little change in accuracy for maximal depths above $\sim$ 5.
 This is due to the random choice of a subset of features (maximum number of allowed features is $\sqrt{\text{\# features}}$) at each node.
-Furthermore, we find that the number of trees is not as important as the depth: a lower number of trees does not significantly change the accuracy, above, e.g., 20 for unweighted data (Figure \ref{fig:RF_complexity}). 
+Furthermore, we find that the number of trees is not as important as the depth: a lower number of trees does not significantly change the accuracy, above, e.g., 20 (Figure \ref{fig:RF_complexity}). 
 %However, a lower depth certainly lessens the accuracy significantly, and therefore this threshold must be chosen carefully.
 %In the case of training, we found no significant differences when using weights for our data set. However, we chose to use a inversely weighted dataset since that allows us to generalize the algorithm more. The influence of weights will also be discussed more in the case of unassociated data, in the next section.
 %After running tests on various architectures we chose a Random Forest with 20 trees to avoid over-fitting, and a maximum depth of 12.
@@ -333,7 +339,7 @@ It is interesting to note that already for the maximal depth of 2, the domains s
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/bdt_100_6.pdf}
 \caption{Classification domains for BDT for training with two features.
-\dima{For a comparison with RF domains, it would be interesting to see 20 trees with depth 2 and 50 trees with depth 6.}}
+}
 \label{fig:BDT_domains}
 \end{figure}
 
