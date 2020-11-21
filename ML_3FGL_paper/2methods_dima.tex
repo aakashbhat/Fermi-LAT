@@ -222,7 +222,8 @@ The results for each point are averaged over 100 realizations of the split into 
 %weighting the training data does not have a significant effect on the accuracy of PS classification into pulsars and AGNs.
 We notice that the test score does not decrease significantly with a larger complexity of the model, e.g., there is little change in accuracy for maximal depths above $\sim$ 5.
 This is due to the random choice of a subset of features (maximum number of allowed features is $\sqrt{\text{\# features}}$) at each node.
-Furthermore, we find that the number of trees is not as important as the depth: a lower number of trees does not significantly change the accuracy, above, e.g., 20 (Figure \ref{fig:RF_complexity}). 
+\dima{Comment here about the choice of the number of trees?}
+%Furthermore, we find that the number of trees is not as important as the depth: a lower number of trees does not significantly change the accuracy, above, e.g., 20 (Figure \ref{fig:RF_complexity}). 
 %However, a lower depth certainly lessens the accuracy significantly, and therefore this threshold must be chosen carefully.
 %In the case of training, we found no significant differences when using weights for our data set. However, we chose to use a inversely weighted dataset since that allows us to generalize the algorithm more. The influence of weights will also be discussed more in the case of unassociated data, in the next section.
 %After running tests on various architectures we chose a Random Forest with 20 trees to avoid over-fitting, and a maximum depth of 12.
@@ -281,7 +282,7 @@ In order to illustrate the separation of PS into AGNs and pulsars, we retrain th
 These classification domains illustrate the separation of class probabilities.
 In our case, it can be seen that depth 6 model has better accuracy than 
 depth 2 due to the much more nuanced probability distribution of the model. 
-It is important to note that this plot is for one run only (we only split the it into one training and one testing sample) and the model is trained on two features.
+It is important to note that this plot is for one run only (we split the data into training and testing samples only one time) and the model is trained on two features.
 %\dima{What do we mean by run here: the split into training and test samples?}
 %however, it shows why the higher depth outperforms the lesser one. 
 %The higher the depth the more the probabilities becomes denser and the dense areas become smaller. For instance, one can see regions of near zero probabilities in the depth of 6 as opposed to a depth of 2. 
@@ -308,7 +309,7 @@ We compare RF with 20 trees and maximal depth of 2 and 50 trees and maximal dept
 
 \subsubsection{Boosted Decision Trees}
 
-The hyper-parameters for BDT algorithms are similar to RF algorithms: they are the number of trees and the maximal depth.
+The meta-parameters for BDT algorithms are similar to RF algorithms: they are the number of trees and the maximal depth.
 We used the gradient boosting algorithm for the construction of BDT.
 The classification is performed by a weighted average of trees, where the trees are constructed recursively in order to better address 
 misclassifications from the previous step. 
@@ -316,7 +317,8 @@ misclassifications from the previous step.
 %The learning rate itself is not a significant parameter, and we stuck with the default value.
 %\dima{I'm not sure we need to discuss the learning rate, since we haven't done so in, e.g., neural networks}
 Dependence of the accuracy on tree depth is shown in Figure \ref{fig:BDT_depth}. 
-Firstly, unlike the RF, which is also an ensemble based method, the accuracy drops with an increase in the maximal depth above 2. Secondly, similar to RF, the number of trees is not significant above a threshold, which is $\sim$ 50 in the case of BDTs.
+Unlike the RF, which is also an ensemble based method, the accuracy drops for the maximal depths larger than 2. 
+%Secondly, similar to RF, the number of trees is not significant above a threshold, which is $\sim$ 50 in the case of BDTs.
 %\dima{Which depth do we use for the final algorithm, it looks like depth 2 gives the best results. What about depth = 1?}
 
 \begin{figure}[h]

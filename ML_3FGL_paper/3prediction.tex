@@ -39,18 +39,22 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
 %\hspace{-3mm}
     \begin{tabular}{|c|c|c|c|c|c|c|}
     \hline
-    Algorithm&Parameters &  Testing&Std. Dev.&Testing&Std. Dev(O)& Comparison Accuracy \\
-    & & Accuracy & &Accuracy (O)&& with 4FGL\\
+    Algorithm&Parameters &  Testing&Std. Dev.& Comparison Accuracy \\
+    & & Accuracy & & with 4FGL\\
     \hline
-    RF& 50 trees, max depth 6  &97.42&0.60&97.71&0.56& 96.1  \\
+    RF & 50 trees, max depth 6  &97.42&0.60& 96.1  \\
+    RF\_O &   &97.71&0.56& ?  \\
     \hline %\midrule   -> aakash do you mean this?
-    BDT & 100 trees, max depth 2    &   97.80&0.55&97.82&0.51&95.34 \\
+    BDT & 100 trees, max depth 2    &   97.80&0.55&95.34 \\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
+    BDT\_O &     &   97.82&0.51& ? \\
     \hline
-    NN & 300, 10 Neurons, Adam & 97.40&0.87& 95.96&0.84&94.55\\
+    NN & 300, 10 Neurons, Adam & 97.40&0.87& 94.55\\
+    NN\_O &  & 95.96&0.84& ? \\
     \hline
-    LR & LBFGS solver, 200 iterations & 97.60&0.56& 94.01&0.97&93.48 \\
+    LR & LBFGS solver, 200 iterations & 97.60&0.56& 93.48 \\
+    LR\_O &  & 94.01&0.97& ? \\
     \hline
      
     \end{tabular}}
