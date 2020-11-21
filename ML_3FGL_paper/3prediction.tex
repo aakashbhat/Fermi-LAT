@@ -211,27 +211,27 @@ All algorithms have a slightly better accuracy for the 4FGL catalog compared to 
 \resizebox{0.45\textwidth}{!}{
     \tiny
  %  \centering
-    \renewcommand{\tabcolsep}{0.3mm}
-\renewcommand{\arraystretch}{1.5}
+    \renewcommand{\tabcolsep}{0.4mm}
+\renewcommand{\arraystretch}{1.6}
 
-    \begin{tabular}{|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|c|}
     \hline
-    Algorithm&Parameters & Testing Accuracy & Std. Dev. \\
+    Algorithm&Parameters & Testing Accuracy & Std. Dev. &Testing Accuracy (O)&Std. Dev (O)\\
     \hline
-    RF& 50 trees, max depth 6  &98.27 & 0.35\\
+    RF& 50 trees, max depth 6  &98.27 & 0.35&98.12&0.37\\
     \hline
-    NN & 300, 16 Neurons, Adam & 98.08 & 0.39\\
+    NN & 300, 16 Neurons, Adam & 98.08 & 0.39&97.17&0.55\\
     \hline %\midrule   -> aakash do you mean this?
-    BDT & 100 trees, max depth 2    &   98.23 &0.40\\
+    BDT & 100 trees, max depth 2    &   98.23 &0.40&98.15&0.36\\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
     \hline
-    LR & LBFGS solver, 200 iterations & 98.08&0.35\\
+    LR & LBFGS solver, 200 iterations & 98.08&0.35&96.67&0.53\\
     \hline
      
     \end{tabular}}
     \vspace{0.2cm}
-    \caption{Accuracy of the 4 selected algorithms on 4FG associated data.}
+    \caption{Accuracy of the 4 selected algorithms on 4FGL DR1 associated data.}
     \label{tab:selected_algs2}
 \end{table}
 
