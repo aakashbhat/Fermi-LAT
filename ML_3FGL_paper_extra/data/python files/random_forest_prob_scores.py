@@ -26,6 +26,8 @@ from sklearn.gaussian_process.kernels import RBF
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from matplotlib import pyplot
+from imblearn.over_sampling import RandomOverSampler
+
 
 pyplot.rcParams['xtick.labelsize'] = 16
 pyplot.rcParams['axes.labelsize'] = 16
@@ -35,25 +37,28 @@ pyplot.rcParams['ytick.labelsize'] = 16
 
 
 se=0
+valscore4=0
 valscore3=0
+valscore2=0
+valscore1=0
 pro1=np.zeros((1008,8))
 feat2=np.zeros(17)
 prop1=np.zeros((1008,4))
 
 
-while se<10:
+while se<1000:
     #data:
     np.random.seed(se)
     #dataframe = pandas.read_csv("4fgl_assoc_3.csv", header=None)
-    #dataframe = pandas.read_csv("./files/4fgl_assoc.csv", header=None)
-    dataframe = pandas.read_csv("./files/3fgl_associated_AGNandPSR.csv", header=None)
+    dataframe = pandas.read_csv("./files/3fgl_assoc.csv", header=None)
+    #dataframe = pandas.read_csv("./files/3fgl_associated_AGNandPSR.csv", header=None)
 
     dataset1 = dataframe.values 
     np.random.shuffle(dataset1[1:])
     X = dataset1[1:,0:10].astype(float)
     #print(dataset1[0:,2:16])
     #print(dataset1[0,:])
-    Y = dataset1[1:,11]
+    Y = dataset1[1:,10]
     print(Y)
     '''
     weight1=800/166
@@ -70,37 +75,42 @@ while se<10:
     #dataframe = pandas.read_csv("3fgl_allunassoc.csv", header=None)
     #dataframe = pandas.read_csv("3fgl_assoc_notagnpsr.csv", header=None)
     #dataframe = pandas.read_csv("4fgl_others_3.csv", header=None)
-    '''
-    dataframe = pandas.read_csv("./catas/3FGL_unassocvs4FGLassoc_AGN&PSR_catalog_unweighted.csv", header=None)
+    
+    dataframe = pandas.read_csv("./files/3fgl_4fgl.csv", header=None)
     dataset = dataframe.values 
 
     X2 = dataset[1:,1:11].astype(float)
-    Y2 = dataset[1:,44]
-    print(dataset[0,44])
+    Y2 = dataset[1:,11]
+    #print(dataset[0,44])
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y2)
     Y2j = encoder.transform(Y2)
-    '''
+    
     #print(Y2)
-    train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.3, random_state=se)       #Split into training and validation
-    '''
+    #train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.3, random_state=se)       #Split into training and validation
+    
     train1=X[0:]                    
     train_truth1=Y[0:]
     val_inp1=X2[0:]
     val_out1=Y2j[0:]
-    '''
+    
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     train_truth1=np.ravel(train_truth1)
-    valscore2=valscore3
-
+    oversample = RandomOverSampler(sampling_strategy='minority')
+    X_over, y_over = oversample.fit_resample(train1, train_truth1)
     #prop2=prop1
     #pro2=pro1
-    #clf4= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(train1, train_truth1)
-    clf4= MLPClassifier(max_iter=500,hidden_layer_sizes=(10,10,), activation='tanh', solver='adam',early_stopping=False).fit(train1,train_truth1)
-    #clf4= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(train1, train_truth1)
-    #clf4 = RandomForestClassifier(n_estimators=100,max_depth=12,oob_score=True)
-    #clf4.fit(train1,train_truth1)
-    valscore3=clf4.score(val_inp1,val_out1)
+    clf3= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
+    clf4= MLPClassifier(max_iter=500,hidden_layer_sizes=(10,10,), activation='tanh', solver='adam',early_stopping=False).fit(X_over, y_over)
+    clf2= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
+    clf1 = RandomForestClassifier(n_estimators=100,max_depth=12,oob_score=True)
+    clf1.fit(X_over, y_over)
+    valscore3=valscore3+clf3.score(val_inp1,val_out1)
+    valscore4=valscore4+clf4.score(val_inp1,val_out1)
+
+    valscore2=valscore2+clf2.score(val_inp1,val_out1)
+    valscore1=valscore1+clf1.score(val_inp1,val_out1)
+
     '''
     pro=np.zeros((1008,8))
     pro[:,0:2]=clf.predict_proba(val_inp1)
@@ -118,7 +128,7 @@ while se<10:
     prop[:,3]=clf4.predict(val_inp1)
     
     '''
-    valscore3=(valscore3+valscore2)
+    #valscore3=(valscore3+valscore2)
     se=se+1
     #print(valscore3)
     #pro=clf.predict_proba(val_inp1)
@@ -137,7 +147,7 @@ while se<10:
 
 #print(clf.feature_importances_)
 #print(result)
-print(valscore3/10)
+print('rf','gb','lr','nn:',valscore1/1000,valscore3/1000,valscore2/1000,valscore4/1000)
 #print(feat2/1000)
 #result=pandas.DataFrame(result)
 #result2=pandas.DataFrame(result2)

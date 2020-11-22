@@ -43,18 +43,18 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
     & & Accuracy & & with 4FGL\\
     \hline
     RF & 50 trees, max depth 6  &97.42&0.60& 96.1  \\
-    RF\_O &   &97.71&0.56& ?  \\
+    RF\_O &   &97.71&0.56& 95.1  \\
     \hline %\midrule   -> aakash do you mean this?
     BDT & 100 trees, max depth 2    &   97.80&0.55&95.34 \\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
-    BDT\_O &     &   97.82&0.51& ? \\
+    BDT\_O &     &   97.82&0.51& 93.8 \\
     \hline
     NN & 300, 10 Neurons, Adam & 97.40&0.87& 94.55\\
-    NN\_O &  & 95.96&0.84& ? \\
+    NN\_O &  & 95.96&0.84& 91.43\\
     \hline
     LR & LBFGS solver, 200 iterations & 97.60&0.56& 93.48 \\
-    LR\_O &  & 94.01&0.97& ? \\
+    LR\_O &  & 94.01&0.97& 87.07 \\
     \hline
      
     \end{tabular}}
@@ -218,19 +218,23 @@ All algorithms have a slightly better accuracy for the 4FGL catalog compared to 
     \renewcommand{\tabcolsep}{0.4mm}
 \renewcommand{\arraystretch}{1.6}
 
-    \begin{tabular}{|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|}
     \hline
-    Algorithm&Parameters & Testing Accuracy & Std. Dev. &Testing Accuracy (O)&Std. Dev (O)\\
+    Algorithm&Parameters & Testing Accuracy & Std. Dev.\\
     \hline
-    RF& 50 trees, max depth 6  &98.27 & 0.35&98.12&0.37\\
+    RF& 50 trees, max depth 6  &98.27 & 0.35\\
+    RF\_O   &&98.12&0.37 \\
     \hline
-    NN & 300, 16 Neurons, Adam & 98.08 & 0.39&97.17&0.55\\
+    NN & 300, 16 Neurons, Adam & 98.08 & 0.39\\
+    NN\_O&&97.17&0.55\\
     \hline %\midrule   -> aakash do you mean this?
-    BDT & 100 trees, max depth 2    &   98.23 &0.40&98.15&0.36\\
+    BDT & 100 trees, max depth 2    &   98.23 &0.40\\
+    BDT\_O&&98.15&0.36\\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
     \hline
-    LR & LBFGS solver, 200 iterations & 98.08&0.35&96.67&0.53\\
+    LR & LBFGS solver, 200 iterations & 98.08&0.35\\
+    LR\_O&&96.67&0.53\\
     \hline
      
     \end{tabular}}

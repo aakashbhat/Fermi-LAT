@@ -36,33 +36,41 @@ pyplot.rcParams['axes.titlesize'] = 28
 pyplot.rcParams['font.size'] = 21
 pyplot.rcParams['ytick.labelsize'] = 18
 pyplot.rcParams['lines.linewidth'] = 4
-pyplot.rcParams['lines.markersize'] = 10
+pyplot.rcParams['lines.markersize'] = 12
 
 
-dataframe = pandas.read_csv("./files/result_3fglassoc_nn_2layers.csv", header=None)
-dataset1 = dataframe.values 
+dataframe = pandas.read_csv("./files/result_3fglassoc_rfnew.csv", header=None)
+dataset1 = dataframe.values
+dataframe2 = pandas.read_csv("./files/result_3fglassoc_rfnew2.csv", header=None)
+dataset2=dataframe2.values
 fig,ax=plt.subplots()
 numi=dataset1[1]
 valscore3=dataset1[2]
 valscore4=dataset1[3]
 valscore12=dataset1[4]
 valscore22=dataset1[5]
+valscore5=dataset2[3]
+valscore6=dataset2[4]
+valscore7=dataset2[5]
 plt.plot(numi, valscore3, 'g-',marker='D')
 plt.plot(numi, valscore4, 'b-.',marker='o')
 plt.plot(numi, valscore12, 'r--',marker='>')
 plt.plot(numi, valscore22, 'y:',marker='<')
+plt.plot(numi, valscore5, 'o-',marker='.')
+plt.plot(numi, valscore6, 'c-.',marker='v')
+plt.plot(numi, valscore7, 'p--',marker='x')
 
-ax.set_xlabel('Number of Neurons in second hidden layer',fontsize='xx-large')
+ax.set_xlabel('Maximum Depth',fontsize='xx-large')
 ax.set_ylabel('Testing Score',fontsize='xx-large')
 plt.yticks(fontsize='large')
 #plt.yticks(np.arange(92,99,step=1))
 #plt.xticks(fontsize='large')
 #ax.set_zlabel('Validation score')
-plt.legend(["LBFGS, Tanh","LBFGS, Relu","Adam, Tanh","Adam, Relu"])
-#plt.legend(["20 Trees","50 Trees","100 Trees","200 Trees"])
+#plt.legend(["LBFGS, Tanh","LBFGS, Relu","Adam, Tanh","Adam, Relu"])
+plt.legend(["2 Trees","5 Trees","10 Trees","20 Trees","50 Trees","100 Trees","200 Trees"])
 
 #plt.legend(["LBFGS","Liblinear","SAG","SAGA"])
 #plt.legend(["Tol = 0.001","Tol = 1","Tol = 10"])
 
-ax.set_title('Neural Networks: 3 Hidden Layers',fontsize='xx-large')
+ax.set_title('Random Forests',fontsize='xx-large')
 plt.show()
