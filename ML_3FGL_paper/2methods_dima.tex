@@ -83,8 +83,7 @@ In order to get stable results, we repeat the separation of the data into traini
 average the accuracy.
 \item
 Make prediction for unassociated point sources of the 3FGL.
-We also apply the classification for associated sources. 
-We use probabilistic classification of associated sources for consistency checks.
+We also apply the classification for associated sources, which we use for consistency checks.
 \een
 As a result of the analysis in this section, we select meta-parameters for the four ML algorithms,
 which we use in the following section for a construction of probabilistic catalogs
@@ -130,7 +129,7 @@ The training sample is used for optimizing the parameters,
 while the test sample is used to check that the model is not overtrained (for overtrained models the accuracy on the test
 sample is significantly worse than the performance on the training sample).
 We will split the data randomly into 70\% training and 30\% testing samples.
-We average the accuracy over 100 splits into training and testing samples .
+We average the accuracy over 100 splits into training and testing samples.
 
 \begin{comment}
 The construction of the algorithms will proceed in two steps:
@@ -209,8 +208,7 @@ equal weights -- all PS have equal weights in the objective function, and invers
 %\includegraphics[width=\twopicsp\textwidth]{plots/6md_trees_weighted}
 \caption{
 Test score (accuracy) of RF classification as a function of the number of trees and 
-the maximal depth of trees for unweighted training data.
-%\dima{Add ``weighted'' in the figure title, e.g., ``Random forests with weighted dat'', in order to make consistent titles in the two plots.}
+the maximal depth of trees.
 }
 \label{fig:RF_complexity}
 \end{figure}
@@ -222,7 +220,7 @@ The results for each point are averaged over 100 realizations of the split into 
 %weighting the training data does not have a significant effect on the accuracy of PS classification into pulsars and AGNs.
 We notice that the test score does not decrease significantly with a larger complexity of the model, e.g., there is little change in accuracy for maximal depths above $\sim$ 5.
 This is due to the random choice of a subset of features (maximum number of allowed features is $\sqrt{\text{\# features}}$) at each node.
-\dima{Comment here about the choice of the number of trees?}
+It is also insensitive to the number of trees above approximately 20 trees, we will use 50 trees for classification with the maximum depth of 6.
 %Furthermore, we find that the number of trees is not as important as the depth: a lower number of trees does not significantly change the accuracy, above, e.g., 20 (Figure \ref{fig:RF_complexity}). 
 %However, a lower depth certainly lessens the accuracy significantly, and therefore this threshold must be chosen carefully.
 %In the case of training, we found no significant differences when using weights for our data set. However, we chose to use a inversely weighted dataset since that allows us to generalize the algorithm more. The influence of weights will also be discussed more in the case of unassociated data, in the next section.
@@ -231,7 +229,7 @@ This is due to the random choice of a subset of features (maximum number of allo
 %Why 12? It looks like 4 or 5 is already good enough.
 %We should write here an equation for test score in case of weighted data.}
 
-In tree-based algorithms, one can calculate feature importance by using the averaged reduction of impurity for nodes involving the different features. 
+In tree-based algorithms, one can calculate feature importance by using the averaged reduction of impurity for nodes (Gini index in our case) involving the different features. 
 The feature importances for the case of two different RF algorithms: 20 trees with maximum depth of 2 and 50 trees with maximum depth of 6 are shown in Table \ref{tab:feat_imp}.
 We find that the three most important features for both cases are significance of curvature, hardness ratio of the last two energy bins, and spectral index (shown in bold font in the table).
 %Since Random forests are based on decision trees, they allow us to characterize feature importances based on how helpful a feature was to split a tree. In our case, using all 10 features discussed above we found the following feature importances for two architectures of random forests with similar accuracies of 97.5:\\
@@ -274,25 +272,21 @@ We find that the three most important features for both cases are significance o
 \end{table}
 
 %Our hypothesis about feature importances turned out to be correct, as curvature, variability, and spectral index were the most important features. The last hardness ratio was also seen to be quite important, most probably reflecting the end of the spectrum where the AGNs and PSRs shift from each other.\\
-It is interesting to note that Galactic latitude is the least significant feature.
+It is interesting to note that Galactic latitude is among the least significant features.
 We have also used sine of GLAT to check that this is not due to scaling, i.e., the large range of values of GLAT,
 but the significance is similar to the GLAT itself.
+We further discuss the dependence on GLAT in Section \ref{sec:lat-lon-profiles}, 
+where we calculate the latitude and longitude profiles of the associated and unassociated source counts.
 
 In order to illustrate the separation of PS into AGNs and pulsars, we retrain the RF algorithm using only two features: log of curvature significance and spectral index, and plot the resulting probabilities of classes in Figure \ref{fig:RF_domains}. 
-These classification domains illustrate the separation of class probabilities.
-In our case, it can be seen that depth 6 model has better accuracy than 
-depth 2 due to the much more nuanced probability distribution of the model. 
-It is important to note that this plot is for one run only (we split the data into training and testing samples only one time) and the model is trained on two features.
-%\dima{What do we mean by run here: the split into training and test samples?}
-%however, it shows why the higher depth outperforms the lesser one. 
-%The higher the depth the more the probabilities becomes denser and the dense areas become smaller. For instance, one can see regions of near zero probabilities in the depth of 6 as opposed to a depth of 2. 
+%These classification domains illustrate the separation of class probabilities.
+We compare classification domains for two models: 20 trees with the maximum depth of 2 and 50 trees with the maximum depth of 6.
+The depth 6 model has a better testing accuracy than the 
+depth 2 model due to the more nuanced probability distribution. 
 It also illustrates how more complex algorithms can over-fit the data 
 (notice the narrow bands in probability distribution for the maximum depth of 6 case), 
 although overfitting is not an issue for RF algorithms in our case.
-%This situation is not so obvious for random forests, since random forests are especially good against over-fitting. 
-%However, we she shall see how other algorithms can over-fit instead.
-For the final algorithm, we will use a RF with 50 trees and a maximum depth of 6.
-%\dima{Add discussion of the domains, e.g., overfitting, and selection of the final model for classification.}
+It is important to note that this plot is for one run only (we split the data into training and testing samples only one time) and the model is trained on two features, whereas in the final classification with RF, we use 10 features and average over 1000 splits into training and testing samples in a model with 50 trees with a maximum depth of 6.
 
 \begin{figure}[h]
 %\hspace*{-1cm}
@@ -317,7 +311,7 @@ misclassifications from the previous step.
 %The learning rate itself is not a significant parameter, and we stuck with the default value.
 %\dima{I'm not sure we need to discuss the learning rate, since we haven't done so in, e.g., neural networks}
 Dependence of the accuracy on tree depth is shown in Figure \ref{fig:BDT_depth}. 
-Unlike the RF, which is also an ensemble based method, the accuracy drops for the maximal depths larger than 2. 
+Unlike the RF, which is also an ensemble based method, the testing accuracy drops for the maximal depths larger than 2. 
 %Secondly, similar to RF, the number of trees is not significant above a threshold, which is $\sim$ 50 in the case of BDTs.
 %\dima{Which depth do we use for the final algorithm, it looks like depth 2 gives the best results. What about depth = 1?}
 
@@ -387,21 +381,21 @@ and an output layer (shown by the green circle).
 The hidden layer consists of several nodes with values $y_j$. 
 For the activation function at the hidden layer we use either hyperbolic tangent (tanh - shown on the plot) or rectified linear unit (relu).
 The activation function for the output layer is sigmoid, which we use to make sure that the output value can be interpreted as a class probability.
-The unknown parameters are weights of features in the two hidden layers, $w_{ji}$ and $v_j$,
-and offsets $w_{j0}$ and $v_0$.
-The unknown parameters are optimized by minimizing the loss function. 
-The loss function is
+The unknown parameters are weights of features in the hidden layer $w_{ji}$ and in the output layer $v_j$ including
+offsets $w_{j0}$ and $v_0$.
+The unknown parameters are optimized by minimizing a loss function, which we choose to be
+the cross entropy
 $-\text{log}L = - \sum_i (y_i\text{log}(p_i)+(1-y_i)\text{log}(1 - p_i))$, 
 where $y_i = 0,\,1$ are the true labels of the sources and $p_i$ are the predicted class probabilities.
 This is the same loss function as in the LR case.
-We have also tried to use two hidden layers, but the accuracy was similar to the networks with one hidden layer (Appendix \ref{sec:app}). Consequently, we have chosen to use the simpler model with one hidden layer.
+We have also tried to use two hidden layers, but the accuracy was similar to the networks with one hidden layer (Appendix \ref{sec:app}). For the final classification model, we have chosen to use one hidden layer.
 
 \begin{figure}[h]
 %\centerin
 \hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/nn_neurons_300epochs.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
-\caption{Dependence of accuracy on the number of neurons for different models.}
+\caption{Dependence of accuracy on the number of neurons for different NN models.}
 %\dima{It looks like Adam should not be written as ADAM: the labels should be changed.}}
 %\dima{I'm not sure I understand where you use Tanh or RELU activations, if we have only one hidden layer with sigmoid activation (I guess) for classification?}}
 \label{fig:NN_neurons}
@@ -412,7 +406,7 @@ and on the optimization algorithm is shown in Figure \ref{fig:NN_neurons}.
 We compare two activation functions after the first hidden layer (tanh and relu) and two optimization algorithms: Limited memory Broyden-Fletcher-Goldfarb-Shanno (L-BFGS) and a version of stochastic gradient descent (Adam). 
 %L-BFGS is an approximation of the quasi-newtonian BFGS method. The BFGS method uses the full inverse of the Hessian matrix to find the direction of movement for minimizing the gradient. The limited memory counterpart however, only stores a smaller representation of the full matrix. This makes this method much faster for larger data-sets.
 %Adam on the other hand belongs to a relatively newer family of algorithms which use gradient descent. Gradient descent is a first-order method to find the local minima or maxima of a differentiable function. Nowadays, this process is made more efficient by taking the gradient from parts of the data-set instead of the entire data-set itself. This is called stochastic gradient descent, since the data is selected randomly. Adam is a newer approach of the stochastic family using adaptive network learning rates for every parameter. Adam is usually preferred for Neural Networks with big data-sets. However since Adam converges slower, a higher number of epochs is needed to reach the best accuracies.
-10 neurons in the hidden layer appears to be an optimal choice, since increasing the number of neurons leads to no significant increase in accuracy for all models. 
+About 10 neurons in the hidden layer appears to be an optimal choice, since increasing the number of neurons leads to no significant increase in accuracy for all models. 
 We find that tanh is a better activation function in our case, as it provided a good result for both optimization methods, whereas relu is good only in the case of Adam optimizer.
 %As a method of choice we will use in the following 10 neurons in the hidden layer with tanh activation function and Adam optimizer.
 In Figure \ref{fig:NN_neurons} we use 300 epochs for training.
@@ -427,7 +421,7 @@ The accuracy increases with higher number of epochs and saturates at around 300.
 \hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/nn_epochs.pdf}
 \caption{
-Dependence of accuracy on the number of epochs in training for different solvers and activation functions.
+Dependence of testing accuracy on the number of epochs in training for different solvers and activation functions.
 %\dima{ADAM -> Adam}
 }
 \label{fig:NN_epochs}
@@ -480,15 +474,12 @@ $p_1(x) = 1 - p_0(x) = \frac{e^{m(x)}}{1 + e^{m(x)}}$ (Equation \ref{eq:logit}),
 where $m(x)$ is a function of input features $x$.
 The complexity of the model is given by the number of parameters in $m(x)$.
 We have considered two cases for $m(x)$: linear and quadratic function of the input features $x$.
-Quadratic multinomials $m(x)$ resulted in similar accuracy as a linear function $m(x)$.
+Quadratic $m(x)$ resulted in similar accuracy as linear $m(x)$.
 Consequently, we have restricted our attention to linear functions $m(x) = \sum_{k = 1}^{10} f_k x_k$.
 In Figure \ref{fig:LR_accuracy} we show the accuracy of the LR method as a function of the number of iteractions
 for different solvers, e.g., LBFGS (discussed in the NN section), SAG (Stochastic Average Gradient), SAGA (a variant of SAG),
 and liblinear (a special solver for LR and support vector machine classifications).
-As one can see from Figure \ref{fig:LR_accuracy}, all solvers have similar performance with the LBFGs slightly outperforming the other solvers.
-The top panel shows results for unweighted input data, while for the lower panel we have weights inversely proportional to the number
-of elements in the class, which we have used in the discussion of the RF algorithm in Section \ref{sec:rf}.
-It is interesting to note that weighted input data (lower panel in Figure \ref{fig:LR_accuracy}) give about 3\% decrease in accuracy relative to unweighted data (upper panel in Figure \ref{fig:LR_accuracy}).
+As one can see from Figure \ref{fig:LR_accuracy}, all solvers have similar performance with the LBFGs slightly outperforming the other solvers for large number of iterations.
 In order to illustrate the probability domains in LR, we show the classification with two features (LBFGs, 200 iterations)
 in Figure \ref{fig:LR_domains}. The domains look similar to the domains in the NN case (Figure \ref{fig:NN_domains}).
 For the final classification we will use LBFGs solver with 200 iterations.
@@ -497,8 +488,7 @@ For the final classification we will use LBFGs solver with 200 iterations.
 \begin{figure}[h]
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/lr_train.pdf}
-\includegraphics[width=\twopicsp\textwidth]{plots/lr_train_weights.pdf}
-\caption{Dependence of LR accuracy on the number of iterations for different solvers. The accuracy for unweighted input data (upper panel) is about 3\% better than the accuracy in the case of inverse weighting (lower panel).}
+\caption{Dependence of LR testing accuracy on the number of iterations for different solvers.}
 \label{fig:LR_accuracy}
 \end{figure}
 
@@ -516,15 +506,6 @@ For the final classification we will use LBFGs solver with 200 iterations.
 
 \subsection{Oversampling}
 
-
-\begin{figure}[h]
-%\centerin
-%\hspace*{-1cm}
-\includegraphics[width=\twopicsp\textwidth]{plots/All_algs_3FGL_precision_recall_oversample.pdf}
-\caption{Precision and recall for pulsars.}
-\label{fig:prec_recall}
-\end{figure}
-
 \Fermi-LAT catalogs have many more AGNs than pulsars, i.e., the datasets are imbalanced.
 In the previous subsections we have optimized overall accuracy. In this case, the algorithms try to identify AGNs rather than pulsars,
 since it gives better accuracy. As a result, in the region of parameter space, where both pulsars and AGNs are present, the algorithms
@@ -534,14 +515,25 @@ will give higher probability for a source to be an AGNs.
 The problem of classification of imbalanced datasets can be quantitatively described in terms of precision and recall.
 If we denote by ``\# true'' the number of pulsars in the dataset, by ``\# positive'' -- the number of sources predicted to be pulsars, and by 
 ``\# true positive'' -- the number of pulsars predicted to be pulsars, then  $precision \rm = \frac{\#\ true\ positive}{\#\ positive}$ is a measure how clean the prediction is, while $recall \rm = \frac{\#\ true\ positive}{\#\ true}$ is a measure how well the algorithm can detect the pulsars, i.e., how complete is the list of predicted pulsars.
-If we reduce the pulsar domain by attributing uncertain sources predominantly to AGNs, then the precision will increase, but the recall will decrease.
+If we reduce the pulsar domain by attributing uncertain sources predominantly to AGNs, then for pulsars the precision will increase, but the recall will decrease.
+
+
+
+\begin{figure}[h]
+%\centerin
+%\hspace*{-1cm}
+\includegraphics[width=\twopicsp\textwidth]{plots/All_algs_3FGL_precision_recall_oversample.pdf}
+\caption{Precision and recall for pulsars.}
+\label{fig:prec_recall}
+\end{figure}
+
 
 In Figure \ref{fig:prec_recall} we show precision and recall for detection of pulsars using algorithms from previous sections.
 In particular, in the first two lines (solid blue with squares and dashed orange with right triangles) a source is categorized as a pulsar if all four algorithms classify it as a pulsar,
 while in lines 3 and 4 (solid green with diamonds and dashed red with down triangles) a source is attributed to the PSR class, if any of the algorithms classifies it as a pulsar.
-It is clear that in for lines 1 and 2 the pulsar domain is smaller than for lines 3 and 4, since in the former case, the domain is the intersection of domains for individual algorithms, while in the latter it is the union.
-For all-algorithm-classification the precision is 100\% for most of latitudes, while the recall is between 50\% and 80\%, i.e., the list of pulsars is generally clean but incomplete.
-In case of any-algorithm-classification, the recall is increased by 10 - 20\% compared to the all-algorithm-classification, but the precision drops to 60 - 80\%, i.e., the completeness improves at the expense of cleanliness of the sample.
+It is clear that for lines 1 and 2 the pulsar domain is smaller than for lines 3 and 4, since in the former case, the domain is the intersection of domains for individual algorithms, while in the latter it is the union.
+For all-algorithms-classification the precision is 100\% for most of latitudes, while the recall is between 50\% and 80\%, i.e., the list of pulsars is generally clean but incomplete.
+In case of any-algorithm-classification, the recall is increased by 10 - 20\% compared to the all-algorithms-classification, but the precision drops to 60 - 80\%, i.e., the completeness improves at the expense of cleanliness of the sample.
 This problem can be ameliorated by giving larger weights to pulsars in the training process or by oversampling, i.e., by using the same source several times, so that the numbers of pulsars and AGNs in training are similar.
 Provided that in some applications it is beneficial to have as complete as possible the list of pulsar candidates among unassociated sources, we have retrained the algorithms using oversampling with the same meta-parameters as in the previous sections.
 
