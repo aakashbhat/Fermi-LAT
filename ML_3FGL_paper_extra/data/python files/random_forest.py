@@ -34,10 +34,11 @@ pyplot.rcParams['axes.titlesize'] = 28
 pyplot.rcParams['font.size'] = 21
 pyplot.rcParams['ytick.labelsize'] = 18
 se=0
-valscore3=np.zeros(10)
-valscore4=np.zeros(10)
-valscore12=np.zeros(10)
-valscore22=np.zeros(10)
+size=8
+valscore3=np.zeros(size)
+valscore4=np.zeros(size)
+valscore12=np.zeros(size)
+valscore22=np.zeros(size)
 feat=np.zeros(10)
 feat2=np.zeros(10)
 while se<100:

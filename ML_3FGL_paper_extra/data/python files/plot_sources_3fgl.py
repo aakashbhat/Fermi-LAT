@@ -29,19 +29,19 @@ import matplotlib.colors as colors
 plt.rcParams['xtick.labelsize'] = 22
 plt.rcParams['axes.labelsize'] = 22
 plt.rcParams['axes.titlesize'] = 28
-plt.rcParams['font.size'] = 23
+plt.rcParams['font.size'] = 22
 plt.rcParams['ytick.labelsize'] = 22
 plt.rcParams['lines.markersize'] = 13
 
-
+plt.rcParams['legend.fontsize'] = 19.5
 
 #Training Fata:
 se=4
 np.random.seed(se)
-dataframe = pandas.read_csv("./catas/3FGL_unassocvs4FGLassoc_AGN&PSR_catalog_unweighted.csv", header=None)
+dataframe = pandas.read_csv("./catas/3FGLvs4FGL_AGNPSRCatalog_withclassification.csv", header=None)
 dataset1 = dataframe.values 
 #np.random.shuffle(dataset1[1:])
-X = dataset1[1:,59:65]
+X = dataset1[1:,60:66]
 print(X)
 #Y = dataset[1:1933,5]
 y = dataset1[1:,3:5].astype(float)
@@ -81,21 +81,21 @@ alpha=0.7
 fig1,ax2=plt.subplots()
 
 ax2.scatter(y[c1_mixed, 0], y[c1_mixed, 1], c=trainc2_color, alpha=alpha,
-                   marker=trainc2_marker, edgecolors='k', label='Mixed PSR')
+                   marker=trainc2_marker, edgecolors='k', label='PSRs classified as PSRs or AGNs')
 # Testing points for class 2
 ax2.scatter(y[c1_class_psr, 0], y[c1_class_psr, 1], c=testc2_color, alpha=alpha,
-                   marker=testc2_marker, edgecolors='k', label='Classified PSRs')
+                   marker=testc2_marker, edgecolors='k', label='PSRs classified only as PSRs')
     # Training points for class 1
 ax2.scatter(y[c1_miss_psr, 0], y[c1_miss_psr, 1], c=trainc1_color, alpha=alpha,
-                   marker=trainc1_marker, edgecolors='k', label='Misclassified PSRs')
+                   marker=trainc1_marker, edgecolors='k', label='PSRs classified only as AGNs')
         # Testing points for class 1
 ax2.scatter(y[c1_mixed_agn, 0], y[c1_mixed_agn, 1], c=testc1_color, alpha=alpha,
-                   marker=testc1_marker, edgecolors='k', label='Mixed AGNs')
+                   marker=testc1_marker, edgecolors='k', label='AGNs classified as PSRs or AGNs')
 ax2.scatter(y[c1_class_agn, 0], y[c1_class_agn, 1], c=trainc3_color, alpha=alpha,
-                   marker=trainc3_marker, edgecolors='k', label='Classified AGNs')
+                   marker=trainc3_marker, edgecolors='k', label='AGNs classified only as AGNs')
         # Testing points for class 2
 ax2.scatter(y[c1_missclass_agn, 0], y[c1_missclass_agn, 1], c=testc3_color, alpha=alpha,
-                   marker=testc3_marker, edgecolors='k', label='Misclassified AGNs')
+                   marker=testc3_marker, edgecolors='k', label='AGNs classified only as PSRs')
         # Training points for class 1
 
 h=0.02
