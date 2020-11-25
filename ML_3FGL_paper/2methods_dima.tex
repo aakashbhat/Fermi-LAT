@@ -411,7 +411,7 @@ We find that tanh is a better activation function in our case, as it provided a 
 %As a method of choice we will use in the following 10 neurons in the hidden layer with tanh activation function and Adam optimizer.
 In Figure \ref{fig:NN_neurons} we use 300 epochs for training.
 Dependence on the number of epochs (number of iterations in fitting) is presented in Figure \ref{fig:NN_epochs}. 
-The accuracy increases with higher number of epochs and saturates at around 300. 
+The accuracy increases with higher number of epochs and saturates at around 300 \dima{for the Adam optimizer?}.
 %A higher number will then lead to over-fitting of the model.
 
 
@@ -541,7 +541,17 @@ The results of training with oversampling are presented in lines 5 and 6 (solid 
 while the precision is much better than the precision in the any-algorithm-classification (the precision is 1 for $|\sin(b)| > 0.6$).
 
 %\dima{Describe the oversampling procedure here and show oversampling domains plot}
-In general one can either under- or oversample in a dataset. Undersampling would reduce the number of AGNs to match the number of PSRs. However, since the total number of sources is not that high, and since PSRs themselves are an even smaller fraction, we chose oversampling. We used the python module 'imblearn' which works with imbalanced datasets. The naive method of increasing the number of PSRs to match the number of AGNs was used in our work. In this method existent PSR values are copied and appended again to the dataset till the training data has equal number of PSRs and AGNs. Though the PSR values are redundant, they help by increasing the weight the PSR values have in the final trained model. In figure \ref{fig:LR_domains_O} we plot the domains again for the oversampling case. This image however shouldn't be taken at face value. The pulsars are not new, and have the same values as before. Nevertheless, to show that we train with a higher number of pulsars, we have plotted all copies of the training pulsars with certain small shifts, such that the number of total pulsars can be graphically represented. As can be seen the increase in the PSR numbers changes the domains since now there are more training PSRs such that AGNs don't dominate completely.
+In general one can either under- or oversample in a dataset. Undersampling would reduce the number of AGNs to match the number of pulsars. However, since the total number of sources is not very high, we have chosen oversampling. 
+%We used the python module 'imblearn' which works with imbalanced datasets. The naive method of increasing the number of PSRs to match the number of AGNs was used in our work. 
+For training with oversampling, we copy randomly existing pulsars and add them to the dataset until the number of pulsars and AGNs are the same.
+%In this method existent PSR values are copied and appended again to the dataset till the training data has equal number of PSRs and AGNs. 
+Although pulsars in the training dataset are redundant, they help to increase the weight of pulsars in the classification model.
+We illustrate the oversampling procedure in Figure \ref{fig:LR_domains_O} top panel,
+the number of times a source appears in training is shown by adding markers with shifts to the right and above the original position of the source (note that the shift is introduced for presentation only, the parameters of the sources are exactly the same as in the original source).
+In the bottom panel of Figure \ref{fig:LR_domains_O} we repeat Figure  \ref{fig:LR_domains} in order to compare the classification domains with and without oversampling.
+One can see that pulsar domain in the top panel is larger than the pulsar domain in the bottom panel.
+As a result, in the top panel more pulsars are classified as pulsars but also more AGNs are falsely classified as pulsars in the intersection region. 
+Since the overall number of AGNs is larger than the number of pulsars, the testing accuracy with oversampling is smaller than the one without oversampling: 0.87 vs 0.95.
 
 \begin{figure}[h]
 %\hspace*{-1cm}
@@ -549,8 +559,8 @@ In general one can either under- or oversample in a dataset. Undersampling would
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/lr_200_lbfgs.pdf}
 \caption{Top panel: LR classification domains showing class probabilities for training with oversampling.
-The oversampling is illustrated by repeating the PSR markers with a shift: the number of markers is equal to the number of times the PSR appeared in training.
-Bottom panel: we repeat the bottom panel of Figure \ref{fig:LR_domains} for convenience of comparison with the oversampled training in the top panel.
+The oversampling is illustrated by repeating the pulsar markers with a shift: the number of markers is equal to the number of times the pulsar appears in training.
+Bottom panel: we repeat Figure \ref{fig:LR_domains} for convenience of comparison with the oversampled training in the top panel.
 }  
 \label{fig:LR_domains_O}
 \end{figure}
