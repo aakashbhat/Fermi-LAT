@@ -407,11 +407,11 @@ We compare two activation functions after the first hidden layer (tanh and relu)
 %L-BFGS is an approximation of the quasi-newtonian BFGS method. The BFGS method uses the full inverse of the Hessian matrix to find the direction of movement for minimizing the gradient. The limited memory counterpart however, only stores a smaller representation of the full matrix. This makes this method much faster for larger data-sets.
 %Adam on the other hand belongs to a relatively newer family of algorithms which use gradient descent. Gradient descent is a first-order method to find the local minima or maxima of a differentiable function. Nowadays, this process is made more efficient by taking the gradient from parts of the data-set instead of the entire data-set itself. This is called stochastic gradient descent, since the data is selected randomly. Adam is a newer approach of the stochastic family using adaptive network learning rates for every parameter. Adam is usually preferred for Neural Networks with big data-sets. However since Adam converges slower, a higher number of epochs is needed to reach the best accuracies.
 About 10 neurons in the hidden layer appears to be an optimal choice, since increasing the number of neurons leads to no significant increase in accuracy for all models. 
-We find that tanh is a better activation function in our case, as it provided a good result for both optimization methods, whereas relu is good only in the case of Adam optimizer.
+We find that tanh is a slightly better activation function in our case, as it provides slightly better results for both optimization methods as compared to relu.
 %As a method of choice we will use in the following 10 neurons in the hidden layer with tanh activation function and Adam optimizer.
 In Figure \ref{fig:NN_neurons} we use 300 epochs for training.
 Dependence on the number of epochs (number of iterations in fitting) is presented in Figure \ref{fig:NN_epochs}. 
-The accuracy increases with higher number of epochs and saturates at around 300. 
+The accuracy increases with higher number of epochs and saturates at around 50 for L-BFGS and 300 for ADAM. As expected, L-BFGS converges much faster than ADAM, which uses stochastic gradient descent.
 %A higher number will then lead to over-fitting of the model.
 
 
