@@ -75,13 +75,13 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
 \end{figure*}
 
 As a result of the classification with the four ML algorithms,
-we created a probabilistic catalog based on the 3FGL sources without missing values. Like in the case of associated sources, where we split the data 1000 times, we also do a 1000 runs for the unassociated case. However in this case there is no split, since we use all the 3fgl associated sources for training. However due to a change in the shuffling and the initial seed used there are changes in  the initial states of the algorithms and we collect the final result for all the runs.
+we created a probabilistic catalog based on the 3FGL sources without missing values. Like in the case of associated sources, where we split the data 1000 times, we also do a 1000 runs for the unassociated case. We train on 70\% of the associated data and save all the probability values. This allows us to calculate individual probabilities and their standard deviations for all sources.
 %\dima{Classification of associated sources is done by averaging over testing-training samples splits.
 %Do we also do averaging for unassociated sources?}
-We have also subselected 278 unassociated 3FGL sources, which have PSR or AGN associations in 4FGL,
+We have also subselected the 278 unassociated 3FGL sources, which have PSR or AGN associations in 4FGL,
 and saved them for convenience of comparison as a separate file.
 In the probabilistic catalogs we add columns with corresponding probabilities for each algorithm and each class,
-i.e., provided that there are 4 algorithms and 2 classes, we add 8 columns.
+i.e., provided that there are 4 algorithms and 2 classes, we add 16 columns, 8 each for unweighted and oversampled training data respectively. The columns with '\_O' represent the oversampled probabilities. We also add 16 columns for individual standard deviations, although 8 of them are redundant since the standard deviations for AGN and PSR probabilities are mathematically the same.
 Although the class probabilities for each algorithms should add up to one for every source, we still keep the columns for all classes for convenience.
 Table \ref{tab:prob_cat} shows an example of the probabilistic catalog for a few unassociated 3FGL sources.
 Notice that the first source is classified as a pulsar by BDT and as an AGN by RF, LR, and NN algorithms,
@@ -90,7 +90,7 @@ The second and third sources are classified as AGNs by all four algorithms, i.e.
 ``classified only as AGNs'',
 while the last source is classified as a pulsar by all four algorithms, i.e., it will have a label
 ``classified only as PSRs''.
-Overall, there are 97 unassociated sources classified as pulsars by all four algorithms, 729 sources classified as AGNs by all four algorithms, and 182 sources with mixed classifications.
+Overall, if one looks at only unweighted data, there are 97 unassociated sources classified as pulsars by all four algorithms, 729 sources classified as AGNs by all four algorithms, and 182 sources with mixed classifications.
 Out of 97 sources classified as pulsars, 6 sources have counterparts in Parkes survey \cite{Camilo2015} within 2 arc minutes (see Table \ref{tab:parkes}).
 
 We summarize the results of classification of the unassociated 3FGL sources in Table \ref{tab:3FGL_prediction}.
@@ -182,8 +182,8 @@ Connection of unassociated 3FGL sources classified as PSRs with Parkes PSRs.}
 \subsection{Probabilistic classification of sources in the 4FGL catalog}
 \lb{sec:4FGLprediction}
 
-In this section we construct a probabilistic classification of sources in the 4FGL catalog.
-As in the previous section, we use for training and testing sources associated with either AGNs or pulsars and have no missing values.
+In this section we construct a probabilistic classification of sources in the 4FGL catalog data release 1.
+As in the previous section, we use for training and testing sources associated with either AGNs or pulsars and having no missing values.
 We then calculate the classification probabilities of AGN and PSR classes for both the associated and the unassociated sources.
 The 4FGL catalog has higher number of features, especially due to the difference in modeling of the spectra compared with the 3FGL catalog. 
 We selected 31 of these features and looked for the correlation among them. If any feature was correlated or anti-correlated with a Pearson index of $\pm$0.75 or higher with another feature, then only one of these features was kept. 
