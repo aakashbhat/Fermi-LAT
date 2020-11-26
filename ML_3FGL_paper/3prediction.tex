@@ -21,8 +21,8 @@ accuracies computed for the testing samples.
 In addition, we look at sources, which are unassociated in 3FGL but have either pulsar or AGN association in 4FGL: there are 278 such sources.
 The accuracy of our prediction for the four selected algorithms \dima{(both with and without oversampling)}, taking the 4FGL classes as the true values, is reported in the column ``Accuracy from Comparison with 4FGL''.
 The correct classifications and misclassifications for the 278 sources with associations in 4FGL are also presented in Figure \ref{fig:3FGL_vs_4FGL_classes}.
-The class at the beginning of the label names corresponds to the association in the 4FGL, while the second half of the labels corresponds to classification of unassociated sources in 3FGL, for example, ``PSRs classified only as PSRs'' shows sources which have PSR association in 4FGL and all eight methods classified the corresponding unassociated sources in 3FGL as PSRs, while ``PSRs classified as either PSRs or AGNs'' labels sources with PSR associations in 4FGL but the corresponding unassociated sources in 3FGL have both PSR and AGN classifications by different ML algorithms.
-The sources are classified as PSRs or AGNs if the corresponding probability is larger than 0.5.
+The class at the beginning of the label names corresponds to the association in the 4FGL, while the second half of the labels corresponds to classification of unassociated sources in 3FGL. For example, ``PSRs classified only as PSRs'' shows sources which have PSR association in 4FGL and all four algorithms classified the corresponding unassociated sources in 3FGL as PSRs for both unweighted and oversampled training data. On the other hand ``PSRs classified as either PSRs or AGNs'' labels sources with PSR associations in 4FGL but the corresponding unassociated sources in 3FGL have both PSR and AGN classifications by different ML algorithms, again for both types of training data.
+The unassociated sources are classified as PSRs or AGNs if the corresponding probability is larger than 0.5.
 We notice that misclassified or partially misclassified sources in Figure \ref{fig:3FGL_vs_4FGL_classes} typically happen on the boundary between the two classes or even inside the opposite class.
 Many of these sources also have flags in the 3FGL catalog, such as a potential problem with the background diffuse emission model in the location of the source, which can lead to a poor reconstruction of the source spectrum and, as a result, misclassification of the source.
 
@@ -67,7 +67,7 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
 
 \begin{figure*}[h]
 \centering
-\includegraphics[width=0.8\textwidth]{plots/plot_final.pdf}
+\includegraphics[width=0.8\textwidth]{plots/finalclassification_3fglvs4fgl.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/PSR3.pdf}
 \caption{Comparison of class prediction for unassociated 3FGL sources with classes in 4FGL. }
 %\includegraphics[width=\twopicsp\textwidth]{plots/final_catalog.pdf}
@@ -75,7 +75,7 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
 \end{figure*}
 
 As a result of the classification with the four ML algorithms,
-we created a probabilistic catalogs based on the 3FGL sources without missing values. Like in the case of associated sources, where we split the data 1000 times, we also do a 1000 runs for the unassociated case. However in this case there is no split, since we use all the 3fgl associated sources for training. However due to a change in the shuffling and the initial seed used there are changes in  the initial states of the algorithms and we collect the final result for all the runs.
+we created a probabilistic catalog based on the 3FGL sources without missing values. Like in the case of associated sources, where we split the data 1000 times, we also do a 1000 runs for the unassociated case. However in this case there is no split, since we use all the 3fgl associated sources for training. However due to a change in the shuffling and the initial seed used there are changes in  the initial states of the algorithms and we collect the final result for all the runs.
 %\dima{Classification of associated sources is done by averaging over testing-training samples splits.
 %Do we also do averaging for unassociated sources?}
 We have also subselected 278 unassociated 3FGL sources, which have PSR or AGN associations in 4FGL,
