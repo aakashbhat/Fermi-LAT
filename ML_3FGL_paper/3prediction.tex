@@ -19,7 +19,7 @@ The selected algorithms are summarized in Table \ref{tab:selected_algs}, where o
 ``Average testing accuracy'' is computed by taking 1000 times 70\% - 30\% split into training and testing samples and averaging over the 
 accuracies computed for the testing samples.
 In addition, we look at sources, which are unassociated in 3FGL but have either pulsar or AGN association in 4FGL: there are 278 such sources.
-The accuracy of our prediction for the four selected algorithms \dima{(both with and without oversampling)}, taking the 4FGL classes as the true values, is reported in the column ``Accuracy from Comparison with 4FGL''.
+The accuracy of our prediction for the four selected algorithms with and without oversampling, taking the 4FGL classes as the true values, is reported in the column ``Comparison with 4FGL Accuracy''.
 The correct classifications and misclassifications for the 278 sources with associations in 4FGL are also presented in Figure \ref{fig:3FGL_vs_4FGL_classes}.
 The class at the beginning of the label names corresponds to the association in the 4FGL, while the second half of the labels corresponds to classification of unassociated sources in 3FGL. For example, ``PSRs classified only as PSRs'' shows sources which have PSR association in 4FGL and all four algorithms classified the corresponding unassociated sources in 3FGL as PSRs for both unweighted and oversampled training data. On the other hand ``PSRs classified as either PSRs or AGNs'' labels sources with PSR associations in 4FGL but the corresponding unassociated sources in 3FGL have both PSR and AGN classifications by different ML algorithms, again for both types of training data.
 The unassociated sources are classified as PSRs or AGNs if the corresponding probability is larger than 0.5.
@@ -41,8 +41,8 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
 %\hspace{-3mm}
     \begin{tabular}{|c|c|c|c|c|c|c|}
     \hline
-    Algorithm&Parameters &  Testing&Std. Dev.& Comparison Accuracy \\
-    & & Accuracy & & with 4FGL\\
+    Algorithm&Parameters &  Testing&Std. Dev.& Comparison with 4FGL \\
+    & & Accuracy & & Accuracy \\
     \hline
     RF & 50 trees, max depth 6  &97.42&0.60& 96.1  \\
     RF\_O &   &97.71&0.56& 95.1  \\
@@ -75,26 +75,32 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
 \end{figure*}
 
 As a result of the classification with the four ML algorithms,
-we created a probabilistic catalog based on the 3FGL sources without missing values. Like in the case of associated sources, where we split the data 1000 times, we also do a 1000 runs for the unassociated case. We train on 70\% of the associated data and save all the probability values. This allows us to calculate individual probabilities and their standard deviations for all sources.
+we created a probabilistic catalog based on the 3FGL sources without missing values.%
+\footnote{There are thirteen sources with missing values in the 3FGL catalog, which we save in a separate file ``3FGL\_sources\_with\_missing\_values.csv'' for reference.}
+We train on 70\% of the sources associated with pulsars or AGNs and save the probability values for training sources, sources which are not classified as pulsars or AGNs, and for unassociated sources.
+We repeat the splitting and training 1000 times and report the sample average and standard deviation of the classification probabilities,
+i.e., we average over 1000 values for unassociated sources and sources not classified as AGNs or pulsars, 
+while the average for AGNs and pulsar is over the number of times the sources appear in the training sample, which is about 300.
+%Like in the case of associated sources, where we split the data 1000 times, we also do a 1000 runs for the unassociated case. This allows us to calculate individual probabilities and their standard deviations for all sources.
 %\dima{Classification of associated sources is done by averaging over testing-training samples splits.
 %Do we also do averaging for unassociated sources?}
+
 We have also subselected the 278 unassociated 3FGL sources, which have PSR or AGN associations in 4FGL,
 and saved them for convenience of comparison as a separate file.
 In the probabilistic catalogs we add columns with corresponding probabilities for each algorithm and each class,
-i.e., provided that there are 4 algorithms and 2 classes, we add 16 columns, 8 each for unweighted and oversampled training data respectively. The columns with '\_O' represent the oversampled probabilities. We also add 16 columns for individual standard deviations, although 8 of them are redundant since the standard deviations for AGN and PSR probabilities are mathematically the same.
-Although the class probabilities for each algorithms should add up to one for every source, we still keep the columns for all classes for convenience.
+i.e., provided that there are 8 methods (including oversampling) and 2 classes, we add 16 columns: 8 for unweighted and 8 for oversampled training data respectively. The columns with '\_O' represent the oversampled probabilities. We also add 16 columns for standard deviations of probabilities. Although class probabilities and standard deviation for each algorithm are not independent (probabilities add up to 1 and standard deviations are equal for AGNs and PSRs), we keep the corresponding columns in view of possible generalizations to multi-class classification.
+%Although the class probabilities for each algorithms should add up to one for every source, we still keep the columns for all classes for convenience.
 Table \ref{tab:prob_cat} shows an example of the probabilistic catalog for a few unassociated 3FGL sources.
 Notice that the first source is classified as a pulsar by BDT and as an AGN by RF, LR, and NN algorithms,
-i.e., it has a label ``classified either as PSRs or AGNs'' in Figure \ref{fig:3FGL_vs_4FGL_classes}.
-The second and third sources are classified as AGNs by all four algorithms, i.e., they will have a label
-``classified only as AGNs'',
-while the last source is classified as a pulsar by all four algorithms, i.e., it will have a label
-``classified only as PSRs''.
-Overall, if one looks at only unweighted data, there are 97 unassociated sources classified as pulsars by all four algorithms, 729 sources classified as AGNs by all four algorithms, and 182 sources with mixed classifications.
-Out of 97 sources classified as pulsars, 6 sources have counterparts in Parkes survey \cite{Camilo2015} within 2 arc minutes (see Table \ref{tab:parkes}).
+it is an example of a source with mixed classification.
+%i.e., it has a label ``classified either as PSRs or AGNs'' in Figure \ref{fig:3FGL_vs_4FGL_classes}. - is it associated in 4FGL?
+%The second and third sources are classified as AGNs by all four algorithms, i.e., they will have a label ``classified only as AGNs'',
+%while the last source is classified as a pulsar by all four algorithms, i.e., it will have a label ``classified only as PSRs''.
+Out of 1008 unassociated sources in 3FGL, 96 are classified as pulsars by all eight methods, 580 are classified as AGNs, and 332 have mixed classifications.
+Out of 96 sources classified as pulsars, 6 sources have counterparts in Parkes survey \cite{Camilo2015} within 2 arc minutes (see Table \ref{tab:parkes}).
 
 We summarize the results of classification of the unassociated 3FGL sources in Table \ref{tab:3FGL_prediction}.
-The ``AGNs'' column shows the number of unassociated sources where all four algorithms from table \ref{tab:selected_algs2} give the probability for a source to be an AGN above 50\%.
+The ``AGNs'' column shows the number of unassociated sources where all eight methods from table \ref{tab:selected_algs2} give the probability for a source to be an AGN above 50\%.
 Similarly the ``Pulsars'' column shows the number of unassociated sources where all four algorithms predict the source to be more likely a pulsar.
 The ``Mixed'' column shows the number of sources with mixed classification, i.e., some algorithms predict that the source is more likely an AGN while the other algorithms predict that it is more likely a pulsar.
 In the ``Uncorrected'' row we do not take into account that there can be sources other than AGNs or pulsars among the unassociated sources.
@@ -108,7 +114,7 @@ The number of AGN-like sources among the unassociated source corrected for the p
 \lb{eq:other_correction}
 N_{\rm AGN}^{\rm corr} = N_{\rm AGN} - N_{\rm AGN}^{\rm ass\,other} \,\frac{N_{\rm unass}}{N_{\rm ass}}.
 \ee
-Analogous corrections are applied for the number of unassociated sources with pulsar-like classification by all four algorithms,
+Analogous corrections are applied for the number of unassociated sources with pulsar-like classification by all eight methods,
 and for unassociated sources with mixed classification.
 
 
@@ -162,9 +168,9 @@ Connection of unassociated 3FGL sources classified as PSRs with Parkes PSRs.}
     \hline
     Correction for other sources & AGNs & Pulsars & Mixed \\
     \hline
-    Uncorrected &  729 & 97  &  182 \\
+    Uncorrected &  580 & 96  &  332 \\
     \hline
-    Corrected & 708.0  & 81.5  & 164.5 \\
+    Corrected & 561.5  & 83.0  & 309.5 \\
     \hline
      
     \end{tabular}}
@@ -182,18 +188,21 @@ Connection of unassociated 3FGL sources classified as PSRs with Parkes PSRs.}
 \subsection{Probabilistic classification of sources in the 4FGL catalog}
 \lb{sec:4FGLprediction}
 
-In this section we construct a probabilistic classification of sources in the 4FGL catalog data release 1.
-As in the previous section, we use for training and testing sources associated with either AGNs or pulsars and having no missing values.
+In this section we construct a probabilistic classification of sources in the 4FGL catalog \citep{2020ApJS..247...33A}.%
+\footnote{There is also a version of the 4FGL catalog based on 10 years of data, rather than 8 years of data: the 4FGL-DR2 catalog
+\citep{2020arXiv200511208B}. We discuss our predictions for 4FGL-DR2 in Section \ref{sec:4FGL-DR2}.}
+As in the previous section, we use for training and testing sources associated with either AGNs or pulsars,
+which have no missing values used for classification.%
+\footnote{Overall, in the 4FGL catalog there is only one source with missing values: 4FGL J0534.5+2201i associated with the Crab pulsar wind nebula.}
 We then calculate the classification probabilities of AGN and PSR classes for both the associated and the unassociated sources.
 The 4FGL catalog has higher number of features, especially due to the difference in modeling of the spectra compared with the 3FGL catalog. 
-We selected 31 of these features and looked for the correlation among them. If any feature was correlated or anti-correlated with a Pearson index of $\pm$0.75 or higher with another feature, then only one of these features was kept. 
+We selected 31 of these features and looked for correlations among them. If any feature was correlated or anti-correlated with a Pearson index of $\pm$0.75 or higher with another feature, then only one of these features was kept. 
 %The correlation matrix is shown in Figure \ref{fig:corr_mat}.
 The resulting 16 features are:
 GLON, GLAT, ln(Pivot\_Energy), ln(Flux1000), PL\_Index, Unc\_LP\_Index, LP\_beta, LP\_SigCurv, Unc\_PLEC\_Expfactor, PLEC\_Exp\_Index, hr12, hr23, hr34, hr45, hr56, hr67, ln(Variability\_Index).
-Some of these features are directly related to the features, which we used in the 3FGL catalog,
-e.g., GLAT, PL\_Index (instead of Spectral\_Index), LP\_SigCurv (instead of ln(Signif\_Curve)) 
-%\dima{we don't use log of curvature significance for 4FGL, right? I'm wondering why do we use ln(Signif\_Curve) for 3FGL.}, 
-,ln(Variability\_Index), hardness ratios (in the 4FGL catalog there are two more energy bins compared to the 3FGL catalog).
+Some of these features are directly related to the features, which we use in the 3FGL catalog,
+e.g., GLAT, PL\_Index (instead of Spectral\_Index), LP\_SigCurv (instead of ln(Signif\_Curve)), 
+ln(Variability\_Index), hardness ratios (in the 4FGL catalog there are two more energy bins compared to the 3FGL catalog).
 
 \begin{comment}
 \begin{figure*}[h]
@@ -206,7 +215,7 @@ e.g., GLAT, PL\_Index (instead of Spectral\_Index), LP\_SigCurv (instead of ln(S
 \end{figure*}
 \end{comment}
 
-For this part, we do not perform another preliminary analysis of the algorithms, i.e., we used the same hyperparameters for the four algorithms as in the construction of the probabilistic catalog based on the 3FGL catalog, except for NN where we increased the number of neurons in the first hidden layer to 16.
+For this part, we do not perform another preliminary analysis of the algorithms, i.e., we used the same hyper-sparameters for the four algorithms as in the construction of the probabilistic catalog based on the 3FGL catalog, except for NN where we increased the number of neurons in the first hidden layer to 16. Similarly to the construction of the 3FGL probabilistic catalog, we use both unweighted training samples and oversampling, i.e., we have 8 classification algorithms.
 We retrain these algorithms using the 16 features for the 4FGL sources.
 The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
 All algorithms have a slightly better accuracy for the 4FGL catalog compared to the 3FGL catalog, which is likely due to a higher number of features and more associated sources used as training data. 
@@ -241,7 +250,7 @@ All algorithms have a slightly better accuracy for the 4FGL catalog compared to 
      
     \end{tabular}}
     \vspace{0.2cm}
-    \caption{Accuracy of the 4 selected algorithms on 4FGL DR1 associated data.}
+    \caption{Accuracy of the 4 selected algorithms on 4FGL associated data.}
     \label{tab:selected_algs2}
 \end{table}
 
@@ -259,9 +268,9 @@ The definition of columns and rows is the same as in the 3FGL catalog case in Se
     \hline
     Correction for other sources & AGNs & Pulsars & Mixed \\
     \hline
-    Uncorrected &  949 & 137  &  250 \\
+    Uncorrected &  674 & 141  &  521 \\
     \hline
-    Corrected & 896.3  & 115.5  & 221.3 \\
+    Corrected & 638.5  & 119.1  & 475.5 \\
     \hline
      
     \end{tabular}}
@@ -270,8 +279,12 @@ The definition of columns and rows is the same as in the 3FGL catalog case in Se
     \label{tab:4FGL_prediction}
 \end{table}
 
-Finally, we looked at sources which were unassociated in both 3FGL and 4FGL. Out of 306 such sources, 38 sources are predicted to be pulsars using 3FGL features and 71 sources are predicted to be pulsars using 4FGL features. This leads to 29 sources which were predicted by all four algorithms to be pulsars for features taken from both 3FGL and 4FGL catalogs. Among these 29 sources, four can be spatially associated to pulsars in the Parkes survey (of the other two, one is now associated as a pulsar in 4FGL, and the second one is not detected in 4FGL).  For convenience, we save these 29 pulsar candidates as a separate file.
+Finally, we looked at sources which were unassociated in both 3FGL and 4FGL. Out of 306 such sources, 38 sources are predicted to be pulsars using 3FGL features and 71 sources are predicted to be pulsars using 4FGL features. This leads to 29 sources which were predicted by all eight methods to be pulsars for features taken from both 3FGL and 4FGL catalogs. Among these 29 sources, four can be spatially associated to pulsars in the Parkes survey (of the other two, one is now associated as a pulsar in 4FGL, and the second one is not detected in 4FGL).  For convenience, we save these 29 pulsar candidates as a separate file.
 
 
 
+\subsection{Probabilistic classification of sources in the 4FGL-DR2 catalog}
+\lb{sec:4FGL-DR2}
 
+
+Predictions for 4FGL-DR2.

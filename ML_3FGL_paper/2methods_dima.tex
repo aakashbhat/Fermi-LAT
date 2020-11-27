@@ -541,7 +541,7 @@ The results of training with oversampling are presented in lines 5 and 6 (solid 
 while the precision is much better than the precision in the any-algorithm-classification (the precision is 1 for $|\sin(b)| > 0.6$).
 
 %\dima{Describe the oversampling procedure here and show oversampling domains plot}
-In general one can either under- or oversample in a dataset. Undersampling would reduce the number of AGNs to match the number of pulsars. However, since the total number of sources is not very high, we have chosen oversampling. 
+In general one can either under- or oversample a dataset. Undersampling would reduce the number of AGNs to match the number of pulsars. However, since the total number of sources is not very high, we have chosen oversampling. 
 %We used the python module 'imblearn' which works with imbalanced datasets. The naive method of increasing the number of PSRs to match the number of AGNs was used in our work. 
 For training with oversampling, we copy randomly existing pulsars and add them to the dataset until the number of pulsars and AGNs are the same.
 %In this method existent PSR values are copied and appended again to the dataset till the training data has equal number of PSRs and AGNs. 
