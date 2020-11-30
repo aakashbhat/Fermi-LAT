@@ -1,16 +1,16 @@
 \section{Conclusions}
 \lb{sec:conclusions}
 
-In the paper we determine the probabilities of classification of unassociated sources in the 3FGL and 4FGL \Fermi-LAT catalogs.
+In the paper we determine the probabilities of classification of unassociated sources in the 3FGL, 4FGL, and 4FGL DR2 \Fermi-LAT catalogs.
 The probabilities are calculated with 4 different ML methods: random forests, boosted decision trees, logistic regression and neural networks.
-The algorithms were trained and tested with associated sources.
+The algorithms were trained and tested with associated sources, both with and without oversampling.
 We have also scanned some meta-parameters of the algorithms, such as depth of the trees, the number of trees, the number of neurons etc. in order to determine optimal parameters which do not create overfitting of data and provide good accuracy of classification.
 The accuracy, which we obtained for the 3FGL catalog for all four algorithms, was about 97\%.
 We have also checked the accuracy of classification by selecting unassociated sources in 3FGL, which have associations in 4FGL.
 If we take the 4FGL associations as the true value, then the accuracy of classification in this subset of sources is between 93\% and 95\%.
 As one can see from Figure \ref{fig:3FGL_vs_4FGL_classes}, the misclassified sources have spectral parameters in 3FGL which are typical of the other class, i.e., the misclassification can be due to problems with reconstructing the spectrum of the sources.
 
-As a result of the analysis we create catalogs with probabilistic classifications of sources, where for each source and each class (i.e., AGNs and pulsars in our case) we report class probabilities for each of the four algorithms, i.e., 8 columns labeled by classes and by methods: ``AGN\_BDT'', ``PSR\_NN'' etc.
+As a result of the analysis we create catalogs with probabilistic classifications of sources, where for each source and each class (i.e., AGNs and pulsars in our case) we report class probabilities for each of the four algorithms trained on both unweighted and oversampled data-sets. These are 16 columns, 8 labeled by classes and by methods: ``AGN\_BDT'', ``PSR\_NN'' etc, and 8 labeled by classes and by methods: ``AGN\_BDT\_O'', ``PSR\_NN\_O'' etc. We also provide individual standard deviations for all these methods.
 We report the classification probabilities not only for the unassociated sources, but also for the associated ones, which can be used to find outliers.
 An advantage of such probabilistic classification is that a threshold on probability for selecting, e.g., pulsar candidates, can be chosen by the user based on his or her needs.
 For example, in a search of new pulsars, one can select a low threshold in order to avoid missing possible pulsars.
