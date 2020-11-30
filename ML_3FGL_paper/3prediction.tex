@@ -275,7 +275,8 @@ The definition of columns and rows is the same as in the 3FGL catalog case in Se
      
     \end{tabular}}
     \vspace{0.2cm}
-    \caption{For definitions see Table \ref{tab:3FGL_prediction}.}
+    \caption{Expected numbers of pulsars and AGNs among unassociated sources in the 4FGL catalog.
+    For definitions see Table \ref{tab:3FGL_prediction}.}
     \label{tab:4FGL_prediction}
 \end{table}
 
@@ -286,5 +287,34 @@ Finally, we looked at sources which were unassociated in both 3FGL and 4FGL. Out
 \subsection{Probabilistic classification of sources in the 4FGL-DR2 catalog}
 \lb{sec:4FGL-DR2}
 
+The 4FGL-DR2 catalog \citep{2020arXiv200511208B} 
+is based on 10 years of \Fermi-LAT data \citep[compared to 8 years of data in the 4FGL catalog,][]{2020ApJS..247...33A}.
+It contains 5788 sources, which is 723 more sources than in the 4FGL catalog (all sources in 4FGL are kept in 4FGL-DR2 even if they happen to be below the detection threshold with 10 years of data).
+There are 14 sources in 4FGL-DR2 with missing values: five AGNs, one PWN (Crab), and 8 unassociated sources.
+The expected numbers of pulsars and AGNs among the 1670 unassociated sources in 4FGL-DR2 without missing values are
+presented in Table \ref{tab:4FGL-DR2}.
+Correction for the presence of other sources is calculated similarly to the 3FGL calculation in Section \ref{sec:3FGLprediction1}.
+We find that compared to the 4FGL catalog, there are more sources classified as AGNs and sources with mixed classification among the unassociated source in 4FGL-DR2, whereas the numbers of sources classified as pulsars in 4FGL and 4FGL-DR2 are similar.
 
-Predictions for 4FGL-DR2.
+\begin{table}[!h]
+\resizebox{0.45\textwidth}{!}{
+    \tiny
+ %  \centering
+    \renewcommand{\tabcolsep}{0.3mm}
+\renewcommand{\arraystretch}{1.5}
+
+    \begin{tabular}{| l |c|c|c|}
+    \hline
+    Correction for other sources & AGNs & Pulsars & Mixed \\
+    \hline
+    Uncorrected &  854 & 144  &  672 \\
+    \hline
+    Corrected & 801.9  & 120.8  & 602.0 \\
+    \hline
+     
+    \end{tabular}}
+    \vspace{0.2cm}
+    \caption{Expected numbers of pulsars and AGNs among unassociated sources in the 4FGL-DR2 catalog.
+    For definitions see Table \ref{tab:3FGL_prediction}.}
+    \label{tab:4FGL-DR2}
+\end{table}

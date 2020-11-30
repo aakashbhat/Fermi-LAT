@@ -1,4 +1,4 @@
-\begin{thebibliography}{42}
+\begin{thebibliography}{43}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{{Abdo} {et~al.}(2010{\natexlab{a}}){Abdo}, {Ackermann}, {Ajello},
@@ -37,6 +37,11 @@ Ackermann, M., Ajello, M., Albert, A., {et~al.} 2015, \jcap, 2015, 008
   {Strong}}]{2015ApJ...800L..27A}
 {Ajello}, M., {Gasparrini}, D., {S{\'a}nchez-Conde}, M., {et~al.} 2015, \apjl,
   800, L27
+
+\bibitem[{{Ballet} {et~al.}(2020){Ballet}, {Burnett}, {Digel}, \&
+  {Lott}}]{2020arXiv200511208B}
+{Ballet}, J., {Burnett}, T.~H., {Digel}, S.~W., \& {Lott}, B. 2020, arXiv
+  e-prints, arXiv:2005.11208
 
 \bibitem[{Breiman(2001)}]{Breiman:2001hzm}
 Breiman, L. 2001, Machine Learning, 45, 5
