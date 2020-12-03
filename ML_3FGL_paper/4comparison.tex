@@ -9,12 +9,12 @@
 \begin{figure*}[h]
 \center
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/N_logS_3FGL_PSR_SazP.pdf}
+\includegraphics[width=0.45\textwidth]{plots/N_logS_3FGL_PSR_SazP_add_os.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/N_logS_4FGL_PSR.pdf} \\
-\includegraphics[width=0.45\textwidth]{plots/N_logS_3FGL_AGN_SazP.pdf}
+\includegraphics[width=0.45\textwidth]{plots/N_logS_4FGL_PSR_add_os.pdf} \\
+\includegraphics[width=0.45\textwidth]{plots/N_logS_3FGL_AGN_SazP_add_os.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/N_logS_4FGL_AGN.pdf}
+\includegraphics[width=0.45\textwidth]{plots/N_logS_4FGL_AGN_add_os.pdf}
 \caption{Cumulative number of sources as a function of their flux.}  
 \label{fig:logN_logS}
 \end{figure*}
@@ -98,27 +98,24 @@ The first term is the sum of AGN-like probabilities among the unassociated sourc
 while the second term is the sum of AGN-like probabilities among associated ``other'' sources rescaled by the total number
 of unassociated and associated sources in this flux band.
 The expected number of pulsars among the unassociated sources is calculated analogously.
-A few conclusions based on Figure \ref{fig:logN_logS} are in order:
-\ben
-\item
-The total number of AGNs among the detected 3FGL or 4FGL sources is about 50\% higher than the number of associated AGNs.
-This conclusion is not very surprising since the number of unassociated sources is about 1/3 of the total number of sources and the 
-AGNs are the largest class of sources. It is important to note, however, that the different ML algorithms provide a reasonable uncertainty band on the number of AGNs among the unassociated sources, which is, in particular, smaller than the expected number of pulsars among the unassociated sources.
-\item
-The number of pulsars among the unassociated sources is about the same as the number of associated pulsars, i.e., the total number of pulsars among the detected sources is expected to be twice the number of associated pulsars.
-\een
+
 We predict that the expected number of pulsars among the unassociated sources in the 3FGL catalog
-is $200 \pm 40$, where the range is the envelop of the sums of probabilities in Equation (\ref{eq:unassoc_ev})
-for different ML methods corrected for other sources among the unassociated sources.
-The expected number of pulsars among the unassociated sources in the 4FGL catalog corrected for other sources is $260 \pm 50$.
+is $267 \pm 110$, where the range is the envelop of the sums of probabilities in Equation (\ref{eq:unassoc_ev})
+for different ML methods (including oversampling) corrected for other sources among the unassociated sources.
+The expected number of pulsars among the unassociated sources in the 4FGL catalog corrected for other sources is 
+$386 \pm 179$.
+These numbers are larger than the number of associated PSRs without missing values (164 in 3FGL and 237 in 4FGL).
+Even at the lower range of expected numbers of pulsars among unassociated sources, there are potentially as many pulsars
+as there are associated ones.
+
 We note that according to Table \ref{tab:3FGL_prediction}, the number of unassociated 3FGL sources 
-with $p_{\rm PSR} > 0.5$ for all four ML algorithms is 97 (81.5), while there are 182 (164.5) sources with mixed classification,
+with $p_{\rm PSR} > 0.5$ for all four ML algorithms is 96 (83), while there are 332 (309.5) sources with mixed classification,
 uncorrected (corrected) for other sources.
-The number of pulsars with mixed classification (164.5 for 3FGL or 221.3 for 4FGL)
-is about two times larger than the range of values for the expected number of pulsars calculated for the sum of probabilities 
-(80 for 3FGL or 100 for 4FGL).
+The number of sources with mixed classification (309.5 for 3FGL or 475.5 for 4FGL)
+is larger than the range of values for the expected number of pulsars calculated for the sum of probabilities 
+(220 for 3FGL or 358 for 4FGL).
 It means that the decision which sources are considered to be more likely pulsars is more sensitive to the choice of the ML method
-and the probability threshold than the expected number of pulsars (based on the sum of probabilities).
+and the probability threshold than the expected number of pulsars calculated from on the sum of probabilities.
 
 We also note that the probabilistic classification mostly affects sources with smaller fluxes,
 which we illustrate in Figure \ref{fig:unass_vs_ass_frac}, where we show that the ratio of expected number of AGNs and pulsars among unassociated sources computed according to Equation \ref{eq:unassoc_ev} to the number of associated sources decreases as the flux increases.
@@ -131,12 +128,12 @@ Negative values (e.g., at high fluxes for AGNs) are due to subtraction of probab
 \begin{figure*}[h]
 \center
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lat_profile_PSR_3FGL.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_PSR_3FGL_oversample.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lat_profile_PSR_4FGL.pdf} \\
-\includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_3FGL.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_PSR_4FGL_oversample.pdf} \\
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_3FGL_oversample.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_4FGL.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_4FGL_oversample.pdf}
 \caption{Latitude profiles.}  
 \label{fig:lat_profile}
 \end{figure*}
@@ -146,12 +143,12 @@ Negative values (e.g., at high fluxes for AGNs) are due to subtraction of probab
 \begin{figure*}[h]
 \center
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lon_profile_PSR_3FGL.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_PSR_3FGL_oversample.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lon_profile_PSR_4FGL.pdf} \\
-\includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_3FGL.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_PSR_4FGL_oversample.pdf} \\
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_3FGL_oversample.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_4FGL.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_4FGL_oversample.pdf}
 \caption{Longitude profiles.}  
 \label{fig:lon_profile}
 \end{figure*}
