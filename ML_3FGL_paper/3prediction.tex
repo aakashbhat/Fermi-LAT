@@ -126,7 +126,7 @@ and for unassociated sources with mixed classification.
 column type=l,
 string type,
 every head row/.style={before row={\toprule & \multicolumn{4}{c}{AGN Probability} \\},after row=\midrule,},
-every last row/.style={after row=\vdots },
+every last row/.style={after row=\midrule}, %\vdots },
 columns/Source_Name_3FGL/.style={column name=Source\_Name},
 columns/AGN_BDT/.style={column name=BDT,numeric type,fixed,precision=3},
 columns/AGN_NN/.style={column name=NN,numeric type,fixed,precision=3},
