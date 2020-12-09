@@ -306,7 +306,7 @@ We compare RF with 20 trees and maximal depth of 2 and 50 trees and maximal dept
 \subsubsection{Boosted Decision Trees}
 
 The meta-parameters for BDT algorithms are similar to RF algorithms: they are the number of trees and the maximal depth.
-We used the Gradient Boosting algorithm for the construction of BDT.
+We used the Gradient Boosting algorithm for the construction of BDT \citep{gb}.
 The classification is performed by a weighted average of trees, where the trees are constructed recursively in order to better address 
 misclassifications from the previous step. 
 %The new trees are added with an additional parameter $\nu$ called learning rate. 
