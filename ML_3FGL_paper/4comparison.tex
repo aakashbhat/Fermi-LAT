@@ -15,7 +15,7 @@
 \includegraphics[width=0.45\textwidth]{plots/N_logS_3FGL_AGN_SazP_add_os.pdf}
 %\hspace*{-1cm}
 \includegraphics[width=0.45\textwidth]{plots/N_logS_4FGL_AGN_add_os.pdf}
-\caption{Cumulative number of sources as a function of their flux. Purple bands show the envelope of the sum of class probabilities for associated sources, while green bands show the sum of counts of associated sources (blue solid line) plus the sum of probabilities for unassociated sources. The curves with ``SP16'' in the labels are derived from the data in \cite{2016ApJ...820....8S}. For details see Section \ref{sec:dNdS}.}  
+\caption{Cumulative number of sources as a function of their flux. Green bands show the envelope of the sum of class probabilities for associated sources, while orange bands show the sum of counts of associated sources (blue solid line) plus the sum of probabilities for unassociated sources. The curves with ``SP16'' in the labels are derived from the data in \cite{2016ApJ...820....8S}. For details see Section \ref{sec:dNdS}.}  
 \label{fig:logN_logS}
 \end{figure*}
 
@@ -47,7 +47,7 @@ In this section we determine the numbers of AGNs and pulsars as a function of th
 
 In Figure \ref{fig:logN_logS} we show the cumulative number of AGNs and pulsars with flux above 1 GeV larger than the
 value on the x-axis.
-Solid lines show the actual counts of sources (AGNs or pulsars) in the 3FGL and 4FGL catalogs.
+Solid blue lines show the actual counts of sources (AGNs or pulsars) in the 3FGL and 4FGL catalogs.
 As a consistency check of the method, we calculate the AGN- and PSR-like probabilities for associated sources.
 The sum of probabilities (uncorrected for sources other than AGNs and pulsars) for LR algorithm are shown by dotted purple lines.
 In order to correct the expected number of AGNs among associated sources for AGN-like probabilities in ``other'' sources, 
@@ -58,7 +58,7 @@ we subtract the corresponding AGN-like probabilities in each flux band:
 N_{\rm AGN}^{\rm ass}  = \sum_{i \in \rm ass} p^i_{\rm AGN}\,\, - \sum_{i \in \rm ass\,other} p^i_{\rm AGN}.
 \ee
 The corrected sums of probabilities for LR method are shown by dashed purple lines.
-The purple bands show the envelope of the sum of corrected probabilities for the eight methods used in this paper.
+The green bands show the envelope of the sum of corrected probabilities for the eight methods used in this paper.
 We see that the counts of associated sources, AGNs and pulsars, are consistent with the expected number of associated sources
 calculated from the class probabilities of associated sources.
 This conclusion is not very surprising since we used associated sources for training of ML algorithms.
@@ -69,13 +69,12 @@ We have also compared the sums of probabilities for the 3FGL associated sources 
 The sum of probabilities for associated sources in the LR case uncorrected for ``other'' sources are shown by dotted black line,
 while the sums corrected for ``other'' sources are shown by black dash-dotted lines.
 The gray band is the envelope of the two methods (LR and RF) used by \cite{2016ApJ...820....8S}.
-We see that the sum of probabilities for pulsars overpredicts the pulsar counts in 3FGL, correction for ``other'' sources makes the prediction 
-more consistent with the counts of pulsars.
+We see that the sum of probabilities for pulsars overpredicts the pulsar counts in 3FGL, while correction for ``other'' sources makes the prediction consistent with the counts of pulsars.
 %We note that the expected number of associated pulsars in 3FGL and 4FGL catalogs (purple band) is slightly below the actual counts of pulsars, this can be due to the fact that the number of AGNs in the training sample is much larger than the number of pulsars. \cite{2016ApJ...820....8S} have used weights in the training sample inversely proportional to the number of elements in the class, i.e., a pulsar has more weight in training than an AGN. This can be a reason for an overprediction of the number of associated pulsars, compared to the actual count.
 
 The predictions for the number of AGNs and pulsars among the unassociated sources corrected for ``other'' sources 
-added to the 3FGL and 4FGL source counts are shown by green dashed lines (for the LR case).
-The green bands show the corresponding envelopes for the eight ML methods.
+added to the 3FGL and 4FGL source counts are shown by solid orange lines (for the LR case).
+The orange bands show the corresponding envelopes for the eight ML methods.
 We assume that the fractional contribution of other sources is the same for associated and unassociated sources in the different flux bands.
 Thus, the correction for the presence of other sources is calculated similarly to the associated sources in Equation \ref{eq:assoc_ev},
 but we adjust for the fact that there are fewer unassociated than associated sources, i.e., 
@@ -92,6 +91,8 @@ The first term is the sum of AGN-like probabilities among the unassociated sourc
 while the second term is the sum of AGN-like probabilities among associated ``other'' sources rescaled by the total number
 of unassociated and associated sources in this flux band.
 The expected number of pulsars among the unassociated sources is calculated analogously.
+The corresponding sums of associated source counts plus the expected number of sources calculated with LR method of \cite{2016ApJ...820....8S} and corrected for other sources are shown by dashed grey lines.
+
 
 We predict that the expected number of pulsars among the unassociated sources in the 3FGL catalog
 is $267 \pm 110$, where the range is the envelop of the sums of probabilities in Equation (\ref{eq:unassoc_ev})
@@ -157,7 +158,7 @@ The total counts of unassociated sources are shown by red dash-dotted lines.
 Green shaded areas show the envelopes of sums of probabilities for AGN- and PSR-like sources for the four 
 algorithms without oversampling, while the red shaded areas show the envelope for the four algorithms 
 with oversampling.
-The classifications of 3FGL sources by \cite{2016ApJ...820....8S} are shown by dashed lines (LR - brown, RF - pink).
+The classifications of 3FGL sources by \cite{2016ApJ...820....8S} are shown by gray dashed (RF) and dotted (LR) lines.
 %The RF prediction of \cite{2016ApJ...820....8S} lies within the green band, i.e., agrees well with our calculations.
 In this section we do not perform a correction for the presence of other sources among the unassociated ones.
 The numbers of unassociated sources classified as AGNs and PSRs grow towards the Galactic plane (GP).
@@ -167,7 +168,7 @@ It is interesting to note, that according to Table \ref{tab:feat_imp}, GLAT is o
 It can be a posteriori explained by the fact that
  the density of AGNs is such that even in the GP the expected number of AGNs is comparable to the expected number of PSRs.
 
-Gray shaded areas show the sum of the source counts and the expected number of sources for the four algorithm both with and without oversampling.
+Orange shaded areas show the sum of the source counts and the expected number of sources for the four algorithm both with and without oversampling.
 %The predictions of the 4 algorithms, which we use for classification, added to the counts of associated sources are shown by grey bands.
 The average among the eight methods added to the counts of associated sources is shown by solid orange line 
 (for AGNs we also show the mean of these points by dotted green line).
