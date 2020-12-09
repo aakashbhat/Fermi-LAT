@@ -306,7 +306,7 @@ We compare RF with 20 trees and maximal depth of 2 and 50 trees and maximal dept
 \subsubsection{Boosted Decision Trees}
 
 The meta-parameters for BDT algorithms are similar to RF algorithms: they are the number of trees and the maximal depth.
-We used the gradient boosting algorithm for the construction of BDT.
+We used the Sklearn Gradient Boosting algorithm for the construction of BDT.
 \dima{is there a name of the algorithm?}
 The classification is performed by a weighted average of trees, where the trees are constructed recursively in order to better address 
 misclassifications from the previous step. 
@@ -483,9 +483,9 @@ We have considered two cases for $m(x)$: linear and quadratic function of the in
 Quadratic $m(x)$ resulted in similar accuracy as linear $m(x)$.
 Consequently, we have restricted our attention to linear functions $m(x) = \sum_{k = 1}^{10} f_k x_k$.
 In Figure \ref{fig:LR_accuracy} we show the accuracy of the LR method as a function of the number of iteractions
-for different solvers, e.g., LBFGS (discussed in the NN section), SAG (Stochastic Average Gradient), SAGA (a variant of SAG),
-and liblinear (a special solver for LR and support vector machine classifications).
-\dima{refs?}
+for different solvers, e.g., LBFGS (discussed in the NN section, \cite{lbfgs}), SAG (Stochastic Average Gradient, \cite{sag}), SAGA (a variant of SAG, \cite{saga}),
+and liblinear (a special solver for LR and support vector machine classifications, \cite{ll}).
+%\dima{refs?}
 As one can see from Figure \ref{fig:LR_accuracy}, all solvers have similar performance with the LBFGs slightly outperforming the other solvers for large number of iterations.
 In order to illustrate the probability domains in LR, we show the classification with two features (LBFGs, 200 iterations)
 in Figure \ref{fig:LR_domains}. The domains look similar to the domains in the NN case (Figure \ref{fig:NN_domains}).
