@@ -900,14 +900,22 @@ archivePrefix = {arXiv},
       adsnote = {Provided by the SAO/NASA Astrophysics Data System}
 }
 
-@misc{saga,
-      title={SAGA: A Fast Incremental Gradient Method With Support for Non-Strongly Convex Composite Objectives}, 
-      author={Aaron Defazio and Francis Bach and Simon Lacoste-Julien},
-      year={2014},
-      eprint={1407.0202},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG}
+@ARTICLE{saga,
+       author = {{Defazio}, Aaron and {Bach}, Francis and {Lacoste-Julien}, Simon},
+        title = "{SAGA: A Fast Incremental Gradient Method With Support for Non-Strongly Convex Composite Objectives}",
+      journal = {arXiv e-prints},
+     keywords = {Computer Science - Machine Learning, Mathematics - Optimization and Control, Statistics - Machine Learning},
+         year = 2014,
+        month = jul,
+          eid = {arXiv:1407.0202},
+        pages = {arXiv:1407.0202},
+archivePrefix = {arXiv},
+       eprint = {1407.0202},
+ primaryClass = {cs.LG},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2014arXiv1407.0202D},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
 }
+
 
 @article{ll,
 author = {Fan, Rong-En and Chang, Kai-Wei and Hsieh, Cho-Jui and Wang, Xiang-Rui and Lin, Chih-Jen},
@@ -924,16 +932,41 @@ pages = {1871–1874},
 numpages = {4}
 }
 
- @misc{lbfgs, title={On the limited memory BFGS method for large scale optimization}, url={https://link.springer.com/article/10.1007/BF01589116}, journal={Mathematical Programming}, publisher={Springer-Verlag}, author={Beale, E.M.L.. and Buckley, A.. and A.. Buckley, A.. LeNir and R.H.. Byrd, J.. Nocedal and J.E.. Dennis, R.B.. Schnabel and Fletcher, R.. and J.C.. Gilbert, C.. Lemaréchal and P.E.. Gill, W.. Murray and P.E.. Gill, W.. Murray and Griewank, A.. and et al.}, year={1981}, month={Jan}} 
-
-
-@misc{sag,
-      title={Minimizing Finite Sums with the Stochastic Average Gradient}, 
-      author={Mark Schmidt and Nicolas Le Roux and Francis Bach},
-      year={2016},
-      eprint={1309.2388},
-      archivePrefix={arXiv},
-      primaryClass={math.OC}
+ @article{lbfgs,
+author = {Liu, Dong C. and Nocedal, Jorge},
+title = {On the Limited Memory BFGS Method for Large Scale Optimization},
+year = {1989},
+issue_date = {August    1989},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+volume = {45},
+number = {1–3},
+issn = {0025-5610},
+abstract = {We study the numerical performance of a limited memory quasi-Newton method for large scale optimization, which we call the L-BFGS method. We compare its performance with that of the method developed by Buckley and LeNir (1985), which combines cycles of BFGS steps and conjugate direction steps. Our numerical tests indicate that the L-BFGS method is faster than the method of Buckley and LeNir, and is better able to use additional storage to accelerate convergence. We show that the L-BFGS method can be greatly accelerated by means of a simple scaling. We then compare the L-BFGS method with the partitioned quasi-Newton method of Griewank and Toint (1982a). The results show that, for some problems, the partitioned quasi-Newton method is clearly superior to the L-BFGS method. However we find that for other problems the L-BFGS method is very competitive due to its low iteration cost. We also study the convergence properties of the L-BFGS method, and prove global convergence on uniformly convex problems.},
+journal = {Math. Program.},
+month = aug,
+pages = {503–528},
+numpages = {26},
+keywords = {Large scale nonlinear optimization, conjugate gradient method, partitioned quasi-Newton method, limited memory methods}
+}
+@article{sag,
+author = {Schmidt, Mark and Le Roux, Nicolas and Bach, Francis},
+title = {Minimizing Finite Sums with the Stochastic Average Gradient},
+year = {2017},
+issue_date = {March     2017},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+volume = {162},
+number = {1–2},
+issn = {0025-5610},
+url = {https://doi.org/10.1007/s10107-016-1030-6},
+doi = {10.1007/s10107-016-1030-6},
+abstract = {We analyze the stochastic average gradient (SAG) method for optimizing the sum of a finite number of smooth convex functions. Like stochastic gradient (SG) methods, the SAG method's iteration cost is independent of the number of terms in the sum. However, by incorporating a memory of previous gradient values the SAG method achieves a faster convergence rate than black-box SG methods. The convergence rate is improved from $$O(1/sqrt{k})$$O(1/k) to O(1 / k) in general, and when the sum is strongly-convex the convergence rate is improved from the sub-linear O(1 / k) to a linear convergence rate of the form $$O(rho ^k)$$O(undefinedk) for $$rho &lt; 1$$undefined&lt;1. Further, in many cases the convergence rate of the new method is also faster than black-box deterministic gradient methods, in terms of the number of gradient evaluations. This extends our earlier work Le Roux et al. (Adv Neural Inf Process Syst, 2012), which only lead to a faster rate for well-conditioned strongly-convex problems. Numerical experiments indicate that the new algorithm often dramatically outperforms existing SG and deterministic gradient methods, and that the performance may be further improved through the use of non-uniform sampling strategies.},
+journal = {Math. Program.},
+month = mar,
+pages = {83–112},
+numpages = {30},
+keywords = {Stochastic gradient methods, 62L20, First-order methods, Convex optimization, 90C15, Convergence Rates, 90C06, 90C30, 68Q25, 90C25, 65K05}
 }
 
 @article{gb,
