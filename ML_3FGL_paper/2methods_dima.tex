@@ -467,7 +467,7 @@ For our final model we chose one hidden layer with ten neurons, 300 training epo
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_adam_10_tanh_50_final.pdf}\\
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_adam_10_tanh_300_final.pdf}
-\caption{NN classification domains for 2 input features, 2 neurons in the hidden layer. 
+\caption{NN classification domains for 2 input features. We use 2 neurons in the hidden layer. 
 We use tanh activation function and Adam solver. Top panel: 50 training epochs, bottom panel: 300 training epochs.}
 \label{fig:NN_domains}
 \end{figure}
@@ -512,6 +512,7 @@ For the final classification we will use LBFGs solver with 200 iterations.
 
 
 \subsection{Oversampling}
+\lb{sec:oversampling}
 
 \Fermi-LAT catalogs have many more AGNs than pulsars, i.e., the datasets are imbalanced.
 In the previous subsections we have optimized overall accuracy. In this case, the algorithms try to identify AGNs rather than pulsars,
@@ -530,7 +531,8 @@ If we reduce the pulsar domain by attributing uncertain sources predominantly to
 %\centerin
 %\hspace*{-1cm}
 \includegraphics[width=\twopicsp\textwidth]{plots/All_algs_3FGL_precision_recall_oversample.pdf}
-\caption{Precision and recall for pulsars.}
+\caption{Precision and recall for pulsars using all-algorithm and any-algorithm classification for unweighted training data and
+all-algorithm classification for pulsar oversampling in training. For details see Section \ref{sec:oversampling}.}
 \label{fig:prec_recall}
 \end{figure}
 
@@ -541,7 +543,7 @@ while in lines 3 and 4 (solid green with diamonds and dashed red with down trian
 It is clear that for lines 1 and 2 the pulsar domain is smaller than for lines 3 and 4, since in the former case, the domain is the intersection of domains for individual algorithms, while in the latter it is the union.
 For all-algorithms-classification the precision is 100\% for most of latitudes, while the recall is between 50\% and 80\%, i.e., the list of pulsars is generally clean but incomplete.
 In case of any-algorithm-classification, the recall is increased by about 20\% for most latitudes compared to the all-algorithms-classification, but the precision drops by up to 20\% at some latitudes, i.e., the completeness improves at the expense of cleanliness of the sample.
-This problem can be ameliorated by giving larger weights to pulsars in the training process or by oversampling, i.e., by using the same source several times, so that the numbers of pulsars and AGNs in training are the same.
+Alternatively to using any-algorithm classification, one can give larger weights to pulsars or oversample pulsars in the training process, i.e., use the same source several times, so that the numbers of pulsars and AGNs in training are the same.
 Provided that in some applications it is beneficial to have as complete as possible the list of pulsar candidates among unassociated sources, we have retrained the algorithms using oversampling with the same meta-parameters as in the previous sections.
 
 
