@@ -58,7 +58,7 @@ we subtract the corresponding AGN-like probabilities in each flux band:
 N_{\rm AGN}^{\rm ass}  = \sum_{i \in \rm ass} p^i_{\rm AGN}\,\, - \sum_{i \in \rm ass\,other} p^i_{\rm AGN}.
 \ee
 The corrected sums of probabilities for LR method are shown by dashed purple lines.
-The green bands show the envelope of the sum of corrected probabilities for the eight methods used in this paper.
+The green bands show the envelope of the sums of corrected probabilities for the eight methods used in this paper.
 We see that the counts of associated sources, AGNs and pulsars, are consistent with the expected number of associated sources
 calculated from the class probabilities of associated sources.
 This conclusion is not very surprising since we used associated sources for training of ML algorithms.
@@ -79,7 +79,7 @@ We assume that the fractional contribution of other sources is the same for asso
 Thus, the correction for the presence of other sources is calculated similarly to the associated sources in Equation \ref{eq:assoc_ev},
 but we adjust for the fact that there are fewer unassociated than associated sources, i.e., 
 the correction is assumed to be proportionally smaller.
-In particular, the number of AGNs among unassociated sources in a certain flux band $\Delta F$ is estimated as
+In particular, the number of AGNs among unassociated sources in a flux band $\Delta F$ is estimated as
 
 \be
 \lb{eq:unassoc_ev}
@@ -110,10 +110,10 @@ The number of sources with mixed classification (309.5 for 3FGL or 475.5 for 4FG
 is larger than the range of values for the expected number of pulsars calculated for the sum of probabilities 
 (220 for 3FGL or 358 for 4FGL).
 It means that the decision which sources are considered to be more likely pulsars is more sensitive to the choice of the ML method
-and the probability threshold than the expected number of pulsars calculated from on the sum of probabilities.
+and the probability threshold than the expected number of pulsars calculated from the sum of probabilities.
 
 We also note that the probabilistic classification mostly affects sources with smaller fluxes,
-which we illustrate in Figure \ref{fig:unass_vs_ass_frac}, where we show that the ratio of expected number of AGNs and pulsars among unassociated sources computed according to Equation \ref{eq:unassoc_ev} to the number of associated sources decreases as the flux increases.
+which we illustrate in Figure \ref{fig:unass_vs_ass_frac}, where we show that the ratio of expected number of AGNs and pulsars among unassociated sources computed according to Eq. \ref{eq:unassoc_ev} using LR method without oversampling to the number of associated sources decreases as the flux increases.
 Negative values (e.g., at high fluxes for AGNs) are due to subtraction of probabilities for the ``other'' associated sources.
 %One can see that the fraction of AGNs or pulsars among unassociated sources to the associated ones is higher at smaller fluxes.
 
@@ -152,7 +152,7 @@ Negative values (e.g., at high fluxes for AGNs) are due to subtraction of probab
 In this section we show Galactic latitude and longitude profiles of the distributions of associated and unassociated sources.
 In Figure \ref{fig:lat_profile} we present the source counts as a function of ${\rm abs(sin(GLAT))}$,
 where we use 20 bins, i.e., each bin corresponds to a solid angle of $4 \pi / 20$. 
-Solid blue lines show counts of sources in 3FGL and 4FGL catalogs.
+Solid blue lines show counts of associated sources in 3FGL and 4FGL catalogs.
 It is interesting to note that the density of associated AGNs is decreasing near the Galactic plane.
 The total counts of unassociated sources are shown by red dash-dotted lines.
 Green shaded areas show the envelopes of sums of probabilities for AGN- and PSR-like sources for the four 
@@ -164,11 +164,11 @@ In this section we do not perform a correction for the presence of other sources
 The numbers of unassociated sources classified as AGNs and PSRs grow towards the Galactic plane (GP).
 Within $\approx 4^\circ\!\!.5$ from the GP the expected number of PSRs is about the same as the number of AGNs among unassociated sources (the first data point on the left).
 At high latitudes, most of unassociated sources are classified as AGNs.
-It is interesting to note, that according to Table \ref{tab:feat_imp}, GLAT is one of the least important features for RF algorithm.
+It is interesting to note, that according to Table \ref{tab:feat_imp}, GLAT is one of the least important features for the RF algorithm.
 It can be a posteriori explained by the fact that
  the density of AGNs is such that even in the GP the expected number of AGNs is comparable to the expected number of PSRs.
 
-Orange shaded areas show the sum of the source counts and the expected number of sources for the four algorithm both with and without oversampling.
+Orange shaded areas show the sum of the source counts and the expected number of sources for the eight methods (both with and without oversampling).
 %The predictions of the 4 algorithms, which we use for classification, added to the counts of associated sources are shown by grey bands.
 The average among the eight methods added to the counts of associated sources is shown by solid orange line 
 (for AGNs we also show the mean of these points by dotted green line).
