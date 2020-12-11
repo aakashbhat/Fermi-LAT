@@ -2,12 +2,12 @@
 
 Multiwavelength association of astronomical sources is important for understanding their nature.
 Unfortunately, in many cases a firm association of sources at different wavelength is not possible.
-For example, about one third of gamma-ray sources in Fermi-LAT catalogs are unassociated
+For example, about one third of gamma-ray sources in \Fermi Large Area Telescope (LAT) catalogs are unassociated
 \citep{2010ApJS..188..405A, 2012ApJS..199...31N, 2015ApJS..218...23A, 2020ApJS..247...33A}.
 It is useful to know at least to which class the unassociated sources belong to or, which is more typical,
 what are the probabilities for the source to belong to various classes.
 In this paper we use several machine learning (ML) algorithms to find probabilistic classification of
-unassociated sources in \Fermi-LAT third (3FGL) and fourth (4FGL) catalogs \citep{2015ApJS..218...23A, 2020ApJS..247...33A}.
+unassociated sources in the \Fermi-LAT third (3FGL) and fourth (4FGL) catalogs \citep{2015ApJS..218...23A, 2020ApJS..247...33A}.
 We will refer to the catalogs, where the classification of the sources is given by probabilities as probabilistic catalogs.
 In general, the classes may include the possibility that a source is not a real source but a fluctuation of the background 
 or that a source is an overlay of two sources etc.
@@ -21,7 +21,7 @@ Probabilistic classification of unassociated \Fermi-LAT sources was performed by
 \cite{2012ApJ...753...83A, 2016ApJ...820....8S, 2016ApJ...825...69M, 2017A&A...602A..86L, 2020MNRAS.492.5377L, 2020arXiv200106010Z},
 or in the application for sub-classification of blazars by
 \cite{2013MNRAS.428..220H, 2014ApJ...782...41D, 2016MNRAS.462.3180C, 2017MNRAS.470.1291S, 2019MNRAS.490.4770K, 2020MNRAS.493.1926K}
-and of pulsars by \cite{2012MNRAS.424.2832L, 2016ApJ...820....8S}.
+and in subclassification of pulsars by \cite{2012MNRAS.424.2832L, 2016ApJ...820....8S}.
 In this work, we consider classification of gamma-ray sources into two classes: AGNs and pulsars.
 We revisit probabilistic classification of 3FGL sources and compare results of classification of unassociated sources
 with associations in 4FGL.
@@ -62,13 +62,15 @@ This probability is decreasing as the significance of sources increases.
 Apart from the statistical fluctuations class, classes can include various types of Galactic and extra-galactic sources, diffuse emission deficiencies, extended sources.
 %Even the statistical fluctuation of the background can be viewed as one of the classes: in this case, objects with small statistical significance will have a high probability to be associated to the statistical fluctuation class.
 A user of such a catalog will have the freedom to choose the probability threshold for the class that he or she is interested in.
+In this paper we make a first step in this direction by providing probabilistic classification of \Fermi-LAT sources into AGNs and pulsars.
+We also show how the probabilistic catalogs can be used for population studies of sources, e.g., as a function of their flux or position on the sky, where one includes not only associated sources but also unassociated ones according to their class probabilities.
 
 The paper is organized as follows.
 In Section \ref{sec:methods} we discuss general questions of constructing the probabilistic catalogs and the choice of the ML methods.
 %In this paper we use random forests (RF), boosted decision trees (BDT), logistic regression (LR), and neural networks (NN).
 In Section \ref{sec:training} we construct the classification algorithms using the associated source in the 3FGL catalog for training. We consider several aspects: 1) feature selection, 2) training of the algorithms and selection of the meta-parameters,
 %such as the depth of trees in RF and BDT and the number of neurons in NN, 
-3) oversampling of the training datasets in order to have approximately equal number of pulsars and AGNs (there are many more AGNs observed than pulsars).
+3) oversampling of the datasets in order to have equal number of pulsars and AGNs in training (there are many more AGNs observed than pulsars).
 
 In Section \ref{sec:prob_cats} we apply the classification algorithms determined in Section \ref{sec:training} for the classification of 3FGL sources.
 We compare the predictions for the unassociated sources in 3FGL with the associations in 4FGL.
