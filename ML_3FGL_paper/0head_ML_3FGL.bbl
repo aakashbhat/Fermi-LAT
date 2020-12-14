@@ -1,4 +1,4 @@
-\begin{thebibliography}{43}
+\begin{thebibliography}{49}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{{Abdo} {et~al.}(2010{\natexlab{a}}){Abdo}, {Ackermann}, {Ajello},
@@ -72,6 +72,11 @@ Cox, D.~R. 1958, J R Stat Soc B, 20, 215
   {Finkbeiner}}]{2017ApJ...839....4D}
 {Daylan}, T., {Portillo}, S. K.~N., \& {Finkbeiner}, D.~P. 2017, \apj, 839, 4
 
+\bibitem[{{Defazio} {et~al.}(2014){Defazio}, {Bach}, \&
+  {Lacoste-Julien}}]{saga}
+{Defazio}, A., {Bach}, F., \& {Lacoste-Julien}, S. 2014, arXiv e-prints,
+  arXiv:1407.0202
+
 \bibitem[{{Di Mauro} \& {Donato}(2015)}]{2015PhRvD..91l3001D}
 {Di Mauro}, M. \& {Donato}, F. 2015, \prd, 91, 123001
 
@@ -82,11 +87,18 @@ Cox, D.~R. 1958, J R Stat Soc B, 20, 215
 \bibitem[{{Doert} \& {Errando}(2014)}]{2014ApJ...782...41D}
 {Doert}, M. \& {Errando}, M. 2014, \apj, 782, 41
 
+\bibitem[{Fan {et~al.}(2008)Fan, Chang, Hsieh, Wang, \& Lin}]{ll}
+Fan, R.-E., Chang, K.-W., Hsieh, C.-J., Wang, X.-R., \& Lin, C.-J. 2008, J.
+  Mach. Learn. Res., 9, 1871–1874
+
 \bibitem[{{Fornasa} \& {S{\'a}nchez-Conde}(2015)}]{2015PhR...598....1F}
 {Fornasa}, M. \& {S{\'a}nchez-Conde}, M.~A. 2015, \physrep, 598, 1
 
-\bibitem[{Friedman(2001)}]{friedman2001}
-Friedman, J.~H. 2001, Ann. Statist., 29, 1189
+\bibitem[{Friedman(2001{\natexlab{a}})}]{friedman2001}
+Friedman, J.~H. 2001{\natexlab{a}}, Ann. Statist., 29, 1189
+
+\bibitem[{Friedman(2001{\natexlab{b}})}]{gb}
+Friedman, J.~H. 2001{\natexlab{b}}, Ann. Statist., 29, 1189
 
 \bibitem[{{Hassan} {et~al.}(2013){Hassan}, {Mirabal}, {Contreras}, \&
   {Oya}}]{2013MNRAS.428..220H}
@@ -106,6 +118,9 @@ Hopfield, J. 1982, Proc. Nat. Acad. Sci., 79, 2554
 
 \bibitem[{Hunter(2007)}]{Hunter:2007}
 Hunter, J.~D. 2007, Computing In Science \& Engineering, 9, 90
+
+\bibitem[{{Kingma} \& {Ba}(2014)}]{2014arXiv1412.6980K}
+{Kingma}, D.~P. \& {Ba}, J. 2014, arXiv e-prints, arXiv:1412.6980
 
 \bibitem[{{Kova{\v{c}}evi{\'c}} {et~al.}(2019){Kova{\v{c}}evi{\'c}}, {},
   {Chiaro}, {Cutini}, \& {Tosti}}]{2019MNRAS.490.4770K}
@@ -129,6 +144,9 @@ Hunter, J.~D. 2007, Computing In Science \& Engineering, 9, 90
   {Safdi}}]{2016ApJ...832..117L}
 {Lisanti}, M., {Mishra-Sharma}, S., {Necib}, L., \& {Safdi}, B.~R. 2016, \apj,
   832, 117
+
+\bibitem[{Liu \& Nocedal(1989)}]{lbfgs}
+Liu, D.~C. \& Nocedal, J. 1989, Math. Program., 45, 503–528
 
 \bibitem[{{Liu} {et~al.}(2017){Liu}, {Bi}, {Lin}, \&
   {Yin}}]{2017ChPhC..41d5104L}
@@ -163,6 +181,9 @@ Hunter, J.~D. 2007, Computing In Science \& Engineering, 9, 90
 \bibitem[{{Saz Parkinson} {et~al.}(2016){Saz Parkinson}, {Xu}, {Yu},
   {Salvetti}, {Marelli}, \& {Falcone}}]{2016ApJ...820....8S}
 {Saz Parkinson}, P.~M., {Xu}, H., {Yu}, P.~L.~H., {et~al.} 2016, \apj, 820, 8
+
+\bibitem[{Schmidt {et~al.}(2017)Schmidt, Le~Roux, \& Bach}]{sag}
+Schmidt, M., Le~Roux, N., \& Bach, F. 2017, Math. Program., 162, 83–112
 
 \bibitem[{{Taylor}(2005)}]{2005ASPC..347...29T}
 {Taylor}, M.~B. 2005, in Astronomical Society of the Pacific Conference Series,
