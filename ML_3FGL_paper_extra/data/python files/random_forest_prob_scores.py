@@ -50,7 +50,7 @@ while se<1000:
     #data:
     np.random.seed(se)
     #dataframe = pandas.read_csv("4fgl_assoc_3.csv", header=None)
-    dataframe = pandas.read_csv("./files/3fgl_assoc.csv", header=None)
+    dataframe = pandas.read_csv("./files/3fgl_assoc_PLI.csv", header=None)
     #dataframe = pandas.read_csv("./files/3fgl_associated_AGNandPSR.csv", header=None)
 
     dataset1 = dataframe.values 
@@ -76,7 +76,7 @@ while se<1000:
     #dataframe = pandas.read_csv("3fgl_assoc_notagnpsr.csv", header=None)
     #dataframe = pandas.read_csv("4fgl_others_3.csv", header=None)
     
-    dataframe = pandas.read_csv("./files/3fgl_4fgl.csv", header=None)
+    dataframe = pandas.read_csv("./files/3fgl_4fgl_PLI.csv", header=None)
     dataset = dataframe.values 
 
     X2 = dataset[1:,1:11].astype(float)
@@ -96,10 +96,11 @@ while se<1000:
     
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     train_truth1=np.ravel(train_truth1)
-    oversample = RandomOverSampler(sampling_strategy='minority')
-    X_over, y_over = oversample.fit_resample(train1, train_truth1)
+    #oversample = RandomOverSampler(sampling_strategy='minority')
+    #X_over, y_over = oversample.fit_resample(train1, train_truth1)
     #prop2=prop1
     #pro2=pro1
+    X_over, y_over=train1,train_truth1
     clf3= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
     clf4= MLPClassifier(max_iter=500,hidden_layer_sizes=(10,10,), activation='tanh', solver='adam',early_stopping=False).fit(X_over, y_over)
     clf2= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
