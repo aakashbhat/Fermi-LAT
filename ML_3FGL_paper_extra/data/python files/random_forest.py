@@ -34,7 +34,7 @@ pyplot.rcParams['axes.titlesize'] = 28
 pyplot.rcParams['font.size'] = 21
 pyplot.rcParams['ytick.labelsize'] = 18
 se=0
-size=8
+size=10
 valscore3=np.zeros(size)
 valscore4=np.zeros(size)
 valscore12=np.zeros(size)
@@ -45,19 +45,22 @@ while se<100:
     
     np.random.seed(se)
     #dataframe = pandas.read_csv("4fgl_assoc_3.csv", header=None)
-    dataframe = pandas.read_csv("./files/3fgl_assoc.csv", header=None)
+    dataframe = pandas.read_csv("./files/3fgl_assoc_newfeats.csv", header=None)
     dataset1 = dataframe.values 
     np.random.shuffle(dataset1[1:])
+    print(dataset1[0,12])
 #labels2=dataset[:1,:5]
 #print(dataset)
 # split into input (X) and output (Y) variables
 #X = dataset[1:1933,0:5].astype(float)
-    X = dataset1[1:,0:10].astype(float)
-    print(X)
+    X=[dataset1[i,1:12].astype(float) for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
+    #X = X2.astype(float)
+    print(len(X))
     #print(dataset1[2,:])
 #Y = dataset[1:1933,5]
-    Y = dataset1[1:,10]
-    print(se)
+    Y =[dataset1[i,12] for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
+
+    print(len(Y))
     
 #dataset=dataset[:,:5]
     num=[]
@@ -101,18 +104,18 @@ while se<100:
     
     
 #divide into training and testing:
-    train1=X[0:1500]                    
-    train_truth1=Y[0:1500]
-    val_inp1=X[1500:]
-    val_out1=Y[1500:]
-    #train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.3, random_state=se)       #Split into training and validation
+    #train1=X[0:1500]                    
+    #train_truth1=Y[0:1500]
+    #val_inp1=X[1500:]
+    #val_out1=Y[1500:]
+    train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.3, random_state=se)       #Split into training and validation
 
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     train_truth1=np.ravel(train_truth1)
 
 
 
-    i=10
+    i=1
     j=0
     feat3=[]
     feat2=feat
@@ -128,18 +131,18 @@ while se<100:
     valscore6=valscore4
     valscore11=valscore12
     valscore21=valscore22
-    while i < 401:
-        #clf = RandomForestClassifier(n_estimators=20,max_depth=i,oob_score=True)
-        #clf.fit(train1,train_truth1)
-        #clf = MLPClassifier(max_iter=300,hidden_layer_sizes=(i,), activation='tanh', solver='lbfgs').fit(train1,train_truth1)
+    while i < 21:
+        clf = RandomForestClassifier(n_estimators=20,max_depth=i,oob_score=True)
+        clf.fit(train1,train_truth1)
+        #clf = MLPClassifier(max_iter=i,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(train1,train_truth1)
 
 
 
 
 
 
-        #clf=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=i, random_state=0).fit(train1, train_truth1)
-        clf= LogisticRegression(max_iter=i, C=1, solver='lbfgs').fit(train1, train_truth1)
+        #clf=GradientBoostingClassifier(n_estimators=5, learning_rate=0.3,max_depth=i).fit(train1, train_truth1)
+        #clf= LogisticRegression(max_iter=i, C=1, solver='lbfgs').fit(train1, train_truth1)
         numi.append(i)
         
         scor=clf.score(val_inp1,val_out1)
@@ -148,27 +151,27 @@ while se<100:
         #feat3.append(clf.feature_importances_)
         #print(scor)
         #print(i)
-        #clf2 = MLPClassifier(max_iter=300,hidden_layer_sizes=(i,), activation='relu', solver='lbfgs').fit(train1,train_truth1)
-        #clf2=GradientBoostingClassifier(n_estimators=5, learning_rate=0.3,max_depth=i,oob_score=True).fit(train1, train_truth1)
-        #clf2 = RandomForestClassifier(n_estimators=50,max_depth=i,oob_score=True)
-        #clf2.fit(train1,train_truth1)
+        #clf2 = MLPClassifier(max_iter=i,hidden_layer_sizes=(11,), activation='relu', solver='lbfgs').fit(train1,train_truth1)
+        #clf2=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=i).fit(train1, train_truth1)
+        clf2 = RandomForestClassifier(n_estimators=50,max_depth=i,oob_score=True)
+        clf2.fit(train1,train_truth1)
 
-        clf2= LogisticRegression(max_iter=i, C=1, solver='liblinear').fit(train1, train_truth1)
-        #clf3=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=i, random_state=0).fit(train1, train_truth1)
-        #clf3 = MLPClassifier(max_iter=300,hidden_layer_sizes=(i,), activation='tanh', solver='adam').fit(train1,train_truth1)
+        #clf2= LogisticRegression(max_iter=i, C=1, solver='liblinear').fit(train1, train_truth1)
+        #clf3=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=i).fit(train1, train_truth1)
+        #clf3 = MLPClassifier(max_iter=i,hidden_layer_sizes=(11,), activation='tanh', solver='adam').fit(train1,train_truth1)
         score2=clf2.score(val_inp1,val_out1)
-        #clf3 = RandomForestClassifier(n_estimators=100,max_depth=i,oob_score=True)
-        #clf3.fit(train1,train_truth1)
+        clf3 = RandomForestClassifier(n_estimators=100,max_depth=i,oob_score=True)
+        clf3.fit(train1,train_truth1)
 
         valscore5.append(score2*100)
-        clf3= LogisticRegression(max_iter=i, C=1,solver='sag').fit(train1, train_truth1)
+        #clf3= LogisticRegression(max_iter=i, C=1,solver='sag').fit(train1, train_truth1)
         score3=clf3.score(val_inp1,val_out1)
         valscore10.append(score3*100)
-        #clf4 = MLPClassifier(max_iter=300,hidden_layer_sizes=(i,), activation='relu', solver='adam').fit(train1,train_truth1)
-        #clf4=GradientBoostingClassifier(n_estimators=500, learning_rate=0.3,max_depth=i, random_state=0).fit(train1, train_truth1)
-        #clf4 = RandomForestClassifier(n_estimators=200,max_depth=i,oob_score=True)
-        #clf4.fit(train1,train_truth1)
-        clf4= LogisticRegression(max_iter=i, C=1,solver='saga').fit(train1, train_truth1)
+        #clf4 = MLPClassifier(max_iter=i,hidden_layer_sizes=(11,), activation='relu', solver='adam').fit(train1,train_truth1)
+        #clf4=GradientBoostingClassifier(n_estimators=500, learning_rate=0.3,max_depth=i).fit(train1, train_truth1)
+        clf4 = RandomForestClassifier(n_estimators=200,max_depth=i,oob_score=True)
+        clf4.fit(train1,train_truth1)
+        #clf4= LogisticRegression(max_iter=i, C=1,solver='saga').fit(train1, train_truth1)
 
         score4=clf4.score(val_inp1,val_out1)
         valscore20.append(score4*100)
@@ -177,7 +180,7 @@ while se<100:
 
         
             
-        i=i+50
+        i=i+2
         
         
     #k=0
@@ -201,7 +204,7 @@ valscore22=valscore22/100
 print(valscore3)
 print(valscore4)
 print(valscore12)
-print(valscore22)
+#print(valscore22)
 
 fig,ax=plt.subplots()
 #print(valscore3)
@@ -235,7 +238,7 @@ result=np.vstack((result,valscore12))
 result=np.vstack((result,valscore22))
 print(result)
 result=pandas.DataFrame(result)
-result.to_csv(path_or_buf="./files/result_3fglassoc_lr_iter.csv",index=False)
+result.to_csv(path_or_buf="./files/result_3fglassocnewfeat_rf.csv",index=False)
 
 '''
     i=0
