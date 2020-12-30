@@ -39,7 +39,7 @@ valscore3=np.zeros(size)
 valscore4=np.zeros(size)
 valscore12=np.zeros(size)
 valscore22=np.zeros(size)
-feat=np.zeros(10)
+feat=0
 feat2=np.zeros(10)
 while se<100:
     
@@ -115,7 +115,7 @@ while se<100:
 
 
 
-    i=1
+    i=6
     j=0
     feat3=[]
     feat2=feat
@@ -131,23 +131,24 @@ while se<100:
     valscore6=valscore4
     valscore11=valscore12
     valscore21=valscore22
-    while i < 21:
-        clf = RandomForestClassifier(n_estimators=20,max_depth=i,oob_score=True)
+    while i < 7:
+        clf = RandomForestClassifier(n_estimators=50,max_depth=i,oob_score=True)
         clf.fit(train1,train_truth1)
         #clf = MLPClassifier(max_iter=i,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(train1,train_truth1)
 
 
 
 
-
+        '''
 
         #clf=GradientBoostingClassifier(n_estimators=5, learning_rate=0.3,max_depth=i).fit(train1, train_truth1)
         #clf= LogisticRegression(max_iter=i, C=1, solver='lbfgs').fit(train1, train_truth1)
         numi.append(i)
-        
-        scor=clf.score(val_inp1,val_out1)
-        valscore.append(scor*100)
-        
+        '''
+        feat=feat+clf.feature_importances_
+        print(feat/(se+1))
+        #valscore.append(scor*100)
+        '''
         #feat3.append(clf.feature_importances_)
         #print(scor)
         #print(i)
@@ -176,7 +177,7 @@ while se<100:
         score4=clf4.score(val_inp1,val_out1)
         valscore20.append(score4*100)
         
-        
+        '''
 
         
             
@@ -187,15 +188,15 @@ while se<100:
     #for k in range(len(valscore)):
     #lent=len(valscore)
     #feat=(feat3+feat2)
-    valscore3=valscore2+valscore
-    valscore4=valscore5+valscore6
-    valscore12=valscore11+valscore10
-    valscore22=valscore21+valscore20
+    #valscore3=valscore2+valscore
+    #valscore4=valscore5+valscore6
+    #valscore12=valscore11+valscore10
+    #valscore22=valscore21+valscore20
     se=se+1
     print(se)
 #si=clf.coefs_
-#feat=feat/100
-#print(feat)
+feat=feat/100
+print("feat",feat)
 valscore3=valscore3/100
 
 valscore4=valscore4/100

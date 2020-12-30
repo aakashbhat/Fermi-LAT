@@ -39,24 +39,27 @@ pyplot.rcParams['lines.linewidth'] = 4
 pyplot.rcParams['lines.markersize'] = 12
 
 
-dataframe = pandas.read_csv("./files/result_3fglassocnewfeat_rf.csv", header=None)
+dataframe = pandas.read_csv("./files/result_3fglassocnewfeat_lr_iter.csv", header=None)
 dataset1 = dataframe.values
-dataframe2 = pandas.read_csv("./files/result_3fglassocnewfeat_rf2.csv", header=None)
-dataset2=dataframe2.values
+#dataframe2 = pandas.read_csv("./files/result_3fglassocnewfeat_rf2.csv", header=None)
+#dataset2=dataframe2.values
 
 fig,ax=plt.subplots()
 numi=dataset1[1]
+'''
 valscore31=dataset2[2]
 valscore34=dataset2[3]
 valscore32=dataset2[4]
+'''
 valscore3=dataset1[2]
 valscore4=dataset1[3]
 valscore12=dataset1[4]
 valscore22=dataset1[5]
-
+'''
 plt.plot(numi, valscore31, 'o--',marker='x')
 plt.plot(numi, valscore34, 'b',marker='.')
 plt.plot(numi, valscore32, 'c-',marker='>')
+'''
 plt.plot(numi, valscore3, 'g-',marker='D')
 plt.plot(numi, valscore4, 'p-.',marker='o')
 plt.plot(numi, valscore12, 'r--',marker='>')
@@ -70,10 +73,10 @@ plt.yticks(fontsize='large')
 #plt.xticks(fontsize='large')
 #ax.set_zlabel('Validation score')
 #plt.legend(["LBFGS, Tanh","LBFGS, Relu","Adam, Tanh","Adam, Relu"],title='Number of Neurons: 11')
-plt.legend(["2 Trees","5 Trees","10 Trees","20 Trees","50 Trees","100 Trees","200 Trees"])
+#plt.legend(["2 Trees","5 Trees","10 Trees","20 Trees","50 Trees","100 Trees","200 Trees"])
 
-#plt.legend(["LBFGS","Liblinear","SAG","SAGA"])
+plt.legend(["LBFGS","Liblinear","SAG","SAGA"])
 #plt.legend(["Tol = 0.001","Tol = 1","Tol = 10"])
 
-ax.set_title('Random Forests',fontsize='xx-large')
+ax.set_title('Logistic Regression',fontsize='xx-large')
 plt.show()

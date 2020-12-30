@@ -31,7 +31,7 @@ At the end we summarize features and their statistics,
 which we use for probabilistic classification of sources in the 3FGL and 4FGL catalogs,
 in Tables \ref{tab:3FGL_features} and \ref{tab:4FGL_features} respectively. 
 
-\pgfplotstableread[col sep=comma]{tables/features/3fglassocfeatures.csv}\tablea
+\pgfplotstableread[col sep=comma]{tables/features/3fglassocfeaturesAGNPSRnewfeats.csv}\tablea
 \begin{table}
 \resizebox{0.45\textwidth}{!}{
 \pgfplotstabletypeset[
@@ -47,11 +47,11 @@ columns/Mean/.style={column name=Mean,column type=c,numeric type,fixed,precision
 columns/SD/.style={column name=Standard Deviation,numeric type,fixed,precision=2},
 columns/Minimum/.style={column name=Minimum,numeric type,fixed,precision=2},
 columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
-skip rows between index={10}{25}
+skip rows between index={11}{25}
 ]{\tablea}
 }
 \vspace{0.2cm}
-\caption{Statistics of features used for probabilistic classification of the 3FGL sources.
+\caption{Statistics of features used for 2 class probabilistic classification of the 3FGL sources.
 \lb{tab:3FGL_features}}
 \end{table}
 

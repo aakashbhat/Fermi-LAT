@@ -248,26 +248,28 @@ We find that the three most important features for both cases are significance o
     \hline
     Feature &  20 trees, depth 2& 50 trees, depth 6\\
     \hline
-    $\ln$(Flux\_Density) & 0.04 & 0.05        \\
+    GLON & 0.001 & 0.014        \\
     \hline
-    $\ln$(Unc\_Energy\_Flux100) & 0.07     & 0.08 \\
+    GLAT & 0.009     & 0.017 \\
     \hline %\midrule   -> aakash do you mean this?
-   {\bf Spectral\_Index} & 0.13     &   0.11\\
+   $\ln$(Energy\_Flux100) & 0.073   &   0.071\\
     \hline %\midrule   -> aakash do you mean this?
-    {\bf $\ln$(Signif\_Curve)} & 0.33 &0.29  \\
+    {\bf $\ln$(Unc\_Energy\_Flux100)} & 0.182 &0.122  \\
     \hline
-   $\ln$(Variability\_Index)&  0.06   &  0.10  \\
+   {\bf$\ln$(Signif\_Curve)}&  0.367  &  0.331  \\
     \hline %\midrule   -> aakash do you mean this?
-    hr12& 0.03 &0.03 \\
+    $\ln$(Variability\_Index)& 0.051 &0.098 \\
     \hline
-     hr23& 0.03 &0.04 \\
+     500MeV\_Index& 0.065 &0.065 \\
     \hline
-    hr34& 0.02 &0.03 \\
+    HR12& 0.047 &0.052 \\
     \hline
-   {\bf hr45} & 0.25 &0.21 \\
+   HR23 & 0.032 &0.062 \\
     \hline
-    GLAT&0.01&0.02\\
+    HR34&0.016&0.025\\
     \hline
+{\bf HR45}&0.149&0.137\\
+\hline
     \end{tabular}
     \vspace{0.4cm}
     \caption{Feature importances for two RF algorithms.}
