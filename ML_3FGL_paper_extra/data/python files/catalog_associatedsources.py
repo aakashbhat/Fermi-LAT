@@ -39,7 +39,7 @@ se=0
 valscore3=0
 #pro1=np.zeros((1905,9))
 pro1source=[]
-dataframe = pandas.read_csv("./files/4fgl_assoc.csv", header=None)
+dataframe = pandas.read_csv("./files/3fgl_assoc_newfeats.csv", header=None)
 #dataframe = pandas.read_csv("4fgl_assoc_3.csv", header=None)
 
 dataset1 = dataframe.values
@@ -59,28 +59,23 @@ while se<1000:
     #dataframe = pandas.read_csv("4fgl_assoc_3.csv", header=None)
  
     np.random.shuffle(dataset1[1:])
-    X = dataset1[1:,0:16].astype(float)
-    Y = dataset1[1:,16]
-
+    X=[dataset1[i,1:12].astype(float) for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
+    Y =[dataset1[i,12] for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
-    
-    train1=X[0:lenth]                    
-    train_truth1=Y[0:lenth]
-    val_inp1=X[lenth:]
-    #val_source=dataset1[lenth:,12]
-    val_out1=Y[lenth:]
+    train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.3, random_state=se)       #Split into training and validation
+
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     train_truth1=np.ravel(train_truth1)
-    #valscore2=valscore3
+    
     count=0
     #pro2=pro1
-    oversample = RandomOverSampler(sampling_strategy='minority')
-    X_over, y_over = oversample.fit_resample(train1, train_truth1)
-    #X_over, y_over=train1,train_truth1
+    #oversample = RandomOverSampler(sampling_strategy='minority')
+    #X_over, y_over = oversample.fit_resample(train1, train_truth1)
+    X_over, y_over=train1,train_truth1
     clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
-    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(16,), activation='tanh', solver='adam').fit(X_over, y_over)
+    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
     clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
     clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
     clf4.fit(X_over, y_over)

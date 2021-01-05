@@ -39,7 +39,9 @@ plotting_dima.setup_figure_pars()
 score=0
 #Training Fata:
 se=0
-zbig=np.zeros((563, 235))
+s1=318
+s2=563
+zbig=np.zeros((s1,s2))
 while se<100:
     np.random.seed(se)
     dataframe = pandas.read_csv("./files/3fgl_assoc_newfeats.csv", header=None)
@@ -47,7 +49,7 @@ while se<100:
     np.random.shuffle(dataset1[1:])
 
 
-    X=[dataset1[i,4:6].astype(float) for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
+    X=[dataset1[i,[5,7]].astype(float) for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
     Y =[dataset1[i,12] for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
@@ -130,11 +132,11 @@ while se<100:
 
 
 #Choose classifier:
-#clf=RandomForestClassifier(max_depth=2, n_estimators=20,oob_score=True)
+    clf=RandomForestClassifier(max_depth=6, n_estimators=50,oob_score=True)
 #clf= MLPClassifier(max_iter=50,hidden_layer_sizes=(2,), activation='tanh', solver='adam').fit(X_train,y_train)
 #clf=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=6, random_state=0).fit(X_train,y_train)
-    clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
-#clf.fit(X_train, y_train)
+    #clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
+    clf.fit(X_train, y_train)
 
     lenth=len(X_test)
     score = score+clf.score(X_test, y_test)       #Score of our classifier
@@ -212,27 +214,27 @@ ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, al
                    marker=testc1_marker, edgecolors='k', label='PSR testing')
 
 ax2.legend()
-ax2.text(-28.9,-5.2,"Solver: LBFGS")
-ax2.text(-28.9,-5.6,"Epochs: 200")
+ax2.text(-6.3,0.6,"Trees: 50")
+ax2.text(-6.3,0.3,"Maximum Depth: 6")
 #ax2.text(0.02,-1.3,"Trees: 100")
 #ax2.text(0.02,-1.6,"Maximum Depth: 6")
 #ax2.set_xlim(xx.min(), xx.max())
-ax2.set_title('Logistic Regression')
+ax2.set_title('Random Forests')
 #ax2.set_ylim(yy.min(), yy.max())
-ax2.set_xlabel('Ln(Unc_Energy_Flux100)')
-ax2.set_ylabel('Ln(Significant_Curvature)')
+ax2.set_ylabel('500MeV_Index')
+ax2.set_xlabel('Ln(Significant_Curvature)')
 #ax2.set_ylim((-2,5))
 #ax.set_xticks(np.arange(-5,3,step=1))
  #       ax.set_yticks(())
   #      if ds_cnt == 0:
    #         ax.set_title(name)
-ax2.text(-28.9 , -6, ('Testing Score:%.2f' % score).lstrip('0'))
+ax2.text(-6.3 , 0.0, ('Testing Score:%.2f' % score).lstrip('0'))
  #       i += 1
 
 
 #plt.tight_layout()
-plt.show()
-fn = 'plots/lr_200_lbfgs_newfeats.pdf'
+#plt.show()
+fn = 'plots/rf_50,6_sigcur_500_newfeats.pdf'
 print('save plot to file')
 print(fn)
 plt.savefig(fn)
