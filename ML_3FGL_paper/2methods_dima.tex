@@ -203,7 +203,7 @@ equal weights -- all PS have equal weights in the objective function, and invers
 \begin{figure}[h]
 %\centering
 \hspace*{-0.5cm}
-\includegraphics[width=0.5\textwidth]{plots/rf_train_unweighted}
+\includegraphics[width=0.5\textwidth]{plots/rf_train_assocnewfeats}
 %\hspace*{-0.5cm}
 %\includegraphics[width=0.5\textwidth]{plots/rf_train_weighted}
 %\includegraphics[width=\twopicsp\textwidth]{plots/6md_trees_weighted}
@@ -322,7 +322,7 @@ Unlike the RF, which is also an ensemble based method, the testing accuracy drop
 
 \begin{figure}[h]
 %\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/bdt_train.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/bdt_train_assocnewfeats.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
 \caption{Dependence of BDT accuracy on maximum depth and the numbers of trees.}
 \label{fig:BDT_depth}
@@ -398,7 +398,7 @@ We have also used NN with two hidden layers, but the accuracy was similar to the
 \begin{figure}[h]
 %\centerin
 \hspace*{-0.5cm}
-\includegraphics[width=0.5\textwidth]{plots/nn_neurons_300epochs.pdf}
+\includegraphics[width=0.5\textwidth]{plots/nn_train_neurons_assocnewfeat.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/epochsvsscore2_10seeds.pdf}
 \caption{Dependence of accuracy on the number of neurons for different NN models.}
 %\dima{It looks like Adam should not be written as ADAM: the labels should be changed.}}
@@ -427,7 +427,7 @@ The accuracy increases with higher number of epochs and saturates at around 50 f
 \begin{figure}[h]
 %\centering
 \hspace*{-0.5cm}
-\includegraphics[width=0.5\textwidth]{plots/nn_epochs.pdf}
+\includegraphics[width=0.5\textwidth]{plots/nn_train_epochs_assocnewfeat.pdf}
 \caption{
 Dependence of testing accuracy on the number of epochs in training for different solvers and activation functions.
 }
@@ -495,7 +495,7 @@ For the final classification we will use LBFGs solver with 200 iterations.
 
 \begin{figure}[h]
 %\centerin
-\includegraphics[width=\twopicsp\textwidth]{plots/lr_train.pdf}
+\includegraphics[width=\twopicsp\textwidth]{plots/lr_train_assocnewfeat.pdf}
 \caption{Dependence of LR testing accuracy on the number of iterations for different solvers.}
 \label{fig:LR_accuracy}
 \end{figure}
