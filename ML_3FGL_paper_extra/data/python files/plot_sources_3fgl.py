@@ -38,13 +38,13 @@ plt.rcParams['legend.fontsize'] = 19.5
 #Training Fata:
 se=4
 np.random.seed(se)
-dataframe = pandas.read_csv("./catas/3FGLvs4FGL_AGNPSRCatalog_withclassification.csv", header=None)
+dataframe = pandas.read_csv("./catas/3FGLvs4FGL_AGNPSRCatalog_newfeats.csv", header=None)
 dataset1 = dataframe.values 
 #np.random.shuffle(dataset1[1:])
-X = dataset1[1:,60:66]
-print(X)
+X = dataset1[1:,45:]
+print(dataset1[0,45:])
 #Y = dataset[1:1933,5]
-y = dataset1[1:,3:5].astype(float)
+y = dataset1[1:,[6,5]].astype(float)
 print(y)
 #dataset=dataset[:,:5]
 num=[]
@@ -99,7 +99,7 @@ ax2.scatter(y[c1_missclass_agn, 0], y[c1_missclass_agn, 1], c=testc3_color, alph
         # Training points for class 1
 
 h=0.02
-ax2.legend(loc=1)
+ax2.legend(loc=4)
 x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5   #Define minimumm and maximum of axes
 y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
 xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
@@ -108,10 +108,10 @@ xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
 ax2.set_xlim(xx.min(), xx.max())
 ax2.set_title('Predictions for 3FGL Unassociated Data')
 #ax2.set_ylim(yy.min(), yy.max())
-ax2.set_xlabel('Spectral Index')
 ax2.set_ylabel('Ln(Significant_Curvature)')
-ax2.set_ylim((-4,3))
-ax2.set_xlim((1,4))
+ax2.set_xlabel('Ln(Variability_Index)')
+#ax2.set_ylim((-4,3))
+#ax2.set_xlim((1,4))
 
 #ax.set_xticks(np.arange(-5,3,step=1))
  #       ax.set_yticks(())

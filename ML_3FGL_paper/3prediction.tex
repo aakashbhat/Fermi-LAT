@@ -30,19 +30,19 @@ As a result, we have 8 classification methods: 4 algorithms trained with and wit
     Algorithm&Parameters &  Testing&Std. Dev.& Comparison with 4FGL \\
     & & Accuracy & & Accuracy \\
     \hline
-    RF & 50 trees, max depth 6  &97.37&0.60& 96.1  \\
-    RF\_O &   &97.90&0.50& 95.1  \\
+    RF & 50 trees, max depth 6  &97.37&0.60& 95.66  \\
+    RF\_O &   &97.90&0.50& 93.43  \\
     \hline %\midrule   -> aakash do you mean this?
-    BDT & 100 trees, max depth 2    &   97.65&0.54&95.34 \\
+    BDT & 100 trees, max depth 2    &   97.65&0.54&94.30 \\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
-    BDT\_O &     &   97.79&0.51& 93.8 \\
+    BDT\_O &     &   97.79&0.51& 93.71 \\
     \hline
-    NN & 300 epochs, 11 neurons, LBFGS & 97.29&0.97& 94.55\\
-    NN\_O &  & 94.31&5.13& 91.43\\
+    NN & 300 epochs, 11 neurons, LBFGS & 97.29&0.97& 92.82\\
+    NN\_O &  & 94.31&5.13& 89.06\\
     \hline
-    LR & 200 iterations, LBFGS solver & 97.63&0.54& 93.48 \\
-    LR\_O &  &93.68&0.99& 87.07 \\
+    LR & 200 iterations, LBFGS solver & 97.63&0.54& 93.60 \\
+    LR\_O &  &93.68&0.99& 87.44 \\
     \hline
      
     \end{tabular}}

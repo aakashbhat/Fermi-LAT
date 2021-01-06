@@ -41,9 +41,12 @@ se=0
 
 
 
-dataframe = pandas.read_csv("./files/3fgl_assoc.csv", header=None)
+dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
 dataset1 = dataframe.values
-names_assoc=dataset1[1:,12]
+
+names_assoc=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
+unassocnames=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,12]=='UNASOC' or dataset1[i,12]=='OTHER']
+
 print(names_assoc)
 
 ###################
@@ -57,22 +60,21 @@ probs_un_rf=[]
 probs_ass_lr=[]
 probs_un_lr=[]
 #####################
+times=1000
 
-
-while se<1000:
+while se<times:
     #data:
     np.random.seed(se)
-    dataframe3 = pandas.read_csv("./files/3fgl_nonassoc.csv", header=None)
+    dataframe3 = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
     dataset3 = dataframe3.values
-    X2 = dataset3[1:,0:10].astype(float)
-    dataframe2 = pandas.read_csv("./files/3fgl_assoc.csv", header=None)
-    dataset2 = dataframe2.values
-    np.random.shuffle(dataset2[1:])
+    X2 = [dataset3[i,1:12].astype(float) for i in range(len(dataset3)) if dataset3[i,12]=='UNASOC' or dataset3[i,12]=='OTHER']
+    np.random.shuffle(dataset3[1:])
+    
 
     
-    X = dataset2[1:,0:10].astype(float)
-    Y = dataset2[1:,10]
-
+    X = [dataset3[i,1:12].astype(float) for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR']
+    Y = [dataset3[i,12] for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR']
+    val_source1=[dataset3[i,0] for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR']
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
@@ -82,15 +84,11 @@ while se<1000:
     train1=X[0:1333]                    
     train_truth1=Y[0:1333]
     val_inp1=X[1333:]
-    #print(val_inp1[1])
-    val_source=dataset2[1334:,12]
+    val_source=val_source1[1333:]
     #print(val_source[1])
     #val_out1=Y[2622:]
     #val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     train_truth1=np.ravel(train_truth1)
-    #valscore2=valscore3
-    #count=0
-    #pro2=pro1
     print(val_source)
     sourcename_ass.append(val_source)
 
@@ -103,7 +101,7 @@ while se<1000:
     X_over, y_over = oversample.fit_resample(train1, train_truth1)
     #oversample = RandomOverSampler(sampling_strategy=0.5)
     clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
-    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(10,), activation='tanh', solver='adam').fit(X_over, y_over)
+    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
     clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
     clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
     clf4.fit(X_over, y_over)
@@ -129,7 +127,7 @@ while se<1000:
     se=se+1
 
 ########################
-unassoc_names=dataset3[1:,10]
+unassoc_names=unassocnames
 AGN_BDT_mean=np.zeros(len(unassoc_names))
 AGN_BDT_std=np.zeros(len(unassoc_names))
 PSR_BDT_mean=np.zeros(len(unassoc_names))
@@ -179,7 +177,7 @@ for i in range(len(names_assoc)):
     PSR_RF=[]
     AGN_LR=[]
     PSR_LR=[]
-    for j in range(1000):
+    for j in range(times):
         sourcenames1=sourcename_ass[j]
         for k in range(len(sourcenames1)):
             if sourcenames1[k]==name:
@@ -232,7 +230,6 @@ result_As.to_csv(path_or_buf="./catas/try_3fgl_as_O.csv",index=False)
 
 
 
-
 ########################################
 for i in range(len(unassoc_names)):
     AGN_BDT=[]
@@ -243,7 +240,7 @@ for i in range(len(unassoc_names)):
     PSR_RF=[]
     AGN_LR=[]
     PSR_LR=[]
-    for j in range(1000):
+    for j in range(times):
         prob=probs_un_bdt[j]
         prob2=prob[i]
         AGN_BDT.append(prob2[0])
