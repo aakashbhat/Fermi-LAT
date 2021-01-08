@@ -100,10 +100,18 @@ We use the associated sources which were classified as either AGNs (classificati
 %Our methodology for classification was dependent on two things: The data that we had, which needed to be cleaned and the algorithms that we needed to apply. For this we decided on using the 3rd catalog of F-LAT (3FGL from hereon) for initial training and testing, the 4th catalog (FL8Y from hereon) for further testing and predictions.
 %Our data was similar to that used by Parkinson et. al. We cleaned the 3FGL catalog to have sources which were both associated and unassociated but with no missing values.\\
 
-There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties.
+There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties. We took the main features, including those discussed in \cite{2016ApJ...820....8S}, and plotted their Person corelation coefficients. The co-relation table of values is given is figure \ref{fig:assoc_corr_3fgli}.
+\begin{figure}[h]
+\center
+%\hspace*{-1cm}
+\includegraphics[width=0.5\textwidth]{plots/3fgl_assoc_cor.pdf}\\
+%\hspace*{-1cm}
+\caption{The corelation matrix of feature values for 3FGL associated data.}
+\label{fig:assoc_corr_3fgli}
+\end{figure}
 In the first part of our work, we use the following ten features:
-$\ln$(Flux\_Density), $\ln$(Unc\_Energy\_Flux100), Spectral\_Index, $\ln$(Signif\_Curve), 
-four hardness ratios $hr_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i}$, where $EF_i$ is the energy flux in bin $i$, $\ln$(Variability\_Index), and the galactic latitude GLAT.
+$\ln$(Energy\_Flux\_100), $\ln$(Unc\_Energy\_Flux100), 500MeV\_Index, $\ln$(Signif\_Curve), 
+four hardness ratios $hr_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i}$, where $EF_i$ is the energy flux in bin $i$, $\ln$(Variability\_Index), and the galactic latitude GLAT and longitude GLON.
 The table of features and their statistics can be found in the appendix.
 \begin{comment}
 %The complete list of sources, along with some statistics, is given in the appendix. 
@@ -465,9 +473,9 @@ For our final model we chose one hidden layer with ten neurons, 300 training epo
 \begin{figure}[h]
 \center
 %\hspace*{-1cm}
-\includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_adam_10_tanh_50_final.pdf}\\
+\includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_50_lbfgs.pdf}\\
 %\hspace*{-1cm}
-\includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_adam_10_tanh_300_final.pdf}
+\includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_300_lbfgs.pdf}
 \caption{NN classification domains for 2 input features. We use 2 neurons in the hidden layer. 
 We use tanh activation function and Adam solver. Top panel: 50 training epochs, bottom panel: 300 training epochs.}
 \label{fig:NN_domains}

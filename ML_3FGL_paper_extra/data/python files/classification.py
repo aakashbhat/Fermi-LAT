@@ -80,8 +80,8 @@ while se<100:
     X_t, X_test, y_t, y_test = \
     train_test_split(X, y, test_size=.3, random_state=0)       #Split into training and validation
 
-    oversample = RandomOverSampler(sampling_strategy='minority')
-    X_train, y_train = oversample.fit_resample(X_t, y_t)
+    #oversample = RandomOverSampler(sampling_strategy='minority')
+    X_train, y_train = X_t, y_t#oversample.fit_resample(X_t, y_t)
     print(se)
     x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5   #Define minimumm and maximum of axes
     y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
@@ -132,10 +132,10 @@ while se<100:
 
 
 #Choose classifier:
-    #clf=RandomForestClassifier(max_depth=2, n_estimators=20,oob_score=True)
-    #clf= MLPClassifier(max_iter=300,hidden_layer_sizes=(2,), activation='tanh', solver='lbfgs').fit(X_train,y_train)
+    #clf=RandomForestClassifier(max_depth=6, n_estimators=50,oob_score=True)
+    clf= MLPClassifier(max_iter=50,hidden_layer_sizes=(2,), activation='tanh', solver='lbfgs').fit(X_train,y_train)
     #clf=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=2, random_state=0).fit(X_train,y_train)
-    clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
+    #clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
     #clf.fit(X_train, y_train)
 
     lenth=len(X_test)
@@ -180,7 +180,7 @@ fig1.colorbar(cs,ax=ax2,shrink=0.9)
 score=score/100
 alpha=0.9
 k=1
-
+'''
 for i in range(len(X_train)):
     l=X_train[i]
     j=i+1
@@ -191,7 +191,7 @@ for i in range(len(X_train)):
             k=k+1
         j=j+1
     k=1
-
+'''
 '''
 alphas = np.linspace(1, 0.1, 1221)
 rgba_colors = np.zeros((1221,4))
@@ -214,17 +214,19 @@ ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, al
                    marker=testc1_marker, edgecolors='k', label='PSR testing')
 
 ax2.legend()
-ax2.text(6.5,-2.3,"Iterations: 200")
+ax2.text(6.5,-2.3,"Epochs: 50")
 ax2.text(6.5,-2.6,"Solver: LBFGS")
 #ax2.text(0.02,-1.3,"Trees: 100")
 #ax2.text(0.02,-1.6,"Maximum Depth: 6")
 #ax2.set_xlim(xx.min(), xx.max())
-ax2.set_title('Logistic Regression(Oversampled)')
+#ax2.set_title('Logistic Regression')
+ax2.set_title('Neural Network')
+
 #ax2.set_ylim(yy.min(), yy.max())
 ax2.set_xlabel('Ln(Variability_Index)')
 ax2.set_ylabel('Ln(Significant_Curvature)')
 ax2.set_ylim((-3,5))
-ax2.set_xlim((3,8))
+ax2.set_xlim((2.9,8))
 
 #ax.set_xticks(np.arange(-5,3,step=1))
  #       ax.set_yticks(())
@@ -236,7 +238,7 @@ ax2.text(6.5 , -2.9, ('Testing Score:%.2f' % score).lstrip('0'))
 
 #plt.tight_layout()
 #plt.show()
-fn = 'plots/lr_200_O_sigcur_var_newfeats.pdf'
+fn = 'plots/nn_50_lbfgs.pdf'
 print('save plot to file')
 print(fn)
 plt.savefig(fn)

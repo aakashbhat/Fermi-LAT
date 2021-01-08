@@ -1,0 +1,46 @@
+\section{Conclusions}
+\lb{sec:conclusions}
+
+In the paper we determine the probabilities of classification of unassociated sources in the 3FGL, 4FGL, and 4FGL-DR2 \Fermi-LAT catalogs.
+The probabilities are calculated with 8 different ML methods: RF, BDT, LR and NN -- each algorithm with and without oversampling during training.
+The algorithms were trained and tested with associated sources.
+We have scanned some meta-parameters of the algorithms, such as depth of the trees, the number of trees, the number of neurons, in order to determine optimal parameters which do not create overfitting of data and provide good accuracy of classification.
+The accuracies, which we obtained for the 3FGL catalog for the four algorithms without oversampling, are about 97\%, with oversampling the accuracies are between 94\% and 97\%.
+We have also checked the accuracy of classification by selecting unassociated sources in 3FGL, which have associations in 4FGL.
+If we take the 4FGL associations as the true value, then the accuracies of classification in this subset of sources 
+with (without) oversampling are between 93\% and 97\% (87\% and 95\%).
+As one can see from Figure \ref{fig:3FGL_vs_4FGL_classes}, the misclassified sources have spectral parameters in 3FGL which are typical of the other class, i.e., the misclassification can be due to problems with reconstructing the spectrum of the sources.
+
+We have created catalogs with probabilistic classifications of sources, where for each source and for each class (i.e., AGNs and pulsars in our case) we report class probabilities for each of the four algorithms trained on both unweighted and oversampled datasets. 
+%These are 16 columns, 8 labeled by classes and by methods: ``AGN\_BDT'', ``PSR\_NN'' etc, and 8 labeled by classes and by methods: ``AGN\_BDT\_O'', ``PSR\_NN\_O'' etc. 
+We also provide individual standard deviations for all classification probabilities by sample average over selection of training and testing datasets.
+We report the classification probabilities not only for the unassociated sources, but also for the associated ones, which can be used to find outliers.
+An advantage of such probabilistic classification is that a threshold on probability for selecting, e.g., pulsar candidates, can be chosen by the user based on his or her needs.
+For example, in a search of new pulsars, one can select a low threshold in order to avoid missing possible pulsars.
+In a derivation of an average property of the class, e.g., spectral index or cutoff energy, one can select a high threshold in order to avoid contamination from the other class, in addition, one can use weighting by probability.
+%However, one should be careful here, since some of the properties of sources were used for the determination of probabilities, the average of these features weighted by the probabilities can be biased compared to an average derived from multiwavelength associations.
+
+As an example of the application of the probabilistic catalogs, we derive the expected number of sources in the catalog as a function of their flux, including the unassociated sources.
+As a consistency check, we compare the counts of associated sources to the sums of probabilities for associated sources.
+We find that correcting for the contribution of sources other than AGNs and pulsars plays an important role for estimation of the expected number of sources in a particular class.
+We find the total expected number of AGNs and pulsars in 3FGL and 4FGL catalogs by adding the class probabilities for the unassociated sources to the source counts of associated sources and correcting for the contribution of other classes in the unassociated sources.
+In particular, we find that the total expected number of pulsars is about two times larger than the number of associated pulsars.
+
+We plot the counts of associated sources and the expected number of AGNs and pulsars among unassociated sources
+as functions of Galactic latitude and longitude.
+We find that the number of associated AGNs is decreasing towards low latitudes, while the expected number of AGNs among unassociated sources is increasing, but the sum of the two is relatively uniform, as expected for extragalactic sources.
+We also find that the expected number of pulsars among unassociated 4FGL sources is significantly larger than average for longitudes 
+$|\ell | \lesssim 50^\circ$.
+
+
+
+
+\subsection*{Acknowledgements}
+
+The authors would like to thank Pablo Saz Parkinson for valuable discussions.
+This work was in part supported by BMBF under the ErUM-Data project ``Innovative Digital Technologies for Research on Universe and Matter'' (grant number 05H18WERC1) and by DFG grant MA 8279/2-1.
+We would like to acknowledge the use of the following software:
+Astropy \citep[\url{http://www.astropy.org},][]{2013A&A...558A..33A}, 
+matplotlib \citep{Hunter:2007}, 
+scikit-learn [\url{https://scikit-learn.org/stable/about.html}], 
+TOPCAT \citep{2005ASPC..347...29T}.

@@ -39,7 +39,7 @@ se=0
 valscore3=0
 #pro1=np.zeros((1905,9))
 pro1source=[]
-dataframe = pandas.read_csv("./files/3fgl_assoc_newfeats.csv", header=None)
+dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
 #dataframe = pandas.read_csv("4fgl_assoc_3.csv", header=None)
 
 dataset1 = dataframe.values
@@ -55,15 +55,15 @@ lenth=2408
 while se<1000:
     #data:
     np.random.seed(se)
-    
+    '''
     dataframe2 = pandas.read_csv("./files/3fgl_4fgl_newfeats.csv", header=None)
     dataset2 = dataframe2.values
-    
+    '''
     np.random.shuffle(dataset1[1:])
 
 
-    X=[dataset1[i,1:12].astype(float) for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
-    Y =[dataset1[i,12] for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
+    X=[dataset1[i,1:12].astype(float) for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR' or dataset1[i,12]=='OTHER']
+    Y =[dataset1[i,12] for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR'or dataset1[i,12]=='OTHER']
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
@@ -74,21 +74,22 @@ while se<1000:
     
     count=0
     #pro2=pro1
-    oversample = RandomOverSampler(sampling_strategy='minority')
-    X_over, y_over = oversample.fit_resample(train1, train_truth1)
-    #X_over, y_over=train1,train_truth1
+    #oversample = RandomOverSampler(sampling_strategy='minority')
+    #X_over, y_over = oversample.fit_resample(train1, train_truth1)
+    X_over, y_over=train1,train_truth1
 
-
+    '''
     X2=[dataset2[i,1:12].astype(float) for i in range(len(dataset2)) if dataset2[i,12]=='AGN' or dataset2[i,12]=='PSR']
     Y2 =[dataset2[i,12] for i in range(len(dataset2)) if dataset2[i,12]=='AGN' or dataset2[i,12]=='PSR']
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y2)
     Y2 = encoder.transform(Y2)
-    testdatainput=X2
-    testdatalabels=np.ravel(Y2)                     #ravel is used since flattened label array required
-
+    '''
+    testdatainput=val_inp1
+    testdatalabels=val_out1                     #ravel is used since flattened label array required
+    
     clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
-    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
+    clf2= MLPClassifier(max_iter=600,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
     clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
     clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
     clf4.fit(X_over, y_over)
@@ -105,6 +106,7 @@ while se<1000:
     bdt.append(fit1)
     se=se+1
     print(se)
+    print(fit1)
 
 
 #prop1=prop1/1000

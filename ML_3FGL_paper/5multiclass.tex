@@ -1,0 +1,60 @@
+\section{3-Class Classification}
+In this section we discuss the multi-class method\footnotemark\footnotetext{Multi here refers to any non-binary number of classes}. Instead of only using sources which had AGN and PSR as their classification we added 108 sources in the 3FGL catalog which have a classification not falling under AGN or PSR. We gave them a classification of 'OTHER'. We ran our codes again, first to find the optimum parameters as was done in section 2. Figure \ref{fig:tree_multi} and \ref{fig:nets_multi} shows our results. Every method except the Neural Networks show the same behaviour as before and therefore we keep the same parameters for our final models. For Neural Networks the behaviour is also the same but the optimal parameter is found to be 600 epochs instead of 300. We keep the same number of neurons as before.
+
+
+\begin{figure}[h]
+\center
+%\hspace*{-1cm}
+\includegraphics[width=0.5\textwidth]{plots/rf_train_multi.pdf}\\
+%\hspace*{-1cm}
+\includegraphics[width=0.5\textwidth]{plots/bdt_train_multi.pdf}
+\includegraphics[width=0.5\textwidth]{plots/lr_train_multi.pdf}
+\caption{Testing scores for classification methods of RF, BDT and LR.}
+\label{fig:tree_multi}
+\end{figure}
+\begin{figure}[h]
+\center
+%\hspace*{-1cm}
+\includegraphics[width=0.5\textwidth]{plots/nn_epoch_train_multi.pdf}\\
+%\hspace*{-1cm}
+\includegraphics[width=0.5\textwidth]{plots/nn_neuron_train_multi.pdf}
+\caption{Testing scores for classification methods of NN for a set number of Epochs and a set number of Neurons.}
+\label{fig:nets_multi}
+\end{figure}
+
+The final accuracies of our chosen model for 1000 runs are given below in table \ref{tab:selected_algs_multi}.
+\begin{table}[!h]
+\hspace{-0.2cm}
+\resizebox{0.47\textwidth}{!}{
+    \tiny
+  \centering
+    \renewcommand{\tabcolsep}{0.4mm}
+\renewcommand{\arraystretch}{1.6}
+
+%\hspace{-3mm}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    Algorithm&Parameters &  Testing&Std. Dev.& Comparison with 4FGL \\
+    & & Accuracy & & Accuracy \\
+    \hline
+    RF & 50 trees, max depth 6  &93.90&0.84& 95.66  \\
+    RF\_O &   &97.90&0.84& 93.43  \\
+    \hline %\midrule   -> aakash do you mean this?
+    BDT & 100 trees, max depth 2    &   93.66&0.0.84&94.30 \\
+%    \hline %\midrule   -> aakash do you mean this?
+%    BDT & 200 trees, max depth 2    &   95.8  \\
+    BDT\_O &     &   97.79&0.51& 93.71 \\
+    \hline
+    NN & 600 epochs, 11 neurons, LBFGS & 92.22&1.40& 92.82\\
+    NN\_O &  & 94.31&5.13& 89.06\\
+    \hline
+    LR & 200 iterations, LBFGS solver & 92.19&0.98& 93.60 \\
+    LR\_O &  &93.68&0.99& 87.44 \\
+    \hline
+     
+    \end{tabular}}
+    \vspace{2mm}
+    \caption{Testing accuracy of the 4 selected algorithms for classification of 3FGL sources and comparison with associations in the 4FGL catalog. 
+    ``\_O'' denotes training with oversampling.}
+    \label{tab:selected_algs_multi}
+\end{table}
