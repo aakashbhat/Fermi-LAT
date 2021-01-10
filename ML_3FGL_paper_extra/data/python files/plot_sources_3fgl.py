@@ -38,11 +38,11 @@ plt.rcParams['legend.fontsize'] = 19.5
 #Training Fata:
 se=4
 np.random.seed(se)
-dataframe = pandas.read_csv("./catas/3FGLvs4FGL_AGNPSRCatalog_newfeats.csv", header=None)
+dataframe = pandas.read_csv("./catas/3FGLvs4FGLDR2_AGNPSRCatalog_newfeats.csv", header=None)
 dataset1 = dataframe.values 
 #np.random.shuffle(dataset1[1:])
-X = dataset1[1:,45:]
-print(dataset1[0,45:])
+X = dataset1[1:,52:]
+print(dataset1[0,52:])
 #Y = dataset[1:1933,5]
 y = dataset1[1:,[6,5]].astype(float)
 print(y)
@@ -51,12 +51,12 @@ num=[]
 num2=[]
 
 
-c1_mixed = [i for i in range(278) if X[i,0] =='true']
-c1_class_psr = [i for i in range(278) if X[i,1] =='true']
-c1_miss_psr = [i for i in range(278) if X[i,2] =='true']
-c1_mixed_agn = [i for i in range(278) if X[i,3] =='true']
-c1_class_agn = [i for i in range(278) if X[i,4] =='true']
-c1_missclass_agn = [i for i in range(278) if X[i,5] =='true']
+c1_mixed = [i for i in range(302) if X[i,0] =='true']
+c1_class_psr = [i for i in range(302) if X[i,1] =='true']
+c1_miss_psr = [i for i in range(302) if X[i,2] =='true']
+c1_mixed_agn = [i for i in range(302) if X[i,3] =='true']
+c1_class_agn = [i for i in range(302) if X[i,4] =='true']
+c1_missclass_agn = [i for i in range(302) if X[i,5] =='true']
 
 print(c1_miss_psr)
 trainc1_color = 'green'

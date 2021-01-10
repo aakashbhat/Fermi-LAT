@@ -127,7 +127,7 @@ while se<100:
         #clf = RandomForestClassifier(n_estimators=20,max_depth=i,oob_score=True)
         #clf.fit(train1,train_truth1)
         #clf = MLPClassifier(max_iter=i,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(train1,train_truth1)
-        clf=GradientBoostingClassifier(n_estimators=5, learning_rate=0.3,max_depth=i).fit(train1, train_truth1)
+        #clf=GradientBoostingClassifier(n_estimators=5, learning_rate=0.3,max_depth=i).fit(train1, train_truth1)
         #clf= LogisticRegression(max_iter=i, C=1, solver='lbfgs').fit(train1, train_truth1)
         numi.append(i)
         scor=clf.score(val_inp1,val_out1)

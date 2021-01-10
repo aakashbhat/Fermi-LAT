@@ -22,7 +22,7 @@ In this section we discuss the multi-class method\footnotemark\footnotetext{Mult
 \label{fig:nets_multi}
 \end{figure}
 
-The final accuracies of our chosen model for 1000 runs are given below in table \ref{tab:selected_algs_multi}.
+The final accuracies of our chosen model for 1000 runs are given below in table \ref{tab:selected_algs_multi} for 3FGL and table \ref{tab:selected_algs_4fgl_multi} for 4FGL-DR2.
 \begin{table}[!h]
 \hspace{-0.2cm}
 \resizebox{0.47\textwidth}{!}{
@@ -37,24 +37,58 @@ The final accuracies of our chosen model for 1000 runs are given below in table 
     Algorithm&Parameters &  Testing&Std. Dev.& Comparison with 4FGL \\
     & & Accuracy & & Accuracy \\
     \hline
-    RF & 50 trees, max depth 6  &93.90&0.84& 95.66  \\
+    RF & 50 trees, max depth 6  &93.90&0.84& 84.48  \\
     RF\_O &   &97.90&0.84& 93.43  \\
     \hline %\midrule   -> aakash do you mean this?
-    BDT & 100 trees, max depth 2    &   93.66&0.0.84&94.30 \\
+    BDT & 100 trees, max depth 2    &   93.66&0.84&83.67 \\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
     BDT\_O &     &   97.79&0.51& 93.71 \\
     \hline
-    NN & 600 epochs, 11 neurons, LBFGS & 92.22&1.40& 92.82\\
+    NN & 600 epochs, 11 neurons, LBFGS & 92.22&1.40& 80.89\\
     NN\_O &  & 94.31&5.13& 89.06\\
     \hline
-    LR & 200 iterations, LBFGS solver & 92.19&0.98& 93.60 \\
+    LR & 200 iterations, LBFGS solver & 92.19&0.98& 80.68 \\
     LR\_O &  &93.68&0.99& 87.44 \\
     \hline
      
     \end{tabular}}
     \vspace{2mm}
-    \caption{Testing accuracy of the 4 selected algorithms for classification of 3FGL sources and comparison with associations in the 4FGL catalog. 
+    \caption{Testing accuracy of the 4 selected algorithms for classification of 3FGL sources and comparison with associations in the 4FGL-DR2 catalog. 
     ``\_O'' denotes training with oversampling.}
     \label{tab:selected_algs_multi}
+\end{table}
+\begin{table}[!h]
+\hspace{-0.2cm}
+\resizebox{0.47\textwidth}{!}{
+    \tiny
+  \centering
+    \renewcommand{\tabcolsep}{0.4mm}
+\renewcommand{\arraystretch}{1.6}
+%\hspace{-3mm}
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    Algorithm&Parameters &  Testing&Std. Dev.\\
+    & & Accuracy &  \\
+    \hline
+    RF & 50 trees, max depth 6  &92.66&0.66  \\
+    RF\_O &   &97.90&0.84 \\
+    \hline %\midrule   -> aakash do you mean this?
+    BDT & 100 trees, max depth 2    &   92.61&0.66 \\
+%    \hline %\midrule   -> aakash do you mean this?
+%    BDT & 200 trees, max depth 2    &   95.8  \\
+    BDT\_O &     &   97.79&0.51 \\
+    \hline
+    NN & 600 epochs, 11 neurons, LBFGS & 91.62&0.78\\
+    NN\_O &  & 94.31&5.13\\
+    \hline
+    LR & 200 iterations, LBFGS solver & 91.84&0.69 \\
+    LR\_O &  &93.68&0.99\\
+    \hline
+     
+    \end{tabular}}
+    \vspace{2mm}
+    \caption{Testing accuracy of the 4 selected algorithms for classification of 4FGL-DR2 sources. 
+    ``\_O'' denotes training with oversampling.}
+    \label{tab:selected_algs_4fgl_multi}
 \end{table}

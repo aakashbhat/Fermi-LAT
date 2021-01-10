@@ -242,7 +242,7 @@ For classification we will use 50 trees with the maximum depth of 6.
 
 In tree-based algorithms, one can calculate feature importance by using the averaged reduction of impurity for nodes (Gini index in our case) involving the different features. 
 The feature importances for the case of two different RF algorithms: 20 trees with maximum depth of 2 and 50 trees with maximum depth of 6 are shown in Table \ref{tab:feat_imp}.
-We find that the three most important features for both cases are significance of curvature, hardness ratio of the last two energy bins, and spectral index (shown in bold font in the table).
+We find that the three most important features for both cases are significance of curvature, hardness ratio of the last two energy bins, and uncertainity of the energy flux at 100 MeV (shown in bold font in the table).
 %Since Random forests are based on decision trees, they allow us to characterize feature importances based on how helpful a feature was to split a tree. In our case, using all 10 features discussed above we found the following feature importances for two architectures of random forests with similar accuracies of 97.5:\\
 
 
@@ -291,15 +291,15 @@ but the significance is similar to the GLAT itself.
 We further discuss the dependence on GLAT in Section \ref{sec:lat-lon-profiles}, 
 where we calculate the latitude and longitude profiles of the associated and unassociated source counts.
 
-In order to illustrate the separation of PS into AGNs and pulsars, we retrain the RF algorithm using only two features: log of curvature significance and spectral index, and plot the resulting probabilities of classes in Figure \ref{fig:RF_domains}. 
+In order to illustrate the separation of PS into AGNs and pulsars, we retrain the RF algorithm using only two features: log of curvature significance and log of the variability index, and plot the resulting probabilities of classes in Figure \ref{fig:RF_domains}. 
 %These classification domains illustrate the separation of class probabilities.
-We compare classification domains for two models: 20 trees with the maximum depth of 2 and 50 trees with the maximum depth of 6.
+We compare classification domains for two models averaging again over 100 runs: 20 trees with the maximum depth of 2 and 50 trees with the maximum depth of 6.
 The depth 6 model has a better testing accuracy than the 
 depth 2 model due to the more nuanced probability distribution. 
 It also illustrates how more complex algorithms can over-fit the data 
 (notice the narrow bands in probability distribution for the maximum depth of 6 case), 
 although overfitting is not an issue for RF algorithms in our case.
-It is important to note that this plot is for one run only (we split the data into training and testing samples only one time) and the model is trained on two features, whereas in the final classification with RF, we use 10 features and average over 1000 splits into training and testing samples in a model with 50 trees with a maximum depth of 6.
+It is important to note that in this plot the model is trained on only two features, although significance of curvature allows for a good accuracy to be reached. In the final classification with RF, we use 11 features and average over 1000 splits into training and testing samples.
 
 \begin{figure}[h]
 %\hspace*{-1cm}
@@ -389,7 +389,7 @@ The activation function in the output layer is sigmoid $S(x) = {e^{x}}/{(1 + e^{
 \end{figure}
 
 The general architecture of the NN that we use in this paper is shown in Figure \ref{fig:NN_structure}.
-It is a fully connected NN with 10 input nodes (shown by red circles with input features $x_i$), one hidden layer (shown by blue circles),
+It is a fully connected NN with 11 input nodes (shown by red circles with input features $x_i$), one hidden layer (shown by blue circles),
 and an output layer (shown by the green circle).
 The hidden layer consists of several nodes with values $y_j$. 
 For the activation function at the hidden layer we use either hyperbolic tangent (tanh - shown on the plot) or rectified linear unit (relu).
@@ -420,14 +420,14 @@ We compare two activation functions at the hidden layer (tanh and relu) and two 
 We use 300 epochs for training.
 %L-BFGS is an approximation of the quasi-newtonian BFGS method. The BFGS method uses the full inverse of the Hessian matrix to find the direction of movement for minimizing the gradient. The limited memory counterpart however, only stores a smaller representation of the full matrix. This makes this method much faster for larger data-sets.
 %Adam on the other hand belongs to a relatively newer family of algorithms which use gradient descent. Gradient descent is a first-order method to find the local minima or maxima of a differentiable function. Nowadays, this process is made more efficient by taking the gradient from parts of the data-set instead of the entire data-set itself. This is called stochastic gradient descent, since the data is selected randomly. Adam is a newer approach of the stochastic family using adaptive network learning rates for every parameter. Adam is usually preferred for Neural Networks with big data-sets. However since Adam converges slower, a higher number of epochs is needed to reach the best accuracies.
-About 10 neurons in the hidden layer appears to be an optimal choice, since increasing the number of neurons leads to no significant increase in accuracy for all models. 
+Around 11 neurons in the hidden layer appears to be an optimal choice (same as number of features), since increasing the number of neurons leads to no significant increase in accuracy for all models. 
 %Several models have similar performance for 10 neurons in the hidden layer. 
 %For the final classification model we choose Adam solver, and tanh activation function
 %We find that tanh is a slightly better activation function in our case, as it provides slightly better results for both optimization methods as compared to relu.
 %As a method of choice we will use in the following 10 neurons in the hidden layer with tanh activation function and Adam optimizer.
 
 Dependence on the number of epochs (number of iterations in fitting) is presented in Figure \ref{fig:NN_epochs}. 
-The accuracy increases with higher number of epochs and saturates at around 50 for LBFGS and 300 for Adam. LBFGS converges faster than Adam, which uses stochastic gradient descent.
+The accuracy increases with higher number of epochs and saturates at around 200 for LBFGS and 300 for Adam. LBFGS converges faster than Adam, which uses stochastic gradient descent.
 %A higher number will then lead to over-fitting of the model.
 
 
@@ -461,8 +461,8 @@ As can be seen in the figure, with the specific stochastic gradient method Adam,
 %Like with Random forests, we also look at the probabilities here. 
 We illustrate the classification domains for NN with two input features in Figure \ref{fig:NN_domains}. 
 In this case we also use only two neurons in the hidden layer.
-The figure on the top panel shows the domains after 50 epochs, which has a much less determined boundary than the
-domains in the bottom panel derived for 300 epochs. 
+The figure on the top panel shows the domains after 50 epochs, which has a less determined boundary than the
+domains in the bottom panel derived for 300 epochs. Due to the use of only 2 neurons and the fast converging LBFGS method, the accuracies are also similar.
 One can also see that the separation boundary is smoother compared to the RF domains in Figure \ref{fig:RF_domains} or BDT domains in Figure \ref{fig:BDT_domains}.
 %Secondly, one can clearly see how different the network behaves to the random forests before. The non-linear nature of neural networks allows it to smoothen the domain junctions (regions where there is a shift in class probabilities); this is a feature which becomes important especially when the number of training features is higher.
 %\dima{As above, I don't think it makes sense to use more than 2 nodes in the hidden layer here, since there are only two input features.} 
@@ -477,7 +477,7 @@ For our final model we chose one hidden layer with ten neurons, 300 training epo
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_300_lbfgs.pdf}
 \caption{NN classification domains for 2 input features. We use 2 neurons in the hidden layer. 
-We use tanh activation function and Adam solver. Top panel: 50 training epochs, bottom panel: 300 training epochs.}
+We use tanh activation function and LBFGS solver. Top panel: 50 training epochs, bottom panel: 300 training epochs.}
 \label{fig:NN_domains}
 \end{figure}
 
@@ -495,7 +495,7 @@ In Figure \ref{fig:LR_accuracy} we show the accuracy of the LR method as a funct
 for different solvers, e.g., LBFGS \citep{lbfgs}, Stochastic Average Gradient \citep[SAG,][]{sag}, SAGA \citep[a variant of SAG,][]{saga},
 and liblinear \citep[a special solver for LR and support vector machine classifications,][]{ll}.
 %\dima{refs?}
-As one can see from Figure \ref{fig:LR_accuracy}, all solvers have similar performance with the LBFGs slightly outperforming the other solvers for large number of iterations.
+As one can see from Figure \ref{fig:LR_accuracy}, LBFGS and Liblinear outperform the other two solvers and converge much faster.
 In order to illustrate the probability domains in LR, we show the classification with two features (LBFGs, 200 iterations)
 in Figure \ref{fig:LR_domains}. The domains look similar to the domains in the NN case (Figure \ref{fig:NN_domains}).
 For the final classification we will use LBFGs solver with 200 iterations.
@@ -567,7 +567,7 @@ the number of times a source appears in training is shown by adding markers with
 In the bottom panel of Figure \ref{fig:LR_domains_O} we repeat Figure  \ref{fig:LR_domains} in order to compare the classification domains with and without oversampling.
 One can see that pulsar domain in the top panel is larger than the pulsar domain in the bottom panel.
 As a result, in the top panel more pulsars are classified as pulsars but also more AGNs are falsely classified as pulsars in the intersection region. 
-Since the overall number of AGNs is larger than the number of pulsars, the testing accuracy with oversampling is smaller than the one without oversampling: 0.87 vs 0.95.
+Since the overall number of AGNs is larger than the number of pulsars, the testing accuracy with oversampling is smaller than the one without oversampling: 0.92 vs 0.97.
 
 The results of training with oversampling are presented  in Figure \ref{fig:prec_recall},
 lines 5 and 6 (solid purple with circles and dashed brown with stars). These lines show precision and recall when a source is categorized as a pulsar, if all four algorithms classify it as a pulsar. The recall in this case is similar to the recall of the any-algorithm-classification for the training without oversampling,
