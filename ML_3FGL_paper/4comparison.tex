@@ -5,6 +5,20 @@
 \lb{sec:dNdS}
 
 
+In this section we show how probabilistic catalogs can be used, for instance, for population studies.
+One of the most important questions in gamma-ray astronomy is contribution of point sources, 
+e.g., AGNs, to the extragalactic gamma-ray flux 
+\citep[e.g.,][]{2010ApJ...720..435A, 2011ApJ...738..181M, 2016PhRvL.116o1105A, 2016ApJS..225...18Z, 2016ApJ...826L..31Z, 2016ApJ...832..117L, 2018ApJ...856..106D}:
+if most of the extra-galactic emission is explained by point sources, then one can put stringent constraints, 
+e.g., on  dark matter annihilation or decay into gamma rays 
+\citep{2015ApJ...800L..27A, 2015PhRvD..91l3001D, 2015JCAP...09..008F, 2015PhR...598....1F, 2017ChPhC..41d5104L} or 
+on evaporation of primordial black holes \citep{2010PhRvD..81j4019C}.
+In particular, it is important to understand the contribution to the population of AGNs from the unassociated sources.
+A probabilistic catalog provides an answer to the question: how many sources among the unassociated ones are expected to belong to different classes, such as pulsars or AGNs. 
+One can calculate the total expected number of AGNs or pulsars among the unassociated sources, or calculate the contribution as a function of one or more parameters.
+In this section we determine the numbers of AGNs and pulsars as a function of their flux.
+
+
 
 \begin{figure*}[h]
 \center
@@ -32,18 +46,6 @@
 
 
 
-In this section we show how probabilistic catalogs can be used, for instance, for population studies.
-One of the most important questions in gamma-ray astronomy is contribution of point sources, 
-e.g., AGNs, to the extragalactic gamma-ray flux \citep[e.g.,][]{2010ApJ...720..435A, 2011ApJ...738..181M, 2016PhRvL.116o1105A, 2016ApJS..225...18Z, 2016ApJ...826L..31Z, 2016ApJ...832..117L, 2018ApJ...856..106D}:
-if most of the extra-galactic emission is explained by point sources, then one can put stringent constraints, 
-e.g., on  dark matter annihilation or decay into gamma rays 
-\citep{2015ApJ...800L..27A, 2015PhRvD..91l3001D, 2015JCAP...09..008F, 2015PhR...598....1F, 2017ChPhC..41d5104L} or 
-on evaporation of primordial black holes \citep{2010PhRvD..81j4019C}.
-%and on the origin of astrophysical high energy neutrino flux  \citep{2013PhRvD..88l1301M, 2017ApJ...836...47B}.
-In particular, it is important to understand the contribution to the population of AGNs from the unassociated sources.
-A probabilistic catalog provides an answer to the question: how many sources among the unassociated ones are expected to belong to different classes, such as pulsars or AGNs. 
-One can calculate the total expected number of AGNs or pulsars among the unassociated sources, or calculate the contribution as a function of one or more parameters.
-In this section we determine the numbers of AGNs and pulsars as a function of their flux.
 
 In Figure \ref{fig:logN_logS} we show the cumulative number of AGNs and pulsars with flux above 1 GeV larger than the
 value on the x-axis.
@@ -63,14 +65,13 @@ We see that the counts of associated sources, AGNs and pulsars, are consistent w
 calculated from the class probabilities of associated sources.
 This conclusion is not very surprising since we used associated sources for training of ML algorithms.
 It is important to note that correction for ``other'' sources is important for consistency of the sum of probabilities and the number of associated sources.
-We have also compared the sums of probabilities for the 3FGL associated sources in \cite{2016ApJ...820....8S}.%
-%\footnote{The data is downloaded from \url{https://www.physics.hku.hk/~pablo/pulsarness.html}.}
-% !!! resolve the footnote issue?
+We have also compared the sums of probabilities for the 3FGL associated sources in \cite{2016ApJ...820....8S}.
+%\footnote{The data is downloaded from \url{https://www.physics.hku.hk/~pablo/pulsarness.html}.} !!! resolve the footnote issue?
 The sum of probabilities for associated sources in the LR case uncorrected for ``other'' sources are shown by dotted black line,
 while the sums corrected for ``other'' sources are shown by black dash-dotted lines.
 The gray band is the envelope of the two methods (LR and RF) used by \cite{2016ApJ...820....8S}.
-We see that the sum of probabilities for pulsars overpredicts the pulsar counts in 3FGL, while correction for ``other'' sources makes the prediction consistent with the counts of pulsars.
-%We note that the expected number of associated pulsars in 3FGL and 4FGL catalogs (purple band) is slightly below the actual counts of pulsars, this can be due to the fact that the number of AGNs in the training sample is much larger than the number of pulsars. \cite{2016ApJ...820....8S} have used weights in the training sample inversely proportional to the number of elements in the class, i.e., a pulsar has more weight in training than an AGN. This can be a reason for an overprediction of the number of associated pulsars, compared to the actual count.
+We see that the sum of probabilities for pulsars overpredicts the pulsar counts in 3FGL, 
+while correction for ``other'' sources makes the prediction consistent with the counts of pulsars.
 
 The predictions for the number of AGNs and pulsars among the unassociated sources corrected for ``other'' sources 
 added to the 3FGL and 4FGL source counts are shown by solid orange lines (for the LR case).
@@ -91,7 +92,8 @@ The first term is the sum of AGN-like probabilities among the unassociated sourc
 while the second term is the sum of AGN-like probabilities among associated ``other'' sources rescaled by the total number
 of unassociated and associated sources in this flux band.
 The expected number of pulsars among the unassociated sources is calculated analogously.
-The corresponding sums of associated source counts plus the expected number of sources calculated with LR method of \cite{2016ApJ...820....8S} and corrected for other sources are shown by dashed grey lines.
+The corresponding sums of associated source counts plus the expected number of sources calculated with LR method of \cite{2016ApJ...820....8S} 
+and corrected for other sources are shown by dashed grey lines.
 
 
 We predict that the expected number of pulsars among the unassociated sources in the 3FGL catalog
@@ -113,9 +115,10 @@ It means that the decision which sources are considered to be more likely pulsar
 and the probability threshold than the expected number of pulsars calculated from the sum of probabilities.
 
 We also note that the probabilistic classification mostly affects sources with smaller fluxes,
-which we illustrate in Figure \ref{fig:unass_vs_ass_frac}, where we show that the ratio of expected number of AGNs and pulsars among unassociated sources computed according to Eq. \ref{eq:unassoc_ev} using LR method without oversampling to the number of associated sources decreases as the flux increases.
+which we illustrate in Figure \ref{fig:unass_vs_ass_frac}, where we show that the ratio of expected number of AGNs and pulsars among 
+unassociated sources computed according to Eq. \ref{eq:unassoc_ev} using LR method without oversampling to the number of associated 
+sources decreases as the flux increases.
 Negative values (e.g., at high fluxes for AGNs) are due to subtraction of probabilities for the ``other'' associated sources.
-%One can see that the fraction of AGNs or pulsars among unassociated sources to the associated ones is higher at smaller fluxes.
 
 \subsection{Latitude and longitude profiles}
 \lb{sec:lat-lon-profiles}
@@ -162,7 +165,6 @@ Green shaded areas show the envelopes of sums of probabilities for AGN- and PSR-
 algorithms without oversampling, while the red shaded areas show the envelope for the four algorithms 
 with oversampling.
 The classifications of 3FGL sources by \cite{2016ApJ...820....8S} are shown by gray dashed (RF) and dotted (LR) lines.
-%The RF prediction of \cite{2016ApJ...820....8S} lies within the green band, i.e., agrees well with our calculations.
 In this section we do not perform a correction for the presence of other sources among the unassociated ones.
 The numbers of unassociated sources classified as AGNs and PSRs grow towards the Galactic plane (GP).
 Within $\approx 4^\circ\!\!.5$ from the GP the expected number of PSRs is about the same as the number of AGNs among unassociated sources (the first data point on the left).
@@ -172,7 +174,6 @@ It can be a posteriori explained by the fact that
  the density of AGNs is such that even in the GP the expected number of AGNs is comparable to the expected number of PSRs.
 
 Orange shaded areas show the sum of the source counts and the expected number of sources for the eight methods (both with and without oversampling).
-%The predictions of the 4 algorithms, which we use for classification, added to the counts of associated sources are shown by grey bands.
 The average among the eight methods added to the counts of associated sources is shown by solid orange line 
 (for AGNs we also show the mean of these points by dotted green line).
 We find that the number of associated AGNs is decreasing towards the GP, the expected number of AGNs among unassociated sources is increasing towards the GP, but the sum of the two is relatively uniform as a function of Galactic latitude.
