@@ -39,7 +39,7 @@ pyplot.rcParams['lines.linewidth'] = 4
 pyplot.rcParams['lines.markersize'] = 12
 
 
-dataframe = pandas.read_csv("./files/result_3fglassocnewfeat_lr_multi.csv", header=None)
+dataframe = pandas.read_csv("./files/result_3fglassocnewfeat_nn_neurons_2layers_multi_oversampled.csv", header=None)
 dataset1 = dataframe.values
 #dataframe2 = pandas.read_csv("./files/result_3fglassocnewfeat_rf2.csv", header=None)
 #dataset2=dataframe2.values
@@ -61,22 +61,22 @@ plt.plot(numi, valscore34, 'b',marker='.')
 plt.plot(numi, valscore32, 'c-',marker='>')
 '''
 plt.plot(numi, valscore3, 'g-',marker='D')
-#plt.plot(numi, valscore4, 'p-.',marker='o')
+plt.plot(numi, valscore4, 'p-.',marker='o')
 plt.plot(numi, valscore12, 'r--',marker='>')
 plt.plot(numi, valscore22, 'y:',marker='<')
 
 
-ax.set_xlabel('Number of Iterations',fontsize='xx-large')
+ax.set_xlabel('Number of Neurons in second layer',fontsize='xx-large')
 ax.set_ylabel('Testing Score',fontsize='xx-large')
 plt.yticks(fontsize='large')
 #plt.yticks(np.arange(92,99,step=1))
 #plt.xticks(fontsize='large')
 #ax.set_zlabel('Validation score')
-#plt.legend(["LBFGS, Tanh","LBFGS, Relu","Adam, Tanh","Adam, Relu"],title='Number of Epochs: 600')
+plt.legend(["LBFGS, Tanh","LBFGS, Relu","Adam, Tanh","Adam, Relu"],title='Number of Epochs: 600')
 #plt.legend(["5 Trees","20 Trees","100 Trees","500 Trees"])#"50 Trees","100 Trees","200 Trees"])
 
-plt.legend(["LBFGS","SAG","SAGA"])
+#plt.legend(["LBFGS","SAG","SAGA"])
 #plt.legend(["Tol = 0.001","Tol = 1","Tol = 10"])
 
-ax.set_title('Logistic Regression',fontsize='xx-large')
+ax.set_title('Neural Network',fontsize='xx-large')
 plt.show()

@@ -27,6 +27,9 @@ from sklearn.gaussian_process.kernels import RBF
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from matplotlib import pyplot
+from imblearn.over_sampling import RandomOverSampler
+from imblearn.datasets import make_imbalance
+
 
 pyplot.rcParams['xtick.labelsize'] = 18
 pyplot.rcParams['axes.labelsize'] = 18
@@ -105,7 +108,13 @@ while se<100:
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     train_truth1=np.ravel(train_truth1)
 
+    sampling_strategy = 'not majority'
 
+    ros = RandomOverSampler(sampling_strategy=sampling_strategy)
+    X_over, y_over = ros.fit_resample(train1, train_truth1)
+    print(y_over)
+    others =[y_over[i] for i in range(len(y_over)) if y_over[i]==0]
+    print(len(others))
 
     i=2
     j=0
@@ -126,9 +135,9 @@ while se<100:
     while i < 21:
         #clf = RandomForestClassifier(n_estimators=20,max_depth=i,oob_score=True)
         #clf.fit(train1,train_truth1)
-        #clf = MLPClassifier(max_iter=i,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(train1,train_truth1)
-        #clf=GradientBoostingClassifier(n_estimators=5, learning_rate=0.3,max_depth=i).fit(train1, train_truth1)
-        #clf= LogisticRegression(max_iter=i, C=1, solver='lbfgs').fit(train1, train_truth1)
+        clf = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
+        #clf= GradientBoostingClassifier(n_estimators=5, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
+        #clf= LogisticRegression(max_iter=i, C=1, solver='lbfgs').fit(X_over, y_over)
         numi.append(i)
         scor=clf.score(val_inp1,val_out1)
 
@@ -139,27 +148,27 @@ while se<100:
         #feat3.append(clf.feature_importances_)
         print(scor)
         #print(i)
-        #clf2 = MLPClassifier(max_iter=i,hidden_layer_sizes=(11,), activation='relu', solver='lbfgs').fit(train1,train_truth1)
-        clf2=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=i).fit(train1, train_truth1)
+        clf2 = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='relu', solver='lbfgs').fit(X_over, y_over)
+        #clf2=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
         #clf2 = RandomForestClassifier(n_estimators=50,max_depth=i,oob_score=True)
         #clf2.fit(train1,train_truth1)
 
-        #clf2= LogisticRegression(max_iter=i, C=1, solver='liblinear').fit(train1, train_truth1)
-        clf3=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=i).fit(train1, train_truth1)
-        #clf3 = MLPClassifier(max_iter=i,hidden_layer_sizes=(11,), activation='tanh', solver='adam').fit(train1,train_truth1)
+        #clf2= LogisticRegression(max_iter=i, C=1, solver='liblinear').fit(X_over, y_over)
+        #clf3=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
+        clf3 = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='tanh', solver='adam').fit(X_over, y_over)
         score2=clf2.score(val_inp1,val_out1)
         #clf3 = RandomForestClassifier(n_estimators=100,max_depth=i,oob_score=True)
         #clf3.fit(train1,train_truth1)
 
         valscore5.append(score2*100)
-        #clf3= LogisticRegression(max_iter=i, C=1,solver='sag').fit(train1, train_truth1)
+        #clf3= LogisticRegression(max_iter=i, C=1,solver='sag').fit(X_over, y_over)
         score3=clf3.score(val_inp1,val_out1)
         valscore10.append(score3*100)
-        #clf4 = MLPClassifier(max_iter=i,hidden_layer_sizes=(11,), activation='relu', solver='adam').fit(train1,train_truth1)
-        clf4=GradientBoostingClassifier(n_estimators=500, learning_rate=0.3,max_depth=i).fit(train1, train_truth1)
+        clf4 = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='relu', solver='adam').fit(X_over, y_over)
+        #clf4=GradientBoostingClassifier(n_estimators=500, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
         #clf4 = RandomForestClassifier(n_estimators=200,max_depth=i,oob_score=True)
         #clf4.fit(train1,train_truth1)
-        #clf4= LogisticRegression(max_iter=i, C=1,solver='saga').fit(train1, train_truth1)
+        #clf4= LogisticRegression(max_iter=i, C=1,solver='saga').fit(X_over, y_over) 
 
         score4=clf4.score(val_inp1,val_out1)
         valscore20.append(score4*100)
@@ -210,9 +219,9 @@ plt.yticks(fontsize='large')
 #plt.yticks(np.arange(92,99,step=1))
 #plt.xticks(fontsize='large')
 #ax.set_zlabel('Validation score')
-plt.legend(["20 Trees","50 Trees","100 Trees","200 Trees"])
+#plt.legend(["20 Trees","50 Trees","100 Trees","200 Trees"])
 #plt.legend(["Tol= 0.001","Tol = 1","Tol = 10"])
-#plt.legend(["LBFGS Tanh","LBFGS Relu","ADAM Tanh","ADAM Relu"],title='Number of Neurons:10')
+plt.legend(["LBFGS Tanh","LBFGS Relu","ADAM Tanh","ADAM Relu"],title='Number of Neurons:11')
 
 #ax.set_title('Logistic Regression (LBFGS,300): Accuracy vs. Regularization',fontsize='xx-large')
 ax.set_title('Random Forests',fontsize='xx-large')
@@ -226,7 +235,7 @@ result=np.vstack((result,valscore12))
 result=np.vstack((result,valscore22))
 print(result)
 result=pandas.DataFrame(result)
-result.to_csv(path_or_buf="./files/result_3fglassocnewfeat_bdt_multi.csv",index=False)
+result.to_csv(path_or_buf="./files/result_3fglassocnewfeat_nn_neurons_2layers_multi_oversampled.csv",index=False)
 
 '''
     i=0
