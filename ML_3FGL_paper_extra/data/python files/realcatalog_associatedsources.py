@@ -41,11 +41,11 @@ se=0
 
 
 
-dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
+dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
 dataset1 = dataframe.values
 
-names_assoc=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,17]=='AGN' or dataset1[i,17]=='PSR']
-unassocnames=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,17]=='UNAS' or dataset1[i,17]=='OTHER']
+names_assoc=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR'or dataset1[i,12]=='OTHER']
+unassocnames=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,12]=='UNAS']
 
 print(names_assoc)
 
@@ -65,22 +65,22 @@ times=1000
 while se<times:
     #data:
     np.random.seed(se)
-    dataframe3 = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
+    dataframe3 = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
     dataset3 = dataframe3.values
-    X2 = [dataset3[i,1:17].astype(float) for i in range(len(dataset3)) if dataset3[i,17]=='UNAS' or dataset3[i,17]=='OTHER']
-    print(len(X2))
+    X2 = [dataset3[i,1:12].astype(float) for i in range(len(dataset3)) if dataset3[i,12]=='UNAS' ]
+    print(X2)
     np.random.shuffle(dataset3[1:])
     
 
     
-    X = [dataset3[i,1:17].astype(float) for i in range(len(dataset3)) if dataset3[i,17]=='AGN' or dataset3[i,17]=='PSR']
-    Y = [dataset3[i,17] for i in range(len(dataset3)) if dataset3[i,17]=='AGN' or dataset3[i,17]=='PSR']
-    val_source1=[dataset3[i,0] for i in range(len(dataset3)) if dataset3[i,17]=='AGN' or dataset3[i,17]=='PSR']
+    X = [dataset3[i,1:12].astype(float) for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR'or dataset3[i,12]=='OTHER']
+    Y = [dataset3[i,12] for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR'or dataset3[i,12]=='OTHER']
+    val_source1=[dataset3[i,0] for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR'or dataset3[i,12]=='OTHER']
+    
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
-
-
+    
     lenth=len(Y)
     lenth=int(0.7*lenth)
     print(lenth)
@@ -98,13 +98,13 @@ while se<times:
 
 
 
-    #X_over=train1
-    #y_over=train_truth1
-    oversample = RandomOverSampler(sampling_strategy='minority')
-    X_over, y_over = oversample.fit_resample(train1, train_truth1)
+    X_over=train1
+    y_over=train_truth1
+    #oversample = RandomOverSampler(sampling_strategy='minority')
+    #X_over, y_over = oversample.fit_resample(train1, train_truth1)
     #oversample = RandomOverSampler(sampling_strategy=0.5)
     clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
-    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(16,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
+    clf2= MLPClassifier(max_iter=600,hidden_layer_sizes=(11), activation='tanh', solver='lbfgs').fit(X_over, y_over)
     clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
     clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
     clf4.fit(X_over, y_over)
@@ -114,7 +114,6 @@ while se<times:
     fit2=clf2.predict_proba(val_inp1)
     fit3=clf3.predict_proba(val_inp1)
     fit4=clf4.predict_proba(val_inp1)
-    
     probs_ass_bdt.append(fit1)
     probs_un_bdt.append(clf.predict_proba(X2))
     probs_ass_nn.append(fit2)
@@ -135,18 +134,26 @@ AGN_BDT_mean=np.zeros(len(unassoc_names))
 AGN_BDT_std=np.zeros(len(unassoc_names))
 PSR_BDT_mean=np.zeros(len(unassoc_names))
 PSR_BDT_std=np.zeros(len(unassoc_names))
+OTHER_BDT_mean=np.zeros(len(unassoc_names))
+OTHER_BDT_std=np.zeros(len(unassoc_names))
 AGN_NN_mean=np.zeros(len(unassoc_names))
 AGN_NN_std=np.zeros(len(unassoc_names))
 PSR_NN_mean=np.zeros(len(unassoc_names))
 PSR_NN_std=np.zeros(len(unassoc_names))
+OTHER_NN_mean=np.zeros(len(unassoc_names))
+OTHER_NN_std=np.zeros(len(unassoc_names))
 AGN_RF_mean=np.zeros(len(unassoc_names))
 AGN_RF_std=np.zeros(len(unassoc_names))
 PSR_RF_mean=np.zeros(len(unassoc_names))
 PSR_RF_std=np.zeros(len(unassoc_names))
+OTHER_RF_mean=np.zeros(len(unassoc_names))
+OTHER_RF_std=np.zeros(len(unassoc_names))
 AGN_LR_mean=np.zeros(len(unassoc_names))
 AGN_LR_std=np.zeros(len(unassoc_names))
 PSR_LR_mean=np.zeros(len(unassoc_names))
 PSR_LR_std=np.zeros(len(unassoc_names))
+OTHER_LR_mean=np.zeros(len(unassoc_names))
+OTHER_LR_std=np.zeros(len(unassoc_names))
 #########################
 
 
@@ -154,18 +161,26 @@ AGN_BDT_mean_as=np.zeros(len(names_assoc))
 AGN_BDT_std_as=np.zeros(len(names_assoc))
 PSR_BDT_mean_as=np.zeros(len(names_assoc))
 PSR_BDT_std_as=np.zeros(len(names_assoc))
+OTHER_BDT_mean_as=np.zeros(len(names_assoc))
+OTHER_BDT_std_as=np.zeros(len(names_assoc))
 AGN_NN_mean_as=np.zeros(len(names_assoc))
 AGN_NN_std_as=np.zeros(len(names_assoc))
 PSR_NN_mean_as=np.zeros(len(names_assoc))
 PSR_NN_std_as=np.zeros(len(names_assoc))
+OTHER_NN_mean_as=np.zeros(len(names_assoc))
+OTHER_NN_std_as=np.zeros(len(names_assoc))
 AGN_RF_mean_as=np.zeros(len(names_assoc))
 AGN_RF_std_as=np.zeros(len(names_assoc))
 PSR_RF_mean_as=np.zeros(len(names_assoc))
 PSR_RF_std_as=np.zeros(len(names_assoc))
+OTHER_RF_mean_as=np.zeros(len(names_assoc))
+OTHER_RF_std_as=np.zeros(len(names_assoc))
 AGN_LR_mean_as=np.zeros(len(names_assoc))
 AGN_LR_std_as=np.zeros(len(names_assoc))
 PSR_LR_mean_as=np.zeros(len(names_assoc))
 PSR_LR_std_as=np.zeros(len(names_assoc))
+OTHER_LR_mean_as=np.zeros(len(names_assoc))
+OTHER_LR_std_as=np.zeros(len(names_assoc))
 #########################
 
 for i in range(len(names_assoc)):
@@ -174,12 +189,16 @@ for i in range(len(names_assoc)):
     name=names_assoc[i]
     AGN_BDT=[]
     PSR_BDT=[]
+    OTHER_BDT=[]
     AGN_NN=[]
     PSR_NN=[]
+    OTHER_NN=[]
     AGN_RF=[]
     PSR_RF=[]
+    OTHER_RF=[]
     AGN_LR=[]
     PSR_LR=[]
+    OTHER_LR=[]
     for j in range(times):
         sourcenames1=sourcename_ass[j]
         for k in range(len(sourcenames1)):
@@ -187,19 +206,24 @@ for i in range(len(names_assoc)):
                 prob=probs_ass_bdt[j]
                 prob2=prob[k]
                 AGN_BDT.append(prob2[0])
-                PSR_BDT.append(prob2[1])
+                PSR_BDT.append(prob2[2])
+                OTHER_BDT.append(prob2[1])
                 prob=probs_ass_nn[j]
                 prob2=prob[k]
                 AGN_NN.append(prob2[0])
-                PSR_NN.append(prob2[1])
+                PSR_NN.append(prob2[2])
+                OTHER_NN.append(prob2[1])
                 prob=probs_ass_rf[j]
                 prob2=prob[k]
                 AGN_RF.append(prob2[0])
-                PSR_RF.append(prob2[1])
+                PSR_RF.append(prob2[2])
+                OTHER_RF.append(prob2[1])
                 prob=probs_ass_lr[j]
                 prob2=prob[k]
                 AGN_LR.append(prob2[0])
-                PSR_LR.append(prob2[1])
+                PSR_LR.append(prob2[2])
+                OTHER_LR.append(prob2[1])
+
         
         
 
@@ -211,25 +235,33 @@ for i in range(len(names_assoc)):
     AGN_BDT_std_as[i]=np.std(AGN_BDT)
     PSR_BDT_mean_as[i]=np.mean(PSR_BDT)
     PSR_BDT_std_as[i]=np.std(PSR_BDT)
+    OTHER_BDT_mean_as[i]=np.mean(OTHER_BDT)
+    OTHER_BDT_std_as[i]=np.std(OTHER_BDT)
     AGN_NN_mean_as[i]=np.mean(AGN_NN)
     AGN_NN_std_as[i]=np.std(AGN_NN)
     PSR_NN_mean_as[i]=np.mean(PSR_NN)
     PSR_NN_std_as[i]=np.std(PSR_NN)
+    OTHER_NN_mean_as[i]=np.mean(OTHER_NN)
+    OTHER_NN_std_as[i]=np.std(OTHER_NN)
     AGN_RF_mean_as[i]=np.mean(AGN_RF)
     AGN_RF_std_as[i]=np.std(AGN_RF)
     PSR_RF_mean_as[i]=np.mean(PSR_RF)
     PSR_RF_std_as[i]=np.std(PSR_RF)
+    OTHER_RF_mean_as[i]=np.mean(OTHER_RF)
+    OTHER_RF_std_as[i]=np.std(OTHER_RF)
     AGN_LR_mean_as[i]=np.mean(AGN_LR)
     AGN_LR_std_as[i]=np.std(AGN_LR)
     PSR_LR_mean_as[i]=np.mean(PSR_LR)
     PSR_LR_std_as[i]=np.std(PSR_LR)
+    OTHER_LR_mean_as[i]=np.mean(OTHER_LR)
+    OTHER_LR_std_as[i]=np.std(OTHER_LR)
 
-result_as=np.column_stack((names_assoc,AGN_BDT_mean_as,AGN_BDT_std_as,PSR_BDT_mean_as,PSR_BDT_std_as,AGN_NN_mean_as,AGN_NN_std_as,PSR_NN_mean_as,PSR_NN_std_as,AGN_RF_mean_as,AGN_RF_std_as,PSR_RF_mean_as,PSR_RF_std_as,AGN_LR_mean_as,AGN_LR_std_as,PSR_LR_mean_as,PSR_LR_std_as))
-pro2=["Source_Name","AGN_BDT_O","AGN_BDT_STD_O","PSR_BDT_O","PSR_BDT_STD_O","AGN_NN_O","AGN_NN_STD_O","PSR_NN_O","PSR_NN_STD_O","AGN_RF_O","AGN_RF_STD_O","PSR_RF_O","PSR_RF_STD_O","AGN_LR_O","AGN_LR_STD_O","PSR_LR_O","PSR_LR_STD_O"]
+result_as=np.column_stack((names_assoc,AGN_BDT_mean_as,AGN_BDT_std_as,PSR_BDT_mean_as,PSR_BDT_std_as,OTHER_BDT_mean_as,OTHER_BDT_std_as,AGN_NN_mean_as,AGN_NN_std_as,PSR_NN_mean_as,PSR_NN_std_as,OTHER_NN_mean_as,OTHER_NN_std_as,AGN_RF_mean_as,AGN_RF_std_as,PSR_RF_mean_as,PSR_RF_std_as,OTHER_RF_mean_as,OTHER_RF_std_as,AGN_LR_mean_as,AGN_LR_std_as,PSR_LR_mean_as,PSR_LR_std_as,OTHER_LR_mean_as,OTHER_LR_std_as))
+pro2=["Source_Name","AGN_BDT","AGN_BDT_STD","PSR_BDT","PSR_BDT_STD","OTHER_BDT","OTHER_BDT_STD","AGN_NN","AGN_NN_STD","PSR_NN","PSR_NN_STD","OTHER_NN","OTHER_NN_STD","AGN_RF","AGN_RF_STD","PSR_RF","PSR_RF_STD","OTHER_RF","OTHER_RF_STD","AGN_LR","AGN_LR_STD","PSR_LR","PSR_LR_STD","OTHER_LR","OTHER_LR_STD"]
 result_As=np.vstack((pro2,result_as))
 result_As=pandas.DataFrame(result_As)
 
-result_As.to_csv(path_or_buf="./catas/try_4fgldr2_as_O.csv",index=False)
+result_As.to_csv(path_or_buf="./catas/try_3fgl_multi_as.csv",index=False)
 
 
 
@@ -237,29 +269,37 @@ result_As.to_csv(path_or_buf="./catas/try_4fgldr2_as_O.csv",index=False)
 for i in range(len(unassoc_names)):
     AGN_BDT=[]
     PSR_BDT=[]
+    OTHER_BDT=[]
     AGN_NN=[]
     PSR_NN=[]
+    OTHER_NN=[]
     AGN_RF=[]
     PSR_RF=[]
+    OTHER_RF=[]
     AGN_LR=[]
     PSR_LR=[]
+    OTHER_LR=[]
     for j in range(times):
         prob=probs_un_bdt[j]
         prob2=prob[i]
         AGN_BDT.append(prob2[0])
-        PSR_BDT.append(prob2[1])
+        PSR_BDT.append(prob2[2])
+        OTHER_BDT.append(prob2[1])
         prob=probs_un_nn[j]
         prob2=prob[i]
         AGN_NN.append(prob2[0])
-        PSR_NN.append(prob2[1])
+        PSR_NN.append(prob2[2])
+        OTHER_NN.append(prob2[1])
         prob=probs_un_rf[j]
         prob2=prob[i]
         AGN_RF.append(prob2[0])
-        PSR_RF.append(prob2[1])
+        PSR_RF.append(prob2[2])
+        OTHER_RF.append(prob2[1])
         prob=probs_un_lr[j]
         prob2=prob[i]
         AGN_LR.append(prob2[0])
-        PSR_LR.append(prob2[1])
+        PSR_LR.append(prob2[2])
+        OTHER_LR.append(prob2[1])
 
 
 
@@ -269,27 +309,35 @@ for i in range(len(unassoc_names)):
     AGN_BDT_std[i]=np.std(AGN_BDT)
     PSR_BDT_mean[i]=np.mean(PSR_BDT)
     PSR_BDT_std[i]=np.std(PSR_BDT)
+    OTHER_BDT_mean[i]=np.mean(OTHER_BDT)
+    OTHER_BDT_std[i]=np.std(OTHER_BDT)
     AGN_NN_mean[i]=np.mean(AGN_NN)
     AGN_NN_std[i]=np.std(AGN_NN)
     PSR_NN_mean[i]=np.mean(PSR_NN)
     PSR_NN_std[i]=np.std(PSR_NN)
+    OTHER_NN_mean[i]=np.mean(OTHER_NN)
+    OTHER_NN_std[i]=np.std(OTHER_NN)
     AGN_RF_mean[i]=np.mean(AGN_RF)
     AGN_RF_std[i]=np.std(AGN_RF)
     PSR_RF_mean[i]=np.mean(PSR_RF)
     PSR_RF_std[i]=np.std(PSR_RF)
+    OTHER_RF_mean[i]=np.mean(OTHER_RF)
+    OTHER_RF_std[i]=np.std(OTHER_RF)
     AGN_LR_mean[i]=np.mean(AGN_LR)
     AGN_LR_std[i]=np.std(AGN_LR)
     PSR_LR_mean[i]=np.mean(PSR_LR)
     PSR_LR_std[i]=np.std(PSR_LR)
+    OTHER_LR_mean[i]=np.mean(OTHER_LR)
+    OTHER_LR_std[i]=np.std(OTHER_LR)
 
 
 
-result2=np.column_stack((unassoc_names,AGN_BDT_mean,AGN_BDT_std,PSR_BDT_mean,PSR_BDT_std,AGN_NN_mean,AGN_NN_std,PSR_NN_mean,PSR_NN_std,AGN_RF_mean,AGN_RF_std,PSR_RF_mean,PSR_RF_std,AGN_LR_mean,AGN_LR_std,PSR_LR_mean,PSR_LR_std))
-pro2=["Source_Name","AGN_BDT_O","AGN_BDT_STD_O","PSR_BDT_O","PSR_BDT_STD_O","AGN_NN_O","AGN_NN_STD_O","PSR_NN_O","PSR_NN_STD_O","AGN_RF_O","AGN_RF_STD_O","PSR_RF_O","PSR_RF_STD_O","AGN_LR_O","AGN_LR_STD_O","PSR_LR_O","PSR_LR_STD_O"]
+result2=np.column_stack((unassoc_names,AGN_BDT_mean,AGN_BDT_std,PSR_BDT_mean,PSR_BDT_std,OTHER_BDT_mean,OTHER_BDT_std,AGN_NN_mean,AGN_NN_std,PSR_NN_mean,PSR_NN_std,OTHER_NN_mean,OTHER_NN_std,AGN_RF_mean,AGN_RF_std,PSR_RF_mean,PSR_RF_std,OTHER_RF_mean,OTHER_RF_std,AGN_LR_mean,AGN_LR_std,PSR_LR_mean,PSR_LR_std,OTHER_LR_mean,OTHER_LR_std))
+pro2=["Source_Name","AGN_BDT","AGN_BDT_STD","PSR_BDT","PSR_BDT_STD","OTHER_BDT","OTHER_BDT_STD","AGN_NN","AGN_NN_STD","PSR_NN","PSR_NN_STD","OTHER_NN","OTHER_NN_STD","AGN_RF","AGN_RF_STD","PSR_RF","PSR_RF_STD","OTHER_RF","OTHER_RF_STD","AGN_LR","AGN_LR_STD","PSR_LR","PSR_LR_STD","OTHER_LR","OTHER_LR_STD"]
 result=np.vstack((pro2,result2))
 result=pandas.DataFrame(result)
 
-result.to_csv(path_or_buf="./catas/try_4fgldr2_unas_O.csv",index=False)
+result.to_csv(path_or_buf="./catas/try_3fgl_multi_unas.csv",index=False)
 
 
 

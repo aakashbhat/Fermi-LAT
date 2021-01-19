@@ -116,7 +116,7 @@ while se<100:
     others =[y_over[i] for i in range(len(y_over)) if y_over[i]==0]
     print(len(others))
 
-    i=2
+    i=50
     j=0
     feat3=[]
     feat2=feat
@@ -132,12 +132,12 @@ while se<100:
     valscore6=valscore4
     valscore11=valscore12
     valscore21=valscore22
-    while i < 21:
+    while i < 501:
         #clf = RandomForestClassifier(n_estimators=20,max_depth=i,oob_score=True)
         #clf.fit(train1,train_truth1)
-        clf = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
+        #clf = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
         #clf= GradientBoostingClassifier(n_estimators=5, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
-        #clf= LogisticRegression(max_iter=i, C=1, solver='lbfgs').fit(X_over, y_over)
+        clf= LogisticRegression(max_iter=i, C=1e5, solver='lbfgs',multi_class="multinomial").fit(X_over, y_over)
         numi.append(i)
         scor=clf.score(val_inp1,val_out1)
 
@@ -148,27 +148,27 @@ while se<100:
         #feat3.append(clf.feature_importances_)
         print(scor)
         #print(i)
-        clf2 = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='relu', solver='lbfgs').fit(X_over, y_over)
+        #clf2 = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='relu', solver='lbfgs').fit(X_over, y_over)
         #clf2=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
         #clf2 = RandomForestClassifier(n_estimators=50,max_depth=i,oob_score=True)
         #clf2.fit(train1,train_truth1)
 
-        #clf2= LogisticRegression(max_iter=i, C=1, solver='liblinear').fit(X_over, y_over)
+        clf2= LogisticRegression(max_iter=i, C=1, solver='liblinear').fit(X_over, y_over)
         #clf3=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
-        clf3 = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='tanh', solver='adam').fit(X_over, y_over)
+        #clf3 = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='tanh', solver='adam').fit(X_over, y_over)
         score2=clf2.score(val_inp1,val_out1)
         #clf3 = RandomForestClassifier(n_estimators=100,max_depth=i,oob_score=True)
         #clf3.fit(train1,train_truth1)
 
         valscore5.append(score2*100)
-        #clf3= LogisticRegression(max_iter=i, C=1,solver='sag').fit(X_over, y_over)
+        clf3= LogisticRegression(max_iter=i, C=1e5,solver='sag',multi_class="multinomial").fit(X_over, y_over)
         score3=clf3.score(val_inp1,val_out1)
         valscore10.append(score3*100)
-        clf4 = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='relu', solver='adam').fit(X_over, y_over)
+        #clf4 = MLPClassifier(max_iter=600,hidden_layer_sizes=(11,i,), activation='relu', solver='adam').fit(X_over, y_over)
         #clf4=GradientBoostingClassifier(n_estimators=500, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
         #clf4 = RandomForestClassifier(n_estimators=200,max_depth=i,oob_score=True)
         #clf4.fit(train1,train_truth1)
-        #clf4= LogisticRegression(max_iter=i, C=1,solver='saga').fit(X_over, y_over) 
+        clf4= LogisticRegression(max_iter=i, C=1e5,solver='saga',multi_class="multinomial").fit(X_over, y_over) 
 
         score4=clf4.score(val_inp1,val_out1)
         valscore20.append(score4*100)
@@ -177,7 +177,7 @@ while se<100:
 
         
             
-        i=i+2
+        i=i+50
         
         
     #k=0
@@ -235,7 +235,7 @@ result=np.vstack((result,valscore12))
 result=np.vstack((result,valscore22))
 print(result)
 result=pandas.DataFrame(result)
-result.to_csv(path_or_buf="./files/result_3fglassocnewfeat_nn_neurons_2layers_multi_oversampled.csv",index=False)
+result.to_csv(path_or_buf="./files/result_3fglassocnewfeat_lr_multi_oversampled.csv",index=False)
 
 '''
     i=0

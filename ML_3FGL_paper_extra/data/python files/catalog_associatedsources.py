@@ -41,8 +41,8 @@ se=0
 valscore3=0
 #pro1=np.zeros((1905,9))
 pro1source=[]
-dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
-#dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
+#dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
+dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
 
 dataset1 = dataframe.values
 
@@ -54,21 +54,21 @@ rfo=[]
 lro=[]
 bdto=[]
 nno=[]
-lenth=17
+lenth=12
 
 
 while se<1000:
     #data:
     np.random.seed(se)
     
-    #dataframe2 = pandas.read_csv("./files/3fgl_4fgl_newfeats_3class.csv", header=None)
-    #dataset2 = dataframe2.values
+    dataframe2 = pandas.read_csv("./files/3fgl_4fgl_newfeats_3class.csv", header=None)
+    dataset2 = dataframe2.values
     
     np.random.shuffle(dataset1[1:])
 
 
-    X=[dataset1[i,1:lenth].astype(float) for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR' or dataset1[i,17]=='OTHER']
-    Y =[dataset1[i,lenth] for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR'or dataset1[i,17]=='OTHER']
+    X=[dataset1[i,1:lenth].astype(float) for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR' or dataset1[i,lenth]=='OTHER']
+    Y =[dataset1[i,lenth] for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR'or dataset1[i,lenth]=='OTHER']
     print(Y)
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
@@ -86,16 +86,16 @@ while se<1000:
     #X_over, y_over = make_imbalance(train1, train_truth1,sampling_strategy=sampling_strategy)
 
 
-    #X2=[dataset2[i,1:lenth].astype(float) for i in range(len(dataset2)) if dataset2[i,lenth]=='AGN' or dataset2[i,lenth]=='PSR'or dataset1[i,12]=='OTHER']
-    #Y2 =[dataset2[i,lenth] for i in range(len(dataset2)) if dataset2[i,lenth]=='AGN' or dataset2[i,lenth]=='PSR'or dataset1[i,12]=='OTHER']
-    #encoder = preprocessing.LabelEncoder()
-    #encoder.fit(Y2)
-    #Y2 = encoder.transform(Y2)
+    X2=[dataset2[i,1:lenth].astype(float) for i in range(len(dataset2)) if dataset2[i,lenth]=='AGN' or dataset2[i,lenth]=='PSR'or dataset1[i,12]=='OTHER']
+    Y2 =[dataset2[i,lenth] for i in range(len(dataset2)) if dataset2[i,lenth]=='AGN' or dataset2[i,lenth]=='PSR'or dataset1[i,12]=='OTHER']
+    encoder = preprocessing.LabelEncoder()
+    encoder.fit(Y2)
+    Y2 = encoder.transform(Y2)
     print(y_over)
     
     
-    #testdatainput=X2
-    #testdatalabels=Y2                     #ravel is used since flattened label array required
+    testdatainput=X2
+    testdatalabels=Y2                     #ravel is used since flattened label array required
     
     
     count=0
@@ -127,17 +127,17 @@ while se<1000:
     #X_over, y_over=train1,train_truth1
 
  
-    clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
-    clf2= MLPClassifier(max_iter=600,hidden_layer_sizes=(16,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
-    clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
-    clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
-    clf4.fit(X_over, y_over)
+    #clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
+    clf2= MLPClassifier(max_iter=600,hidden_layer_sizes=(11,), activation='tanh', solver='adam').fit(X_over, y_over)
+    #clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
+    #clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
+    #clf4.fit(X_over, y_over)
     
   
-    fit1=clf.score(val_inp1,val_out1)
+    #fit1=clf.score(val_inp1,val_out1)
     fit2=clf2.score(val_inp1,val_out1)
-    fit3=clf3.score(val_inp1,val_out1)
-    fit4=clf4.score(val_inp1,val_out1)
+    #fit3=clf3.score(val_inp1,val_out1)
+    #fit4=clf4.score(val_inp1,val_out1)
     '''
     fit5=clf.score(testdatainput,testdatalabels)
     fit6=clf2.score(testdatainput,testdatalabels)
@@ -149,19 +149,21 @@ while se<1000:
     nn.append(fit6)
     bdt.append(fit5)
     '''
-    rfo.append(fit4)
-    lro.append(fit3)
+    #rfo.append(fit4)
+    #lro.append(fit3)
     nno.append(fit2)
-    bdto.append(fit1)
+    fit5=clf2.score(testdatainput,testdatalabels)
+    nn.append(fit5)
+    #bdto.append(fit1)
     se=se+1
     print(se)
     #print(clf.predict_proba(testdatainput))
 
 
 #prop1=prop1/1000
-#print('means4fgl(rf,lr,nn,bdt):',np.mean(rf),np.mean(lr),np.mean(nn),np.mean(bdt))
-#print('std:',np.std(rf),np.std(lr),np.std(nn),np.std(bdt))
-print('meanstesting(rf,lr,nn,bdt):',np.mean(rfo),np.mean(lro),np.mean(nno),np.mean(bdto))
-print('stdo:',np.std(rfo),np.std(lro),np.std(nno),np.std(bdto))
+print('means4fgl(rf,lr,nn,bdt):',np.mean(nn))#np.mean(rf),np.mean(lr),np.mean(nn),np.mean(bdt))
+print('std:',np.std(nn))#np.std(rf),np.std(lr),np.std(nn),np.std(bdt))
+print('meanstesting(rf,lr,nn,bdt):',np.mean(nno))#np.mean(rfo),np.mean(lro),np.mean(bdto))
+print('stdo:',np.std(nno))#np.std(rfo),np.std(lro),np.std(nno),np.std(bdto))
 
 
