@@ -28,7 +28,6 @@ from sklearn.naive_bayes import GaussianNB
 from matplotlib import pyplot
 from imblearn.over_sampling import RandomOverSampler
 
-
 pyplot.rcParams['xtick.labelsize'] = 16
 pyplot.rcParams['axes.labelsize'] = 16
 pyplot.rcParams['axes.titlesize'] = 25
@@ -38,7 +37,10 @@ pyplot.rcParams['ytick.labelsize'] = 16
 
 se=0
 
-
+rf=[]
+bdt=[]
+nn=[]
+lr=[]
 
 
 dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
@@ -67,45 +69,52 @@ while se<times:
     np.random.seed(se)
     dataframe3 = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
     dataset3 = dataframe3.values
+    k=dataset3[1:,1].astype(float)
+    dataset3[1:,1]=np.cos(k)
     X2 = [dataset3[i,1:12].astype(float) for i in range(len(dataset3)) if dataset3[i,12]=='UNAS' ]
-    print(X2)
     np.random.shuffle(dataset3[1:])
     
-
-    
+    ##############################
     X = [dataset3[i,1:12].astype(float) for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR'or dataset3[i,12]=='OTHER']
     Y = [dataset3[i,12] for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR'or dataset3[i,12]=='OTHER']
     val_source1=[dataset3[i,0] for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR'or dataset3[i,12]=='OTHER']
-    
+
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
-    
+    ################################
     lenth=len(Y)
     lenth=int(0.7*lenth)
-    print(lenth)
     train1=X[0:lenth]                    
     train_truth1=Y[0:lenth]
     val_inp1=X[lenth:]
     val_source=val_source1[lenth:]
-    #print(val_source[1])
-    #val_out1=Y[2622:]
-    #val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
+    val_out1=Y[lenth:]
+    
+    val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     train_truth1=np.ravel(train_truth1)
-    print(val_source)
+
+
+    ################
     sourcename_ass.append(val_source)
-
-
+    Y0=[i for i in range(len(train_truth1)) if train_truth1[i]==0]
+    Y1=[i for i in range(len(train_truth1)) if train_truth1[i]==1]
+    Y2=[i for i in range(len(train_truth1)) if train_truth1[i]==2]
+    print('AGNS:',len(Y0))
+    w1=int(np.sqrt(len(Y0)*len(Y1)))
+    w2=int(np.sqrt(len(Y0)*len(Y2)))
+    weight={0:len(Y0),1:w1,2:w2}
+    ##################
 
 
     X_over=train1
     y_over=train_truth1
-    #oversample = RandomOverSampler(sampling_strategy='minority')
+    #oversample = RandomOverSampler(sampling_strategy=weight)
     #X_over, y_over = oversample.fit_resample(train1, train_truth1)
     #oversample = RandomOverSampler(sampling_strategy=0.5)
     clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
-    clf2= MLPClassifier(max_iter=600,hidden_layer_sizes=(11), activation='tanh', solver='lbfgs').fit(X_over, y_over)
-    clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
+    clf2= MLPClassifier(max_iter=600,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
+    clf3= LogisticRegression(max_iter=500, C=1,solver='lbfgs').fit(X_over, y_over)
     clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
     clf4.fit(X_over, y_over)
     
@@ -123,12 +132,26 @@ while se<times:
     probs_ass_lr.append(fit3)
     probs_un_lr.append(clf3.predict_proba(X2))
     ################################################
-
-    print(se)
-    
+    fit5=clf.score(val_inp1,val_out1)
+    fit6=clf2.score(val_inp1,val_out1)
+    fit7=clf3.score(val_inp1,val_out1)
+    fit8=clf4.score(val_inp1,val_out1)
+    rf.append(fit8)
+    lr.append(fit7)
+    nn.append(fit6)
+    bdt.append(fit5)
+    print('Scores:',fit5,fit6,fit7,fit8)
+    ##########################################
+    other_lr=clf3.predict_proba(X2)
+    number=[i for i in range(len(other_lr)) if (other_lr[i,1]>other_lr[i,0] and other_lr[i,1]>other_lr[i,2])]
+    print('number of others in unassoc sources:',len(number))
     se=se+1
 
 ########################
+
+print('meanstesting(rf,lr,bdt,nn):',np.mean(rf),np.mean(lr),np.mean(bdt),np.mean(nn))
+print('stdo:',np.std(rf),np.std(lr),np.std(bdt),np.std(nn))
+####################
 unassoc_names=unassocnames
 AGN_BDT_mean=np.zeros(len(unassoc_names))
 AGN_BDT_std=np.zeros(len(unassoc_names))
@@ -261,7 +284,7 @@ pro2=["Source_Name","AGN_BDT","AGN_BDT_STD","PSR_BDT","PSR_BDT_STD","OTHER_BDT",
 result_As=np.vstack((pro2,result_as))
 result_As=pandas.DataFrame(result_As)
 
-result_As.to_csv(path_or_buf="./catas/try_3fgl_multi_as.csv",index=False)
+result_As.to_csv(path_or_buf="./catas/try_3fgl_multi_as_9.csv",index=False)
 
 
 
@@ -330,6 +353,8 @@ for i in range(len(unassoc_names)):
     OTHER_LR_mean[i]=np.mean(OTHER_LR)
     OTHER_LR_std[i]=np.std(OTHER_LR)
 
+    
+
 
 
 result2=np.column_stack((unassoc_names,AGN_BDT_mean,AGN_BDT_std,PSR_BDT_mean,PSR_BDT_std,OTHER_BDT_mean,OTHER_BDT_std,AGN_NN_mean,AGN_NN_std,PSR_NN_mean,PSR_NN_std,OTHER_NN_mean,OTHER_NN_std,AGN_RF_mean,AGN_RF_std,PSR_RF_mean,PSR_RF_std,OTHER_RF_mean,OTHER_RF_std,AGN_LR_mean,AGN_LR_std,PSR_LR_mean,PSR_LR_std,OTHER_LR_mean,OTHER_LR_std))
@@ -337,7 +362,7 @@ pro2=["Source_Name","AGN_BDT","AGN_BDT_STD","PSR_BDT","PSR_BDT_STD","OTHER_BDT",
 result=np.vstack((pro2,result2))
 result=pandas.DataFrame(result)
 
-result.to_csv(path_or_buf="./catas/try_3fgl_multi_unas.csv",index=False)
+result.to_csv(path_or_buf="./catas/try_3fgl_multi_unas_9.csv",index=False)
 
 
 
