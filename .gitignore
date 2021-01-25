@@ -9,5 +9,6 @@ ML_3FGL_paper/0head_ML_3FGL.pdf
 *synctex*
 *.pyc
 *.bbl
-
+.ipynb_checkpoints
+py_dima/.ipynb_checkpoints
 
