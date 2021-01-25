@@ -40,13 +40,13 @@ pyplot.rcParams['ytick.labelsize'] = 16
 
 se=0
 valscore3=0
-#pro1=np.zeros((1905,9))
 pro1source=[]
-dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
-#dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
+#dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
+dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
 
 dataset1 = dataframe.values
-
+k=dataset1[1:,1].astype(float)
+dataset1[1:,1]=np.cos(k)
 rf=[]
 lr=[]
 bdt=[]
@@ -55,16 +55,16 @@ rfo=[]
 lro=[]
 bdto=[]
 nno=[]
-lenth=17
+lenth=12
 
 
-while se<100:
+while se<1000:
     #data:
     np.random.seed(se)
-    
-    #dataframe2 = pandas.read_csv("./files/3fgl_4fgl_newfeats_3class.csv", header=None)
-    #dataset2 = dataframe2.values
-    
+    dataframe2 = pandas.read_csv("./files/3fgl_4fgl_newfeats_3class.csv", header=None)
+    dataset2 = dataframe2.values
+    l=dataset2[1:,1].astype(float)
+    dataset2[1:,1]=np.cos(l)
     np.random.shuffle(dataset1[1:])
 
 
@@ -74,37 +74,38 @@ while se<100:
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
-    X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
+    #X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
 
     train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.3, random_state=se)       #Split into training and validation
-
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     train_truth1=np.ravel(train_truth1)
 
     
-    sampling_strategy = 'not majority'
+    #################################
+    Y0=[i for i in range(len(train_truth1)) if train_truth1[i]==0]
+    Y1=[i for i in range(len(train_truth1)) if train_truth1[i]==1]
+    Y2=[i for i in range(len(train_truth1)) if train_truth1[i]==2]
+    w1=int(np.sqrt(len(Y0)*len(Y1)))
+    w2=int(np.sqrt(len(Y0)*len(Y2)))
+    weight={0:len(Y0),1:w1,2:w2}
+    print('OTHER;PSR:',len(Y1),len(Y2))
 
-    ros = RandomOverSampler(sampling_strategy=sampling_strategy)
-    X_over, y_over = ros.fit_resample(train1, train_truth1)
-    #X_over, y_over = make_imbalance(train1, train_truth1,sampling_strategy=sampling_strategy)
+    #################################
 
-
-    '''
+    
     X2=[dataset2[i,1:lenth].astype(float) for i in range(len(dataset2)) if dataset2[i,lenth]=='AGN' or dataset2[i,lenth]=='PSR'or dataset1[i,12]=='OTHER']
     Y2 =[dataset2[i,lenth] for i in range(len(dataset2)) if dataset2[i,lenth]=='AGN' or dataset2[i,lenth]=='PSR'or dataset1[i,12]=='OTHER']
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y2)
     Y2 = encoder.transform(Y2)
-    print(y_over)
-    '''
-    
-    #testdatainput=X2
-    #testdatalabels=Y2                     #ravel is used since flattened label array required
     
     
+    testdatainput=X2
+    testdatalabels=Y2                     #ravel is used since flattened label array required
+    
+    ######################################
     count=0
-    #pro2=pro1
-    '''
+    
     clf5= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(train1, train_truth1)
     clf6= MLPClassifier(max_iter=300,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(train1, train_truth1)
     clf7= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(train1, train_truth1)
@@ -121,27 +122,24 @@ while se<100:
     lr.append(fit7)
     nn.append(fit6)
     bdt.append(fit5)
-    '''
+    
+    ##########################################
 
-
-
-    #Oversampled:
-    #oversample = RandomOverSampler(sampling_strategy='minority')
-    #X_over, y_over = oversample.fit_resample(train1, train_truth1)
-    #X_over, y_over=train1,train_truth1
+    oversample = RandomOverSampler(sampling_strategy=weight)
+    X_over, y_over = oversample.fit_resample(train1, train_truth1)
 
  
-    #clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
-    clf2= MLPClassifier(max_iter=600,hidden_layer_sizes=(16,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
-    #clf3= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(X_over, y_over)
-    #clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
-    #clf4.fit(X_over, y_over)
+    clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
+    clf2= MLPClassifier(max_iter=600,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
+    clf3= LogisticRegression(max_iter=500, C=1,solver='lbfgs').fit(X_over, y_over)
+    clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
+    clf4.fit(X_over, y_over)
     
   
-    #fit1=clf.score(val_inp1,val_out1)
-    fit2=clf2.score(val_inp1,val_out1)
-    #fit3=clf3.score(val_inp1,val_out1)
-    #fit4=clf4.score(val_inp1,val_out1)
+    fit1=clf.score(testdatainput,testdatalabels)
+    fit2=clf2.score(testdatainput,testdatalabels)
+    fit3=clf3.score(testdatainput,testdatalabels)
+    fit4=clf4.score(testdatainput,testdatalabels)
     '''
     fit5=clf.score(testdatainput,testdatalabels)
     fit6=clf2.score(testdatainput,testdatalabels)
@@ -153,21 +151,18 @@ while se<100:
     nn.append(fit6)
     bdt.append(fit5)
     '''
-    #rfo.append(fit4)
-    #lro.append(fit3)
+    rfo.append(fit4)
+    lro.append(fit3)
     nno.append(fit2)
-    #fit5=clf2.score(testdatainput,testdatalabels)
-    #nn.append(fit5)
-    #bdto.append(fit1)
+    bdto.append(fit1)
     se=se+1
     print(se)
-    #print(clf.predict_proba(testdatainput))
-
+    
 
 #prop1=prop1/1000
-#print('means4fgl(rf,lr,nn,bdt):',np.mean(nn))#np.mean(rf),np.mean(lr),np.mean(nn),np.mean(bdt))
-#print('std:',np.std(nn))#np.std(rf),np.std(lr),np.std(nn),np.std(bdt))
-print('meanstesting(rf,lr,nn,bdt):',np.mean(nno))#np.mean(rfo),np.mean(lro),np.mean(bdto))
-print('stdo:',np.std(nno))#np.std(rfo),np.std(lro),np.std(nno),np.std(bdto))
+print('means4fgl(rf,lr,bdt.nn):',np.mean(rf),np.mean(lr),np.mean(bdt),np.mean(nn))
+print('std:',np.std(rf),np.std(lr),np.std(bdt),np.std(nn))
+print('means4fgloversampled(rf,lr,nn,bdt):',np.mean(rfo),np.mean(lro),np.mean(bdto),np.mean(nno))
+print('stdo:',np.std(rfo),np.std(lro),np.std(nno),np.std(bdto),np.std(nno))
 
 
