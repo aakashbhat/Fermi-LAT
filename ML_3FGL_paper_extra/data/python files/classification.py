@@ -49,8 +49,8 @@ while se<100:
     np.random.shuffle(dataset1[1:])
 
 
-    X=[dataset1[i,[6,5]].astype(float) for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
-    Y =[dataset1[i,12] for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR']
+    X=[dataset1[i,[6,5]].astype(float) for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR'or dataset1[i,12]=='OTHER']
+    Y =[dataset1[i,12] for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR'or dataset1[i,12]=='OTHER']
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
@@ -133,7 +133,7 @@ while se<100:
 
 #Choose classifier:
     #clf=RandomForestClassifier(max_depth=6, n_estimators=50,oob_score=True)
-    clf= MLPClassifier(max_iter=50,hidden_layer_sizes=(2,), activation='tanh', solver='lbfgs').fit(X_train,y_train)
+    clf= MLPClassifier(max_iter=600,hidden_layer_sizes=(2,), activation='tanh', solver='lbfgs').fit(X_train,y_train)
     #clf=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=2, random_state=0).fit(X_train,y_train)
     #clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
     #clf.fit(X_train, y_train)
@@ -238,7 +238,7 @@ ax2.text(6.5 , -2.9, ('Testing Score:%.2f' % score).lstrip('0'))
 
 #plt.tight_layout()
 #plt.show()
-fn = 'plots/nn_50_lbfgs.pdf'
+fn = 'plots/nn_600_multi_lbfgs.pdf'
 print('save plot to file')
 print(fn)
 plt.savefig(fn)
