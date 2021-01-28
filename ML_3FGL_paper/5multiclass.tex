@@ -1,7 +1,22 @@
-\section{3-Class Classification}
-In this section we discuss the multi-class method\footnotemark\footnotetext{Multi here refers to any non-binary number of classes}. Instead of only using sources which had AGN and PSR as their classification we added 108 sources in the 3FGL catalog which have a classification not falling under AGN or PSR. We gave them a classification of 'OTHER'. We ran our codes again, first to find the optimum parameters as was done in section 2. The only differences here are that we took the cosine of the galactic longitude and the oversampling was done with the square root of the fraction of AGNs with the PSR or OTHER classifications. Therefore, for oversampling, the number of PSRs and OTHERs were multiplied by $\sqrt{\frac{\text{|AGN|}}{\text{|PSR|}}}$ and $\sqrt{\frac{\text{|AGN|}}{\text{|OTHER|}}}$ respectively. We chose these weights so as to not oversample and bias our methods too much. This is effectively clear for instance if we would go to even higher classes and the number of data points shall become smaller. 
+\section{Three-Class Classification}
 
-Figure \ref{fig:tree_multi} and \ref{fig:nets_multi} shows our results.The tree based methods show the same behaviour as before and therefore we keep the same parameters for our final models. For Neural Networks and Logistic regression the behaviour is also the same but the optimal parameters are found to be 600 and 500 epochs instead of 300 and 200 respectively. We keep the same number of neurons as before for the neural network.
+One of the caveats of the analysis with two classes is that there are associated sources, which do not belong to AGN or PSR classes, such as pulsar wind nebular (PWN) or supernova remnants (SNR).%
+\footnote{\dima{write a complete list of labels in the OTHER class}}
+We collect all associated sources, which do not belong to AGN and PSR classes into a new class, which we label as ``OTHER''.
+Since in two-class classification we train algorithm to classify sources only into AGN and PSR classes, OTHER sources are also classified as either AGN or PSR.
+This introduces a bias in the estimates of the number of AGNs and pulsars among unassociated sources, which should be corrected.
+One possibility is to assume that the fractions of OTHER sources among associated and unassociated sources are the same (Equation (\ref{eq:other_correction})).
+This correction can be applied for the total number of sources or for the number of sources in some window of parameters,
+e.g., in a flux bin or in a range of latitudes and longitudes.
+This is a straightforward calculation but it has some limitations. In particular, it implicitly assigns equal probabilities to all AGNs (and all PSRs) to belong to the OTHER class.
+For a small range of parameters the variance of this estimate can be very large due to small number of associated OTHER sources in this parameter range.
+
+In this section we discuss the construction of probabilistic catalogs with multi-class classification (three-class classification in our case).
+We start with the construction of the probabilistic catalog based on 3FGL by adding the class ``OTHER'', which includes all associated sources without AGN or PSR associations: there are 108 such sources in 3FGL.
+We use the same 11 features as in the 2-class classification: the only difference is that we use cos(GLON) instead of GLON.
+The reason is that LR and NN methods had a significantly worse performance than RF and BDT methods. 
+This can be due to discontinuity in the GLON variable. As we show below, all four methods have comparable accuracy when we use cos(GLON).
+We perform optimization of the meta-parameters for the four ML algorithms with the 3 classes.
 
 
 \begin{figure}[h]
@@ -14,6 +29,7 @@ Figure \ref{fig:tree_multi} and \ref{fig:nets_multi} shows our results.The tree 
 \caption{Testing scores for classification methods of RF, BDT and LR.}
 \label{fig:tree_multi}
 \end{figure}
+
 \begin{figure}[h]
 \center
 %\hspace*{-1cm}
@@ -24,7 +40,34 @@ Figure \ref{fig:tree_multi} and \ref{fig:nets_multi} shows our results.The tree 
 \label{fig:nets_multi}
 \end{figure}
 
-The final accuracies of our chosen model for 1000 runs are given below in table \ref{tab:selected_algs_multi} for 3FGL and table \ref{tab:selected_algs_4fgl_multi} for 4FGL-DR2. For 3FGL the accuracies are always around 93-94 \%.
+
+The dependence of accuracy on meta-parameters of the algorithms is shown in Figures \ref{fig:tree_multi} and \ref{fig:nets_multi}.
+We see that for the tree-based algorithms, the optimal parameters are similar to the 2-class classification, i.e., 50 trees with depth 6 for RF and 100 trees with depth 2 for BDT 
+provide close to optimal performance at a minimal cost in complexity (depth of the trees).
+The main difference for NN and LR algorithms is that more steps are needed for convergence: 600 epochs for NN and 500 iterations for LR instead of 300 epochs and 200 iterations respectively in the two-class case. \dima{Why do we use 600 epochs if in LBFGS case the convergence happens already for 100 epochs?}
+For NN, the accuracy stops increasing above about 10 neurons in the hidden layer (in the following we use 11 neurons for classification: the same as in the two-class case).
+
+For oversampling, we use the oversampling factors $\sqrt{\frac{\text{\# AGN}}{\text{\# PSR}}}$ and $\sqrt{\frac{\text{\# AGN}}{\text{\# OTHER}}}$ for PSR and OTHER classes respectively (instead of $\frac{\text{\# AGN}}{\text{\# PSR}}$ and $\frac{\text{\# AGN}}{\text{\# OTHER}}$ oversampling factors in the 2-class case).
+The reason for a smaller oversampling factors is to avoid overweighting the relatively small OTHER class.
+
+The accuracies of our chosen models for classification of the 3FGL sources are presented in Table \ref{tab:selected_algs_multi}.
+As in the 2-class case, the accuracies are averaged over 1000 realizations of splitting the data into training and testing samples.
+We notice that accuracies presented in Table \ref{tab:selected_algs} are calculated relative to AGN and PSR classes only, if we take into account that all OTHER sources
+are misclassified in this case, then the testing accuracy is reduced by about 5\% (the fraction of OTHER sources in associated source in 3FGL),
+while the accuracy of comparison with 4FGL-DR2 is reduced by about 10\% (there are 37 unassociated sources in 3FGL with OTHER class associations in 4FGL-DR2,
+while there are in total 339 unassociated sources in 3FGL with associations in 4FGL-DR2).
+Thus the testing accuracy of 93-94\% in Table \ref{tab:selected_algs_multi} provides at least a 1-2\% improvement over the accuracy in Table \ref{tab:selected_algs},
+after taking into account the misclassification of OTHER sources in the 2-class case.
+The corresponding improvement for the accuracy of classification of unassociated sources in 3FGL with 4FGL-DR2 associations is more than 5\%.
+
+
+
+
+%In this section we discuss the multi-class method\footnotemark\footnotetext{Multi here refers to any non-binary number of classes}. Instead of only using sources which had AGN and PSR as their classification we added 108 sources in the 3FGL catalog which have a classification not falling under AGN or PSR. We gave them a classification of 'OTHER'. We ran our codes again, first to find the optimum parameters as was done in section 2. The only differences here are that we took the cosine of the galactic longitude and the oversampling was done with the square root of the fraction of AGNs with the PSR or OTHER classifications. Therefore, for oversampling, the number of PSRs and OTHERs were multiplied by $\sqrt{\frac{\text{|AGN|}}{\text{|PSR|}}}$ and $\sqrt{\frac{\text{|AGN|}}{\text{|OTHER|}}}$ respectively. We chose these weights so as to not oversample and bias our methods too much. This is effectively clear for instance if we would go to even higher classes and the number of data points shall become smaller. 
+
+%Figure \ref{fig:tree_multi} and \ref{fig:nets_multi} shows our results.The tree based methods show the same behaviour as before and therefore we keep the same parameters for our final models. For Neural Networks and Logistic regression the behaviour is also the same but the optimal parameters are found to be 600 and 500 epochs instead of 300 and 200 respectively. We keep the same number of neurons as before for the neural network.
+
+
 \begin{table}[!h]
 \hspace{-0.2cm}
 \resizebox{0.47\textwidth}{!}{
@@ -53,13 +96,24 @@ The final accuracies of our chosen model for 1000 runs are given below in table 
     LR & 500 iterations, LBFGS solver & 93.93&0.88& 87.65 \\
     LR\_O &   &93.01&0.96& 85.59 \\
     \hline
-     
     \end{tabular}}
     \vspace{2mm}
-    \caption{Testing accuracy of the 4 selected algorithms for classification of 3FGL sources and comparison with associations in the 4FGL-DR2 catalog. 
+    \caption{Testing accuracy of the four selected algorithms for 3-class classification of 3FGL sources and comparison with associations in the 4FGL-DR2 catalog. 
     ``\_O'' denotes training with oversampling.}
     \label{tab:selected_algs_multi}
 \end{table}
+
+
+The 3-class classification of 4FGL-DR2 sources is performed similar to the 3-class classification of the 3FGL sources.
+The two differences are similar to the differences in the 2-class classification of 3FGL and 4FGL-DR2 sources:
+we use 16 features (the same features as in the 2-class classification of 4FGL-DR2 sources in Section \ref{sec:4FGLprediction} but with GLON replaced by cos(GLON))
+and we have 16 neurons in the hidden layer of the NN method.
+The corresponding accuracies are reported in Table \ref{tab:selected_algs_4fgl_multi}.
+In comparing the accuracies with the 2-class classification in Table \ref{tab:selected_algs2}, 
+one has to take into account that there are 346 OTHER sources among 4116 associated sources in 4FGL-DR2, i.e., which is about 8.4\%.
+Since all OTHER sources are ``misclassified'' by the 2-class classification, the 3-class classification provides an improvement of up to 2-3\% compared to the 2-class classification.
+
+
 \begin{table}[!h]
 \hspace{-0.2cm}
 \resizebox{0.47\textwidth}{!}{
@@ -81,16 +135,16 @@ The final accuracies of our chosen model for 1000 runs are given below in table 
 %    BDT & 200 trees, max depth 2    &   95.8  \\
     BDT\_O &     &   90.92&0.70 \\
     \hline
-    NN & 600 epochs, 11 neurons, LBFGS & 91.62&0.78\\
+    NN & 600 epochs, 11 neurons \dima{or 16 neurons}, LBFGS & 91.62&0.78\\
     NN\_O &  & 85.93&1.37\\
     \hline
-    LR & 200 iterations, LBFGS solver & 91.84&0.69 \\
+    LR & 200 \dima{or 500?} iterations, LBFGS solver & 91.84&0.69 \\
     LR\_O &  &86.00&1.26\\
     \hline
      
     \end{tabular}}
     \vspace{2mm}
-    \caption{Testing accuracy of the 4 selected algorithms for classification of 4FGL-DR2 sources. 
+    \caption{Testing accuracy of the four selected algorithms for 3-class classification of 4FGL-DR2 sources. 
     ``\_O'' denotes training with oversampling.}
     \label{tab:selected_algs_4fgl_multi}
 \end{table}
