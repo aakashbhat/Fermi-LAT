@@ -43,14 +43,14 @@ nn=[]
 lr=[]
 
 
-dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
+dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
 dataset1 = dataframe.values
+lenth=17
 
-names_assoc=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR'or dataset1[i,12]=='OTHER']
-unassocnames=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,12]=='UNAS']
+names_assoc=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR'or dataset1[i,lenth]=='OTHER']
+unassocnames=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,lenth]=='UNAS']
 
 print(names_assoc)
-
 ###################
 sourcename_ass=[]
 probs_ass_bdt=[]
@@ -67,29 +67,29 @@ times=1000
 while se<times:
     #data:
     np.random.seed(se)
-    dataframe3 = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
+    dataframe3 = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
     dataset3 = dataframe3.values
     k=dataset3[1:,1].astype(float)
     dataset3[1:,1]=np.cos(k)
-    X2 = [dataset3[i,1:12].astype(float) for i in range(len(dataset3)) if dataset3[i,12]=='UNAS' ]
+    X2 = [dataset3[i,1:lenth].astype(float) for i in range(len(dataset3)) if dataset3[i,lenth]=='UNAS' ]
     np.random.shuffle(dataset3[1:])
     
     ##############################
-    X = [dataset3[i,1:12].astype(float) for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR'or dataset3[i,12]=='OTHER']
-    Y = [dataset3[i,12] for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR'or dataset3[i,12]=='OTHER']
-    val_source1=[dataset3[i,0] for i in range(len(dataset3)) if dataset3[i,12]=='AGN' or dataset3[i,12]=='PSR'or dataset3[i,12]=='OTHER']
+    X = [dataset3[i,1:lenth].astype(float) for i in range(len(dataset3)) if dataset3[i,lenth]=='AGN' or dataset3[i,lenth]=='PSR'or dataset3[i,lenth]=='OTHER']
+    Y = [dataset3[i,lenth] for i in range(len(dataset3)) if dataset3[i,lenth]=='AGN' or dataset3[i,lenth]=='PSR'or dataset3[i,lenth]=='OTHER']
+    val_source1=[dataset3[i,0] for i in range(len(dataset3)) if dataset3[i,lenth]=='AGN' or dataset3[i,lenth]=='PSR'or dataset3[i,lenth]=='OTHER']
 
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
     ################################
-    lenth=len(Y)
-    lenth=int(0.7*lenth)
-    train1=X[0:lenth]                    
-    train_truth1=Y[0:lenth]
-    val_inp1=X[lenth:]
-    val_source=val_source1[lenth:]
-    val_out1=Y[lenth:]
+    lenth2=len(Y)
+    lenth2=int(0.7*lenth2)
+    train1=X[0:lenth2]                    
+    train_truth1=Y[0:lenth2]
+    val_inp1=X[lenth2:]
+    val_source=val_source1[lenth2:]
+    val_out1=Y[lenth2:]
     
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     train_truth1=np.ravel(train_truth1)
@@ -107,15 +107,15 @@ while se<times:
     ##################
 
 
-    X_over=train1
-    y_over=train_truth1
-    #oversample = RandomOverSampler(sampling_strategy=weight)
-    #X_over, y_over = oversample.fit_resample(train1, train_truth1)
+    #X_over=train1
+    #y_over=train_truth1
+    oversample = RandomOverSampler(sampling_strategy=weight)
+    X_over, y_over = oversample.fit_resample(train1, train_truth1)
     #oversample = RandomOverSampler(sampling_strategy=0.5)
     clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
-    clf2= MLPClassifier(max_iter=600,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
-    clf3= LogisticRegression(max_iter=500, C=1,solver='lbfgs').fit(X_over, y_over)
-    clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
+    clf2= MLPClassifier(max_iter=600,hidden_layer_sizes=(16,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
+    clf3= LogisticRegression(max_iter=1000, C=1,solver='lbfgs').fit(X_over, y_over)
+    clf4 = RandomForestClassifier(n_estimators=50,max_depth=8,oob_score=True)
     clf4.fit(X_over, y_over)
     
     ##########################################
@@ -284,7 +284,7 @@ pro2=["Source_Name","AGN_BDT","AGN_BDT_STD","PSR_BDT","PSR_BDT_STD","OTHER_BDT",
 result_As=np.vstack((pro2,result_as))
 result_As=pandas.DataFrame(result_As)
 
-result_As.to_csv(path_or_buf="./catas/try_3fgl_multi_as_9.csv",index=False)
+result_As.to_csv(path_or_buf="./catas/try_4fgl_multi_as_9_O.csv",index=False)
 
 
 
@@ -362,7 +362,7 @@ pro2=["Source_Name","AGN_BDT","AGN_BDT_STD","PSR_BDT","PSR_BDT_STD","OTHER_BDT",
 result=np.vstack((pro2,result2))
 result=pandas.DataFrame(result)
 
-result.to_csv(path_or_buf="./catas/try_3fgl_multi_unas_9.csv",index=False)
+result.to_csv(path_or_buf="./catas/try_4fgl_multi_unas_9_O.csv",index=False)
 
 
 

@@ -111,7 +111,7 @@ and we have 16 neurons in the hidden layer of the NN method.
 The corresponding accuracies are reported in Table \ref{tab:selected_algs_4fgl_multi}.
 In comparing the accuracies with the 2-class classification in Table \ref{tab:selected_algs2}, 
 one has to take into account that there are 346 OTHER sources among 4116 associated sources in 4FGL-DR2, i.e., which is about 8.4\%.
-Since all OTHER sources are ``misclassified'' by the 2-class classification, the 3-class classification provides an improvement of up to 2-3\% compared to the 2-class classification.
+Since all OTHER sources are ``misclassified'' by the 2-class classification, the 3-class classification provides an improvement of about 2-4\% compared to the 2-class classification.
 
 
 \begin{table}[!h]
@@ -127,19 +127,19 @@ Since all OTHER sources are ``misclassified'' by the 2-class classification, the
     Algorithm&Parameters &  Testing&Std. Dev.\\
     & & Accuracy &  \\
     \hline
-    RF & 50 trees, max depth 6  &92.66&0.66  \\
-    RF\_O &   &91.31&0.71 \\
+    RF & 50 trees, max depth 6  &92.91&0.66\\
+    RF\_O &   &92.83&0.63 \\
     \hline %\midrule   -> aakash do you mean this?
-    BDT & 100 trees, max depth 2    &   92.61&0.66 \\
+    BDT & 100 trees, max depth 2    &   92.51&0.67 \\
 %    \hline %\midrule   -> aakash do you mean this?
 %    BDT & 200 trees, max depth 2    &   95.8  \\
-    BDT\_O &     &   90.92&0.70 \\
+    BDT\_O &     &   92.27&0.67 \\
     \hline
-    NN & 600 epochs, 11 neurons \dima{or 16 neurons}, LBFGS & 91.62&0.78\\
-    NN\_O &  & 85.93&1.37\\
+    NN & 600 epochs, 16 neurons, LBFGS & 91.86&0.72\\
+    NN\_O &  & 90.26&0.83\\
     \hline
-    LR & 200 \dima{or 500?} iterations, LBFGS solver & 91.84&0.69 \\
-    LR\_O &  &86.00&1.26\\
+    LR & 1000 iterations \dima{3FGL had 500?}, LBFGS solver & 92.63&0.67 \\
+    LR\_O &  &92.22&0.69\\
     \hline
      
     \end{tabular}}
