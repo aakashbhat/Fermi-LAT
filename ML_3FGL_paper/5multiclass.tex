@@ -1,11 +1,12 @@
 \section{Three-Class Classification}
+\lb{sec:3class}
 
 One of the caveats of the analysis with two classes is that there are associated sources, which do not belong to AGN or PSR classes, such as pulsar wind nebular (PWN) or supernova remnants (SNR).%
 \footnote{\dima{write a complete list of labels in the OTHER class}}
 We collect all associated sources, which do not belong to AGN and PSR classes into a new class, which we label as ``OTHER''.
 Since in two-class classification we train algorithm to classify sources only into AGN and PSR classes, OTHER sources are also classified as either AGN or PSR.
-This introduces a bias in the estimates of the number of AGNs and pulsars among unassociated sources, which should be corrected.
-One possibility is to assume that the fractions of OTHER sources among associated and unassociated sources are the same (Equation (\ref{eq:other_correction})).
+This introduces a bias in the estimates of the number of AGNs and pulsars among unassociated sources.
+One possibility to correct this bias is to assume that the fractions of OTHER sources among associated and unassociated sources are the same (Equation (\ref{eq:other_correction})).
 This correction can be applied for the total number of sources or for the number of sources in some window of parameters,
 e.g., in a flux bin or in a range of latitudes and longitudes.
 This is a straightforward calculation but it has some limitations. In particular, it implicitly assigns equal probabilities to all AGNs (and all PSRs) to belong to the OTHER class.
@@ -14,8 +15,9 @@ For a small range of parameters the variance of this estimate can be very large 
 In this section we discuss the construction of probabilistic catalogs with multi-class classification (three-class classification in our case).
 We start with the construction of the probabilistic catalog based on 3FGL by adding the class ``OTHER'', which includes all associated sources without AGN or PSR associations: there are 108 such sources in 3FGL.
 We use the same 11 features as in the 2-class classification: the only difference is that we use cos(GLON) instead of GLON.
-The reason is that LR and NN methods had a significantly worse performance than RF and BDT methods. 
-This can be due to discontinuity in the GLON variable. As we show below, all four methods have comparable accuracy when we use cos(GLON).
+The reason is that LR and NN methods have a significantly worse performance than RF and BDT methods when we use GLON,
+but, as we show below, all four methods have comparable accuracy when we use cos(GLON).
+This can be due to discontinuity in the GLON variable. 
 We perform optimization of the meta-parameters for the four ML algorithms with the 3 classes.
 
 
@@ -26,7 +28,10 @@ We perform optimization of the meta-parameters for the four ML algorithms with t
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/bdt_train_multi.pdf}
 \includegraphics[width=0.5\textwidth]{plots/lr_train_multi.pdf}
-\caption{Testing scores for classification methods of RF, BDT and LR.}
+\caption{Accuracy for the 3-class classification with RF, BDT and LR  methods.
+\dima{Why there are four lines and only 3 labels in the LR plot? It's strange that there is such a large difference between
+LBFGS and other lines.}
+}
 \label{fig:tree_multi}
 \end{figure}
 
@@ -36,7 +41,11 @@ We perform optimization of the meta-parameters for the four ML algorithms with t
 \includegraphics[width=0.5\textwidth]{plots/nn_epoch_train_multi.pdf}\\
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/nn_neuron_train_multi.pdf}
-\caption{Testing scores for classification methods of NN for a set number of Epochs and a set number of Neurons.}
+\caption{Accuracy of the NN classification as a function of the number of epochs and of the number of neurons
+ for the 3-class classification. 
+ \dima{Can you check the Adam calculation? It's strange that the difference is so large: 
+ the top panel has accuracy of 91\% for 11 neurons and 600 epochs, while the bottom panel has only 87\% accuracy for the same parameters.}
+ }
 \label{fig:nets_multi}
 \end{figure}
 
@@ -110,7 +119,7 @@ we use 16 features (the same features as in the 2-class classification of 4FGL-D
 and we have 16 neurons in the hidden layer of the NN method.
 The corresponding accuracies are reported in Table \ref{tab:selected_algs_4fgl_multi}.
 In comparing the accuracies with the 2-class classification in Table \ref{tab:selected_algs2}, 
-one has to take into account that there are 346 OTHER sources among 4116 associated sources in 4FGL-DR2, i.e., which is about 8.4\%.
+one has to take into account that there are 346 OTHER sources among 4116 associated sources in 4FGL-DR2, which is about 8.4\%.
 Since all OTHER sources are ``misclassified'' by the 2-class classification, the 3-class classification provides an improvement of about 2-4\% compared to the 2-class classification.
 
 
@@ -144,7 +153,7 @@ Since all OTHER sources are ``misclassified'' by the 2-class classification, the
      
     \end{tabular}}
     \vspace{2mm}
-    \caption{Testing accuracy of the four selected algorithms for 3-class classification of 4FGL-DR2 sources. 
+    \caption{Testing accuracy of the four selected algorithms for the 3-class classification of 4FGL-DR2 sources. 
     ``\_O'' denotes training with oversampling.}
     \label{tab:selected_algs_4fgl_multi}
 \end{table}

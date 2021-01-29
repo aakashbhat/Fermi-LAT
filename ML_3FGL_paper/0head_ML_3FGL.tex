@@ -199,22 +199,23 @@ there may be no plausible association candidates.
 }
 % aims heading (mandatory)
 {
-In this work, we aim to determine probabilistic classification of unassociated sources in the third and the fourth \Fermi Large Area Telescope (LAT) point source catalogs (3FGL and 4FGL) into two major classes: pulsars and active galactic nuclei (AGNs).
+In this work, we aim to determine probabilistic classification of unassociated sources in the third and the fourth \Fermi Large Area Telescope (LAT) point source catalogs (3FGL and 4FGL-DR2) into two classes (pulsars and active galactic nuclei (AGNs)) or three classes (pulsars, AGNs, and other sources).
 }
 % methods heading (mandatory)
 {
 We use several machine learning (ML) methods to determine probabilistic classification of \Fermi-LAT sources.
-We evaluate the dependence of results on meta-parameters of the ML methods, such as the depth of the tree in tree-based classification methods and the number of neurons in neural networks.
+We evaluate the dependence of results on meta-parameters of the ML methods, such as the maximal depth of the trees in tree-based classification methods and the number of neurons in neural networks.
 %We test the performance of the methods with test samples drawn from the associated sources in 3FGL and 4FGL catalogs.
 %We also compare the predictions for unassociated source in 3FGL with associated sources in 4FGL.
 }
 % results heading (mandatory)
 {
-We determine probabilistic classification of both associated and unassociated sources in 3FGL and 4FGL catalogs.
-We find the accuracy of classification to be about 94\% -- 97\% (96\% -- 98\% ) by splitting associated 3FGL (4FGL) sources into training and testing samples.
-We cross-check the accuracy by comparing the predicted classes of unassociated sources in 3FGL that have associations in 4FGL,
-the corresponding accuracy is 87\% -- 96\% depending on the ML algorithm.
-We find that most of unassociated sources are likely AGNs, while the expected number of pulsars among unassociated sources in the 3FGL (4FGL) catalog is $262 \pm 101$ ($457 \pm 200$), i.e., the total number of pulsars is expected to be about two times larger than the number of associated pulsars: 167 (271) in the 3FGL (4FGL) catalogs.
+We determine probabilistic classification of both associated and unassociated sources in 3FGL and 4FGL-DR2 catalogs.
+%We find the accuracy of classification to be about 94\% -- 97\% (96\% -- 98\% ) by splitting associated 3FGL (4FGL-DR2) sources into training and testing samples.
+We cross-check the accuracy by comparing the predicted classes of unassociated sources in 3FGL that have associations in 4FGL-DR2.
+%the corresponding accuracy is 87\% -- 96\% depending on the ML algorithm.
+We find that most of unassociated sources are likely AGNs, while the expected number of pulsars among unassociated sources in the 3FGL (4FGL-DR2) catalog is $262 \pm 101$ ($457 \pm 200$), i.e., the total number of pulsars is expected to be about two times larger than the number of associated pulsars: 167 (271) in the 3FGL (4FGL-DR2) catalogs.
+\dima{update numbers of pulsars}
 }
 % conclusions heading (optional), leave it empty if necessary 
 {}

@@ -4,7 +4,7 @@
 \subsection{General methodology}
 
 The first choice one has to make in constructing a probabilistic catalog is the input data and the machine learning methods.
-For the input data we take associated PS in the 3FGL catalog, which we split into training and testing subsets.
+For the input data we take associated point sources (PS) in the 3FGL catalog, which we split into training and testing subsets.
 We consider four machine learning algorithms: random forests \citep[RF,][]{709601, Breiman:2001hzm}, 
 boosted decision trees \citep[BDT,][]{friedman2001},  
 logistic regression \citep[LR,][]{cox1958}, 
@@ -70,8 +70,9 @@ If the activation function for the output layer is sigmoid, then the output valu
 
 As an example of the construction of a probabilistic catalog, we will use the 3FGL catalog.
 For training and testing the methods, we use sources which have associations and no missing values in the catalog.
-In this paper we will perform a two-class classification to separate PS into pulsars and AGNs.
-Thus for training and testing, we subselect the sources, which are associated to either a pulsar or an AGN.
+In this section we will perform a two-class classification to separate PS into pulsars and AGNs.
+Thus for training and testing, we subselect the sources, which are associated to pulsars and AGNs
+(three-class classification into pulsars, AGNs, and other sources is discussed in Section \ref{sec:3class}).
 After the training of the algorithms, we test the performance with the test sources and predict the classes of unassociated sources that have all features present in the catalog table.
 The general workflow will have the following steps:
 \ben
@@ -88,7 +89,7 @@ We also apply the classification for associated sources, which we use for consis
 \een
 As a result of the analysis in this section, we select meta-parameters for the four ML algorithms,
 which we use in the following section for a construction of probabilistic catalogs
-based on the \Fermi-LAT 3FGL and 4FGL catalogs.
+based on the \Fermi-LAT 3FGL and 4FGL-DR2 catalogs.
 %obtain a catalog with probabilistic associations of sources in 3FGL. We report the classification probabilities for all four algorithms and each source. In the next section we compare the predictions in the catalog with the new 4FGL catalog. We also construct a probabilistic catalog for the sources in the 4FGL catalog.
 
 
@@ -100,7 +101,10 @@ We use the associated sources which were classified as either AGNs (classificati
 %Our methodology for classification was dependent on two things: The data that we had, which needed to be cleaned and the algorithms that we needed to apply. For this we decided on using the 3rd catalog of F-LAT (3FGL from hereon) for initial training and testing, the 4th catalog (FL8Y from hereon) for further testing and predictions.
 %Our data was similar to that used by Parkinson et. al. We cleaned the 3FGL catalog to have sources which were both associated and unassociated but with no missing values.\\
 
-There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties. We took the main features, including those discussed in \cite{2016ApJ...820....8S}, and plotted their Person corelation coefficients. The co-relation table of values is given is figure \ref{fig:assoc_corr_3fgli}.
+There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties. We took the main features, including those discussed in \cite{2016ApJ...820....8S}, and plotted their Person correlation coefficients. A graphical representation of the correlation table is shown is Figure \ref{fig:assoc_corr_3fgli}. In the following, if two features have (anti)correlation $\gtrsim 0.75$ 
+($\lesssim -0.75$),
+then we keep only one of the features for classification.
+
 \begin{figure}[h]
 \center
 %\hspace*{-1cm}
@@ -109,10 +113,39 @@ There are several tens of features of point sources quoted in the catalog, such 
 \caption{The corelation matrix of feature values for 3FGL associated data.}
 \label{fig:assoc_corr_3fgli}
 \end{figure}
-In the first part of our work, we use the following ten features:
-$\ln$(Energy\_Flux\_100), $\ln$(Unc\_Energy\_Flux100), 500MeV\_Index, $\ln$(Signif\_Curve), 
-four hardness ratios $hr_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i}$, where $EF_i$ is the energy flux in bin $i$, $\ln$(Variability\_Index), and the galactic latitude GLAT and longitude GLON.
-The table of features and their statistics can be found in the appendix.
+
+Spectral index is one of the important characteristics of sources. 
+Unfortunately in the 3FGL catalog, the definition of the spectral index is different for associated and unassociated sources.
+In particular, the gamma-ray flux of pulsars is described by a power-law with a (super)exponential cutoff $\propto E^{-\Gamma} e^{-(E / E_c)^b}$ and the ``Spectral\_Index'' feature in the catalog is the parameter $\Gamma$.
+Gamma-ray flux of unassociated sources with significant curvature is represented by log-parabola function $\propto (E/E_0)^{-\al - \bt \ln (E/E_0)}$,
+where the ``Spectral\_Index'' feature is the parameter $\al$, i.e., the tilt in the spectrum at the pivot energy $E_0$ (which also varies for different sources).
+Since the ``Spectral\_Index'' feature has different definitions for associated pulsars and for possible pulsars among unassociated sources,
+its use for training the algorithms to separate pulsars from AGNs is problematic.
+If one fits all spectra of sources in the catalog by a power-law function, then the corresponding indices of the power laws are represented by
+``PowerLaw\_Index'' feature in the catalog.
+This feature is defined uniformly for all associated and unassociated sources, i.e., it is safe to use for training.
+Unfortunately, the power-law function is not a good description of the gamma-ray flux from pulsars.
+In the classification of the 3FGL sources we have constructed a new feature: the index at 500 MeV (denoted in the following as ``500MeV\_Index''), defined as minus the derivative of the log flux:
+\be
+n({\rm 500\,MeV}) = - \left. \frac{d \ln F}{d \ln E} \right|_{E = \rm 500\,MeV}
+\ee
+For log parabola and for power law with (super)exponential cutoff it is respectively
+\beaa
+n(\rm 500\,MeV) &=& \al + 2 \bt \ln(\rm 500\,MeV / E_0)    \\
+n({\rm 500\,MeV}) &=& \Gamma + b\,({\rm 500\,MeV} / E_c)^b
+\eeaa
+This feature has a more uniform definition for all sources in the 3FGL catalog than the Spectral\_Index. It also has a better separating power 
+than PowerLaw\_Index, provided that pulsars have typically harder spectra at energies below 1 GeV than AGNs.
+
+Taking into account the correlation among the features and the above discussion of the spectral index definition,
+we have selected the following eleven features for the classification of the 3FGL sources:
+Galactic latitude (GLAT), Galactic longitude (GLON), ln(Energy\_Flux\_100), $\ln$(Unc\_Energy\_Flux100), 500MeV\_Index, $\ln$(Signif\_Curve), 
+$\ln$(Variability\_Index), and four hardness ratios $hr_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i}$, where $EF_i$ is the energy flux in bin $i$.
+We have added the hardness ratios in order to allow the algorithms to ``construct'' their own features from the raw data rather than to use the 
+derived features, such as spectral index or integrated flux.
+The table of features and their statistics can be found in Appendix \ref{sec:app}.
+
+
 \begin{comment}
 %The complete list of sources, along with some statistics, is given in the appendix. 
 The influence of the features on the classification, especially the differences in the various methodologies is discussed in more details in the next section.
@@ -200,7 +233,7 @@ These importances were found to be consistent for various different algorithm pa
 \subsubsection{Random Forests}
 \lb{sec:rf}
 
-The two main parameters characterizing the random forest algorithm are the number of trees and the maximum depth allowed in the trees. 
+The two main parameters characterizing the RF algorithm are the number of trees and the maximum depth allowed in the trees. 
 We use the Gini index as the objective function for the optimization of parameters (split values of features in the nodes).
 \begin{comment}
 Since the number of pulsars is about 10 times smaller than AGNs,
@@ -286,28 +319,27 @@ We find that the three most important features for both cases are significance o
 
 %Our hypothesis about feature importances turned out to be correct, as curvature, variability, and spectral index were the most important features. The last hardness ratio was also seen to be quite important, most probably reflecting the end of the spectrum where the AGNs and PSRs shift from each other.\\
 It is interesting to note that Galactic latitude is among the least significant features.
-We have also used sine of GLAT to check that this is not due to scaling, i.e., the large range of values of GLAT,
+We have also used sin(GLAT) to check that this is not due to scaling, i.e., the large range of values of GLAT,
 but the significance is similar to the GLAT itself.
 We further discuss the dependence on GLAT in Section \ref{sec:lat-lon-profiles}, 
 where we calculate the latitude and longitude profiles of the associated and unassociated source counts.
 
 In order to illustrate the separation of PS into AGNs and pulsars, we retrain the RF algorithm using only two features: log of curvature significance and log of the variability index, and plot the resulting probabilities of classes in Figure \ref{fig:RF_domains}. 
 %These classification domains illustrate the separation of class probabilities.
-We compare classification domains for two models averaging again over 100 runs: 20 trees with the maximum depth of 2 and 50 trees with the maximum depth of 6.
-The depth 6 model has a better testing accuracy than the 
-depth 2 model due to the more nuanced probability distribution. 
-It also illustrates how more complex algorithms can over-fit the data 
-(notice the narrow bands in probability distribution for the maximum depth of 6 case), 
-although overfitting is not an issue for RF algorithms in our case.
+%We compare classification domains for two models averaging again over 100 runs: 20 trees with the maximum depth of 2 and 
+for the model with 50 trees with the maximum depth of 6.
+%The depth 6 model has a better testing accuracy than the  depth 2 model due to the more nuanced probability distribution. 
+%It also illustrates how more complex algorithms can over-fit the data (notice the narrow bands in probability distribution for the maximum depth of 6 case), although overfitting is not an issue for RF algorithms in our case.
 It is important to note that in this plot the model is trained on only two features, although significance of curvature allows for a good accuracy to be reached. In the final classification with RF, we use 11 features and average over 1000 splits into training and testing samples.
 
 \begin{figure}[h]
 %\hspace*{-1cm}
-\includegraphics[width=0.5\textwidth]{plots/classification_domains/rf_20_2_final.pdf}
+%\includegraphics[width=0.5\textwidth]{plots/classification_domains/rf_20_2_final.pdf}
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/rf_50_6_final.pdf}
 \caption{RF classification domains showing class probabilities for training with two features. 
-We compare RF with 20 trees and maximum depth of 2 and 50 trees and maximum depth of 6.
+Color scale describes the probability for a source to be a pulsar.
+%We compare RF with 20 trees and maximum depth of 2 and 50 trees and maximum depth of 6.
 }  
 \label{fig:RF_domains}
 \end{figure}
@@ -324,7 +356,7 @@ misclassifications from the previous step.
 %The learning rate itself is not a significant parameter, and we stuck with the default value.
 %\dima{I'm not sure we need to discuss the learning rate, since we haven't done so in, e.g., neural networks}
 Dependence of the accuracy on tree depth is shown in Figure \ref{fig:BDT_depth}. 
-Unlike the RF, which is also an ensemble based method, the testing accuracy drops for the maximal depths larger than 2. 
+Unlike the RF, which is also an ensemble based method, the testing accuracy drops for the maximal depths larger than 7. 
 %Secondly, similar to RF, the number of trees is not significant above a threshold, which is $\sim$ 50 in the case of BDTs.
 %\dima{Which depth do we use for the final algorithm, it looks like depth 2 gives the best results. What about depth = 1?}
 
@@ -336,8 +368,9 @@ Unlike the RF, which is also an ensemble based method, the testing accuracy drop
 \label{fig:BDT_depth}
 \end{figure}
 
-The classification domains in case of two features for the maximum depth of 2 and 12 are presented in Figure \ref{fig:BDT_domains}. 
-It is interesting to note that already for the maximum depth of 2, the domains show a sign of overfitting: narrow bands in the class probabilities. For the classification we will use BDT with 100 trees and the maximum depth of 2.
+The classification domains in case of two features for 20 trees and the maximum depth of 2 is presented in Figure \ref{fig:BDT_domains}. 
+%It is interesting to note that already for the maximum depth of 2, the domains show a sign of overfitting: narrow bands in the class probabilities. 
+For the classification we will use BDT with 100 trees and the maximum depth of 2.
 %The greater than a percent decrease in the accuracy from a maximum depth of 3 to a maximum depth of 15 can be explained by the domains, where we see a pattern of almost over-fitting the data. While for 2 features the decrease is small, it should increase as we increase the number of features, with a lower complexity network being enough for a good accuracy.
 %Boosted Decision Trees again show a similar effect as Random forests in their classification, and have a significant difference when the model complexity is changed.
 
@@ -346,7 +379,7 @@ It is interesting to note that already for the maximum depth of 2, the domains s
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/bdt_20_2.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.5\textwidth]{plots/classification_domains/bdt_100_6.pdf}
+%\includegraphics[width=0.5\textwidth]{plots/classification_domains/bdt_100_6.pdf}
 \caption{Classification domains for BDT for training with two features.
 }
 \label{fig:BDT_domains}
@@ -400,7 +433,7 @@ The unknown parameters are optimized by minimizing a loss function, which we cho
 the cross entropy
 $-\text{log}L = - \sum_i (y_i\text{log}(p_i)+(1-y_i)\text{log}(1 - p_i))$, 
 where $y_i = 0,\,1$ are the true labels of the sources and $p_i$ are the predicted class probabilities.
-This is the same loss function as in the LR case.
+This is the same loss function as in the LR case below.
 We have also used NN with two hidden layers, but the accuracy was similar to the networks with one hidden layer (Appendix \ref{sec:app}). For the final classification model, we have chosen to use one hidden layer.
 
 \begin{figure}[h]
@@ -416,11 +449,13 @@ We have also used NN with two hidden layers, but the accuracy was similar to the
 
 Dependence of the accuracy on the number of neurons in the hidden layer, on the activation function, 
 and on the optimization algorithm is shown in Figure \ref{fig:NN_neurons}. 
-We compare two activation functions at the hidden layer (tanh and relu) and two optimization algorithms: Limited memory Broyden-Fletcher-Goldfarb-Shanno \citep[LBFGS,][]{lbfgs} and the stochastic gradient descent algorithm Adam \citep{2014arXiv1412.6980K}.
+We compare two activation functions at the hidden layer (tanh and relu) and two optimization algorithms: 
+Limited memory Broyden-Fletcher-Goldfarb-Shanno \citep[LBFGS,][]{lbfgs} 
+and the stochastic gradient descent algorithm Adam \citep{2014arXiv1412.6980K}.
 We use 300 epochs for training.
 %L-BFGS is an approximation of the quasi-newtonian BFGS method. The BFGS method uses the full inverse of the Hessian matrix to find the direction of movement for minimizing the gradient. The limited memory counterpart however, only stores a smaller representation of the full matrix. This makes this method much faster for larger data-sets.
 %Adam on the other hand belongs to a relatively newer family of algorithms which use gradient descent. Gradient descent is a first-order method to find the local minima or maxima of a differentiable function. Nowadays, this process is made more efficient by taking the gradient from parts of the data-set instead of the entire data-set itself. This is called stochastic gradient descent, since the data is selected randomly. Adam is a newer approach of the stochastic family using adaptive network learning rates for every parameter. Adam is usually preferred for Neural Networks with big data-sets. However since Adam converges slower, a higher number of epochs is needed to reach the best accuracies.
-Around 11 neurons in the hidden layer appears to be an optimal choice (same as number of features), since increasing the number of neurons leads to no significant increase in accuracy for all models. 
+Around 11 neurons in the hidden layer appears to be an optimal choice, since increasing the number of neurons leads to no significant increase in accuracy for all models. 
 %Several models have similar performance for 10 neurons in the hidden layer. 
 %For the final classification model we choose Adam solver, and tanh activation function
 %We find that tanh is a slightly better activation function in our case, as it provides slightly better results for both optimization methods as compared to relu.
@@ -461,23 +496,23 @@ As can be seen in the figure, with the specific stochastic gradient method Adam,
 %Like with Random forests, we also look at the probabilities here. 
 We illustrate the classification domains for NN with two input features in Figure \ref{fig:NN_domains}. 
 In this case we also use only two neurons in the hidden layer.
-The figure on the top panel shows the domains after 50 epochs, which has a less determined boundary than the
-domains in the bottom panel derived for 300 epochs. Due to the use of only 2 neurons and the fast converging LBFGS method, the accuracies are also similar.
-One can also see that the separation boundary is smoother compared to the RF domains in Figure \ref{fig:RF_domains} or BDT domains in Figure \ref{fig:BDT_domains}.
+%The figure on the top panel shows the domains after 50 epochs, which has a less determined boundary than the domains in the bottom panel derived for 300 epochs. Due to the use of only 2 neurons and the fast converging LBFGS method, the accuracies are also similar.
+One can see that the separation boundary is smoother compared to the RF domains in Figure \ref{fig:RF_domains} or BDT domains in Figure \ref{fig:BDT_domains}.
 %Secondly, one can clearly see how different the network behaves to the random forests before. The non-linear nature of neural networks allows it to smoothen the domain junctions (regions where there is a shift in class probabilities); this is a feature which becomes important especially when the number of training features is higher.
 %\dima{As above, I don't think it makes sense to use more than 2 nodes in the hidden layer here, since there are only two input features.} 
 
-For our final model we chose one hidden layer with ten neurons, 300 training epochs, Adam solver, and tanh activation function at the hidden layer.
+For our final model we chose one hidden layer with eleven neurons, 300 training epochs, LBFGS solver, and tanh activation function at the hidden layer.
 
 
 \begin{figure}[h]
 \center
 %\hspace*{-1cm}
-\includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_50_lbfgs.pdf}\\
+%\includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_50_lbfgs.pdf}\\
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_300_lbfgs.pdf}
 \caption{NN classification domains for 2 input features. We use 2 neurons in the hidden layer. 
-We use tanh activation function and LBFGS solver. Top panel: 50 training epochs, bottom panel: 300 training epochs.}
+We use tanh activation function and LBFGS solver. %Top panel: 50 training epochs, bottom panel: 300 training epochs.
+}
 \label{fig:NN_domains}
 \end{figure}
 
@@ -550,8 +585,8 @@ In Figure \ref{fig:prec_recall} we show precision and recall for detection of pu
 In particular, in the first two lines (solid blue with squares and dashed orange with right triangles) a source is categorized as a pulsar if all four algorithms classify it as a pulsar,
 while in lines 3 and 4 (solid green with diamonds and dashed red with down triangles) a source is attributed to the PSR class, if any of the algorithms classifies it as a pulsar.
 It is clear that for lines 1 and 2 the pulsar domain is smaller than for lines 3 and 4, since in the former case, the domain is the intersection of domains for individual algorithms, while in the latter it is the union.
-For all-algorithms-classification the precision is 100\% for most of latitudes, while the recall is between 40\% and 80\%, i.e., the list of pulsars is generally clean but incomplete.
-In case of any-algorithm-classification, the recall is increased by about 20\% for most latitudes compared to the all-algorithms-classification, but the precision drops by up to 20\% at some latitudes, i.e., the completeness improves at the expense of cleanliness of the sample.
+For all-algorithms classification the precision is 100\% for most of latitudes, while the recall is between 40\% and 80\%, i.e., the list of pulsars is generally clean but incomplete.
+In case of any-algorithm classification, the recall is increased by about 20\% for most latitudes compared to the all-algorithms classification, but the precision drops by up to 20\% at some latitudes, i.e., the completeness improves at the expense of cleanliness of the sample.
 Alternatively to using any-algorithm classification, one can give larger weights to pulsars or oversample pulsars in the training process, i.e., use the same source several times, so that the numbers of pulsars and AGNs in training are the same.
 Provided that in some applications it is beneficial to have as complete as possible the list of pulsar candidates among unassociated sources, we have retrained the algorithms using oversampling with the same meta-parameters as in the previous sections.
 
@@ -567,11 +602,11 @@ the number of times a source appears in training is shown by adding markers with
 In the bottom panel of Figure \ref{fig:LR_domains_O} we repeat Figure  \ref{fig:LR_domains} in order to compare the classification domains with and without oversampling.
 One can see that pulsar domain in the top panel is larger than the pulsar domain in the bottom panel.
 As a result, in the top panel more pulsars are classified as pulsars but also more AGNs are falsely classified as pulsars in the intersection region. 
-Since the overall number of AGNs is larger than the number of pulsars, the testing accuracy with oversampling is smaller than the one without oversampling: 0.92 vs 0.97.
+Since the overall number of AGNs is larger than the number of pulsars, the testing accuracy with oversampling is smaller than the one without oversampling.
 
 The results of training with oversampling are presented  in Figure \ref{fig:prec_recall},
-lines 5 and 6 (solid purple with circles and dashed brown with stars). These lines show precision and recall when a source is categorized as a pulsar, if all four algorithms classify it as a pulsar. The recall in this case is similar to the recall of the any-algorithm-classification for the training without oversampling,
-while the precision is slightly better than the precision in the any-algorithm-classification (the precision is 1 for $|\sin(b)| > 0.6$).
+lines 5 and 6 (solid purple with circles and dashed brown with stars). These lines show precision and recall when a source is categorized as a pulsar, if all four algorithms classify it as a pulsar. 
+The precision and recall in this case are similar to the any-algorithm classification for the training without oversampling.
 
 
 \begin{figure}[h]
