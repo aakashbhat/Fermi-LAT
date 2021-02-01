@@ -222,7 +222,7 @@ ln(Variability\_Index), hardness ratios.
 \end{figure*}
 \end{comment}
 
-For the classification of 4FGL-DR2 sources, we do not perform another optimization of meta-parameters \dima{or we check that the same parameters are optimal?}, i.e., we used the same meta-parameters for the four algorithms as in the construction of the probabilistic catalog based on 3FGL, except for NN where we increased the number of neurons in the hidden layer to 16. Similar to the construction of the 3FGL probabilistic catalog, we use both unweighted training samples and oversampling, i.e., we have 8 classification methods.
+For the classification of 4FGL-DR2 sources, we checked whether the parameters used in 3FGL classification were still optimal and find most of them to be the same. Therefore we used the same meta-parameters for the four algorithms as in the construction of the probabilistic catalog based on 3FGL, except for NN where we increased the number of neurons in the hidden layer to 16. Similar to the construction of the 3FGL probabilistic catalog, we use both unweighted training samples and oversampling, i.e., we have 8 classification methods.
 We retrain the algorithms using the 16 features for the 4FGL-DR2 sources.
 The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
 All algorithms have a slightly better accuracy for the 4FGL-DR2 catalog compared to the 3FGL catalog, which is likely due to a better determination of the spectra in 4FGL, to a higher number of features, and more associated sources used as training data. 
@@ -246,7 +246,7 @@ All algorithms have a slightly better accuracy for the 4FGL-DR2 catalog compared
     BDT & 100 trees, max depth 2    &   97.63 &0.39\\
     BDT\_O&&97.72&0.38\\
     \hline
-    NN & 300 epochs, 16 neurons, Adam \dima{or LBFGS?} & 97.41 & 0.47\\
+    NN & 300 epochs, 16 neurons, LBFGS  & 97.41 & 0.47\\
     NN\_O&&95.48&0.66\\
     \hline
     LR & LBFGS solver, 200 iterations & 97.80&0.38\\
@@ -288,7 +288,7 @@ The definition of columns and rows is the same as in the 3FGL catalog case in Se
 \end{table}
 
 
-Finally, we looked at sources which were unassociated in both 3FGL and 4FGL-DR2 (using 'ASSOC\_FGL' as an identifier for 3FGL sources). Out of 302 such sources, 38 sources are predicted to be pulsars using 3FGL features and 75 sources are predicted to be pulsars using 4FGL features. This leads to 29 sources which are predicted by all eight methods to be pulsars for features taken from both 3FGL and 4FGL catalogs. Among these 29 sources, four can be spatially associated to pulsars in the Parkes survey (of the other two, one is now associated as a pulsar in 4FGL, and the second one is not detected in 4FGL).  \dima{This is confusing, aren't we looking at unassociated sources in 4FGL, how can a source be then associated or undetected in 4FGL-DR2? Also I'm finding that there are 303 sources unassociated both in 3FGL and 4FGL-DR2.}
+Finally, we looked at sources which were unassociated in both 3FGL and 4FGL-DR2 (using 'ASSOC\_FGL' as an identifier for 3FGL sources). Out of 303 such sources\footnotetext{These are actually 303 4FGL-DR2 sources and 302 3FGL sources with 2 4FGL-DR2 sources associated with 1 3FGL source.}, 40 sources are predicted to be pulsars using 3FGL features and 75 sources are predicted to be pulsars using 4FGL features. This leads to 29 sources which are predicted by all eight methods to be pulsars for features taken from both 3FGL and 4FGL catalogs. Among these 29 sources, 6 are spatially associated with pulsars in the Parkes survey based only on 3FGL parameters. Four of these are are also predicted to be pulsars when we add in the 4FGL-DR2 predictions. Of the other two, one is now associated as a pulsar in 4FGL-DR2, and the second one is not detected in 4FGL. % \dima{This is confusing, aren't we looking at unassociated sources in 4FGL, how can a source be then associated or undetected in 4FGL-DR2? Also I'm finding that there are 303 sources unassociated both in 3FGL and 4FGL-DR2.}
 For convenience, we save these 29 pulsar candidates as a separate file.
 
 

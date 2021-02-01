@@ -1,9 +1,9 @@
 \section{Three-Class Classification}
 \lb{sec:3class}
 
-One of the caveats of the analysis with two classes is that there are associated sources, which do not belong to AGN or PSR classes, such as pulsar wind nebular (PWN) or supernova remnants (SNR).%
-\footnote{\dima{write a complete list of labels in the OTHER class}}
-We collect all associated sources, which do not belong to AGN and PSR classes into a new class, which we label as ``OTHER''.
+One of the caveats of the analysis with two classes is that there are associated sources, which do not belong to AGN or PSR classes. These have the labels: unk, spp, glc, snr, gal, sbg, GAL, sfr, bin, SNR, HMB, LMB, css, PWN, pwn, hmb, SFR, BIN, lmb, NOV.%
+%\footnote{\dima{write a complete list of labels in the OTHER class}}
+We collect all these associated sources, which do not belong to AGN and PSR classes into a new class, which we label as ``OTHER''.
 Since in two-class classification we train algorithm to classify sources only into AGN and PSR classes, OTHER sources are also classified as either AGN or PSR.
 This introduces a bias in the estimates of the number of AGNs and pulsars among unassociated sources.
 One possibility to correct this bias is to assume that the fractions of OTHER sources among associated and unassociated sources are the same (Equation (\ref{eq:other_correction})).
@@ -28,9 +28,9 @@ We perform optimization of the meta-parameters for the four ML algorithms with t
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/bdt_train_multi.pdf}
 \includegraphics[width=0.5\textwidth]{plots/lr_train_multi.pdf}
-\caption{Accuracy for the 3-class classification with RF, BDT and LR  methods.
-\dima{Why there are four lines and only 3 labels in the LR plot? It's strange that there is such a large difference between
-LBFGS and other lines.}
+\caption{Accuracy for the 3-class classification with RF, BDT and LR  methods. LR doesn't have Liblinear solver here, since Liblinear cannot handle multinomial loss.
+%\dima{Why there are four lines and only 3 labels in the LR plot? It's strange that there is such a large difference between
+%LBFGS and other lines.}
 }
 \label{fig:tree_multi}
 \end{figure}
@@ -43,8 +43,8 @@ LBFGS and other lines.}
 \includegraphics[width=0.5\textwidth]{plots/nn_neuron_train_multi.pdf}
 \caption{Accuracy of the NN classification as a function of the number of epochs and of the number of neurons
  for the 3-class classification. 
- \dima{Can you check the Adam calculation? It's strange that the difference is so large: 
- the top panel has accuracy of 91\% for 11 neurons and 600 epochs, while the bottom panel has only 87\% accuracy for the same parameters.}
+% \dima{Can you check the Adam calculation? It's strange that the difference is so large: 
+% the top panel has accuracy of 91\% for 11 neurons and 600 epochs, while the bottom panel has only 87\% accuracy for the same parameters.}
  }
 \label{fig:nets_multi}
 \end{figure}
@@ -53,7 +53,7 @@ LBFGS and other lines.}
 The dependence of accuracy on meta-parameters of the algorithms is shown in Figures \ref{fig:tree_multi} and \ref{fig:nets_multi}.
 We see that for the tree-based algorithms, the optimal parameters are similar to the 2-class classification, i.e., 50 trees with depth 6 for RF and 100 trees with depth 2 for BDT 
 provide close to optimal performance at a minimal cost in complexity (depth of the trees).
-The main difference for NN and LR algorithms is that more steps are needed for convergence: 600 epochs for NN and 500 iterations for LR instead of 300 epochs and 200 iterations respectively in the two-class case. \dima{Why do we use 600 epochs if in LBFGS case the convergence happens already for 100 epochs?}
+The main difference for NN and LR algorithms is that more steps are needed for convergence for both normal and oversampled cases. This is why we opt for 600 epochs for NN and 500 iterations for LR instead of 300 epochs and 200 iterations respectively in the two-class case. %\dima{Why do we use 600 epochs if in LBFGS case the convergence happens already for 100 epochs?}
 For NN, the accuracy stops increasing above about 10 neurons in the hidden layer (in the following we use 11 neurons for classification: the same as in the two-class case).
 
 For oversampling, we use the oversampling factors $\sqrt{\frac{\text{\# AGN}}{\text{\# PSR}}}$ and $\sqrt{\frac{\text{\# AGN}}{\text{\# OTHER}}}$ for PSR and OTHER classes respectively (instead of $\frac{\text{\# AGN}}{\text{\# PSR}}$ and $\frac{\text{\# AGN}}{\text{\# OTHER}}$ oversampling factors in the 2-class case).
@@ -138,9 +138,9 @@ The corresponding improvement for the accuracy of classification of unassociated
 
 
 The 3-class classification of 4FGL-DR2 sources is performed similar to the 3-class classification of the 3FGL sources.
-The two differences are similar to the differences in the 2-class classification of 3FGL and 4FGL-DR2 sources:
+Two differences are similar to the differences in the 2-class classification of 3FGL and 4FGL-DR2 sources:
 we use 16 features (the same features as in the 2-class classification of 4FGL-DR2 sources in Section \ref{sec:4FGLprediction} but with GLON replaced by cos(GLON))
-and we have 16 neurons in the hidden layer of the NN method.
+and we have 16 neurons in the hidden layer of the NN method. Furthermore, for Logistic Regression we chose 1000 as number of iterations instead of 500 as it performed better for oversampled cases.
 The corresponding accuracies are reported in Table \ref{tab:selected_algs_4fgl_multi}.
 In comparing the accuracies with the 2-class classification in Table \ref{tab:selected_algs2}, 
 one has to take into account that there are 346 OTHER sources among 4116 associated sources in 4FGL-DR2, which is about 8.4\%.
@@ -175,7 +175,7 @@ The ``Mixed'' column shows the number of sources with different classification r
     NN & 600 epochs, 16 neurons, LBFGS & 91.86&0.72\\
     NN\_O &  & 90.26&0.83\\
     \hline
-    LR & 1000 iterations \dima{3FGL had 500?}, LBFGS solver & 92.63&0.67 \\
+    LR & 1000 iterations, LBFGS solver & 92.63&0.67 \\
     LR\_O &  &92.22&0.69\\
     \hline
      

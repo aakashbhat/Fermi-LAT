@@ -39,7 +39,7 @@ pyplot.rcParams['lines.linewidth'] = 4
 pyplot.rcParams['lines.markersize'] = 12
 
 
-dataframe = pandas.read_csv("./files/result_4fglassocnewfeat_nn_epochs_multi_cosglon.csv", header=None)
+dataframe = pandas.read_csv("./files/result_3fglassocnewfeat_nn_neurons500epochs_multi_cosglon.csv", header=None)
 dataset1 = dataframe.values
 #dataframe2 = pandas.read_csv("./files/result_3fglassocnewfeat_rf2.csv", header=None)
 #dataset2=dataframe2.values
@@ -51,10 +51,10 @@ valscore31=dataset2[2]
 valscore34=dataset2[3]
 valscore32=dataset2[4]
 '''
-valscore3=dataset1[2]
-valscore4=dataset1[3]
-valscore12=dataset1[4]
-valscore22=dataset1[5]
+valscore3=dataset1[2]/2
+valscore4=dataset1[3]/2
+valscore12=dataset1[4]/2
+valscore22=dataset1[5]/2
 '''
 plt.plot(numi, valscore31, 'o--',marker='x')
 plt.plot(numi, valscore34, 'b',marker='.')
@@ -66,13 +66,13 @@ plt.plot(numi, valscore12, 'r--',marker='>')
 plt.plot(numi, valscore22, 'y:',marker='<')
 
 
-ax.set_xlabel('Number of Epochs',fontsize='xx-large')
+ax.set_xlabel('Number of Neurons',fontsize='xx-large')
 ax.set_ylabel('Testing Score',fontsize='xx-large')
 plt.yticks(fontsize='large')
 #plt.yticks(np.arange(92,99,step=1))
 #plt.xticks(fontsize='large')
 #ax.set_zlabel('Validation score')
-plt.legend(["LBFGS, Tanh","LBFGS, Relu","Adam, Tanh","Adam, Relu"],title='Number of Neurons: 16')
+plt.legend(["LBFGS, Tanh","LBFGS, Relu","Adam, Tanh","Adam, Relu"],title='Number of Epochs: 600')
 #plt.legend(["5 Trees","20 Trees","100 Trees","500 Trees"])#"50 Trees","100 Trees","200 Trees"])
 
 #plt.legend(["LBFGS","SAG","SAGA"])
