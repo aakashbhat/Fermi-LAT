@@ -140,12 +140,12 @@ Negative values (e.g., at high fluxes for AGNs) are due to subtraction of probab
 \begin{figure*}[h]
 \center
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lat_profile_PSR_3FGL_oversample.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_PSR_3FGL_2classes.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lat_profile_PSR_4FGL_oversample.pdf} \\
-\includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_3FGL_oversample.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_PSR_4FGL-DR2_2classes.pdf} \\
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_3FGL_2classes.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_4FGL_oversample.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_4FGL-DR2_2classes.pdf}
 \caption{Latitude profiles of source counts. Blue solid line -- associated 3FGL and 4FGL sources. Red dash-dotted line -- all unassociated sources. Green (red) band -- envelope of sums of class probabilities for unassociated sources for the four ML algorithms without (with) oversampling. Orange solid line (band) -- average (envelope) of sums of class probabilities for the eight ML methods with and without oversampling added to the source count of associated sources. 
 Green dashed line on the AGN plots -- mean of the sum of counts of associated sources and the average of the expectations for counts of unassociated sources (mean of the orange solid line).
 Gray dashed (dotted) line -- RF (LR) sums of class probabilities from \cite{2016ApJ...820....8S}.
@@ -158,12 +158,12 @@ For details see Section \ref{sec:lat-lon-profiles}. }
 \begin{figure*}[h]
 \center
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lon_profile_PSR_3FGL_oversample.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_PSR_3FGL_2classes.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lon_profile_PSR_4FGL_oversample.pdf} \\
-\includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_3FGL_oversample.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_PSR_4FGL-DR2_2classes.pdf} \\
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_3FGL_2classes.pdf}
 %\hspace*{-1cm}
-\includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_4FGL_oversample.pdf}
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_4FGL-DR2_2classes.pdf}
 \caption{Longitude profiles of source counts. For the definition of labels see Figure \ref{fig:lat_profile}.}  
 \label{fig:lon_profile}
 \end{figure*}
@@ -198,6 +198,43 @@ We note that there is a significant increase in the number of unassociated sourc
 It leads to a large expected number of pulsars among unassociated sources for these longitudes.
 The number of associated AGNs is smaller than average for $|\ell | \lesssim 50^\circ$, while the expected number of AGNs among unassociated sources is larger than average for these longitudes.
 The sum of the two is relatively uniform, with a possible overprediction of AGNs in the unassociated sources in the 4FGL catalog for \mbox{$-50^\circ < \ell < 0^\circ$}.
+
+
+
+\begin{figure*}[h]
+\center
+%\hspace*{-1cm}
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_PSR_3FGL_3classes.pdf}
+%\hspace*{-1cm}
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_PSR_4FGL-DR2_3classes.pdf} \\
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_OTHER_3FGL_3classes.pdf}
+%\hspace*{-1cm}
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_OTHER_4FGL-DR2_3classes.pdf} \\ 
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_3FGL_3classes.pdf}
+%\hspace*{-1cm}
+\includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_4FGL-DR2_3classes.pdf}
+\caption{Longitude profiles of source counts. For the definition of labels see Figure \ref{fig:lat_profile}.}  
+\label{fig:lat_profile_3class}
+\end{figure*}
+
+
+
+\begin{figure*}[h]
+\center
+%\hspace*{-1cm}
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_PSR_3FGL_3classes.pdf}
+%\hspace*{-1cm}
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_PSR_4FGL-DR2_3classes.pdf} \\
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_OTHER_3FGL_3classes.pdf}
+%\hspace*{-1cm}
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_OTHER_4FGL-DR2_3classes.pdf} \\
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_3FGL_3classes.pdf}
+%\hspace*{-1cm}
+\includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_4FGL-DR2_3classes.pdf}
+\caption{Longitude profiles of source counts. For the definition of labels see Figure \ref{fig:lat_profile}.}  
+\label{fig:lon_profile_3class}
+\end{figure*}
+
 
 
 
