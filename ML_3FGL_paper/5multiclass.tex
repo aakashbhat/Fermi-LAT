@@ -114,18 +114,23 @@ The corresponding improvement for the accuracy of classification of unassociated
 
 
 \begin{table}[!h]
-\resizebox{0.3\textwidth}{!}{
+\resizebox{0.4\textwidth}{!}{
     \tiny
  %  \centering
     \renewcommand{\tabcolsep}{0.3mm}
 \renewcommand{\arraystretch}{1.5}
 
-    \begin{tabular}{| l |c|c|c|c|}
+    \begin{tabular}{| l | l |c|c|c|c|}
     \hline
-    Catalog & AGN & PSR & OTHER & Mixed \\
+    Catalog & Classification & AGN & PSR & OTHER & Mixed \\
     \hline
-    3FGL & 585 & 53 & 69  &  301 \\
-    4FGL-DR2 & 736 & 64 & 271  &  587 \\
+    3FGL & 2-class & 597 & 111 & --  &  300 \\
+     & {\it 2-class corr} & {\it 578} & {\it 97} & {\it 51}  &  {\it 279} \\
+     & 3-class & 585 & 53 & 69  &  301 \\
+    \hline
+    4FGL-DR2 \ & 2-class & 872 & 162 & --  &  624 \\
+     & {\it 2-class corr} & {\it 821} & {\it 135} & {\it 139}  &  {\it 563} \\
+     & 3-class & 736 & 64 & 271  &  587 \\
     \hline
      
     \end{tabular}}
