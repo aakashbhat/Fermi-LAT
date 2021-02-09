@@ -270,11 +270,25 @@ We find that the number of associated AGNs is decreasing towards the GP, the exp
 In Figures \ref{fig:lon_profile} and \ref{fig:lon_profile_3class} we show plots analogous to Figures \ref{fig:lat_profile} and \ref{fig:lat_profile_3class} for Galactic longitudes (we use 30 bins).
 We note that there is a significant increase in the number of unassociated sources in the 4FGL-DR2  catalog for $|\ell | \lesssim 50^\circ$.
 In the 2-class classification about half of the unassociated sources are attributed to pulsars and half to AGNs.
+In the 3-class classification at least one third of the unassociated sources in this range of longitudes is attributed to the OTHER class.
+This comes mostly at the expense of reducing the predicted number of pulsars.
+It is interesting to note that the 2-class model for the OTHER sources calculated using Equation (\ref{eq:unas_other}) for longitude bins
+(black dashed line in the OTHER plots) is significantly below the bands of 3-class expectations, whereas for the latitude bins the 2-class model
+was consistent with the bands.
+The reason is that the ratio of unassociated to associated sources, which we use to estimate the number of OTHER sources among the unassociated ones, depends on binning.
+In particular, this ratio is about 1 for low latitudes, which leads to an estimate that at low latitudes the number of OTHER sources among unassociated ones is similar to the number of associated OTHER sources.
+But for longitude and flux binning the ratio of unassociated to associated sources is smaller than 1, which leads to a prediction (in the 2-class case) that the number of OTHER sources among unassociated ones is smaller than the number of associated OTHER sources.
 
-\begin{comment}
-It leads to a large expected number of pulsars among unassociated sources for these longitudes. The number of associated AGNs is smaller than average for $|\ell | \lesssim 50^\circ$, while the expected number of AGNs among unassociated sources is larger than average for these longitudes.
-The sum of the two is relatively uniform, with a possible overprediction of AGNs in the unassociated sources in the 4FGL-DR2  catalog for \mbox{$-50^\circ < \ell < 0^\circ$}.
-\end{comment}
+We summarize the expected numbers of sources in 2-class and 3-class models in Table \ref{tab:expected_counts_prob_3FGL} for 3FGL and in Table \ref{tab:expected_counts_prob_4FGL-DR2} for 4FGL-DR2 catalogs.
+In the 2-class case we also show the correction for the presence of OTHER sources among unassociated ones.
+We make the correction using the total numbers of unassociated and associated sources, as well as binning in flux from Figure \ref{fig:logN_logS} (F-bins), in latitudes from Figure \ref{fig:lat_profile} (Lat-bins), and in longitudes from Figure  \ref{fig:lon_profile}.
+We see that predictions for the numbers of sources using latitude binning in the 2-class case is closest to the 3-class case.
+Even better agreement would likely be achieved if ones uses a simultaneous binning in flux, latitudes, longitudes and, possibly, other variables.
+If, in addition, one allows bins of variable size and non-rectangular boundaries in multi-dimensional space, then one will eventually end up with one of the ML algorithms for classification.
+Indeed, ML algorithms are designed to provide an optimal binning, which maximizes the separation of classes and make predictions for data with unknown labels (e.g., unassociated sources) based on counts of samples in bins with known labels (e.g., associated sources).
+Thus the 3-class prediction for classification of unassociated sources is likely more accurate than the 2-class classification with correction for OTHER sources based on ad hoc binning of one of the variables.
+The 2-class classification may still be useful in situations, when high recall is necessary for either pulsars or AGNs.
+Since OTHER sources are mixed with pulsars and AGNs, some of pulsars and AGNs can be mistakenly classified as OTHER in the 3-class case.
 
 
 
