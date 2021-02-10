@@ -11,7 +11,7 @@ logistic regression \citep[LR,][]{cox1958},
 and neural networks \citep[NN,][]{Hopfield:1982pe}.
 %The resulting probabilities of classes depend on the choice of the classification algorithm.
 Although the performance of algorithms on testing data is slightly different, 
-we report the classification probabilities for all four algorithms, instead of selecting the best one.
+we report the classification probabilities for all four algorithms.
 The difference among the predictions will serve as a measure of modeling uncertainty related 
 to the choice of the classification algorithm.
 
@@ -108,9 +108,12 @@ then we keep only one of the features for classification.
 \begin{figure}[h]
 \center
 %\hspace*{-1cm}
-\includegraphics[width=0.5\textwidth]{plots/3fgl_assoc_cor.pdf}\\
+\includegraphics[width=0.5\textwidth]{plots/3fgl_assoc_cor.pdf}
 %\hspace*{-1cm}
-\caption{The corelation matrix of feature values for 3FGL associated data.}
+\caption{The corelation matrix of features for 3FGL associated sources.
+The ``500MeV\_Index'' is defined in Equation (\ref{eq:n500_def}), all other features are taken directly 
+from the 3FGL catalog.
+}
 \label{fig:assoc_corr_3fgli}
 \end{figure}
 
@@ -126,7 +129,9 @@ If one fits all spectra of sources in the catalog by a power-law function, then 
 This feature is defined uniformly for all associated and unassociated sources, i.e., it is safe to use for training.
 Unfortunately, the power-law function is not a good description of the gamma-ray flux from pulsars.
 In the classification of the 3FGL sources we have constructed a new feature: the index at 500 MeV (denoted in the following as ``500MeV\_Index''), defined as minus the derivative of the log flux:
+
 \be
+\lb{eq:n500_def}
 n({\rm 500\,MeV}) = - \left. \frac{d \ln F}{d \ln E} \right|_{E = \rm 500\,MeV}
 \ee
 For log parabola and for power law with (super)exponential cutoff it is respectively
@@ -251,6 +256,7 @@ equal weights -- all PS have equal weights in the objective function, and invers
 \caption{
 Test score (accuracy) of RF classification as a function of the number of trees and 
 the maximal depth of trees.
+\dima{Typo in the x-axis label: should be Maximum not Maximmum}
 }
 \label{fig:RF_complexity}
 \end{figure}
@@ -324,20 +330,24 @@ but the significance is similar to the GLAT itself.
 We further discuss the dependence on GLAT in Section \ref{sec:lat-lon-profiles}, 
 where we calculate the latitude and longitude profiles of the associated and unassociated source counts.
 
-In order to illustrate the separation of PS into AGNs and pulsars, we retrain the RF algorithm using only two features: log of curvature significance and log of the variability index, and plot the resulting probabilities of classes in Figure \ref{fig:RF_domains}. 
+In order to illustrate the separation of PS into AGNs and pulsars, we retrain the RF algorithm using only two features: log of curvature significance and log of the variability index, and plot the resulting probabilities of classes in Figure \ref{fig:RF_domains}
 %These classification domains illustrate the separation of class probabilities.
 %We compare classification domains for two models averaging again over 100 runs: 20 trees with the maximum depth of 2 and 
 for the model with 50 trees with the maximum depth of 6.
+The probabilities are averaged over 100 splits into training and testing samples.
 %The depth 6 model has a better testing accuracy than the  depth 2 model due to the more nuanced probability distribution. 
 %It also illustrates how more complex algorithms can over-fit the data (notice the narrow bands in probability distribution for the maximum depth of 6 case), although overfitting is not an issue for RF algorithms in our case.
-It is important to note that in this plot the model is trained on only two features, although significance of curvature allows for a good accuracy to be reached. In the final classification with RF, we use 11 features and average over 1000 splits into training and testing samples.
+It is important to note that in this plot the model is trained on only two features. Nevertheless a good testing accuracy of 97\% is reached, 
+which is similar to the accuracy of the RF classification with all 11 features.
+For the final classification with RF, we use 11 features and average over 1000 splits into training and testing samples.
 
 \begin{figure}[h]
 %\hspace*{-1cm}
 %\includegraphics[width=0.5\textwidth]{plots/classification_domains/rf_20_2_final.pdf}
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/rf_50_6_final.pdf}
-\caption{RF classification domains showing class probabilities for training with two features. 
+\caption{RF classification domains showing class probabilities for training with two features
+averaged over 100 random splits into training and testing samples.
 Color scale describes the probability for a source to be a pulsar.
 %We compare RF with 20 trees and maximum depth of 2 and 50 trees and maximum depth of 6.
 }  
@@ -380,7 +390,8 @@ For the classification we will use BDT with 100 trees and the maximum depth of 2
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/bdt_20_2.pdf}
 %\hspace*{-1cm}
 %\includegraphics[width=0.5\textwidth]{plots/classification_domains/bdt_100_6.pdf}
-\caption{Classification domains for BDT for training with two features.
+\caption{Classification domains for BDT for training with two features 
+averaged over 100 splits into training and testing samples.
 }
 \label{fig:BDT_domains}
 \end{figure}
@@ -447,7 +458,7 @@ We have also used NN with two hidden layers, but the accuracy was similar to the
 \label{fig:NN_neurons}
 \end{figure}
 
-Dependence of the accuracy on the number of neurons in the hidden layer, on the activation function, 
+Dependence of the testing accuracy on the number of neurons in the hidden layer, on the activation function, 
 and on the optimization algorithm is shown in Figure \ref{fig:NN_neurons}. 
 We compare two activation functions at the hidden layer (tanh and relu) and two optimization algorithms: 
 Limited memory Broyden-Fletcher-Goldfarb-Shanno \citep[LBFGS,][]{lbfgs} 
@@ -462,7 +473,8 @@ Around 11 neurons in the hidden layer appears to be an optimal choice, since inc
 %As a method of choice we will use in the following 10 neurons in the hidden layer with tanh activation function and Adam optimizer.
 
 Dependence on the number of epochs (number of iterations in fitting) is presented in Figure \ref{fig:NN_epochs}. 
-The accuracy increases with higher number of epochs and saturates at around 200 for LBFGS and 300 for Adam. LBFGS converges faster than Adam, which uses stochastic gradient descent.
+The accuracy increases with higher number of epochs and saturates at around 200 for LBFGS and 300 for Adam. 
+%LBFGS converges faster than Adam, which uses stochastic gradient descent.
 %A higher number will then lead to over-fitting of the model.
 
 
@@ -510,7 +522,9 @@ For our final model we chose one hidden layer with eleven neurons, 300 training 
 %\includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_50_lbfgs.pdf}\\
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_300_lbfgs.pdf}
-\caption{NN classification domains for 2 input features. We use 2 neurons in the hidden layer. 
+\caption{NN classification domains for 2 input features
+averaged over 100 random splits into training and testing samples.
+We use 2 neurons in the hidden layer. 
 We use tanh activation function and LBFGS solver. %Top panel: 50 training epochs, bottom panel: 300 training epochs.
 }
 \label{fig:NN_domains}
@@ -525,7 +539,7 @@ where $m(x)$ is a function of input features $x$.
 The complexity of the model is given by the number of parameters in $m(x)$.
 We have considered two cases for $m(x)$: linear and quadratic function of the input features $x$.
 Quadratic $m(x)$ resulted in a similar accuracy as linear $m(x)$.
-Consequently, we have restricted our attention to linear functions $m(x) = \sum_{k = 1}^{10} f_k x_k$.
+Consequently, we have restricted our attention to linear functions $m(x) = \sum_{k = 1}^{11} f_k x_k$.
 In Figure \ref{fig:LR_accuracy} we show the accuracy of the LR method as a function of the number of iteractions
 for different solvers, e.g., LBFGS \citep{lbfgs}, Stochastic Average Gradient \citep[SAG,][]{sag}, SAGA \citep[a variant of SAG,][]{saga},
 and liblinear \citep[a special solver for LR and support vector machine classifications,][]{ll}.
@@ -550,7 +564,8 @@ For the final classification we will use LBFGs solver with 200 iterations.
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/lr_200_lbfgs.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/classification_domains/NN_300_LBFGS_Identity.pdf}
-\caption{Classification domains for LR with two features.}
+\caption{Classification domains for LR with two features 
+averaged over 100 random splits into training and testing samples.}
 \label{fig:LR_domains}
 \end{figure}
 
@@ -605,7 +620,8 @@ As a result, in the top panel more pulsars are classified as pulsars but also mo
 Since the overall number of AGNs is larger than the number of pulsars, the testing accuracy with oversampling is smaller than the one without oversampling.
 
 The results of training with oversampling are presented  in Figure \ref{fig:prec_recall},
-lines 5 and 6 (solid purple with circles and dashed brown with stars). These lines show precision and recall when a source is categorized as a pulsar, if all four algorithms classify it as a pulsar. 
+lines 5 and 6 (solid purple with circles and dashed brown with stars). 
+These lines show precision and recall when a source is categorized as a pulsar, if all four algorithms trained with oversampling classify it as a pulsar. 
 The precision and recall in this case are similar to the any-algorithm classification for the training without oversampling.
 
 
@@ -617,6 +633,7 @@ The precision and recall in this case are similar to the any-algorithm classific
 \caption{Top panel: LR classification domains showing class probabilities for training with oversampling.
 The oversampling is illustrated by repeating the pulsar markers with a shift: the number of markers is equal to the number of times the pulsar appears in training.
 Bottom panel: we repeat Figure \ref{fig:LR_domains} for convenience of comparison with the oversampled training in the top panel.
+In both panels the domains are obtained by averaging over 100 random splits into training and testing samples.
 }  
 \label{fig:LR_domains_O}
 \end{figure}
