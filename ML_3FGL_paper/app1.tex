@@ -2,11 +2,13 @@
 \lb{sec:app}
 
 In this appendix we discuss tests of some hyper-parameters, which had a relatively little effect on the 
-accuracy of the algorithms. For these tests we use the 3FGL catalog.
+accuracy of the algorithms. For these tests we use the 2-class classification in the 3FGL catalog.
 
-LR algorithm has two hyper-parameters regularization and tolerance. 
+LR algorithm has two hyper-parameters: regularization and tolerance. 
 %These features are the limit up to which one wants to go before accepting a solution. 
-As can be seen in figure \ref{fig:LR_tol_reg} the effect on accuracy is less than 1\%. Therefore we used the default values for these parameters (tolerance is 1$e^{-4}$ and regularization parameter is set at 1).% \dima{If we mention the default value, we should say what the default values are}. 
+The effect of the choice of these parameters on accuracy is less than 1\% (Figure \ref{fig:LR_tol_reg}). 
+Therefore we used the default values for these parameters (tolerance is 1$e^{-4}$ and regularization parameter is set at 1).
+\dima{Did we change the regularization in the oversampling 3-class case? I guess it was probably not as important as the change from GLON to cos(GLON).}. 
 \begin{figure}[h]
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/lr_train_reg.pdf}
@@ -22,13 +24,12 @@ compared with the NN with one hidden layer (cf. Table \ref{tab:selected_algs}).
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/nn_2layers_3fgl.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/unassoc_complex.pdf}
-\caption{Dependence of NN on the second hidden layer, for 10 neurons in the first layer.}
-%\dima{Strictly speaking this is the case of 3 hidden layers.}}
+\caption{Dependence of NN on the number of neurons in the second hidden layer, for 10 \dima{or 11?} neurons in the first hidden layer.}
 \label{fig:nn_nn}
 \end{figure}
 
 At the end we summarize features and their statistics,
-which we use for probabilistic classification of sources in the 3FGL and 4FGL catalogs,
+which we use for probabilistic classification of sources in the 3FGL and 4FGL-DR2 catalogs,
 in Tables \ref{tab:3FGL_features} and \ref{tab:4FGL_features} respectively. 
 
 \pgfplotstableread[col sep=comma]{tables/features/3fglassocfeaturesAGNPSRnewfeats.csv}\tablea
@@ -75,7 +76,7 @@ columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
 ]{\tableaf}
 }
 \vspace{0.2cm}
-\caption{Statistics of features used for 2 class probabilistic classification of the 4FGL sources.
+\caption{Statistics of features used for 2 class probabilistic classification of the 4FGL-DR2 sources.
 \lb{tab:4FGL_features}}
 \end{table}
 
