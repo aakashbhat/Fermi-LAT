@@ -53,7 +53,7 @@ A limitation is that the form of the probability function is fixed to the sigmoi
 We notice that if $m(x)$ is a linear function of features $x$, then the LR model is obtained by an application of sigmoid function to a linear combination of input features.
 This is in fact a single layer perceptron, or a NN, with several input nodes (each node corresponds to a feature) and one output node, which corresponds to $p_0(x)$, but without any hidden layers.
 The output value is obtained by a non-linear transformation (sigmoid) of a linear combination of features.
-Neural network with several hidden layers is obtained by a sequence of nonlinear transformations of linear combinations of features.
+Neural network with several hidden layers is obtained by a sequence of non-linear transformations of linear combinations of features.
 In particular, the values in the first hidden layer are obtained by a non-linear transformation of linear combinations of input features.
 Then the values in the second hidden layer are obtained by a non-linear transformation of linear combinations of values in the first hidden layer etc.
 In the context of neural networks, the non-linear transformations are called activation functions.
@@ -101,7 +101,7 @@ We use the associated sources which were classified as either AGNs (classificati
 %Our methodology for classification was dependent on two things: The data that we had, which needed to be cleaned and the algorithms that we needed to apply. For this we decided on using the 3rd catalog of F-LAT (3FGL from hereon) for initial training and testing, the 4th catalog (FL8Y from hereon) for further testing and predictions.
 %Our data was similar to that used by Parkinson et. al. We cleaned the 3FGL catalog to have sources which were both associated and unassociated but with no missing values.\\
 
-There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties. We took the main features, including those discussed in \cite{2016ApJ...820....8S}, and plotted their Person correlation coefficients. A graphical representation of the correlation table is shown is Figure \ref{fig:assoc_corr_3fgli}. In the following, if two features have (anti)correlation $\gtrsim 0.75$ 
+There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties. We took the main features, including those discussed in \cite{2016ApJ...820....8S}, and plotted their Pearson correlation coefficients. A graphical representation of the correlation table is shown is Figure \ref{fig:assoc_corr_3fgli}. In the following, if two features have (anti)correlation $\gtrsim 0.75$ 
 ($\lesssim -0.75$),
 then we keep only one of the features for classification.
 
@@ -256,7 +256,7 @@ equal weights -- all PS have equal weights in the objective function, and invers
 \caption{
 Test score (accuracy) of RF classification as a function of the number of trees and 
 the maximal depth of trees.
-\dima{Typo in the x-axis label: should be Maximum not Maximmum}
+%\dima{Typo in the x-axis label: should be Maximum not Maximmum}
 }
 \label{fig:RF_complexity}
 \end{figure}
@@ -540,7 +540,7 @@ The complexity of the model is given by the number of parameters in $m(x)$.
 We have considered two cases for $m(x)$: linear and quadratic function of the input features $x$.
 Quadratic $m(x)$ resulted in a similar accuracy as linear $m(x)$.
 Consequently, we have restricted our attention to linear functions $m(x) = \sum_{k = 1}^{11} f_k x_k$.
-In Figure \ref{fig:LR_accuracy} we show the accuracy of the LR method as a function of the number of iteractions
+In Figure \ref{fig:LR_accuracy} we show the accuracy of the LR method as a function of the number of iterations
 for different solvers, e.g., LBFGS \citep{lbfgs}, Stochastic Average Gradient \citep[SAG,][]{sag}, SAGA \citep[a variant of SAG,][]{saga},
 and liblinear \citep[a special solver for LR and support vector machine classifications,][]{ll}.
 %\dima{refs?}
@@ -576,7 +576,7 @@ averaged over 100 random splits into training and testing samples.}
 \Fermi-LAT catalogs have many more AGNs than pulsars, i.e., the datasets are imbalanced.
 In the previous subsections we have optimized overall accuracy. In this case, the algorithms try to identify AGNs rather than pulsars,
 since it gives better accuracy. As a result, in the region of parameter space, where both pulsars and AGNs are present, the algorithms
-will give higher probability for a source to be an AGNs.
+will give higher probability for a source to be an AGN.
 %, i.e., the pulsar domain is smaller than it would have been in the case of balanced datasets.
 
 The problem of classification of imbalanced datasets can be quantitatively described in terms of precision and recall.

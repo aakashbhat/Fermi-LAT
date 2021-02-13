@@ -1,6 +1,6 @@
 \section{Introduction}
 
-Multiwavelength association of astronomical sources is important for understanding their nature.
+Multi-wavelength association of astronomical sources is important for understanding their nature.
 Unfortunately, in many cases a firm association of sources at different wavelength is not possible.
 For example, about one third of gamma-ray sources in \Fermi Large Area Telescope (LAT) catalogs are unassociated
 \citep{2010ApJS..188..405A, 2012ApJS..199...31N, 2015ApJS..218...23A, 2020ApJS..247...33A}.
@@ -8,8 +8,9 @@ It is useful to know at least to which class the unassociated sources belong to 
 what are the probabilities for the source to belong to various classes.
 In this paper we use several machine learning (ML) algorithms to find probabilistic classification of
 unassociated sources in the \Fermi-LAT third \citep[3FGL,][]{2015ApJS..218...23A} and the fourth data release 2
-\citep[4FGL-DR2,][]{2020ApJS..247...33A, 2020arXiv200511208B} catalogs.
-\dima{We need to say which version of the catalogs we use, e.g., gll\_psc\_v16 for 3FGL and gll\_psc\_v27 for 4FGL-DR2.}
+\citep[4FGL-DR2,][]{2020ApJS..247...33A, 2020arXiv200511208B} catalogs. We used  versions gll\_psc\_v16 for 3FGL
+and  gll\_psc\_v27 for 4FGL-DR2.
+%\dima{We need to say which version of the catalogs we use, e.g., gll\_psc\_v16 for 3FGL and gll\_psc\_v27 for 4FGL-DR2.}
 We will refer to the catalogs, where the classification of the sources is given by probabilities as probabilistic catalogs.
 In general, the classes may include the possibility that a source is not a real source but a fluctuation of the background 
 or that a source is an overlay of two sources etc.

@@ -79,8 +79,8 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
 As a result of the classification with the eight ML methods,
 we created a probabilistic catalog based on the 3FGL sources without missing values.%
 \footnote{There are thirteen sources with missing values in the 3FGL catalog (2 unassociated, 5 AGNs, 1 pulsar, and 5 ``other'' sources), 
-which we save in a separate file ``3FGL\_sources\_with\_missing\_values.csv'' for reference. 
-\dima{Which features are missing for these sources, could we still classify them?}
+which we save in a separate file ``3FGL\_sources\_with\_missing\_values.csv'' for reference. In particulat all of these sources have a value in significant curvature of 0.
+%\dima{Which features are missing for these sources, could we still classify them?}
 }
 We train on 70\% of the sources associated with pulsars or AGNs and save the probability values for testing sources, for sources which are not classified as pulsars or AGNs, and for unassociated sources.
 We repeat the splitting and training 1000 times and report the sample average and standard deviation of the classification probabilities,
