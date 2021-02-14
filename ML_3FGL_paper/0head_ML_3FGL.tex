@@ -157,15 +157,15 @@
 \newcommand{\green}{\textcolor{darkgreen}}
 
 \newcommand{\dima}[1]{\textcolor{blue}{(Dima: #1)}}
-% local options
+
 
 \begin{document} 
 
 
-   %\title{Machine learning classification of unassociated \Fermi LAT sources}
+
    \title{Machine learning methods for probabilistic \Fermi-LAT catalogs}
 
-   %\subtitle{}
+
 
    \author{A. Bhat \thanks{\email{aakash.bhat@fau.de}}
           \inst{1}
@@ -183,17 +183,13 @@
              Erlangen Centre for Astroparticle Physics, Erwin-Rommel-Str. 1, Erlangen, Germany
              }
 
-   %\date{Received September 15, 1996; accepted March 16, 1997}
 
-% \abstract{}{}{}{}{} 
-% 5 {} token are mandatory
  
 \abstract
 % context heading (optional)
 % {} leave it empty if necessary  
 {
 Classification of sources is one of the most important tasks in astronomy.
-%It enables one to determine common features of the sources and understand better their nature.
 Sources detected in one wavelength band, for example using gamma rays, may have several possible associations in other wavebands or
 there may be no plausible association candidates.
 }
@@ -205,13 +201,10 @@ In this work, we aim to determine probabilistic classification of unassociated s
 {
 We use several machine learning (ML) methods to determine probabilistic classification of \Fermi-LAT sources.
 We evaluate the dependence of results on meta-parameters of the ML methods, such as the maximal depth of the trees in tree-based classification methods and the number of neurons in neural networks.
-%We test the performance of the methods with test samples drawn from the associated sources in 3FGL and 4FGL catalogs.
-%We also compare the predictions for unassociated source in 3FGL with associated sources in 4FGL.
 }
 % results heading (mandatory)
 {
 We determine probabilistic classification of both associated and unassociated sources in 3FGL and 4FGL-DR2 catalogs.
-%We find the accuracy of classification to be about 94\% -- 97\% (96\% -- 98\% ) by splitting associated 3FGL (4FGL-DR2) sources into training and testing samples.
 We cross-check the accuracy by comparing the predicted classes of unassociated sources in 3FGL that have associations in 4FGL-DR2.
 We find that in the 2-class case it is important to correct for the presence of other source among the unassociated ones in order to realistically estimate
 the number of pulsars and AGNs.

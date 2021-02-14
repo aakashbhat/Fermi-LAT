@@ -181,7 +181,7 @@ while se<100:
     se=se+1
 fig1,ax2 = plt.subplots()
 
-zbig=zbig/100
+zbig=(zbig/100).astype(int)
 cs=ax2.contourf(xx, yy, zbig, cmap=cm,norm=norm, alpha=.8)#,levels=levels)
 #fig1.colorbar(cs,ax=ax2,shrink=0.9)
         # Plot the training points
@@ -226,7 +226,7 @@ ax2.scatter(X_train[c3_train_inds, 0], X_train[c3_train_inds, 1], color=trainc3_
 ax2.scatter(X_test[c3_test_inds, 0], X_test[c3_test_inds, 1], c=testc3_color, alpha=alpha,
                    marker=testc3_marker, edgecolors='k', label='OTHER testing')
 
-ax2.legend()
+ax2.legend(loc=1)
 ax2.text(6.5,-2.3,"Trees: 50")
 ax2.text(6.5,-2.6,"Maximum Depth: 6")
 #ax2.text(0.02,-1.3,"Trees: 100")
@@ -251,7 +251,7 @@ ax2.text(6.5 , -2.9, ('Testing Score:%.2f' % score).lstrip('0'))
 
 #plt.tight_layout()
 #plt.show()
-fn = 'plots/rf_50,6_multi.pdf'
+fn = 'plots/rf_50_6_3class.pdf'
 print('save plot to file')
 print(fn)
 plt.savefig(fn)

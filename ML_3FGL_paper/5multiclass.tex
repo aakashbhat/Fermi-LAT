@@ -30,22 +30,16 @@ We perform optimization of the meta-parameters for the four ML algorithms with t
 \includegraphics[width=0.5\textwidth]{plots/bdt_train_multi.pdf}
 \includegraphics[width=0.5\textwidth]{plots/lr_train_multi.pdf}
 \caption{Accuracy for the 3-class classification with RF, BDT and LR  methods. LR does not have liblinear solver here, since liblinear cannot handle multinomial loss.
-%\dima{Why there are four lines and only 3 labels in the LR plot? It's strange that there is such a large difference between
-%LBFGS and other lines.}
 }
 \label{fig:tree_multi}
 \end{figure}
 
 \begin{figure}[h]
 \center
-%\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/nn_epoch_train_multi.pdf}\\
-%\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/nn_neuron_train_multi.pdf}
 \caption{Accuracy of the NN classification as a function of the number of epochs and of the number of neurons
  for the 3-class classification. 
-% \dima{Can you check the Adam calculation? It's strange that the difference is so large: 
-% the top panel has accuracy of 91\% for 11 neurons and 600 epochs, while the bottom panel has only 87\% accuracy for the same parameters.}
  }
 \label{fig:nets_multi}
 \end{figure}
@@ -61,11 +55,8 @@ For oversampling, we use the oversampling factors $\sqrt{\frac{\text{\# AGN}}{\t
 The reason for a smaller oversampling factors is to avoid overweighting the relatively small OTHER class.
 
 \begin{figure}[h]
-%\centerin
-%\hspace*{-1cm}
 \includegraphics[width=0.46\textwidth]{plots/classification_domains/rf_50_6_3class.pdf}
 \caption{Classification domains for RF in the 3-class classification.
-%\dima{The markers look too small. Can you make them similar to or a just bit smaller than the markers in the other domain plots?}
 }
 \label{fig:RF_domains_3class}
 \end{figure}
@@ -92,12 +83,6 @@ The corresponding improvement for the accuracy of classification of unassociated
 
 
 
-
-%In this section we discuss the multi-class method\footnotemark\footnotetext{Multi here refers to any non-binary number of classes}. Instead of only using sources which had AGN and PSR as their classification we added 108 sources in the 3FGL catalog which have a classification not falling under AGN or PSR. We gave them a classification of 'OTHER'. We ran our codes again, first to find the optimum parameters as was done in section 2. The only differences here are that we took the cosine of the galactic longitude and the oversampling was done with the square root of the fraction of AGNs with the PSR or OTHER classifications. Therefore, for oversampling, the number of PSRs and OTHERs were multiplied by $\sqrt{\frac{\text{|AGN|}}{\text{|PSR|}}}$ and $\sqrt{\frac{\text{|AGN|}}{\text{|OTHER|}}}$ respectively. We chose these weights so as to not oversample and bias our methods too much. This is effectively clear for instance if we would go to even higher classes and the number of data points shall become smaller. 
-
-%Figure \ref{fig:tree_multi} and \ref{fig:nets_multi} shows our results.The tree based methods show the same behaviour as before and therefore we keep the same parameters for our final models. For Neural Networks and Logistic regression the behaviour is also the same but the optimal parameters are found to be 600 and 500 epochs instead of 300 and 200 respectively. We keep the same number of neurons as before for the neural network.
-
-
 \begin{table}[!h]
 \hspace{-0.2cm}
 \resizebox{0.47\textwidth}{!}{
@@ -115,10 +100,7 @@ The corresponding improvement for the accuracy of classification of unassociated
     \hline
     RF & 50 trees, max depth 6  &93.96&0.85& 88.92  \\
     RF\_O &   &94.38&0.76& 87.87 \\
-    %\hline %\midrule   -> aakash do you mean this?
     BDT & 100 trees, max depth 2    &   93.72&0.83&87.20 \\
-%    \hline %\midrule   -> aakash do you mean this?
-%    BDT & 200 trees, max depth 2    &   95.8  \\
     BDT\_O &     &   93.83&0.80& 86.69 \\
     %\hline
     NN & 600 epochs, 11 neurons, LBFGS & 93.17&1.05& 86.39\\
@@ -188,7 +170,6 @@ The ``Mixed'' column shows the number of sources with different classification r
   \centering
     \renewcommand{\tabcolsep}{0.4mm}
 \renewcommand{\arraystretch}{1.6}
-%\hspace{-3mm}
     \begin{tabular}{c c c c c c}
     \hline
     \hline
@@ -197,15 +178,10 @@ The ``Mixed'' column shows the number of sources with different classification r
     \hline
     RF & 50 trees, max depth 6  &92.91&0.66\\
     RF\_O &   &92.83&0.63 \\
-    %\hline %\midrule   -> aakash do you mean this?
     BDT & 100 trees, max depth 2    &   92.51&0.67 \\
-%    \hline %\midrule   -> aakash do you mean this?
-%    BDT & 200 trees, max depth 2    &   95.8  \\
     BDT\_O &     &   92.27&0.67 \\
-    %\hline
     NN & 600 epochs, 16 neurons, LBFGS & 91.86&0.72\\
     NN\_O &  & 90.26&0.83\\
-    %\hline
     LR & 1000 iterations, LBFGS solver & 92.63&0.67 \\
     LR\_O &  &92.22&0.69\\
     \hline
