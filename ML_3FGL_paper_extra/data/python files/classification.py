@@ -35,7 +35,10 @@ plt.rcParams['ytick.labelsize'] = 25
 plt.rcParams['lines.markersize'] = 12
 '''
 import plotting_dima
+
 plotting_dima.setup_figure_pars()
+#plt.rcParams['lines.markersize'] = 8
+
 score=0
 #Training Fata:
 se=0
@@ -108,42 +111,47 @@ while se<100:
         ax.set_ylabel("Uncertainity on Energy Flux")
     ''' 
     #Main part of code:
-    c1_train_inds = [i for i in range(len(y_train)) if y_train[i] > 0.5]
-    c1_test_inds = [i for i in range(len(y_test)) if y_test[i] > 0.5]
-    c2_train_inds = [i for i in range(len(y_train)) if y_train[i] <= 0.5]
-    c2_test_inds = [i for i in range(len(y_test)) if y_test[i] <= 0.5]
+    c1_train_inds = [i for i in range(len(y_train)) if y_train[i] ==2]
+    c1_test_inds = [i for i in range(len(y_test)) if y_test[i] ==2]
+    c2_train_inds = [i for i in range(len(y_train)) if y_train[i] == 0]
+    c2_test_inds = [i for i in range(len(y_test)) if y_test[i] == 0]
+    c3_train_inds = [i for i in range(len(y_train)) if y_train[i] == 1]
+    c3_test_inds = [i for i in range(len(y_test)) if y_test[i] == 1]
 
-
-    trainc1_color = 'green'
-    trainc1_marker = 's'
+    trainc3_color = 'green'
+    trainc3_marker = 's'
 # for some reason squares look visually larger than triangles
 # this is a hack to make the a bit smaller
     trainc1_marker_size = plt.rcParams['lines.markersize'] - 0.5 
 
-    testc1_color = 'yellow'
-    testc1_marker = 'd'
+    testc3_color = 'yellow'
+    testc3_marker = 'd'
     
     trainc2_color = 'blue'
     trainc2_marker = '^'
     testc2_color = 'magenta'
     testc2_marker = 'v'
+    trainc1_color = 'red'
+    trainc1_marker = 'x'
+    testc1_color = 'orange'
+    testc1_marker = 'D'
 
 
 
 
 #Choose classifier:
-    #clf=RandomForestClassifier(max_depth=6, n_estimators=50,oob_score=True)
-    clf= MLPClassifier(max_iter=600,hidden_layer_sizes=(2,), activation='tanh', solver='lbfgs').fit(X_train,y_train)
+    clf=RandomForestClassifier(max_depth=6, n_estimators=50,oob_score=True)
+    #clf= MLPClassifier(max_iter=600,hidden_layer_sizes=(2,), activation='tanh', solver='lbfgs').fit(X_train,y_train)
     #clf=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=2, random_state=0).fit(X_train,y_train)
     #clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
-    #clf.fit(X_train, y_train)
+    clf.fit(X_train, y_train)
 
     lenth=len(X_test)
     score = score+clf.score(X_test, y_test)       #Score of our classifier
     i=0
     levels = np.arange(0., 1.01, 0.1)
-    cm = plt.cm.GnBu_r
-    norm = colors.Normalize(vmin=0, vmax=0.9)
+    cm = plt.cm.rainbow
+    norm = colors.Normalize(vmin=-1, vmax=3)
 
     X_test_spec_agn=[]
     X_test_sig_agn=[]
@@ -165,7 +173,7 @@ while se<100:
 #if hasattr(clf, "decision_function"):
 #    Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
 #else:
-    Z = clf.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
+    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
 
 # Put the result into a color plot
     Z = Z.reshape(xx.shape)
@@ -174,8 +182,8 @@ while se<100:
 fig1,ax2 = plt.subplots()
 
 zbig=zbig/100
-cs=ax2.contourf(xx, yy, zbig, cmap=cm, alpha=.8,levels=levels)
-fig1.colorbar(cs,ax=ax2,shrink=0.9)
+cs=ax2.contourf(xx, yy, zbig, cmap=cm,norm=norm, alpha=.8)#,levels=levels)
+#fig1.colorbar(cs,ax=ax2,shrink=0.9)
         # Plot the training points
 score=score/100
 alpha=0.9
@@ -208,19 +216,24 @@ ax2.scatter(X_test[c2_test_inds, 0], X_test[c2_test_inds, 1], c=testc2_color, al
                    marker=testc2_marker, edgecolors='k', label='AGN testing')
         # Training points for class 1
 ax2.scatter(X_train[c1_train_inds, 0], X_train[c1_train_inds, 1], color=trainc1_color,
-                   marker=trainc1_marker, s=trainc1_marker_size**2, edgecolors='k', label='PSR training')
+                   marker=trainc1_marker, edgecolors='k', label='PSR training')
         # Testing points for class 1
 ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, alpha=alpha,
                    marker=testc1_marker, edgecolors='k', label='PSR testing')
+ax2.scatter(X_train[c3_train_inds, 0], X_train[c3_train_inds, 1], color=trainc3_color,
+                   marker=trainc3_marker, edgecolors='k', label='OTHER training')
+        # Testing points for class 1
+ax2.scatter(X_test[c3_test_inds, 0], X_test[c3_test_inds, 1], c=testc3_color, alpha=alpha,
+                   marker=testc3_marker, edgecolors='k', label='OTHER testing')
 
 ax2.legend()
-ax2.text(6.5,-2.3,"Epochs: 50")
-ax2.text(6.5,-2.6,"Solver: LBFGS")
+ax2.text(6.5,-2.3,"Trees: 50")
+ax2.text(6.5,-2.6,"Maximum Depth: 6")
 #ax2.text(0.02,-1.3,"Trees: 100")
 #ax2.text(0.02,-1.6,"Maximum Depth: 6")
 #ax2.set_xlim(xx.min(), xx.max())
 #ax2.set_title('Logistic Regression')
-ax2.set_title('Neural Network')
+ax2.set_title('Random Forests (3-Class)')
 
 #ax2.set_ylim(yy.min(), yy.max())
 ax2.set_xlabel('Ln(Variability_Index)')
@@ -238,7 +251,7 @@ ax2.text(6.5 , -2.9, ('Testing Score:%.2f' % score).lstrip('0'))
 
 #plt.tight_layout()
 #plt.show()
-fn = 'plots/nn_600_multi_lbfgs.pdf'
+fn = 'plots/rf_50,6_multi.pdf'
 print('save plot to file')
 print(fn)
 plt.savefig(fn)
