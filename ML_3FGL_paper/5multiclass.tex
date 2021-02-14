@@ -95,17 +95,18 @@ The corresponding improvement for the accuracy of classification of unassociated
     \begin{tabular}{c c c c c c c}
     \hline
     \hline
-    Algorithm&Parameters &  Testing&Std. Dev.& Comparison with \\
-    & & Accuracy & & 4FGL-DR2 Accuracy \\
+    Algorithm&Parameters &  Testing\ &Std. Dev.& Comparison with \\
+    & & Accuracy\ & & 4FGL-DR2 Accuracy \\
     \hline
     RF & 50 trees, max depth 6  &93.96&0.85& 88.92  \\
     RF\_O &   &94.38&0.76& 87.87 \\
+    \hline
     BDT & 100 trees, max depth 2    &   93.72&0.83&87.20 \\
     BDT\_O &     &   93.83&0.80& 86.69 \\
-    %\hline
+    \hline
     NN & 600 epochs, 11 neurons, LBFGS & 93.17&1.05& 86.39\\
     NN\_O &&  92.51 &1.34& 83.97\\
-    %\hline
+    \hline
     LR & 500 iterations, LBFGS solver & 93.93&0.88& 87.65 \\
     LR\_O &   &93.01&0.96& 85.59 \\
     \hline
@@ -132,7 +133,7 @@ The corresponding improvement for the accuracy of classification of unassociated
     3FGL & 2-class & 597 & 111 & --  &  300 \\
      & {2-class corr} & { 578} & { 97} & { 51}  &  { 279} \\
      & 3-class & 585 & 53 & 69  &  301 \\
-    %\hline
+    \hline
     4FGL-DR2 \ & 2-class & 872 & 162 & --  &  624 \\
      & {2-class corr} & {821} & { 135} & { 139}  &  {563} \\
      & 3-class & 736 & 64 & 271  &  587 \\
@@ -174,14 +175,17 @@ The ``Mixed'' column shows the number of sources with different classification r
     \hline
     \hline
     Algorithm&Parameters &  Testing&Std. Dev.\\
-    & & Accuracy &  \\
+    & & Accuracy\ &  \\
     \hline
     RF & 50 trees, max depth 6  &92.91&0.66\\
     RF\_O &   &92.83&0.63 \\
+    \hline
     BDT & 100 trees, max depth 2    &   92.51&0.67 \\
     BDT\_O &     &   92.27&0.67 \\
+    \hline
     NN & 600 epochs, 16 neurons, LBFGS & 91.86&0.72\\
     NN\_O &  & 90.26&0.83\\
+    \hline
     LR & 1000 iterations, LBFGS solver & 92.63&0.67 \\
     LR\_O &  &92.22&0.69\\
     \hline
