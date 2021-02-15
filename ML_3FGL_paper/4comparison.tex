@@ -91,7 +91,6 @@ As a consistency check of the method, we calculate the AGN- and PSR-like probabi
 The sum of probabilities (uncorrected for sources other than AGNs and pulsars) for LR algorithm are shown by dotted purple lines.
 In order to correct the expected number of AGNs among associated sources for AGN-like probabilities in ``other'' sources, 
 we subtract the corresponding AGN-like probabilities in each flux band:
-
 \be
 \lb{eq:assoc_ev}
 N_{\rm AGN}^{\rm ass}  = \sum_{i \in \rm ass} p^i_{\rm AGN}\,\, - \sum_{i \in \rm ass\,other} p^i_{\rm AGN}.
@@ -117,7 +116,6 @@ Thus, the correction for the presence of other sources is calculated similarly t
 but we adjust for the fact that there are fewer unassociated than associated sources, i.e., 
 the correction is assumed to be proportionally smaller.
 In particular, the number of AGNs among unassociated sources in a flux band $\Delta F$ is estimated as
-
 \be
 \lb{eq:unassoc_ev}
 N_{\rm AGN}^{\rm unass} = \sum_{i \in \rm unass} p^i_{\rm AGN}\,\, - \sum_{i \in \rm ass\,other} p^i_{\rm AGN} \cdot 
@@ -173,13 +171,11 @@ This is due to a possible underestimation of the contribution of OTHER sources t
 In particular, in the bottom panels of Figure \ref{fig:logN_logS_3classes} we show the estimated total number of OTHER sources in the 2-class case by the orange line.
 Since we do not have probabilities for the OTHER sources in this case, we estimate the number of OTHER sources among unassociated ones 
 simply by rescaling the number of associated OTHER sources in each energy band as
-
 \be
 \lb{eq:unas_other}
 N_{\rm OTHER}^{\rm unass} = N_{\rm OTHER}^{\rm ass} \frac{N^{\rm unass}}{N^{\rm ass}}
 \ee
 We notice that this estimate agrees with the correction of the estimated numbers of AGNs and pulsars in the 2-class case due to presence of other sources, since
-
 \bea
 \nonumber
 N_{\rm OTHER}^{\rm ass} &=& \sum_{i \in \rm ass\,other} p^i_{\rm AGN} + \sum_{i \in \rm ass\,other} p^i_{\rm PSR} \\

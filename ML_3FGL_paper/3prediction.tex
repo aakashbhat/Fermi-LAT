@@ -92,12 +92,46 @@ it is an example of a source with mixed classification.
 Out of 1008 unassociated sources in 3FGL, 111 are classified as pulsars by all eight methods, 597 are classified as AGNs, and 300 have mixed classifications.
 Out of 111 sources classified as pulsars, 6 sources have counterparts in Parkes survey \citep{Camilo2015} within 2 arc minutes (see Table \ref{tab:parkes}).
 
+
+\begin{table}[!h]
+\resizebox{0.4\textwidth}{!}{
+    \tiny
+ %  \centering
+    \renewcommand{\tabcolsep}{0.3mm}
+\renewcommand{\arraystretch}{1.5}
+
+    \begin{tabular}{l  l c c c c}
+    \hline
+    \hline
+    Catalog & Classification &\ AGN &\ PSR &\ OTHER &\ MIXED \\
+    \hline
+    3FGL & 2-class & 597 & 111 & --  &  300 \\
+     & {2-class corr} & { 578} & { 97} & { 51}  &  { 279} \\
+     & 3-class & 585 & 53 & 69  &  301 \\
+    \hline
+    4FGL-DR2 \ & 2-class & 872 & 162 & --  &  624 \\
+     & {2-class corr} & {821} & { 135} & { 139}  &  {563} \\
+     & 3-class & 736 & 64 & 271  &  587 \\
+    \hline
+     
+    \end{tabular}}
+    \vspace{0.2cm}
+    \caption{Expected number of AGNs, pulsars, and other sources as well as sources with mixed classifications
+    among the unassociated 3FGL and 4FGL-DR2 sources derived with the 2-class (Section \ref{sec:prob_cats}) 
+    and 3-class (Section \ref{sec:3class}) classification.
+    The ``2-class corr'' row shows correction of the 2-class classification prediction due to the presence of OTHER sources among 
+    the unassociated ones (see Section \ref{sec:3FGLprediction1} for details).}
+    \label{tab:prediction_2and3class}
+\end{table}
+
+
+
 We summarize the results of classification of unassociated sources in Table \ref{tab:prediction_2and3class} in the ``2-class'' row.
 The ``AGNs'' column shows the number of unassociated sources where all eight methods from Table \ref{tab:selected_algs} 
 give the probability for a source to be an AGN above 50\%.
 Similarly the ``Pulsars'' column shows the number of unassociated sources where all algorithms predict the source to be more likely a pulsar.
 The ``Mixed'' column shows the number of sources with mixed classification, i.e., some algorithms predict that the source is more likely an AGN while the other algorithms predict that it is more likely a pulsar.
-We also add the ``OTHER'' column in order to compare the results with the 3-class classification later in this Section.
+We also add the ``OTHER'' column in order to compare the results with the 3-class classification in Section \ref{sec:3class}.
 Since there is no ``OTHER'' class in the 2-class classification, the corresponding entry is empty.
 In the ``2-class corr'' row we show a possible correction of the number of pulsars and AGNs due to presence of other sources.
 Here we assume that the fraction of AGN-like and pulsar-like sources among the other sources is the same for associated and for unassociated sources.
@@ -105,7 +139,6 @@ In particular, if we denote by $N_{\rm AGN}$ the number of unassociated sources 
 by $N_{\rm AGN}^{\rm ass\,OTHER}$ the number of sources with AGN-like classification among associated OTHER sources,
 by $N_{\rm ass}$ ($N_{\rm unass}$) the total number of associated (unassociated) sources, then
 the number of AGN-like sources among the unassociated ones corrected for the presence of OTHER sources can be estimated as
-
 \be
 \lb{eq:other_correction}
 N_{\rm AGN}^{\rm corr} = N_{\rm AGN} - N_{\rm AGN}^{\rm ass\,OTHER} \,\frac{N_{\rm unass}}{N_{\rm ass}}.
@@ -238,7 +271,9 @@ presented in the 4FGL-DR2 part of Table \ref{tab:prediction_2and3class}.
 The definition of rows is the same as in the 3FGL catalog 2-class classification in Section \ref{sec:3FGLprediction1}.
 
 
-Finally, we looked at sources which were unassociated in both 3FGL and 4FGL-DR2 (using 'ASSOC\_FGL' as an identifier for 3FGL sources). Out of 303 such sources\footnotetext{These are actually 303 4FGL-DR2 sources and 302 3FGL sources with 2 4FGL-DR2 sources associated with 1 3FGL source.}, 40 sources are predicted to be pulsars using 3FGL features and 75 sources are predicted to be pulsars using 4FGL features. This leads to 29 sources which are predicted by all eight methods to be pulsars for features taken from both 3FGL and 4FGL catalogs. 
+Finally, we looked at sources which were unassociated in both 3FGL and 4FGL-DR2 (using 'ASSOC\_FGL' as an identifier for 3FGL sources). Out of 303 such sources%
+\footnote{The 303 unassociated 4FGL-DR2 sources correspond to 302 unassociated 3FGL sources, because there are two 4FGL-DR2 sources, which are associated with one 3FGL source.},
+40 sources are predicted to be pulsars using 3FGL features and 75 sources are predicted to be pulsars using 4FGL features. This leads to 29 sources which are predicted by all eight methods to be pulsars for features taken from both 3FGL and 4FGL catalogs. 
 For convenience, we save these 29 pulsar candidates as a separate file.
 
 Among the 6 unassociated 3FGL sources classified as pulsars and spatially associated with pulsars in the Parkes survey in Table \ref{tab:parkes}, four are unassociated in 4FGL-DR2 and are predicted to be pulsars by the probabilistic classification of unassociated 4FGL-DR2 sources. Of the other two, one is now associated as a pulsar in 4FGL-DR2, and the second one is not detected in 4FGL-DR2. 

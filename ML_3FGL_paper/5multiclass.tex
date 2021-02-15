@@ -118,37 +118,6 @@ The corresponding improvement for the accuracy of classification of unassociated
 \end{table}
 
 
-\begin{table}[!h]
-\resizebox{0.4\textwidth}{!}{
-    \tiny
- %  \centering
-    \renewcommand{\tabcolsep}{0.3mm}
-\renewcommand{\arraystretch}{1.5}
-
-    \begin{tabular}{l  l c c c c}
-    \hline
-    \hline
-    Catalog & Classification &\ AGN &\ PSR &\ OTHER &\ MIXED \\
-    \hline
-    3FGL & 2-class & 597 & 111 & --  &  300 \\
-     & {2-class corr} & { 578} & { 97} & { 51}  &  { 279} \\
-     & 3-class & 585 & 53 & 69  &  301 \\
-    \hline
-    4FGL-DR2 \ & 2-class & 872 & 162 & --  &  624 \\
-     & {2-class corr} & {821} & { 135} & { 139}  &  {563} \\
-     & 3-class & 736 & 64 & 271  &  587 \\
-    \hline
-     
-    \end{tabular}}
-    \vspace{0.2cm}
-    \caption{Expected number of AGNs, pulsars, and other sources as well as sources with mixed classifications
-    among the unassociated 3FGL and 4FGL-DR2 sources derived with the 2-class and 3-class classification.
-    The ``2-class corr'' row shows correction of the 2-class classification prediction due to the presence of OTHER sources among 
-    the unassociated ones (see Section \ref{sec:3FGLprediction1} for details).}
-    \label{tab:prediction_2and3class}
-\end{table}
-
-
 
 The 3-class classification of 4FGL-DR2 sources is performed similar to the 3-class classification of the 3FGL sources.
 The differences are similar to the differences in the 2-class classification of 3FGL and 4FGL-DR2 sources:
@@ -158,11 +127,6 @@ The corresponding accuracies are reported in Table \ref{tab:selected_algs_4fgl_m
 In comparing the accuracies with the 2-class classification in Table \ref{tab:selected_algs2}, 
 one has to take into account that there are 346 OTHER sources among 4116 associated sources in 4FGL-DR2, which is about 8.4\%.
 Since all OTHER sources are ``misclassified'' by the 2-class classification, the 3-class classification provides an improvement of about 2-4\% compared to the 2-class classification.
-
-The numbers of unassociated sources classified by all 8 methods as AGNs, pulsars, and other sources for 3FGL and 4FGL-DR2 catalogs are presented in Table \ref{tab:prediction_2and3class} in the ``3-class'' rows.
-For each algorithm the most probable class of the source is determined by the class with the largest probability.
-Since there are three classes, the largest probability can have the value just above 1/3.
-The ``Mixed'' column shows the number of sources with different classification results for different algorithms.
 
 \begin{table}[!h]
 \hspace{-0.2cm}
@@ -196,3 +160,21 @@ The ``Mixed'' column shows the number of sources with different classification r
     ``\_O'' denotes training with oversampling.}
     \label{tab:selected_algs_4fgl_multi}
 \end{table}
+
+
+The numbers of unassociated sources classified by all 8 methods as AGNs, pulsars, and other sources for 3FGL and 4FGL-DR2 catalogs are presented in Table \ref{tab:prediction_2and3class} in the ``3-class'' rows.
+For each algorithm the most probable class of the source is determined by the class with the largest probability.
+Since there are three classes, the largest probability can have the value just above 1/3.
+The ``Mixed'' column shows the number of sources with different classification results for different algorithms.
+
+
+Classification of \Fermi-LAT 4FGL sources into three classes was considered earlier by, e.g., \cite{2021RAA....21...15Z}.
+\cite{2021RAA....21...15Z} have primarily used a two-step classification procedure, where in the first step AGNs are separated from the rest of sources and in the second step the remaining sources are split into pulsars and other sources.
+\cite{2021RAA....21...15Z} have also tested a simultaneous classification of sources into three classes (AGN, pulsars, other),
+but the results were inconsistent for the two ML algorithms used by \cite{2021RAA....21...15Z} (RF and NN).
+In particular, the number of OTHER sources predicted by NN was zero.
+In our case, the predictions of various algorithms are relatively consistent with each other.
+For example, in the 3FGL (4FGL-DR2) catalog all 8 methods classify 69 (271) unassociated sources as OTHER.
+Also, 8 out of 37 unassociated 3FGL sources, which are associated to OTHER sources in 4FGL-DR2, are classified by all 8 algorithms as
+OTHER (6 are classified as AGNs, 5 as PSRs, and 18 have mixed classification).
+

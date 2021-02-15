@@ -36,7 +36,6 @@ RF and BDT algorithms, by virtue of averaging, provide probabilities. As a resul
 Tree-based algorithms, even after averaging in RF and BDT methods, have sharp edges among domains with different probabilities.
 In LR algorithm, the probabilities of classes are by construction smooth functions of features.
 In particular, for two-class classification the probability of class 1, given the set of features $x$, is modeled by sigmoid (logit) function
-
 \be
 \lb{eq:logit}
 p_1(x) = \frac{e^{m(x)}}{1 + e^{m(x)}}.
@@ -119,16 +118,15 @@ If one fits all spectra of sources in the catalog by a power-law function, then 
 This feature is defined uniformly for all associated and unassociated sources, i.e., it is safe to use for training.
 Unfortunately, the power-law function is not a good description of the gamma-ray flux from pulsars.
 In the classification of the 3FGL sources we have constructed a new feature: the index at 500 MeV (denoted in the following as ``500MeV\_Index''), defined as minus the derivative of the log flux:
-
 \be
 \lb{eq:n500_def}
 n({\rm 500\,MeV}) = - \left. \frac{d \ln F}{d \ln E} \right|_{E = \rm 500\,MeV}
 \ee
 For log parabola and for power law with (super)exponential cutoff it is respectively
-\beaa
+\bea
 n(\rm 500\,MeV) &=& \al + 2 \bt \ln(\rm 500\,MeV / E_0)    \\
 n({\rm 500\,MeV}) &=& \Gamma + b\,({\rm 500\,MeV} / E_c)^b
-\eeaa
+\eea
 This feature has a more uniform definition for all sources in the 3FGL catalog than the Spectral\_Index. It also has a better separating power 
 than PowerLaw\_Index, provided that pulsars have typically harder spectra at energies below 1 GeV than AGNs.
 
