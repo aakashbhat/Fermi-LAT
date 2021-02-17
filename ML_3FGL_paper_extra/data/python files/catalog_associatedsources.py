@@ -58,10 +58,10 @@ nno=[]
 lenth=12
 
 
-while se<1000:
+while se<100:
     #data:
     np.random.seed(se)
-    dataframe2 = pandas.read_csv("./files/3fgl_4fgl_newfeats_3class.csv", header=None)
+    dataframe2 = pandas.read_csv("./files/3fgl_4fgldr2_newfeats_3class.csv", header=None)
     dataset2 = dataframe2.values
     l=dataset2[1:,1].astype(float)
     dataset2[1:,1]=np.cos(l)
@@ -107,8 +107,8 @@ while se<1000:
     count=0
     
     clf5= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(train1, train_truth1)
-    clf6= MLPClassifier(max_iter=300,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(train1, train_truth1)
-    clf7= LogisticRegression(max_iter=200, C=2,solver='lbfgs').fit(train1, train_truth1)
+    clf6= MLPClassifier(max_iter=600,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(train1, train_truth1)
+    clf7= LogisticRegression(max_iter=500, C=2,solver='lbfgs').fit(train1, train_truth1)
     clf8 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
     clf8.fit(train1, train_truth1)
     
