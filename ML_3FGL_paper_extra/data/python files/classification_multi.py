@@ -18,7 +18,7 @@ se=2
 np.random.seed(se)
 
 # import some data to play with
-dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
+dataframe = pandas.read_csv("./files/3fgl_cata_multi_latest.csv", header=None)
 dataset1 = dataframe.values 
 np.random.shuffle(dataset1[1:])
 dataset2=dataset1[1:]
@@ -62,8 +62,8 @@ plt.xlim(xx.min(), xx.max())
 plt.ylim(yy.min(), yy.max())
 plt.xticks(())
 plt.yticks(())
-#plt.show()
+plt.show()
 fn = 'plots/nn_600_lbfgs_multi.pdf'
 print('save plot to file')
 print(fn)
-plt.savefig(fn)
+#plt.savefig(fn)

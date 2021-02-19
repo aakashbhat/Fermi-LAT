@@ -37,35 +37,35 @@ pyplot.rcParams['axes.titlesize'] = 28
 pyplot.rcParams['font.size'] = 21
 pyplot.rcParams['ytick.labelsize'] = 18
 se=0
-size=10
+size=15
 valscore3=np.zeros(size)
 valscore4=np.zeros(size)
 valscore12=np.zeros(size)
 valscore22=np.zeros(size)
 feat=0
 feat2=np.zeros(10)
-lenth=12
-while se<100:
+lenth=13
+while se<10:
     
     np.random.seed(se)
     #dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
     dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
-    dataset1 = dataframe.values
-    k=dataset1[1:,1].astype(float)
-    dataset1[1:,1]=np.cos(k)
-    np.random.shuffle(dataset1[1:])
+    dataset1 = dataframe.values[1:]
+    #k=dataset1[1:,1].astype(float)
+    #dataset1[1:,1]=np.cos(k)
+    np.random.shuffle(dataset1[:])
 
-    X=[dataset1[i,1:lenth].astype(float) for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR' or dataset1[i,lenth]=='OTHER']
+    X=[dataset1[i,1:(lenth-1)].astype(float) for i in range(len(dataset1)) if dataset1[i,lenth]!='None']# or dataset1[i,lenth]=='PSR' or dataset1[i,lenth]=='OTHER']
     #X = X2.astype(float)
-    print(len(X))
+    #print((X))
     #print(dataset1[2,:])
 #Y = dataset[1:1933,5]
-    Y =[dataset1[i,lenth] for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR'or dataset1[i,lenth]=='OTHER']
+    Y =[dataset1[i,(lenth)] for i in range(len(dataset1)) if dataset1[i,lenth]!='None' ]#or dataset1[i,lenth]=='PSR'or dataset1[i,lenth]=='OTHER']
 
-    print(len(Y))
-    
+    #print((Y))
+    #kutta
 
-    #X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
+    X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
 
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
@@ -103,8 +103,9 @@ while se<100:
     #train_truth1=Y[0:1500]
     #val_inp1=X[1500:]
     #val_out1=Y[1500:]
-    train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.3, random_state=se)       #Split into training and validation
+    train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.2, random_state=se)       #Split into training and validation
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
+    '''
     Y0=[i for i in range(len(train_truth1)) if train_truth1[i]==0]
     Y1=[i for i in range(len(train_truth1)) if train_truth1[i]==1]
     Y2=[i for i in range(len(train_truth1)) if train_truth1[i]==2]
@@ -112,17 +113,18 @@ while se<100:
     w1=int(np.sqrt(len(Y0)*len(Y1)))
     w2=int(np.sqrt(len(Y0)*len(Y2)))
     weight={0:len(Y0),1:w1,2:w2}
+    '''
     train_truth1=np.ravel(train_truth1)
 
     #sampling_strategy = 'not majority'
-    oversample = RandomOverSampler(sampling_strategy=weight)
-    X_over, y_over = oversample.fit_resample(train1, train_truth1)
+    #oversample = RandomOverSampler(sampling_strategy=weight)
+    #X_over, y_over = oversample.fit_resample(train1, train_truth1)
     #ros = RandomOverSampler(sampling_strategy=sampling_strategy)
     #X_over, y_over = ros.fit_resample(train1, train_truth1)
-    #X_over, y_over=train1,train_truth1
-    print(y_over)
-    others =[y_over[i] for i in range(len(y_over)) if y_over[i]==0]
-    print(len(others))
+    X_over, y_over=train1,train_truth1
+    #print(y_over)
+    #others =[y_over[i] for i in range(len(y_over)) if y_over[i]==0]
+    #print(len(others))
 
     i=100
     j=0
@@ -141,7 +143,7 @@ while se<100:
     valscore6=valscore4
     valscore11=valscore12
     valscore21=valscore22
-    while i < 1001:
+    while i < 1501:
         #clf = RandomForestClassifier(n_estimators=20,max_depth=i,oob_score=True)
         #clf.fit(train1,train_truth1)
         clf = MLPClassifier(max_iter=i,hidden_layer_sizes=(neur,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
@@ -155,7 +157,6 @@ while se<100:
         valscore.append(scor*100)
         
         #feat3.append(clf.feature_importances_)
-        print(scor)
         #print(i)
         clf2 = MLPClassifier(max_iter=i,hidden_layer_sizes=(neur,), activation='relu', solver='lbfgs').fit(X_over, y_over)
         #clf2=GradientBoostingClassifier(n_estimators=600, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
@@ -173,7 +174,7 @@ while se<100:
         #clf3= LogisticRegression(max_iter=i, C=1,solver='sag').fit(X_over, y_over)
         score3=clf3.score(val_inp1,val_out1)
         valscore10.append(score3*100)
-        print(score3)
+        #print(score3)
         clf4 = MLPClassifier(max_iter=i,hidden_layer_sizes=(neur,), activation='relu', solver='adam').fit(X_over, y_over)
         #clf4=GradientBoostingClassifier(n_estimators=500, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
         #clf4 = RandomForestClassifier(n_estimators=200,max_depth=i,oob_score=True)
@@ -183,7 +184,8 @@ while se<100:
         score4=clf4.score(val_inp1,val_out1)
         valscore20.append(score4*100)
         
-        
+        print('scores for {} iterations: lbfgst {},lbfgsr {},adamt {},adamr {}'.format(i,scor*100,score2*100,score3*100,score4*100))
+
 
         
             
@@ -203,14 +205,13 @@ while se<100:
 #si=clf.coefs_
 #feat=feat/100
 #print("feat",feat)
-valscore3=valscore3/50
-
-valscore4=valscore4/50
-valscore12=valscore12/50
-valscore22=valscore22/50
-print(valscore3)
-print(valscore4)
-print(valscore12)
+valscore3=valscore3/10
+valscore4=valscore4/10
+valscore12=valscore12/10
+valscore22=valscore22/10
+#print(valscore3)
+#print(valscore4)
+#print(valscore12)
 #print(valscore22)
 
 fig,ax=plt.subplots()
@@ -230,13 +231,14 @@ plt.yticks(fontsize='large')
 #plt.yticks(np.arange(92,99,step=1))
 #plt.xticks(fontsize='large')
 #ax.set_zlabel('Validation score')
-#plt.legend(["20 Trees","50 Trees","100 Trees","200 Trees"])
+plt.legend(["20 Trees","50 Trees","100 Trees","200 Trees"])
 #plt.legend(["Tol= 0.001","Tol = 1","Tol = 10"])
-plt.legend(["LBFGS Tanh","LBFGS Relu","ADAM Tanh","ADAM Relu"],title='Number of Neurons:11')
-#plt.legend(["LBFGS","Liblinear","SAG","SAGA"])
+plt.legend(["LBFGS Tanh","LBFGS Relu","ADAM Tanh","ADAM Relu"],title=('Number of Neurons: %s',neur))
+plt.legend(["LBFGS","Liblinear","SAG","SAGA"])
 
 #ax.set_title('Logistic Regression (LBFGS,300): Accuracy vs. Regularization',fontsize='xx-large')
-ax.set_title('Random Forests',fontsize='xx-large')
+#ax.set_title('Random Forests',fontsize='xx-large')
+ax.set_title('Neural Network',fontsize='xx-large')
 
 plt.show()
 
@@ -247,7 +249,7 @@ result=np.vstack((result,valscore12))
 result=np.vstack((result,valscore22))
 print(result)
 result=pandas.DataFrame(result)
-result.to_csv(path_or_buf="./files/result_3fglassocnewfeat_nn_epochs_multi_cosglon_oversampled.csv",index=False)
+#result.to_csv(path_or_buf="./files/result_3fglassocnewfeat_nn_epochs_multi_cosglon_oversampled.csv",index=False)
 
 '''
     i=0

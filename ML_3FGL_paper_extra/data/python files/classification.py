@@ -42,12 +42,12 @@ plotting_dima.setup_figure_pars()
 score=0
 #Training Fata:
 se=0
-s1=563
-s2=451
+s1=698
+s2=567
 zbig=np.zeros((s1,s2))
-while se<100:
+while se<10:
     np.random.seed(se)
-    dataframe = pandas.read_csv("./files/3fgl_assoc_newfeats.csv", header=None)
+    dataframe = pandas.read_csv("./catas/3fgl_cata_multi_latest.csv", header=None)
     dataset1 = dataframe.values 
     np.random.shuffle(dataset1[1:])
 
@@ -181,7 +181,7 @@ while se<100:
     se=se+1
 fig1,ax2 = plt.subplots()
 
-zbig=(zbig/100).astype(int)
+zbig=(zbig/10).astype(int)
 cs=ax2.contourf(xx, yy, zbig, cmap=cm,norm=norm, alpha=.8)#,levels=levels)
 #fig1.colorbar(cs,ax=ax2,shrink=0.9)
         # Plot the training points
@@ -238,8 +238,8 @@ ax2.set_title('Random Forests (3-Class)')
 #ax2.set_ylim(yy.min(), yy.max())
 ax2.set_xlabel('Ln(Variability_Index)')
 ax2.set_ylabel('Ln(Significant_Curvature)')
-ax2.set_ylim((-3,5))
-ax2.set_xlim((2.9,8))
+#ax2.set_ylim((-3,5))
+#ax2.set_xlim((2.9,8))
 
 #ax.set_xticks(np.arange(-5,3,step=1))
  #       ax.set_yticks(())
@@ -250,9 +250,9 @@ ax2.text(6.5 , -2.9, ('Testing Score:%.2f' % score).lstrip('0'))
 
 
 #plt.tight_layout()
-#plt.show()
+plt.show()
 fn = 'plots/rf_50_6_3class.pdf'
 print('save plot to file')
 print(fn)
-plt.savefig(fn)
+#plt.savefig(fn)
 
