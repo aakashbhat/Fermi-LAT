@@ -37,35 +37,36 @@ pyplot.rcParams['axes.titlesize'] = 28
 pyplot.rcParams['font.size'] = 21
 pyplot.rcParams['ytick.labelsize'] = 18
 se=0
-size=15
+size=16
 valscore3=np.zeros(size)
 valscore4=np.zeros(size)
 valscore12=np.zeros(size)
 valscore22=np.zeros(size)
 feat=0
 feat2=np.zeros(10)
-lenth=13
-while se<10:
+lenth=17
+while se<100:
     
     np.random.seed(se)
-    #dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
-    dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
+    dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
+    #dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
     dataset1 = dataframe.values[1:]
-    #k=dataset1[1:,1].astype(float)
-    #dataset1[1:,1]=np.cos(k)
+    k=dataset1[1:,1].astype(float)
+    dataset1[1:,1]=np.cos(k)
     np.random.shuffle(dataset1[:])
-
-    X=[dataset1[i,1:(lenth-1)].astype(float) for i in range(len(dataset1)) if dataset1[i,lenth]!='None']# or dataset1[i,lenth]=='PSR' or dataset1[i,lenth]=='OTHER']
+    print(dataframe.values[0,1:17])
+    kutta
+    X=[dataset1[i,1:(lenth)].astype(float) for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR']# or dataset1[i,lenth]=='OTHER']
     #X = X2.astype(float)
     #print((X))
     #print(dataset1[2,:])
 #Y = dataset[1:1933,5]
-    Y =[dataset1[i,(lenth)] for i in range(len(dataset1)) if dataset1[i,lenth]!='None' ]#or dataset1[i,lenth]=='PSR'or dataset1[i,lenth]=='OTHER']
+    Y =[dataset1[i,(lenth)] for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR']#or dataset1[i,lenth]=='OTHER']
 
     #print((Y))
     #kutta
 
-    X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
+    #X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
 
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
@@ -103,7 +104,7 @@ while se<10:
     #train_truth1=Y[0:1500]
     #val_inp1=X[1500:]
     #val_out1=Y[1500:]
-    train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.2, random_state=se)       #Split into training and validation
+    train1,val_inp1, train_truth1,  val_out1 = train_test_split(X, Y, test_size=.3, random_state=se)       #Split into training and validation
     val_out1=np.ravel(val_out1)                     #ravel is used since flattened label array required
     '''
     Y0=[i for i in range(len(train_truth1)) if train_truth1[i]==0]
@@ -126,7 +127,7 @@ while se<10:
     #others =[y_over[i] for i in range(len(y_over)) if y_over[i]==0]
     #print(len(others))
 
-    i=100
+    i=2
     j=0
     feat3=[]
     feat2=feat
@@ -143,48 +144,48 @@ while se<10:
     valscore6=valscore4
     valscore11=valscore12
     valscore21=valscore22
-    while i < 1501:
+    while i < 4:
         #clf = RandomForestClassifier(n_estimators=20,max_depth=i,oob_score=True)
         #clf.fit(train1,train_truth1)
-        clf = MLPClassifier(max_iter=i,hidden_layer_sizes=(neur,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
+        #clf = MLPClassifier(max_iter=i,hidden_layer_sizes=(neur,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
         #clf= GradientBoostingClassifier(n_estimators=5, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
         #clf= LogisticRegression(max_iter=i, C=1, solver='lbfgs').fit(X_over, y_over)
-        numi.append(i)
-        scor=clf.score(val_inp1,val_out1)
+        #numi.append(i)
+        #scor=clf.score(val_inp1,val_out1)
 
         #feat=feat+clf.feature_importances_
         #print(feat/(se+1))
-        valscore.append(scor*100)
+        #valscore.append(scor*100)
         
         #feat3.append(clf.feature_importances_)
         #print(i)
-        clf2 = MLPClassifier(max_iter=i,hidden_layer_sizes=(neur,), activation='relu', solver='lbfgs').fit(X_over, y_over)
+        #clf2 = MLPClassifier(max_iter=i,hidden_layer_sizes=(neur,), activation='relu', solver='lbfgs').fit(X_over, y_over)
         #clf2=GradientBoostingClassifier(n_estimators=600, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
-        #clf2 = RandomForestClassifier(n_estimators=50,max_depth=i,oob_score=True)
-        #clf2.fit(train1,train_truth1)
+        clf2 = RandomForestClassifier(n_estimators=50,max_depth=i+4,oob_score=True)
+        clf2.fit(train1,train_truth1)
 
         #clf2= LogisticRegression(max_iter=i, C=1, solver='liblinear').fit(X_over, y_over)
-        #clf3=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
-        clf3 = MLPClassifier(max_iter=i,hidden_layer_sizes=(neur,), activation='tanh', solver='adam').fit(X_over, y_over)
-        score2=clf2.score(val_inp1,val_out1)
+        clf3=GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
+        #clf3 = MLPClassifier(max_iter=i,hidden_layer_sizes=(neur,), activation='tanh', solver='adam').fit(X_over, y_over)
+        #score2=clf2.score(val_inp1,val_out1)
         #clf3 = RandomForestClassifier(n_estimators=100,max_depth=i,oob_score=True)
         #clf3.fit(train1,train_truth1)
 
-        valscore5.append(score2*100)
+        valscore5.append(clf3.feature_importances_)
         #clf3= LogisticRegression(max_iter=i, C=1,solver='sag').fit(X_over, y_over)
-        score3=clf3.score(val_inp1,val_out1)
-        valscore10.append(score3*100)
+        #score3=clf3.score(val_inp1,val_out1)
+        valscore10.append(clf2.feature_importances_)
         #print(score3)
-        clf4 = MLPClassifier(max_iter=i,hidden_layer_sizes=(neur,), activation='relu', solver='adam').fit(X_over, y_over)
+        #clf4 = MLPClassifier(max_iter=i,hidden_layer_sizes=(neur,), activation='relu', solver='adam').fit(X_over, y_over)
         #clf4=GradientBoostingClassifier(n_estimators=500, learning_rate=0.3,max_depth=i).fit(X_over, y_over)
         #clf4 = RandomForestClassifier(n_estimators=200,max_depth=i,oob_score=True)
         #clf4.fit(train1,train_truth1)
         #clf4= LogisticRegression(max_iter=i, C=1,solver='saga').fit(X_over, y_over) 
 
-        score4=clf4.score(val_inp1,val_out1)
-        valscore20.append(score4*100)
+        #score4=clf4.score(val_inp1,val_out1)
+        #valscore20.append(score4*100)
         
-        print('scores for {} iterations: lbfgst {},lbfgsr {},adamt {},adamr {}'.format(i,scor*100,score2*100,score3*100,score4*100))
+        #print('scores for {} iterations: lbfgst {},lbfgsr {},adamt {},adamr {}'.format(i,scor*100,score2*100,score3*100,score4*100))
 
 
         
@@ -196,15 +197,17 @@ while se<10:
     #for k in range(len(valscore)):
     #lent=len(valscore)
     #feat=(feat3+feat2)
-    valscore3=valscore2+valscore
+    #valscore3=valscore2+valscore
     valscore4=valscore5+valscore6
     valscore12=valscore11+valscore10
-    valscore22=valscore21+valscore20
+    #valscore22=valscore21+valscore20
     se=se+1
     print(se)
 #si=clf.coefs_
 #feat=feat/100
-#print("feat",feat)
+print("feat(BDT)",dataframe.values[0,1:11],valscore4/100)
+print("feat(RF)",dataframe.values[0,1:11],valscore12/100)
+
 valscore3=valscore3/10
 valscore4=valscore4/10
 valscore12=valscore12/10

@@ -80,4 +80,40 @@ columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
 \lb{tab:4FGL_features}}
 \end{table}
 
+We also provide here feature importances for 2-class classification for 4FGL DR2.
+\begin{table}[!h]
+\tiny
+\centering
+\renewcommand{\tabcolsep}{1mm}
+\renewcommand{\arraystretch}{1}
+
+\begin{tabular}{c c c}
+\hline
+\hline
+Feature & RF: 50, 6& BDT:100, 2\\
+\hline
+{ $\ln$(LP\_SigCurv)}&  0.299  & 0.468   \\
+{LP\_beta}&0.153&0.111\\
+{ $\ln$(Variability\_Index)} &0.084& 0.252   \\
+$\ln$(Unc\_Energy\_Flux100)& 0.082&0.059  \\
+$\ln$(Energy\_Flux100) & 0.076&0.010   \\
+HR56&0.071& 0.014  \\
+Unc\_LP\_Index & 0.068&0.012  \\
+HR34& 0.035&0.005  \\
+$\ln$(Pivot\_Energy)&0.030&0.007\\
+HR23 &0.025& 0.005     \\
+ LP\_Index& 0.015&0.017  \\
+HR67&0.015&0.011\\
+HR45&0.015&0.006\\
+HR12&0.009&0.005\\
+cos(GLON)&0.008&0.006\\
+GLAT&0.007&0.004\\
+\hline
+\end{tabular}
+\vspace{0.4cm}
+\caption{Feature importances for RF and BDT algorithms ordered by decreasing importance 
+in the case of RF algorithm for 4FGL DR2.
+}
+\label{tab:feat_imp2}
+\end{table}
 

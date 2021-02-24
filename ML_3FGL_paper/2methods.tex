@@ -188,50 +188,6 @@ This is due to the random choice of a subset of features at each node (maximal n
 It is also insensitive to the number of trees above approximately 20 trees.
 For classification we will use 50 trees with the maximum depth of 6.
 
-In tree-based algorithms, one can calculate feature importance by using the averaged reduction of impurity for nodes (Gini index in our case) involving the different features. 
-The importance of features for the case of two different RF algorithms: 20 trees with maximum depth of 2 and 50 trees with maximum depth of 6 are shown in Table \ref{tab:feat_imp}.
-We find that the three most important features for both cases are significance of curvature, hardness ratio of the last two energy bins, and uncertainty of the energy flux at 100 MeV.
-
-
-
-\begin{table}[!h]
-\tiny
-\centering
-\renewcommand{\tabcolsep}{1mm}
-\renewcommand{\arraystretch}{1}
-
-\begin{tabular}{c c c}
-\hline
-\hline
-Feature &  20 trees, depth 2& 50 trees, depth 6\\
-\hline
-{ $\ln$(Signif\_Curve)}&  0.367  &  0.331  \\
-{ HR45}&0.149&0.137\\
-{ $\ln$(Unc\_Energy\_Flux100)} & 0.182 &0.122  \\
-$\ln$(Variability\_Index)& 0.051 &0.098 \\
-$\ln$(Energy\_Flux100) & 0.073   &   0.071\\
-500MeV\_Index& 0.065 &0.065 \\
-HR23 & 0.032 &0.062 \\
-HR12& 0.047 &0.052 \\
-HR34&0.016&0.025\\
-GLAT & 0.009     & 0.017 \\
-GLON & 0.001 & 0.014 \\
-\hline
-\end{tabular}
-\vspace{0.4cm}
-\caption{Feature importance for two RF algorithms ordered by decreasing importance 
-in the case of 50 trees.
-\dima{Should we use BDT with 100 trees and depth 2 instead of RF with 20 trees and depth 2 and move this table to the end of the BDT section?}
-}
-\label{tab:feat_imp}
-\end{table}
-
-
-It is interesting to note that Galactic latitude is among the least significant features.
-We have also used sin(GLAT) to check that this is not due to scaling, i.e., the large range of values of GLAT,
-but the significance is similar to the GLAT itself.
-We further discuss the dependence on GLAT in Section \ref{sec:lat-lon-profiles}, 
-where we calculate the latitude and longitude profiles of the associated and unassociated source counts.
 
 In order to illustrate the separation of PS into AGNs and pulsars, we retrain the RF algorithm using only two features: log of curvature significance and log of the variability index, and plot the resulting probabilities of classes in Figure \ref{fig:RF_domains}
 for the model with 50 trees with the maximum depth of 6.
@@ -284,9 +240,48 @@ averaged over 100 splits into training and testing samples.
 
 
 
+In tree-based algorithms, one can calculate feature importance by using the averaged reduction of impurity for nodes (Gini index in our case) involving the different features. 
+The importance of features for the case of two different algorithms: RF with 50 trees and maximum depth of 2, and BDT with 100 trees with maximum depth of 2,  are shown in Table \ref{tab:feat_imp}.
+We find that the most important feature for both cases is significance of curvature. Along with it hardness ratio of the last two energy bins, uncertainty of the energy flux at 100 MeV, and the variability index are the other main features.
 
 
 
+\begin{table}[!h]
+\tiny
+\centering
+\renewcommand{\tabcolsep}{1mm}
+\renewcommand{\arraystretch}{1}
+
+\begin{tabular}{c c c}
+\hline
+\hline
+Feature & RF: 50, 6& BDT:100, 2\\
+\hline
+{ $\ln$(Signif\_Curve)}&  0.331  & 0.518   \\
+{ HR45}&0.137&0.071\\
+{ $\ln$(Unc\_Energy\_Flux100)} &0.122& 0.050   \\
+$\ln$(Variability\_Index)& 0.098&0.225  \\
+$\ln$(Energy\_Flux100) & 0.071&0.019   \\
+500MeV\_Index&0.065& 0.028  \\
+HR23 & 0.062&0.052  \\
+HR12& 0.052&0.012  \\
+HR34&0.025&0.005\\
+GLAT &0.017& 0.002     \\
+GLON & 0.014&0.011  \\
+\hline
+\end{tabular}
+\vspace{0.4cm}
+\caption{Feature importances for RF and BDT algorithms ordered by decreasing importance 
+in the case of RF algorithm.
+}
+\label{tab:feat_imp}
+\end{table}
+
+It is interesting to note that Galactic latitude is among the least significant features.
+We have also used sin(GLAT) to check that this is not due to scaling, i.e., the large range of values of GLAT,
+but the significance is similar to the GLAT itself.
+We further discuss the dependence on GLAT in Section \ref{sec:lat-lon-profiles}, 
+where we calculate the latitude and longitude profiles of the associated and unassociated source counts.
 \subsubsection{Neural Networks}
 
 In the case of NN, the number of free parameters depends on the number of hidden layers and on the number of neurons in the hidden layers. The final model accuracy also depends on the number of epochs that the network is allowed to be trained for and on the optimization algorithm. 

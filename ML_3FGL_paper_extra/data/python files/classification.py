@@ -79,9 +79,9 @@ while se<10:
 
 
 
-    X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
-    X_t, X_test, y_t, y_test = \
-    train_test_split(X, y, test_size=.3, random_state=0)       #Split into training and validation
+        X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
+        X_t, X_test, y_t, y_test = \
+        train_test_split(X, y, test_size=.3, random_state=0)       #Split into training and validation
 
     #oversample = RandomOverSampler(sampling_strategy='minority')
     X_train, y_train = X_t, y_t#oversample.fit_resample(X_t, y_t)

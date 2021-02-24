@@ -45,8 +45,8 @@ pro1source=[]
 dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
 
 dataset1 = dataframe.values
-k=dataset1[1:,1].astype(float)
-dataset1[1:,1]=np.cos(k)
+#k=dataset1[1:,1].astype(float)
+#dataset1[1:,1]=np.cos(k)
 rf=[]
 lr=[]
 bdt=[]
@@ -63,11 +63,11 @@ while se<100:
     np.random.seed(se)
     dataframe2 = pandas.read_csv("./files/3fgl_4fgldr2_newfeats_3class.csv", header=None)
     dataset2 = dataframe2.values
-    l=dataset2[1:,1].astype(float)
-    dataset2[1:,1]=np.cos(l)
+    #l=dataset2[1:,1].astype(float)
+    #dataset2[1:,1]=np.cos(l)
     np.random.shuffle(dataset1[1:])
-
-
+    print(dataframe2.values[0,1:17])
+    kutta
     X=[dataset1[i,1:lenth].astype(float) for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR' or dataset1[i,lenth]=='OTHER']
     Y =[dataset1[i,lenth] for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR'or dataset1[i,lenth]=='OTHER']
     print(Y)
