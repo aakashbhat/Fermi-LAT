@@ -51,11 +51,10 @@ while se<100:
     dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
     #dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
     dataset1 = dataframe.values[1:]
-    k=dataset1[1:,1].astype(float)
-    dataset1[1:,1]=np.cos(k)
+    #k=dataset1[1:,1].astype(float)
+    #dataset1[1:,1]=np.cos(k)
     np.random.shuffle(dataset1[:])
     print(dataframe.values[0,1:17])
-    kutta
     X=[dataset1[i,1:(lenth)].astype(float) for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR']# or dataset1[i,lenth]=='OTHER']
     #X = X2.astype(float)
     #print((X))
