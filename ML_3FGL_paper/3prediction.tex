@@ -92,7 +92,7 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
     \vspace{0.2cm}
     \caption{Comparison of classes predicted for unassociated sources in the 3FGL catalog using 2-class classification
     with associations in the 4FGL-DR2 catalog. 
-    These sources are also represented in Figure \ref{fig:3FGL_vs_4FGL_classes}.}
+    The AGN and PSR sources are also represented in Figure \ref{fig:3FGL_vs_4FGL_classes}.}
     \label{tab:3FGL_vs_4FGL_2class}
 \end{table}
 
@@ -131,13 +131,13 @@ Out of 111 sources classified as pulsars, 6 sources have counterparts in Parkes 
     \hline
     Catalog & Classification &\ AGN &\ PSR &\ OTHER &\ MIXED \\
     \hline
-    3FGL & 2-class & 597 & 111 & --  &  300 \\
-     & {2-class corr} & { 578} & { 97} & { 51}  &  { 279} \\
-     & 3-class & 585 & 53 & 69  &  301 \\
+    3FGL & 2-class & 599 & 111 & --  &  300 \\
+     & {2-class corr} & { 580.0} & { 97.0} & { 56.4}  &  { 276.5} \\
+     & 3-class & 587 & 53 & 69  &  301 \\
     \hline
-    4FGL-DR2 \ & 2-class & 872 & 162 & --  &  624 \\
-     & {2-class corr} & {821} & { 135} & { 139}  &  {563} \\
-     & 3-class & 736 & 64 & 271  &  587 \\
+    4FGL-DR2 \ & 2-class & 878 & 162 & --  &  627 \\
+     & {2-class corr} & {826.2} & { 134.5} & { 140.4}  &  {565.9} \\
+     & 3-class & 739 & 64 & 274  &  590 \\
     \hline
      
     \end{tabular}}
@@ -262,7 +262,7 @@ All algorithms have a slightly better accuracy for the 4FGL-DR2 catalog compared
 
 
 \begin{table}[!h]
-\resizebox{0.45\textwidth}{!}{
+%\resizebox{0.45\textwidth}{!}{
     \tiny
  %  \centering
     \renewcommand{\tabcolsep}{0.4mm}
@@ -271,7 +271,8 @@ All algorithms have a slightly better accuracy for the 4FGL-DR2 catalog compared
     \begin{tabular}{ c c c c }
     \hline
     \hline
-    Algorithm&Parameters & Testing Accuracy\ & Std. Dev.\\
+    Algorithm&Parameters &  Testing&Std. Dev.\\
+    & & Accuracy\ &  \\
     \hline
     RF& 50 trees, max depth 6  &97.87 & 0.36\\
     RF\_O   &&97.56&0.39 \\
@@ -282,11 +283,11 @@ All algorithms have a slightly better accuracy for the 4FGL-DR2 catalog compared
     NN & 300 epochs, 16 neurons, LBFGS  & 97.41 & 0.47\\
     NN\_O&&95.48&0.66\\
     \hline
-    LR & LBFGS solver, 200 iterations & 97.80&0.38\\
+    LR & 200 iterations, LBFGS solver & 97.80&0.38\\
     LR\_O&&96.03&0.53\\
     \hline
      
-    \end{tabular}}
+    \end{tabular}%}
     \vspace{0.2cm}
     \caption{Testing accuracy of the 4 algorithms on 4FGL-DR2 associated data. ``\_O'' denotes training with oversampling.}
     \label{tab:selected_algs2}

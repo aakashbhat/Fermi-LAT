@@ -74,7 +74,7 @@ One of these splittings is shown on the figure.
 The accuracies of our chosen models for classification of the 3FGL sources are presented in Table \ref{tab:selected_algs_multi}.
 As in the 2-class case, the accuracies are averaged over 1000 realizations of splitting the data into training and testing samples.
 We notice that accuracies presented in Table \ref{tab:selected_algs} are calculated relative to AGN and PSR classes only, if we take into account that all OTHER sources
-are misclassified in this case, then the testing accuracy is reduced by about 5\% (the fraction of OTHER sources in associated source in 3FGL),
+are misclassified in this case, then the testing accuracy is reduced by about 5\% (the fraction of OTHER sources among associated sources in 3FGL),
 while the accuracy of comparison with 4FGL-DR2 is reduced by about 10\% (there are 37 unassociated sources in 3FGL with OTHER class associations in 4FGL-DR2,
 while there are in total 339 unassociated sources in 3FGL with associations in 4FGL-DR2).
 Thus the testing accuracy of 93-94\% in Table \ref{tab:selected_algs_multi} provides at least a 1-2\% improvement over the accuracy in Table \ref{tab:selected_algs},
@@ -130,7 +130,7 @@ Since all OTHER sources are ``misclassified'' by the 2-class classification, the
 
 \begin{table}[!h]
 \hspace{-0.2cm}
-\resizebox{0.47\textwidth}{!}{
+%\resizebox{0.47\textwidth}{!}{
     \tiny
   \centering
     \renewcommand{\tabcolsep}{0.4mm}
@@ -154,7 +154,7 @@ Since all OTHER sources are ``misclassified'' by the 2-class classification, the
     LR\_O &  &92.22&0.69\\
     \hline
      
-    \end{tabular}}
+    \end{tabular}%}
     \vspace{2mm}
     \caption{Testing accuracy of the four selected algorithms for the 3-class classification of 4FGL-DR2 sources. 
     ``\_O'' denotes training with oversampling.}
