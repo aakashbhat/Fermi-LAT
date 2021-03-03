@@ -42,12 +42,12 @@ plotting_dima.setup_figure_pars()
 score=0
 #Training Fata:
 se=0
-s1=698
-s2=567
+s1=563
+s2=451
 zbig=np.zeros((s1,s2))
 while se<10:
     np.random.seed(se)
-    dataframe = pandas.read_csv("./catas/3fgl_cata_multi_latest.csv", header=None)
+    dataframe = pandas.read_csv("./catas/3fgl_multi_cata_newfeats.csv", header=None)
     dataset1 = dataframe.values 
     np.random.shuffle(dataset1[1:])
 
@@ -58,8 +58,8 @@ while se<10:
     encoder.fit(Y)
     Y = encoder.transform(Y)
 
-
-
+    X=np.asarray(X)
+    print(X)
     h = .02  # step size in the mesh
 
 
@@ -71,16 +71,16 @@ while se<10:
     #Making datsets, these were initially with different features and not the same:
     X1=X
     #print(dataset1[0,2:4])
-    y1=Y
-    linearly_separable = (X1, y1)
+    y=Y
+    #linearly_separable = (X1, y1)
     #print(linearly_separable)
-    datasets = [linearly_separable]
-    X, y = datasets[0]
+    #datasets = [linearly_separable]
+    #X, y = datasets[0]
 
 
 
-        X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
-        X_t, X_test, y_t, y_test = \
+        #X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
+    X_t, X_test, y_t, y_test = \
         train_test_split(X, y, test_size=.3, random_state=0)       #Split into training and validation
 
     #oversample = RandomOverSampler(sampling_strategy='minority')
@@ -140,11 +140,11 @@ while se<10:
 
 
 #Choose classifier:
-    clf=RandomForestClassifier(max_depth=6, n_estimators=50,oob_score=True)
+    #clf=RandomForestClassifier(max_depth=6, n_estimators=50,oob_score=True)
     #clf= MLPClassifier(max_iter=600,hidden_layer_sizes=(2,), activation='tanh', solver='lbfgs').fit(X_train,y_train)
     #clf=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=2, random_state=0).fit(X_train,y_train)
-    #clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
-    clf.fit(X_train, y_train)
+    clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
+    #clf.fit(X_train, y_train)
 
     lenth=len(X_test)
     score = score+clf.score(X_test, y_test)       #Score of our classifier
@@ -185,7 +185,7 @@ zbig=(zbig/10).astype(int)
 cs=ax2.contourf(xx, yy, zbig, cmap=cm,norm=norm, alpha=.8)#,levels=levels)
 #fig1.colorbar(cs,ax=ax2,shrink=0.9)
         # Plot the training points
-score=score/100
+score=score/10
 alpha=0.9
 k=1
 '''
@@ -227,19 +227,19 @@ ax2.scatter(X_test[c3_test_inds, 0], X_test[c3_test_inds, 1], c=testc3_color, al
                    marker=testc3_marker, edgecolors='k', label='OTHER testing')
 
 ax2.legend(loc=1)
-ax2.text(6.5,-2.3,"Trees: 50")
-ax2.text(6.5,-2.6,"Maximum Depth: 6")
+ax2.text(6.5,-2.3,"Iterations: 200")
+ax2.text(6.5,-2.6,"Solver: LBFGS")
 #ax2.text(0.02,-1.3,"Trees: 100")
 #ax2.text(0.02,-1.6,"Maximum Depth: 6")
 #ax2.set_xlim(xx.min(), xx.max())
-#ax2.set_title('Logistic Regression')
-ax2.set_title('Random Forests (3-Class)')
+ax2.set_title('Logistic Regression')
+#ax2.set_title('Random Forests (3-Class)')
 
 #ax2.set_ylim(yy.min(), yy.max())
 ax2.set_xlabel('Ln(Variability_Index)')
 ax2.set_ylabel('Ln(Significant_Curvature)')
-#ax2.set_ylim((-3,5))
-#ax2.set_xlim((2.9,8))
+ax2.set_ylim((-3,5))
+ax2.set_xlim((2.9,8))
 
 #ax.set_xticks(np.arange(-5,3,step=1))
  #       ax.set_yticks(())
