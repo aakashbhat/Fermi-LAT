@@ -203,7 +203,28 @@ For example, in the 3FGL (4FGL-DR2) catalog all 8 methods classify 69 (271) unas
 Also, 8 out of 37 unassociated 3FGL sources, which are associated to OTHER sources in 4FGL-DR2, are classified by all 8 algorithms as
 OTHER (6 are classified as AGNs, 5 as PSRs, and 18 have mixed classification).
 
-We also used the 3-class classification for a candidate list of most promising objects. We summed up the probabilities of all 8 methods for the three classes and chose the threshold of 7.0 for the column $\text{OTHER\_TOTAL}$. This is a stringent condition on the probability that a source belongs to the other class. Furthermore, we sub-selected the unassociated candidates in 4FGL-DR2 and have created our final candidate list of 30 sources based on 4FGL-DR2 features \footnote{6 of these sources also have a 3FGL name. 3 of these (4FGL J1312.6-6231c, 4FGL J1626.0-4917c, 4FGL J1631.7-4826c) are predicted to be OTHER based on 3FGL values, while the other 3 are predicted to be 'MIXED' sources.}. The maximum probability is $7.48\pm0.14$ for the source 4FGLJ1800.2-2403c. Out of these 30 sources only two have 0 flags in 4FGL, and only 8 have an association with the previous FGL catalogs (column name ASSOC\_FGL). Furthermore, we tried to find whether recent work could be found for some of these sources and used the Simbad database for this purpose. Out of the sources with Simbad entries the following 8 sources had extra associations (ordered according to probability of being OTHER source):
+We also used the 3-class classification for a candidate list of most promising objects. We summed up the probabilities of all 8 methods for the three classes and chose the threshold of 7.0 for the column $\text{OTHER\_TOTAL}$. This is a stringent condition on the probability that a source belongs to the other class. Furthermore, we sub-selected the unassociated candidates in 4FGL-DR2 and have created our final candidate list of 30 sources based on 4FGL-DR2 features, shown in table \ref{tab:allotherspredicted}.
+\pgfplotstableread[col sep=comma]{tables/4FGLDR2_Candidates_OTHER.csv}\loadedtable
+\begin{table}
+\hspace{-0.5cm}
+\tiny
+\pgfplotstabletypeset[columns={Source_Name_4FGL,GLON,GLAT,OTHER_TOTAL,Category_Prob_3FGL},
+column type=l,
+string type,
+every head row/.style={before row={\hline \hline},after row=\hline,},
+every last row/.style={after row=\hline},
+columns/Source_Name_4FGL/.style={column name=Source\_Name\_4FGL},
+columns/GLON/.style={column name=GLON,numeric type,fixed,precision=2},
+columns/GLAT/.style={column name=GLAT,numeric type,fixed,precision=2},
+columns/OTHER_TOTAL/.style={column name=Sum(Prob),numeric type,fixed,precision=2},
+columns/Category_Prob_3FGL/.style={column name=Cat.(3FGL)},
+]\loadedtable
+\normalsize
+\caption{\label{tab:allotherspredicted}
+List of unassociated 4FGL DR2 sources predicted to be OTHER class. These are all predicted to be 'OTHER' sources by all 8 algorithms. We also attach the category from 3FGL data where the association is available. Sum(Prob) is the total sum of the OTHER class probabilities.}
+\end{table}
+
+The maximum probability is $7.48\pm0.14$ for the source 4FGLJ1800.2-2403c. Out of these 30 sources only two have 0 flags in 4FGL, and only 8 have an association with the previous FGL catalogs (column name ASSOC\_FGL). Furthermore, we tried to find whether recent work could be found for some of these sources and used the Simbad database for this purpose. Out of the sources with Simbad entries the following 8 sources had extra associations (ordered according to probability of being OTHER source):
 \begin{enumerate}
 \item 4FGL J1800.2-2403c. The source with the greatest probability has no entry in Simbad. However, it is associated with the 1FGL source 1FGL J1800.5-2359c, which is also associated with the associated OTHER source 4FGL J1800.7-2355 of unk class and is in the region of the SNR W28 \citep{2020MNRAS.495.2909R}.
 \item 4FGL J1842.7-0326: Associated with 3FGL J1843.7-0322 and found near the HESS source HESS J1843-033, next to the SNR G28.6-0.1 \citep{2018A&A...612A...1H}. This source was also the 67th source amongs 120 unassociated sources according to significance (>10) in the list of \citet{2016ApJ...820....8S} where the RF and LR methods predicted it to be a young pulsar based on the 2-class classification. In our 3FGL multi-class catalog, this source has a 'MIXED' prediction.
@@ -213,6 +234,44 @@ We also used the 3-class classification for a candidate list of most promising o
 \item 4FGL J1850.2-0201: Also in the region of the starburst W43 \citep{2020A&A...640A..60Y}.
 \item 4FGL J1801.8-2358: Associated with HESS J1800-240A and 2FHL J1801.7-2358. Located south of the SNR W28 \citep{2020MNRAS.495.2909R}.
 \item 4FGL J1855.8+0150: In the region of SNR W44 \citep{2020ApJ...896L..23P}.
-
 \end{enumerate}
-We have saved this candidate list with the rest of the catalogs. Furthermore, there are 6 PSR candidates in our multi-class classification with a probability sum $\text{PSR\_TOTAL}> 7.0$. These are the sources: 4FGL J1225.9+2951, 4FGL J2112.5-3043, 4FGL J1120.0-2204, 4FGL J0933.8-6232, 4FGL J0953.6-1509, 4FGL J1539.4-3323. All of these sources are also predicted to be pulsars as part of our 29 PSR sources mentioned in section 4 (using both 4FGL and 3FGL features). 2 of these are also present in the Parkes survey mentioned before.
+Sources which had another Simbad object within 1 arcminute of them are shown in table \ref{tab:otherspredicted}, where we list the total probability and the type of object near the 4FGL source.
+\pgfplotstableread[col sep=comma]{tables/4FGLDR2_OTHER_SIMBAD.csv}\loadedtable
+\begin{table}
+\hspace{-0.4cm}
+\tiny
+\pgfplotstabletypeset[columns={Source_Name_4FGL,OTHER_TOTAL,main_type,Sep(arksec)},
+column type=l,
+string type,
+every head row/.style={before row={\hline \hline},after row=\hline,},
+every last row/.style={after row=\hline},
+columns/Source_Name_4FGL/.style={column name=Source\_Name\_4FGL},
+columns/OTHER_TOTAL/.style={column name=Sum(Prob),numeric type,fixed,precision=2},
+columns/main_type/.style={column name=SIMBAD\_Type},
+columns/Sep(arksec)/.style={column name=Sep (arcsec),numeric type,fixed,precision=1}
+]\loadedtable
+\normalsize
+\caption{\label{tab:otherspredicted}
+Connection of unassociated 4FGL-DR2 sources predicted to be OTHER with Simbad database within 1 arc minute of the sources. We list only sources which have a seperate match than their 4FGL or 3FGL name.}
+\end{table}
+We have saved this candidate list with the rest of the catalogs. Furthermore, there are 6 PSR candidates in our multi-class classification with a probability sum $\text{PSR\_TOTAL}> 7.0$. These are shown in table \ref{tab:psrpredicted}. All of these sources are also predicted to be pulsars as part of our 29 PSR sources mentioned in section 4 (using both 4FGL and 3FGL features). 2 of these are also present in the Parkes survey mentioned before. Finally, the source 4FGL J1225.9+2951 is the only one with a Simbad match with a candidate white dwarf Gaia DR2 4011915928852958592 within 1 arc minute.
+
+\pgfplotstableread[col sep=comma]{tables/4FGLDR2_PSR.csv}\loadedtable
+\begin{table}
+\tiny
+\pgfplotstabletypeset[columns={Source_Name_4FGL,GLON,GLAT,PSR_TOTAL},
+column type=l,
+string type,
+every head row/.style={before row={\hline \hline},after row=\hline,},
+every last row/.style={after row=\hline},
+columns/Source_Name_4FGL/.style={column name=Source\_Name\_4FGL},
+columns/GLON/.style={column name=GLON,numeric type,fixed,precision=2},
+columns/GLAT/.style={column name=GLAT,numeric type,fixed,precision=2},
+columns/PSR_TOTAL/.style={column name=Sum(Prob),numeric type,fixed,precision=2},
+]\loadedtable
+\normalsize
+\caption{\label{tab:psrpredicted}
+Connection of unassociated 4FGL-DR2 sources predicted to be PSR by the multi class prediction. Sum(Prob) here represents the sum of PSR class probabilities}
+\end{table}
+
+
