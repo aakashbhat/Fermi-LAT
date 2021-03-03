@@ -3,7 +3,10 @@ import matplotlib.pyplot as plt
 from random import shuffle, sample
 import pandas as pd
 import seaborn as sns
-
+import sklearn.feature_selection
+from sklearn.metrics import mutual_info_score
+from sklearn import preprocessing
+from sklearn.preprocessing import StandardScaler
 
 plt.rcParams['xtick.labelsize'] = 14
 plt.rcParams['axes.labelsize'] = 14
@@ -19,29 +22,52 @@ file_1=fits.open('input3')
 file_2=fits.open('OUTPUT')
 file_3=fits.open('input_glat')
 '''
-dataframe = pd.read_csv("./files/4fgldr2_all.csv", header=None)
-dataset=dataframe.values
-print(dataset[0,38])
-labels2=dataset[0:1,1:29]
+dataframe = pd.read_csv("./files/3fglassoc.csv", header=None)
+dataset=dataframe.values[1:]
+dataset2=dataframe.values[0]
+labels2=dataset2[1:17]
 labels2=labels2.ravel()
+print(dataset[0,17])
+#labels2=dataset[0:1,1:12]
+#labels2=labels2.ravel()
 #dataset=dataset[1:,1:29].astype(float)
-dataset=[dataset[i,1:29].astype(float) for i in range(len(dataset)) if dataset[i,38]=='AGN' or dataset[i,38]=='PSR']# or dataset[i,12]=='OTHER']
-
-dataset=pd.DataFrame(dataset,columns=labels2)
+#print(dataset)
+mat=np.zeros((16,16))
+for j in range(16):
+    for k in range(16):
+        X=[dataset[i,j+1] for i in range(len(dataset)) if dataset[i,17]=='AGN' or dataset[i,17]=='PSR']# or dataset[i,12]=='OTHER']
+        Y=[dataset[i,k+1] for i in range(len(dataset)) if dataset[i,17]=='AGN' or dataset[i,17]=='PSR']# or dataset[i,12]=='OTHER']
+        X=np.asarray(X)
+        Y=np.asarray(Y)
+        X=X.astype(float)
+        Y=Y.astype(float)
+        c_xy = np.histogram2d(X, Y, 30)[0]
+        mi = mutual_info_score(None,None,contingency=c_xy)
+        print(dataset2[j+1],dataset2[k+1],mi)
+        mat[j,k]=mi
+#dataset=pd.DataFrame(dataset,columns=labels2)
 #plt.rc('xtick', labelsize=7) 
 #plt.rc('ytick', labelsize=10)
-corr=dataset.corr(method='pearson')
-mask = np.triu(np.ones_like(corr, dtype=np.bool))
-corr2=abs(corr)
+#corr=sklearn.feature_selection.mutual_info_classif(X,Y)
+#mat = StandardScaler().fit_transform(mat)
+print(mat)
+#mask = np.triu(np.ones_like(corr, dtype=np.bool))
+#corr2=abs(corr)
 #mask2=np.less(corr2,0.7)
 #mask=mask +mask2
 #corr=corr*-1
-print(mask)
+#print(mask)
 #print(sai)
 fig, ax = plt.subplots(figsize=(31,31))         # Sample figsize in inches
-ax.set_title("Correlation in 3FGL Associated Data")
-
-sns.heatmap(corr, mask=mask, annot=True,annot_kws={"size": 8},cbar_kws={"shrink": .5},linewidths=3)
+ax.set_title("Mutual Information in 3FGL Associated Data")
+mat3=pd.DataFrame(mat,columns=labels2)
+for column in mat3.columns: 
+    mat3[column] = mat3[column]  / mat3[column].abs().max() 
+#min_max_scaler = preprocessing.MinMaxScaler()
+#np_scaled = min_max_scaler.fit_transform(mat3)
+scaler = StandardScaler()
+#mat3 = pd.DataFrame(np_scaled)
+sns.heatmap(mat3,xticklabels=labels2, yticklabels=labels2, annot=True,annot_kws={"size": 8},cbar_kws={"shrink": .5},linewidths=3)
 plt.show()
 
 
