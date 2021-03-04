@@ -238,7 +238,7 @@ The maximum probability is $7.48\pm0.14$ for the source 4FGLJ1800.2-2403c. Out o
 Sources which had another Simbad object within 1 arcminute of them are shown in table \ref{tab:otherspredicted}, where we list the total probability and the type of object near the 4FGL source.
 \pgfplotstableread[col sep=comma]{tables/4FGLDR2_OTHER_SIMBAD.csv}\loadedtable
 \begin{table}
-\hspace{-0.4cm}
+\hspace{-0.5cm}
 \tiny
 \pgfplotstabletypeset[columns={Source_Name_4FGL,OTHER_TOTAL,main_type,Sep(arksec)},
 column type=l,
@@ -252,14 +252,14 @@ columns/Sep(arksec)/.style={column name=Sep (arcsec),numeric type,fixed,precisio
 ]\loadedtable
 \normalsize
 \caption{\label{tab:otherspredicted}
-Connection of unassociated 4FGL-DR2 sources predicted to be OTHER with Simbad database within 1 arc minute of the sources. We list only sources which have a seperate match than their 4FGL or 3FGL name.}
+Connection of unassociated 4FGL-DR2 sources predicted to be OTHER with Simbad database within 1 arc minute of the sources. We list only sources which have a seperate match than their 4FGL or 3FGL name. Abbreviations: YSO = Young Stellar Object, AGB = Asymptotic Giant Branch Star, MolCld = Molecular Cloud, DkNeb =Dark Cloud (nebula). }
 \end{table}
-We have saved this candidate list with the rest of the catalogs. Furthermore, there are 6 PSR candidates in our multi-class classification with a probability sum $\text{PSR\_TOTAL}> 7.0$. These are shown in table \ref{tab:psrpredicted}. All of these sources are also predicted to be pulsars as part of our 29 PSR sources mentioned in section 4 (using both 4FGL and 3FGL features). 2 of these are also present in the Parkes survey mentioned before. Finally, the source 4FGL J1225.9+2951 is the only one with a Simbad match with a candidate white dwarf Gaia DR2 4011915928852958592 within 1 arc minute.
-
+We have saved this candidate list with the rest of the catalogs. Furthermore, there are 6 PSR candidates in our multi-class classification with a probability sum $\text{PSR\_TOTAL}> 7.0$. These are shown in table \ref{tab:psrpredicted}. All of these sources are also predicted to be pulsars as part of our 29 PSR sources mentioned in section 4 (using both 4FGL and 3FGL features). 2 of these are also present in the Parkes survey mentioned before. Interestingly. none of these sources have a sum of probability greater than 7 when 3FGL features are used, but 5 of them are categorized as PSRs in 3FGL.
 \pgfplotstableread[col sep=comma]{tables/4FGLDR2_PSR.csv}\loadedtable
 \begin{table}
+\hspace{-0.1cm}
 \tiny
-\pgfplotstabletypeset[columns={Source_Name_4FGL,GLON,GLAT,PSR_TOTAL},
+\pgfplotstabletypeset[columns={Source_Name_4FGL,GLON,GLAT,PSR_TOTAL_4FGL,PSR_TOTAL_3FGL,Category_Prob},
 column type=l,
 string type,
 every head row/.style={before row={\hline \hline},after row=\hline,},
@@ -267,11 +267,13 @@ every last row/.style={after row=\hline},
 columns/Source_Name_4FGL/.style={column name=Source\_Name\_4FGL},
 columns/GLON/.style={column name=GLON,numeric type,fixed,precision=2},
 columns/GLAT/.style={column name=GLAT,numeric type,fixed,precision=2},
-columns/PSR_TOTAL/.style={column name=Sum(Prob),numeric type,fixed,precision=2},
+columns/PSR_TOTAL_4FGL/.style={column name=SP1,numeric type,fixed,precision=2},
+columns/PSR_TOTAL_3FGL/.style={column name=SP2,numeric type,fixed,precision=2},
+columns/Category_Prob/.style={column name=Cat.(3FGL)},
 ]\loadedtable
 \normalsize
 \caption{\label{tab:psrpredicted}
-Connection of unassociated 4FGL-DR2 sources predicted to be PSR by the multi class prediction. Sum(Prob) here represents the sum of PSR class probabilities}
+Unassociated 4FGL-DR2 sources predicted to be PSR by the multi class prediction. All of these sources have a corresponding 3FGL association. SP1 and SP2 here represent the sum of PSR class probabilities for 4FGL-DR2 and 3FGL respectively.}
 \end{table}
 
 
