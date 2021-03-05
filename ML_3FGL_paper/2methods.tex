@@ -61,12 +61,24 @@ If the activation function for the output layer is sigmoid, then the output valu
 \section{Construction of probabilistic catalogs}
 \lb{sec:training}
 
+One of the first problems, one has to deal with for the 3FGL and 4FGL-DR2 catalogs, is that
+some of the sources in the catalogs have missing or unphysical values (e.g., infinity).
+In order to avoid a bias in predictions, we include sources with missing or unphysical values only in testing or in predictions (for unassociated sources), but not in training.
+If the value is infinity, then we formally substitute it by the largest value found in the samples multiplied by 10.
+An unphysical zero (e.g., in significance) is substituted by the smallest value in the sample divided by 10,
+while a missing value is substituted by the average in the sample.
+There can be other ways to replace the missing or unphysical values, e.g., by using k nearest neighbors regression, 
+but since the number of such sources is relatively small (13 for 3FGL and 14 for 4FGL-DR2), 
+the choice of the method to replace the missing values does not significantly affect the results.
+In the final probabilistic catalogs, we use a column ``Missing\_Values\_Flag'' to mark sources with missing or unphysical values.
+
+%In this section we use the 2-class classification in AGNs and pulsars of the 3FGL catalog sources as an example to show the selection of features and meta-paramters of the algorithms.
 As an example of the construction of a probabilistic catalog, we will use the 3FGL catalog.
-For training and testing the methods, we use sources which have associations and no missing values in the catalog.
+%For training and testing the methods, we use sources which have associations and no missing values in the catalog.
 In this section we will perform a two-class classification to separate PS into pulsars and AGNs.
 Thus for training and testing, we subselect the sources, which are associated to pulsars and AGNs
 (three-class classification into pulsars, AGNs, and other sources is discussed in Section \ref{sec:3class}).
-After the training of the algorithms, we test the performance with the test sources and predict the classes of unassociated sources that have all features present in the catalog table.
+After the training of the algorithms, we test the performance with the test sources and predict the classes of unassociated sources.
 The general workflow will have the following steps:
 \ben
 \item
@@ -88,8 +100,8 @@ based on the \Fermi-LAT 3FGL and 4FGL-DR2 catalogs.
 
 \subsection{Data and feature selection}
 
-We restrict the analysis to associated and unassociated sources without any missing or statistically insignificant values (e.g., none or infinity). 
-We use the associated sources which were classified as either AGNs (classification labels in the 3FGL catalog: agn, FSRQ, fsrq, BLL, bll, BCU, bcu, RDG, rdg, NLSY1, nlsy1, ssrq, and sey) or pulsars (classification labels in 3FGL: PSR, psr), which results in a list of 1905 sources. 
+%We restrict the analysis to associated and unassociated sources without any missing or statistically insignificant values (e.g., none or infinity). 
+For training of the algorithms we use the associated sources, which were classified as either AGNs (classification labels in the 3FGL catalog: agn, FSRQ, fsrq, BLL, bll, BCU, bcu, RDG, rdg, NLSY1, nlsy1, ssrq, and sey) or pulsars (classification labels in 3FGL: PSR, psr). There are 1905 such sources in the 3FGL catalog. 
 
 
 There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties. We took the main features, including those discussed in \cite{2016ApJ...820....8S}, and plotted their Pearson correlation coefficients. A graphical representation of the correlation table is shown is Figure \ref{fig:assoc_corr_3fgli}. In the following, if two features have (anti)correlation $\gtrsim 0.75$ 
@@ -108,7 +120,8 @@ from the 3FGL catalog.
 
 Spectral index is one of the important characteristics of sources. 
 Unfortunately in the 3FGL catalog, the definition of the spectral index is different for associated and unassociated sources.
-In particular, the gamma-ray flux of pulsars is described by a power-law with a (super)exponential cutoff $\propto E^{-\Gamma} e^{-(E / E_c)^b}$ and the ``Spectral\_Index'' feature in the catalog is the parameter $\Gamma$.
+In particular, the gamma-ray flux of pulsars is described by a power-law with a (super)exponential cutoff $\propto E^{-\Gamma} e^{-(E / E_c)^b}$ 
+function, where the ``Spectral\_Index'' feature in the catalog is the parameter $\Gamma$.
 Gamma-ray flux of unassociated sources with significant curvature is represented by log-parabola function $\propto (E/E_0)^{-\al - \bt \ln (E/E_0)}$,
 where the ``Spectral\_Index'' feature is the parameter $\al$, i.e., the tilt in the spectrum at the pivot energy $E_0$ (which also varies for different sources).
 Since the ``Spectral\_Index'' feature has different definitions for associated pulsars and for possible pulsars among unassociated sources,
@@ -117,7 +130,7 @@ If one fits all spectra of sources in the catalog by a power-law function, then 
 ``PowerLaw\_Index'' feature in the catalog.
 This feature is defined uniformly for all associated and unassociated sources, i.e., it is safe to use for training.
 Unfortunately, the power-law function is not a good description of the gamma-ray flux from pulsars.
-In the classification of the 3FGL sources we have constructed a new feature: the index at 500 MeV (denoted in the following as ``500MeV\_Index''), defined as minus the derivative of the log flux:
+Consequently, in the classification of the 3FGL sources we have constructed a new feature: the index at 500 MeV (denoted in the following as ``500MeV\_Index''), defined as minus the derivative of the log flux:
 \be
 \lb{eq:n500_def}
 n({\rm 500\,MeV}) = - \left. \frac{d \ln F}{d \ln E} \right|_{E = \rm 500\,MeV}
@@ -133,7 +146,8 @@ than PowerLaw\_Index, provided that pulsars have typically harder spectra at ene
 Taking into account the correlation among the features and the above discussion of the spectral index definition,
 we have selected the following eleven features for the classification of the 3FGL sources:
 Galactic latitude (GLAT), Galactic longitude (GLON), ln(Energy\_Flux\_100), $\ln$(Unc\_Energy\_Flux100), 500MeV\_Index, $\ln$(Signif\_Curve), 
-$\ln$(Variability\_Index), and four hardness ratios $hr_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i}$, where $EF_i$ is the energy flux in bin $i$.
+$\ln$(Variability\_Index), and four hardness ratios $hr_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i}$, where $EF_i$ is the energy flux in bin $i$
+and $j = i + 1$ (i.e., the bins are consecutive).
 We have added the hardness ratios in order to allow the algorithms to ``construct'' their own features from the raw data rather than to use the 
 derived features, such as spectral index or integrated flux.
 The table of features and their statistics can be found in Appendix \ref{sec:app}.
@@ -148,7 +162,7 @@ The table of features and their statistics can be found in Appendix \ref{sec:app
 The number of tunable parameters in the classification algorithms is not fixed a priori. 
 Moreover there is a certain freedom in the choice of the architecture of the algorithms, such as
 the number of hidden layers and the number of neurons in neural networks.
-In general one starts with a simple model and increases the complexity (the number of tunable parameters)
+In general, one starts with a simple model and increases the complexity (the number of tunable parameters)
 until the model can describe the data well, but does not overfit it.
 The overfitting is tested by splitting the input data into the training and testing samples.
 The training sample is used for optimizing the parameters,
@@ -241,8 +255,9 @@ averaged over 100 splits into training and testing samples.
 
 
 In tree-based algorithms, one can calculate feature importance by using the averaged reduction of impurity for nodes (Gini index in our case) involving the different features. 
-The importance of features for the case of two different algorithms: RF with 50 trees and maximum depth of 2, and BDT with 100 trees with maximum depth of 2,  are shown in Table \ref{tab:feat_imp}.
-We find that the most important feature for both cases is significance of curvature. Along with it hardness ratio of the last two energy bins, uncertainty of the energy flux at 100 MeV, and the variability index are the other main features.
+The importance of features for the case of two different algorithms: RF with 50 trees and maximum depth of 6, and BDT with 100 trees with maximum depth of 2,  are shown in Table \ref{tab:feat_imp}.
+We find that the most important feature for both cases is the significance of curvature.
+Other significant features are the hardness ratio of the last two energy bins, uncertainty of the energy flux at 100 MeV, and the variability index.
 
 
 
@@ -271,8 +286,8 @@ GLON & 0.014&0.011  \\
 \hline
 \end{tabular}
 \vspace{0.4cm}
-\caption{Feature importances for RF and BDT algorithms ordered by decreasing importance 
-in the case of RF algorithm.
+\caption{Feature importances for RF (50 trees, max depth 6) and BDT (100 trees, max depth 2) algorithms.
+The features are ordered by decreasing importance for the RF algorithm.
 }
 \label{tab:feat_imp}
 \end{table}
@@ -309,7 +324,7 @@ The unknown parameters are optimized by minimizing a loss function, which we cho
 the cross entropy
 $-\text{log}L = - \sum_i (y_i\text{log}(p_i)+(1-y_i)\text{log}(1 - p_i))$, 
 where $y_i = 0,\,1$ are the true labels of the sources and $p_i$ are the predicted class probabilities.
-This is the same loss function as in the LR case below.
+%This is the same loss function as in the LR case below.
 We have also used NN with two hidden layers, but the accuracy was similar to the networks with one hidden layer (Appendix \ref{sec:app}). For the final classification model, we have chosen to use one hidden layer.
 
 \begin{figure}[h]
@@ -369,7 +384,7 @@ where $m(x)$ is a function of input features $x$.
 The complexity of the model is given by the number of parameters in $m(x)$.
 We have considered two cases for $m(x)$: linear and quadratic function of the input features $x$.
 Quadratic $m(x)$ resulted in a similar accuracy as linear $m(x)$.
-Consequently, we have restricted our attention to linear functions $m(x) = \sum_{k = 1}^{11} f_k x_k$.
+Consequently, we have restricted our attention to linear functions $m(x) = f_0 + \sum_{k = 1}^{11} f_k x_k$.
 In Figure \ref{fig:LR_accuracy} we show the accuracy of the LR method as a function of the number of iterations
 for different solvers, e.g., LBFGS \citep{lbfgs}, Stochastic Average Gradient \citep[SAG,][]{sag}, SAGA \citep[a variant of SAG,][]{saga},
 and liblinear \citep[a special solver for LR and support vector machine classifications,][]{ll}.
@@ -400,7 +415,8 @@ averaged over 100 random splits into training and testing samples.}
 \lb{sec:oversampling}
 
 \Fermi-LAT catalogs have many more AGNs than pulsars, i.e., the datasets are imbalanced.
-In the previous subsections we have optimized overall accuracy. In this case, the algorithms try to identify AGNs rather than pulsars,
+For example, the 3FGL catalog has 1744 associated AGNs and 167 associated pulsars.
+In the previous subsections we have optimized the overall accuracy. In this case, the algorithms try to identify AGNs rather than pulsars,
 since it gives better accuracy. As a result, in the region of parameter space, where both pulsars and AGNs are present, the algorithms
 will give higher probability for a source to be an AGN.
 
@@ -420,7 +436,7 @@ all-algorithm classification for oversampling of pulsars in training data. For d
 \end{figure}
 
 
-In Figure \ref{fig:prec_recall} we show precision and recall for detection of pulsars using algorithms from previous sections.
+In Figure \ref{fig:prec_recall} we show precision and recall for classification of pulsars.
 In particular, in the first two lines (solid blue with squares and dashed orange with right triangles) a source is categorized as a pulsar if all four algorithms classify it as a pulsar,
 while in lines 3 and 4 (solid green with diamonds and dashed red with down triangles) a source is attributed to the PSR class, if any of the algorithms classifies it as a pulsar.
 It is clear that for lines 1 and 2 the pulsar domain is smaller than for lines 3 and 4, since in the former case, the domain is the intersection of domains for individual algorithms, while in the latter it is the union.
@@ -437,7 +453,7 @@ the number of times a source appears in training is shown by adding markers with
 In the bottom panel of Figure \ref{fig:LR_domains_O} we repeat Figure  \ref{fig:LR_domains} in order to compare the classification domains with and without oversampling.
 One can see that pulsar domain in the top panel is larger than the pulsar domain in the bottom panel.
 As a result, in the top panel more pulsars are classified as pulsars but also more AGNs are falsely classified as pulsars in the intersection region. 
-Since the overall number of AGNs is larger than the number of pulsars, the testing accuracy with oversampling is smaller than the one without oversampling.
+Since the overall number of AGNs is larger than the number of pulsars, the testing accuracy with oversampling is smaller than without oversampling.
 
 The results of training with oversampling are presented  in Figure \ref{fig:prec_recall},
 lines 5 and 6 (solid purple with circles and dashed brown with stars). 
