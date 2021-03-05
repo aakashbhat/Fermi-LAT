@@ -2,7 +2,7 @@
 \lb{sec:3class}
 
 One of the caveats of the analysis with two classes is that there are associated sources, which do not belong to AGN or PSR classes. These have the labels: unk, spp, glc, snr, gal, sbg, GAL, sfr, bin, SNR, HMB, LMB, css, PWN, pwn, hmb, SFR, BIN, lmb, NOV.
-We collect all these associated sources, which do not belong to AGN and PSR classes into a new class, which we label as ``OTHER''.
+We collect all associated sources, which do not belong to AGN and PSR classes, into a new class, which we label as ``OTHER''.
 Since in two-class classification we train algorithm to classify sources only into AGN and PSR classes, OTHER sources are also classified as either AGN or PSR.
 This introduces a bias in the estimates of the number of AGNs and pulsars among unassociated sources.
 One possibility to correct this bias is to assume that the fractions of OTHER sources among associated and unassociated sources are the same (Equation (\ref{eq:other_correction})).
@@ -29,7 +29,8 @@ We perform optimization of the meta-parameters for the four ML algorithms with t
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/bdt_train_multi.pdf}
 \includegraphics[width=0.5\textwidth]{plots/lr_train_multi.pdf}
-\caption{Accuracy for the 3-class classification with RF, BDT and LR  methods. LR does not have liblinear solver here, since liblinear cannot handle multinomial loss.
+\caption{Accuracy for the 3-class classification with RF, BDT and LR  methods. LR does not have liblinear solver here, since liblinear 
+cannot handle multinomial \dima{or multi-class?} loss.
 }
 \label{fig:tree_multi}
 \end{figure}
@@ -51,8 +52,8 @@ provide close to optimal performance at a minimal cost in complexity (depth of t
 The main difference for NN and LR algorithms is that more steps are needed for convergence, especially in case of oversampling. 
 In the following we use 600 epochs for NN and 500 iterations for LR instead of 300 epochs and 200 iterations respectively in the two-class case.
 For NN, the accuracy stops increasing above about 10 neurons in the hidden layer (in the following we use 11 neurons for classification: the same as in the two-class case).
-For oversampling, we use the oversampling factors $\sqrt{\frac{\text{\# AGN}}{\text{\# PSR}}}$ and $\sqrt{\frac{\text{\# AGN}}{\text{\# OTHER}}}$ for PSR and OTHER classes respectively (instead of $\frac{\text{\# AGN}}{\text{\# PSR}}$ and $\frac{\text{\# AGN}}{\text{\# OTHER}}$ oversampling factors in the 2-class case).
-The reason for a smaller oversampling factors is to avoid overweighting the relatively small OTHER class.
+For oversampling, we use the oversampling factors $\sqrt{\frac{\text{\# AGN}}{\text{\# PSR}}}$ and $\sqrt{\frac{\text{\# AGN}}{\text{\# OTHER}}}$ for PSR and OTHER classes respectively (compared to the $\frac{\text{\# AGN}}{\text{\# PSR}}$ oversampling factor in the 2-class case).
+The reason for a smaller oversampling factors is to avoid overweighting two the relatively small PSR and OTHER classes.
 
 \begin{figure}[h]
 \includegraphics[width=0.46\textwidth]{plots/classification_domains/rf_50_6_3class.pdf}
@@ -81,7 +82,10 @@ Thus the testing accuracy of 93-94\% in Table \ref{tab:selected_algs_multi} prov
 after taking into account the misclassification of OTHER sources in the 2-class case
 and a similar improvement for the accuracy of classification of unassociated sources in 3FGL with 4FGL-DR2 associations.
 
-
+A comparison of predicted classes for the 3FGL unassociated sources in the 3-class classification case with the classes of the corresponding associated sources in the 4FGL-DR2 catalog are presented in Table \ref{tab:3FGL_vs_4FGL_2class}.
+It is interesting to note that there are fewer sources with mixed classification in this case relative to the 2-class classification in 
+Table \ref{tab:3FGL_vs_4FGL_2class}.
+Also the number of correct predictions in the 3-class case is 263 (out of 339 sources), while in the 2-class case there are 246 correct predictions.
 
 \begin{table}[!h]
 \hspace{-0.2cm}
@@ -112,17 +116,43 @@ and a similar improvement for the accuracy of classification of unassociated sou
     \hline
     \end{tabular}}
     \vspace{2mm}
-    \caption{Testing accuracy of the four selected algorithms for 3-class classification of 3FGL sources and comparison with associations in the 4FGL-DR2 catalog. 
+    \caption{Testing accuracy of the four selected algorithms for the 3-class classification of 3FGL sources and comparison with associations in the 4FGL-DR2 catalog. 
     ``\_O'' denotes training with oversampling.}
     \label{tab:selected_algs_multi}
 \end{table}
 
 
+\begin{table}[!h]
+%\resizebox{0.3\textwidth}{!}{
+    %\tiny
+  %\centering
+ \renewcommand{\tabcolsep}{0.3mm}
+\renewcommand{\arraystretch}{1.5}
 
-The 3-class classification of 4FGL-DR2 sources is performed similar to the 3-class classification of the 3FGL sources.
-The differences are similar to the differences in the 2-class classification of 3FGL and 4FGL-DR2 sources:
-we use 16 features (the same features as in the 2-class classification of 4FGL-DR2 sources in Section \ref{sec:4FGLprediction} but with GLON replaced by cos(GLON))
-and we have 16 neurons in the hidden layer of the NN method. Furthermore, for Logistic Regression we use 1000 iterations instead of 500 as it gives better performance for oversampled cases.
+    \begin{tabular}{l c c c c}
+    \hline
+    \hline
+    4FGL-DR2 class & \multicolumn{4}{c}{3FGL prediction} \\
+      &\ AGN &\ PSR &\ OTHER &\ MIXED \\
+    \hline
+    AGN & 238 & 2 &  1 & 17 \\ % 258
+    PSR & 12 & 17 &  0 & 16 \\ % 45
+    OTHER & 6 & 5 & 8 & 18 \\ % 37
+    \hline
+    \end{tabular}%}
+    \vspace{0.2cm}
+    \caption{Comparison of classes predicted for unassociated sources in the 3FGL catalog using 3-class classification
+    with associations in the 4FGL-DR2 catalog. 
+}
+    \label{tab:3FGL_vs_4FGL_2class}
+\end{table}
+
+
+
+The 3-class classification of 4FGL-DR2 sources is performed analogously to the 3-class classification of the 3FGL sources.
+The differences between the 4FGL-DR2 and 3FGL 3-class classifications are similar to the differences in the 2-class classification of 3FGL and 4FGL-DR2 sources:
+we use 16 features instead of 11 features in the 3FGL case (the features are the same as in the 2-class classification of 4FGL-DR2 sources in Section \ref{sec:4FGLprediction} but with GLON replaced by cos(GLON))
+and we have 16 neurons in the hidden layer of the NN method. Furthermore, for LR we use 1000 iterations as it gives better performance for oversampled cases.
 The corresponding accuracies are reported in Table \ref{tab:selected_algs_4fgl_multi}.
 In comparing the accuracies with the 2-class classification in Table \ref{tab:selected_algs2}, 
 one has to take into account that there are 346 OTHER sources among 4116 associated sources in 4FGL-DR2, which is about 8.4\%.
@@ -167,43 +197,19 @@ For each algorithm the most probable class of the source is determined by the cl
 Since there are three classes, the largest probability can have the value just above 1/3.
 The ``Mixed'' column shows the number of sources with different classification results for different algorithms.
 
-\begin{table}[!h]
-%\resizebox{0.3\textwidth}{!}{
-    %\tiny
-  %\centering
- \renewcommand{\tabcolsep}{0.3mm}
-\renewcommand{\arraystretch}{1.5}
-
-    \begin{tabular}{l c c c c}
-    \hline
-    \hline
-    4FGL-DR2 class & \multicolumn{4}{c}{3FGL prediction} \\
-      &\ AGN &\ PSR &\ OTHER &\ MIXED \\
-    \hline
-    AGN & 238 & 2 &  1 & 17 \\ % 258
-    PSR & 12 & 17 &  0 & 16 \\ % 45
-    OTHER & 6 & 5 & 8 & 18 \\ % 37
-    \hline
-    \end{tabular}%}
-    \vspace{0.2cm}
-    \caption{Comparison of classes predicted for unassociated sources in the 3FGL catalog using 3-class classification
-    with associations in the 4FGL-DR2 catalog. 
-}
-    \label{tab:3FGL_vs_4FGL_2class}
-\end{table}
-
 
 Classification of \Fermi-LAT 4FGL sources into three classes was considered earlier by, e.g., \cite{2021RAA....21...15Z}.
 \cite{2021RAA....21...15Z} have primarily used a two-step classification procedure, where in the first step AGNs are separated from the rest of sources and in the second step the remaining sources are split into pulsars and other sources.
-\cite{2021RAA....21...15Z} have also tested a simultaneous classification of sources into three classes (AGN, pulsars, other),
+\cite{2021RAA....21...15Z} have also tested a simultaneous classification of sources into three classes (AGN, pulsars, and other),
 but the results were inconsistent for the two ML algorithms used by \cite{2021RAA....21...15Z} (RF and NN).
 In particular, the number of OTHER sources predicted by NN was zero.
 In our case, the predictions of various algorithms are relatively consistent with each other.
 For example, in the 3FGL (4FGL-DR2) catalog all 8 methods classify 69 (271) unassociated sources as OTHER.
 Also, 8 out of 37 unassociated 3FGL sources, which are associated to OTHER sources in 4FGL-DR2, are classified by all 8 algorithms as
-OTHER (6 are classified as AGNs, 5 as PSRs, and 18 have mixed classification).
+OTHER (see Table \ref{tab:3FGL_vs_4FGL_2class}).
 
-We also used the 3-class classification for a candidate list of most promising objects. We summed up the probabilities of all 8 methods for the three classes and chose the threshold of 7.0 for the column $\text{OTHER\_TOTAL}$. This is a stringent condition on the probability that a source belongs to the other class. Furthermore, we sub-selected the unassociated candidates in 4FGL-DR2 and have created our final candidate list of 30 sources based on 4FGL-DR2 features, shown in table \ref{tab:allotherspredicted}.
+We also used the 3-class classification to create lists of most likely PSRs and OTHER sources. 
+We summed up the probabilities of all 8 methods for the three classes and chose the threshold of 7.0 for the column $\text{OTHER\_TOTAL}$. This is a stringent condition on the probability that a source belongs to the other class. Furthermore, we sub-selected the unassociated candidates in 4FGL-DR2 and have created our final candidate list of 30 sources based on 4FGL-DR2 features, shown in table \ref{tab:allotherspredicted}.
 \pgfplotstableread[col sep=comma]{tables/4FGLDR2_Candidates_OTHER.csv}\loadedtable
 \begin{table}
 \hspace{-0.5cm}
