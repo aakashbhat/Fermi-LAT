@@ -208,7 +208,11 @@ For example, in the 3FGL (4FGL-DR2) catalog all 8 methods classify 69 (271) unas
 Also, 8 out of 37 unassociated 3FGL sources, which are associated to OTHER sources in 4FGL-DR2, are classified by all 8 algorithms as
 OTHER (see Table \ref{tab:3FGL_vs_4FGL_2class}).
 
-We also used the 3-class classification to create lists of most likely PSRs and OTHER sources. 
+We also used the 3-class classification to create lists of most likely PSRs and OTHER sources among the unassociated
+source in the 4FGL-DR2 catalog.
+We calculated the sums of probabilities for PSR and OTHER classes for all 8 methods in the 3-class classification case
+and created lists of sources with the sums of probabilities larger than 7.0.
+
 We summed up the probabilities of all 8 methods for the three classes and chose the threshold of 7.0 for the column $\text{OTHER\_TOTAL}$. This is a stringent condition on the probability that a source belongs to the other class. Furthermore, we sub-selected the unassociated candidates in 4FGL-DR2 and have created our final candidate list of 30 sources based on 4FGL-DR2 features, shown in table \ref{tab:allotherspredicted}.
 \pgfplotstableread[col sep=comma]{tables/4FGLDR2_Candidates_OTHER.csv}\loadedtable
 \begin{table}
