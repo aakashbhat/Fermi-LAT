@@ -16,7 +16,8 @@ on evaporation of primordial black holes \citep{2010PhRvD..81j4019C}.
 In particular, it is important to understand the contribution to the population of AGNs from the unassociated sources.
 A probabilistic catalog provides an answer to the question: how many sources among the unassociated ones are expected to belong to different classes, such as pulsars or AGNs. 
 One can calculate the total expected number of AGNs or pulsars among the unassociated sources, or calculate the contribution as a function of one or more parameters.
-In this subsection we determine the numbers of AGNs, pulsars, and, in case of 3-class classification, OTHER sources as a function of their flux, in the following subsection we also discuss the distributions of sources as functions
+In this subsection we determine the numbers of AGNs, pulsars, and, in case of 3-class classification, OTHER sources as a function of their flux.
+In the following subsection we also discuss the distributions of sources as functions
 of Galactic latitude and longitude.
 
 
@@ -33,7 +34,7 @@ of Galactic latitude and longitude.
 \caption{Cumulative number of sources as a function of their flux. 
 Blue solid line -- associated 3FGL and 4FGL-DR2  sources. 
 Green band -- envelope of sums of class probabilities for associated sources for the eight ML methods corrected for the presence of OTHER sources. 
-Orange solid line (band) -- average (envelope) of sums of class probabilities for the eight ML methods (corrected for the presence of OTHER sources) added to the source count of associated sources. 
+Orange solid line (band) -- sum of class probabilities for the LR model (the envelope of the eight ML methods), corrected for the presence of OTHER sources, added to the source count of associated sources. 
 Purple dashed (dotted) line -- sum of class probabilities for associated sources for the LR method without oversampling corrected (uncorrected)
 for the presence of OTHER sources.
 Gray dash-dotted (dotted) line -- sums of class probabilities from \cite{2016ApJ...820....8S} using LR corrected (uncorrected) for the presence of OTHER sources.
@@ -56,9 +57,9 @@ For details see Section \ref{sec:dNdS}.}
 Blue solid line -- associated 3FGL and 4FGL-DR2  sources. 
 Blue band -- envelope of sums of class probabilities for associated sources for the eight ML methods. 
 Purple dash-dotted line -- sum of class probabilities for associated sources for the LR method without oversampling.
-Red solid line (band) -- average (envelope) of sums of class probabilities for the eight ML methods added to the source count of associated sources. 
+Red solid line (band) -- sum of class probabilities for the LR model (the envelope of the eight ML methods) added to the source count of associated sources. 
 Purple dashed line -- sum of class probabilities for associated sources for the LR method without oversampling in the 2-class classification corrected for the presence of OTHER sources.
-Orange solid line (band) in the PSR plots -- average (envelope) of sums of class probabilities for the eight ML methods (corrected for the presence of OTHER sources) in the 2-class classification added to the source count of associated sources (the band and the line are the same as in Figure \ref{fig:logN_logS}).
+Orange solid line (band) -- sum of class probabilities for the LR model (the envelope of the eight ML methods), corrected for the presence of OTHER sources, added to the source count of associated sources (the band and the line are the same as in Figure \ref{fig:logN_logS}).
 Green band in the PSR plots -- envelope of sums of class probabilities for associated sources for the eight ML methods in the 2-class classification corrected for the presence of OTHER sources (the same as in Figure \ref{fig:logN_logS}).
 Orange solid line in the OTHER plots -- OTHER source counts plus an estimate of the number of OTHER sources among unassociated ones using Equation (\ref{eq:unas_other}). 
 For details see Section \ref{sec:dNdS}.
@@ -109,7 +110,7 @@ We see that the sum of probabilities for AGNs and pulsars overpredicts the sourc
 while correction for ``other'' sources makes the prediction for associated sources consistent with the source counts.
 
 The predictions for the number of AGNs and pulsars among the unassociated sources corrected for ``other'' sources 
-added to the 3FGL and 4FGL-DR2  source counts are shown by solid orange lines (for the LR case).
+added to the 3FGL and 4FGL-DR2  source counts are shown by solid orange lines for the LR model.
 The orange bands show the corresponding envelopes for the eight ML methods.
 We assume that the fractional contribution of other sources is the same for associated and unassociated sources in the different flux bands.
 Thus, the correction for the presence of other sources is calculated similarly to the associated sources in Equation \ref{eq:assoc_ev},
@@ -136,7 +137,7 @@ in Table \ref{tab:expected_counts_prob_4FGL-DR2} for the 4FGL-DR2 catalog.
 The row ``2-class'' shows the expectations for the 2-class classification uncorrected for the presence of other sources.
 The row ``2-class corr total'' shows the expectations corrected for other sources using Equation (\ref{eq:unassoc_ev}) without any binning,
 while ``2-class corr F-bins'' shows correction with the flux bins as in Figure \ref{fig:logN_logS}.
-We see that corrections using total counts of binned in flux are similar and relatively small.
+We see that corrections using total source counts and source counts binned in flux are similar and relatively small.
 In the following section we also calculate the correction using latitude and longitude bins.
 
 \begin{comment}
@@ -278,7 +279,7 @@ In Figures \ref{fig:lat_profile} and \ref{fig:lat_profile_3class} we present the
 for 2-class and 3-class classifications respectively.
 We use 20 bins, i.e., each bin corresponds to a solid angle of $4 \pi / 20$. 
 Solid blue lines show counts of associated sources in 3FGL and 4FGL-DR2  catalogs.
-It is interesting to note that the density of associated AGNs is decreasing towards the Galactic plane.
+%It is interesting to note that the density of associated AGNs is decreasing towards the Galactic plane.
 The total counts of unassociated sources are shown by red dash-dotted lines.
 Green bands show the envelopes of sums of probabilities for classification of unassociated sources into AGN, PSR, and, in case of 3 classes, OTHER classes for the eight ML methods corrected in the case of 2 classes for the presence of OTHER sources.
 Black dotted line in plots of the OTHER class show the model for the number of OTHER sources among the unassociated ones
@@ -288,7 +289,7 @@ We see that in the latitude profile, the 2-class model for the contribution of O
 The classifications of unassociated 3FGL sources by \cite{2016ApJ...820....8S} are shown by gray dashed (RF) and dotted (LR) lines.
 The numbers of unassociated sources classified as AGN, PSR, or OTHER grow towards the Galactic plane (GP).
 Within $\approx 3^\circ$ from the GP the expected number of PSRs is about the same as the number of AGNs among unassociated sources, while at high latitudes, most of unassociated sources are classified as AGNs.
-It is interesting to note, that according to Table \ref{tab:feat_imp}, GLAT is one of the least important features for the RF algorithm.
+It is interesting to note, that according to Table \ref{tab:feat_imp}, GLAT is one of the least important features for the RF and BDT algorithms.
 It can be a posteriori explained by the fact that the density of AGNs is so high that even in the GP the expected number of AGNs is comparable to the expected number of PSRs.
 
 Orange shaded areas show the sum of the source counts and the expected number of sources for the eight methods (both with and without oversampling).

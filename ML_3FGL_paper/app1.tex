@@ -1,10 +1,10 @@
 \section{Tests of additional meta-parameters}
 \lb{sec:app}
 
-In this appendix we discuss tests of some hyper-parameters, which had a relatively little effect on the 
+In this appendix we discuss tests of some meta-parameters, which had a relatively little effect on the 
 accuracy of the algorithms. For these tests we use the 2-class classification in the 3FGL catalog.
 
-LR algorithm has two hyper-parameters: regularization and tolerance. 
+LR algorithm has two meta-parameters: regularization and tolerance. 
 %These features are the limit up to which one wants to go before accepting a solution. 
 The effect of the choice of these parameters on accuracy is less than 1\% (Figure \ref{fig:LR_tol_reg}). 
 Therefore we used the default values for these parameters (tolerance is 1$e^{-4}$ and regularization parameter is set at 1). The same was used in the 3-class case where the change from GLON to cos(GLON) was seen as the main improvement for LR algorithm.
@@ -13,7 +13,9 @@ Therefore we used the default values for these parameters (tolerance is 1$e^{-4}
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/lr_train_reg.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/unassoc_complex.pdf}
-\caption{Dependence of LR on tolerance and regularization}
+\caption{Dependence of LR on tolerance and regularization. 
+\dima{I suggest to remove ``Accuracy vs. Regularization'' from the title, since this is shown on the axes labels.}
+}
 \label{fig:LR_tol_reg}
 \end{figure}
 
@@ -24,13 +26,18 @@ compared with the NN with one hidden layer (cf. Table \ref{tab:selected_algs}).
 %\centerin
 \includegraphics[width=\twopicsp\textwidth]{plots/nn_2layers_3fgl.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/unassoc_complex.pdf}
-\caption{Dependence of NN on the number of neurons in the second hidden layer, for 11 neurons in the first hidden layer.}
+\caption{Dependence of NN on the number of neurons in the second hidden layer, for 11 neurons in the first hidden layer.
+\dima{I suggest to put ``2 Hidden Layers'' in the title to parentheses in order to make it consistent with the LR plot above and other 
+plots in the paper.}
+}
 \label{fig:nn_nn}
 \end{figure}
 
-At the end we summarize features and their statistics,
+We summarize features and their statistics,
 which we use for probabilistic classification of sources in the 3FGL and 4FGL-DR2 catalogs,
 in Tables \ref{tab:3FGL_features} and \ref{tab:4FGL_features} respectively. 
+We show the feature importances for the 2-class classification of 4FGL-DR2 sources in Table \ref{tab:feat_imp2}.
+
 
 \pgfplotstableread[col sep=comma]{tables/features/3fglassocfeaturesAGNPSRnewfeats.csv}\tablea
 \begin{table}
@@ -80,7 +87,7 @@ columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
 \lb{tab:4FGL_features}}
 \end{table}
 
-We also provide here feature importances for 2-class classification for 4FGL DR2.
+
 \begin{table}[!h]
 \tiny
 \centering
@@ -112,7 +119,7 @@ GLAT&0.007&0.003\\
 \end{tabular}
 \vspace{0.4cm}
 \caption{Feature importances for RF and BDT algorithms ordered by decreasing importance 
-in the case of RF algorithm for 4FGL DR2.
+in the case of RF algorithm for 4FGL-DR2.
 }
 \label{tab:feat_imp2}
 \end{table}

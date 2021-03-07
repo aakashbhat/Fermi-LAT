@@ -5,8 +5,10 @@ In this paper we determine the probabilities of classification of unassociated s
 into two (AGNs and pulsars) and three (AGNs, pulsars, and other sources) classes.
 The probabilities are calculated with 8 different ML methods: RF, BDT, LR and NN -- each algorithm with and without oversampling during training.
 The algorithms were trained and tested with associated sources.
-We have scanned some meta-parameters of the algorithms, such as depth of the trees, the number of trees, the number of neurons, in order to determine optimal parameters which do not create overfitting of data and provide good accuracy of classification.
-The accuracies, which we obtained for the 3FGL catalog for the four algorithms without oversampling in the 2-class case are about 97\%, and between 93\% and 97\% with oversampling.
+We have scanned some meta-parameters of the algorithms, such as the depth of the trees, the number of trees, the number of neurons, in order to determine optimal parameters, which do not create overfitting of data and provide good accuracy of classification.
+%The accuracies, which we obtained for the 3FGL catalog for the four algorithms without oversampling in the 2-class case are about 97\%, and between 93\% and 97\% with oversampling.
+The testing accuracies of classification of associated sources in the 3FGL catalog for the four algorithms in the 2-class case without (with) oversampling are about  97\% (between 93\% and 97\%).
+
 We have also checked the accuracy of classification by selecting unassociated sources in 3FGL, which have associations in 4FGL-DR2.
 If we take the 4FGL-DR2 associations as the true classes, then the accuracies of classification in this subset of sources 
 without (with) oversampling are between 90\% and 91\% (85\% and 92\%).
@@ -22,13 +24,13 @@ For example, in a search of new pulsars, one can select a low threshold in order
 In a derivation of an average property of the class, e.g., spectral index or cutoff energy, one can select a high threshold in order to avoid contamination from the other classes.
 
 
-As an example of the application of the probabilistic catalogs, we derive the expected number of sources in the catalog as a function of their flux, including the unassociated sources.
+As an example of application of the probabilistic catalogs, we derive the expected number of sources in the catalog as a function of their flux, including the unassociated sources.
 As a consistency check, we compare the counts of associated sources to the sums of probabilities for the associated ones.
 We find that correcting for the contribution of other sources in the 2-class case plays an important role for the estimation of the expected number of sources in a particular class.
 We find the total expected number of AGNs and pulsars in the 3FGL and 4FGL catalogs by adding the class probabilities for the unassociated sources in the 2- and 3-class cases to the source counts of associated sources and correcting in the 2-class case for the contribution of other classes in the unassociated sources.
 In particular, we find that the total expected number of pulsars is about two times larger than the number of associated pulsars.
 
-We plot the counts of associated sources and the expected numbers of AGNs, pulsars, and other sources among unassociated sources
+We also plot the counts of associated sources and the expected numbers of AGNs, pulsars, and other sources among unassociated sources
 as functions of Galactic latitude and longitude.
 We find that the number of associated AGNs is decreasing towards low latitudes, while the expected number of AGNs among unassociated sources is increasing, so that the sum of the two is relatively uniform, as expected for extragalactic sources.
 
