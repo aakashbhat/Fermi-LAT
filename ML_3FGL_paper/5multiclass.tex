@@ -30,7 +30,7 @@ We perform optimization of the meta-parameters for the four ML algorithms with t
 \includegraphics[width=0.5\textwidth]{plots/bdt_train_multi.pdf}
 \includegraphics[width=0.5\textwidth]{plots/lr_train_multi.pdf}
 \caption{Accuracy for the 3-class classification with RF, BDT and LR  methods. LR does not have liblinear solver here, since liblinear 
-cannot handle multinomial \dima{or multi-class?} loss.
+doesn't support multi-class loss.
 }
 \label{fig:tree_multi}
 \end{figure}
@@ -299,7 +299,7 @@ The OTHER-class candidates are shown in Table \ref{tab:other_candidates_3class}.
 Out of these 30 sources only two sources have no flags in 4FGL, and only eight sources have an association with the previous FGL catalogs (column name ASSOC\_FGL). 
 %Furthermore, we tried to find whether recent work could be found for some of these sources and used the  for this purpose. 
 The following 8 sources had additional associations in Simbad database
-ordered by decreasing sum of OTHER-class probabilities \dima{Reference or at least an url to Simbad?}:
+ordered by decreasing sum of OTHER-class probabilities:
 \begin{enumerate}
 \item 4FGL J1800.2-2403c. This source has the largest sum of OTHER-class probabilities but no entry in Simbad. 
 However, it is associated with the 1FGL source 1FGL J1800.5-2359c, which is also associated with the associated OTHER source 4FGL-DR2 J1800.7-2355 of unk class and is in the region of the SNR W28 \citep{2020MNRAS.495.2909R}.
