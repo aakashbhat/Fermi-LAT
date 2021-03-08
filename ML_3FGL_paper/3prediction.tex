@@ -284,13 +284,12 @@ The expected numbers of pulsars and AGNs among the 1658 unassociated sources in 
 presented in the 4FGL-DR2 part of Table \ref{tab:prediction_2and3class}.
 The definition of rows is the same as in the 3FGL catalog 2-class classification in Section \ref{sec:3FGLprediction1}.
 
-
 Finally, we looked at sources which were unassociated in both 3FGL and 4FGL-DR2 (using 'ASSOC\_FGL' as an identifier for 3FGL sources). Out of 303 such sources%
 \footnote{The 303 unassociated 4FGL-DR2 sources correspond to 302 unassociated 3FGL sources, because there are two 4FGL-DR2 sources, which are associated with one 3FGL source.},
 40 sources are predicted to be pulsars using 3FGL features and 75 sources are predicted to be pulsars using 4FGL features. This leads to 29 sources which are predicted by all eight methods to be pulsars for features taken from both 3FGL and 4FGL-DR2 catalogs. 
-For convenience, we save these 29 pulsar candidates as a separate file.
+For convenience, we save these 29 pulsar candidates as a separate file. Out of these 29 sources classified as pulsars, 4 sources have counterparts in Parkes survey \citep{Camilo2015} within 2 arc minutes (see Table \ref{tab:parkes}).	
 \pgfplotstableread[col sep=comma]{tables/3fgl_unassoc_predictions_matches_with_Parkes_2015_1.csv}\loadedtable
-\begin{table}
+\begin{table}[h]
 \pgfplotstabletypeset[columns={Source_Name_4FGL,GLON_4FGL,GLAT_4FGL,Separation_Parkes},
 column type=l,
 string type,
@@ -304,7 +303,8 @@ columns/Separation_Parkes/.style={column name=Sep (arcsec),numeric type,fixed,pr
 \caption{\label{tab:parkes}
 Connection of unassociated 3FGL and 4FGL-DR2 sources classified as pulsars with Parkes pulsars \citep{Camilo2015}. GLON and GLAT are taken from 4FGL-DR2 and the separation with Parkes pulsars are given in arcseconds.}
 \end{table}
-Out of these 29 sources classified as pulsars, 4 sources have counterparts in Parkes survey \citep{Camilo2015} within 2 arc minutes (see Table \ref{tab:parkes}).	
+
+
 
 
 
