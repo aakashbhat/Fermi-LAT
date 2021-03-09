@@ -23,7 +23,7 @@ We perform optimization of the meta-parameters for the four ML algorithms with t
 
 
 \begin{figure}[h]
-\center
+\centering
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/rf_train_multi.pdf}\\
 %\hspace*{-1cm}
@@ -36,7 +36,7 @@ does not support multi-class loss.
 \end{figure}
 
 \begin{figure}[h]
-\center
+\centering
 \includegraphics[width=0.5\textwidth]{plots/nn_epoch_train_multi.pdf}\\
 \includegraphics[width=0.5\textwidth]{plots/nn_neuron_train_multi.pdf}
 \caption{Accuracy of the NN classification as a function of the number of epochs and of the number of neurons
@@ -56,6 +56,7 @@ For oversampling, we use the oversampling factors $\sqrt{\frac{\text{\# AGN}}{\t
 The reason for a smaller oversampling factors is to avoid overweighting two the relatively small PSR and OTHER classes.
 
 \begin{figure}[h]
+\centering
 \includegraphics[width=0.46\textwidth]{plots/classification_domains/rf_50_6_3class.pdf}
 \caption{Classification domains for RF in the 3-class classification.
 }
@@ -88,6 +89,7 @@ Table \ref{tab:3FGL_vs_4FGL_2class}.
 Also the number of correct predictions in the 3-class case is 263 (out of 339 sources), while in the 2-class case there are 246 correct predictions.
 
 \begin{table}[!h]
+\centering
 \hspace{-0.2cm}
 \resizebox{0.47\textwidth}{!}{
     \tiny
@@ -123,9 +125,9 @@ Also the number of correct predictions in the 3-class case is 263 (out of 339 so
 
 
 \begin{table}[!h]
+\centering
 %\resizebox{0.3\textwidth}{!}{
     %\tiny
-  %\centering
  \renewcommand{\tabcolsep}{0.3mm}
 \renewcommand{\arraystretch}{1.5}
 
@@ -159,10 +161,10 @@ one has to take into account that there are 346 OTHER sources among 4116 associa
 Since all OTHER sources are ``misclassified'' by the 2-class classification, the 3-class classification provides an improvement of about 2-4\% compared to the 2-class classification.
 
 \begin{table}[!h]
+\centering
 \hspace{-0.2cm}
-%\resizebox{0.47\textwidth}{!}{
+\resizebox{0.47\textwidth}{!}{
     \tiny
-  \centering
     \renewcommand{\tabcolsep}{0.4mm}
 \renewcommand{\arraystretch}{1.6}
     \begin{tabular}{c c c c c c}
@@ -184,7 +186,7 @@ Since all OTHER sources are ``misclassified'' by the 2-class classification, the
     LR\_O &  &92.22&0.69\\
     \hline
      
-    \end{tabular}%}
+    \end{tabular}}
     \vspace{2mm}
     \caption{Testing accuracy of the four selected algorithms for the 3-class classification of 4FGL-DR2 sources. 
     ``\_O'' denotes training with oversampling.}
@@ -210,36 +212,32 @@ OTHER (see Table \ref{tab:3FGL_vs_4FGL_2class}).
 
 We also used the 3-class classification to create lists of most likely PSR and OTHER sources among the unassociated
 source in the 4FGL-DR2 catalog.
-In Section Section \ref{sec:4FGLprediction} we determined a list of 29 PSR candidates by requiring that 
+In Section \ref{sec:4FGLprediction} we determined a list of 29 PSR candidates by requiring that 
 the unassociated sources are predicted to be pulsars by all 8 methods both in the 3FGL and in the 4FGL-DR2 catalogs.
 In this section we use a different method to determine candidates, which belong to PSR and OTHER classes: 
 we calculated the sums of probabilities for PSR and OTHER classes for all 8 methods in the 3-class classification case
 and select sources with the sums of probabilities larger than 7.0.
 
-%We have used the 3-class classification for a candidate list of most promising objects. 
-%Our probabilistic method allows for a selection of the best sources which may be used in the future for follow up observations. 
-%In this section we summed up the probabilities of all 8 methods for the three classes and chose the threshold of 7.0 for the column $\text{OTHER\_TOTAL}$. 
-%This is a stringent condition on the probability that a source belongs to the other class. Furthermore, we sub-selected the unassociated candidates in 4FGL-DR2 and have created our final candidate list of 30 sources based on 4FGL-DR2 features, shown in table \ref{tab:other_candidates_3class}.
-%We also used the 3-class classification to create lists of most likely PSRs and OTHER sources. 
-%We summed up the probabilities of all 8 methods for the three classes and chose the threshold of 7.0 for the column $\text{OTHER\_TOTAL}$. 
 
 There are 6 unassociated 4FGL-DR2 sources
 with the sum of PSR-class probabilities in the 3-class classification larger than 7.
 The PSR candidates are shown in Table \ref{tab:psr_candidates_3class}. 
 All of these sources are also among the list of 29 PSR candidates determined in the 2-class classification using both 3FGL and 4FGL-DR2 
 features in Section \ref{sec:4FGLprediction}. 
-%\dima{Since all of these sources are among the 29 candidates in Section \ref{sec:4FGLprediction}, should we just add a column with the sum of probabilities in the corresponding csv file in SOM and remove the file with the 6 candidates?}
+For convenience, we also add the sums of PSR-like probabilities for the 3-class classification of the 4FGL-DR2 sources
+in the ``3FGL\_4FGL-DR2\_Candidates\_PSR.csv'' file.
 We note that the condition on the sum of probabilities to be larger than 7 is, as a rule, more stringent than the condition that a source
 is predicted to be a pulsar by all 8 methods, which we used in Section \ref{sec:4FGLprediction} in order to create the list of 29 pulsar
 candidates based on the 2-class classification.
 Three sources (4FGL J1539.4-3323, 4FGL J0933.8-6232,  and 4FGL J2112.5-3043) 
 have also possible associations in the Parkes survey (Table \ref{tab:parkes}).
-Interestingly, none of the sources in Table \ref{tab:psr_candidates_3class} have the sum of PSR probabilities greater than 7 when 3FGL features are used. However, five of them are categorized as PSRs by all 8 methods in 3FGL. %We therefore have two lists of candidate PSRs: 1 using 2-class classification on 3FGL and 4FGL-DR2 features, and 1 with 3-class classification on 4FGL-DR2 features. Dima: there is really only one list, since the 3-class list is a subset of the 2-class list.
+Interestingly, none of the sources in Table \ref{tab:psr_candidates_3class} have the sum of PSR probabilities greater than 7 when 3FGL features are used. However, five of them are categorized as PSRs by all 8 methods in 3FGL. 
 We also note that all sources with the sum of PSR probabilities larger than 7 for the 3-class classification of unassociated 3FGL sources
 are associated as PSRs in 4FGL-DR2.
 
 \pgfplotstableread[col sep=comma]{tables/4FGLDR2_PSR.csv}\loadedtable
 \begin{table}
+\centering
 \hspace{-0.1cm}
 \tiny
 \resizebox{0.47\textwidth}{!}{
@@ -270,6 +268,7 @@ in the 3-class classification for the 4FGL-DR2 (3FGL) catalog.
 
 \pgfplotstableread[col sep=comma]{tables/4FGLDR2_Candidates_OTHER.csv}\loadedtable
 \begin{table}
+\centering
 \hspace{-0.5cm}
 \tiny
 \resizebox{0.47\textwidth}{!}{
@@ -290,13 +289,15 @@ columns/Category_Prob_3FGL/.style={column name=3FGL cat.},
 Unassociated 4FGL-DR2 sources with the sum of OTHER-class probabilities for all 8 ML methods in the 3-class classification larger than 7. 
 For the description of columns, see Table \ref{tab:psr_candidates_3class}.
 Sources with missing values in the 3FGL columns are not detected in the 3FGL.
+We also save these OTHER-class 
+candidates in the supplementary online materials as ``4FGL-DR2\_Candidates\_OTHER\_3classes.csv''.
 }
 \end{table}
 
 There are 30 unassociated 4FGL-DR2 sources
 with the sum of OTHER-class probabilities in the 3-class classification larger than 7.
-The OTHER-class candidates are shown in Table \ref{tab:other_candidates_3class}. 
-Out of these 30 sources only two sources have no flags in 4FGL, and only eight sources have an association with the previous FGL catalogs (column name ASSOC\_FGL). 
+The OTHER-class candidates are shown in Table \ref{tab:other_candidates_3class}.
+Out of the 30 sources only two sources have no flags in 4FGL, and only eight sources have an association with the previous FGL catalogs (column name ASSOC\_FGL). 
 %Furthermore, we tried to find whether recent work could be found for some of these sources and used the  for this purpose. 
 The following sources had additional associations in Simbad database
 ordered by decreasing sum of OTHER-class probabilities:

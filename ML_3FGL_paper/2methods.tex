@@ -36,6 +36,7 @@ RF and BDT algorithms, by virtue of averaging, provide probabilities. As a resul
 Tree-based algorithms, even after averaging in RF and BDT methods, have sharp edges among domains with different probabilities.
 In LR algorithm, the probabilities of classes are by construction smooth functions of features.
 In particular, for two-class classification the probability of class 1, given the set of features $x$, is modeled by sigmoid (logit) function
+
 \be
 \lb{eq:logit}
 p_1(x) = \frac{e^{m(x)}}{1 + e^{m(x)}}.
@@ -109,7 +110,7 @@ There are several tens of features of point sources quoted in the catalog, such 
 then we keep only one of the features for classification.
 
 \begin{figure}[h]
-\center
+\centering
 \includegraphics[width=0.5\textwidth]{plots/3fgl_assoc_cor.pdf}
 \caption{The corelation matrix of features for 3FGL associated sources.
 The ``500MeV\_Index'' is defined in Equation (\ref{eq:n500_def}), all other features are taken directly 
@@ -131,6 +132,7 @@ If one fits all spectra of sources in the catalog by a power-law function, then 
 This feature is defined uniformly for all associated and unassociated sources, i.e., it is safe to use for training.
 Unfortunately, the power-law function is not a good description of the gamma-ray flux from pulsars.
 Consequently, in the classification of the 3FGL sources we have constructed a new feature: the index at 500 MeV (denoted in the following as ``500MeV\_Index''), defined as minus the derivative of the log flux:
+
 \be
 \lb{eq:n500_def}
 n({\rm 500\,MeV}) = - \left. \frac{d \ln F}{d \ln E} \right|_{E = \rm 500\,MeV}
@@ -184,7 +186,7 @@ equal weights -- all PS have equal weights in the objective function, and invers
 \end{comment}
 
 \begin{figure}[h]
-
+\centering
 \hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/rf_train_assocnewfeats.pdf}
 \caption{
@@ -211,7 +213,7 @@ which is similar to the accuracy of the RF classification with all 11 features.
 For the final classification with RF, we use 11 features and average over 1000 splits into training and testing samples.
 
 \begin{figure}[h]
-
+\centering
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/rf_50_6_final.pdf}
 \caption{RF classification domains showing class probabilities for training with two features
 averaged over 100 random splits into training and testing samples.
@@ -233,7 +235,7 @@ Unlike the RF, which is also an ensemble based method, the testing accuracy drop
 
 
 \begin{figure}[h]
-%\centerin
+\centering
 \includegraphics[width=\twopicsp\textwidth]{plots/bdt_train_assocnewfeats.pdf}
 \caption{Dependence of BDT accuracy on maximum depth and the numbers of trees.}
 \label{fig:BDT_depth}
@@ -244,7 +246,7 @@ For the classification we will use BDT with 100 trees and the maximum depth of 2
 
 
 \begin{figure}[h]
-%\centerin
+\centering
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/bdt_20_2.pdf}
 \caption{Classification domains for BDT for training with two features 
 averaged over 100 splits into training and testing samples.
@@ -328,7 +330,7 @@ where $y_i = 0,\,1$ are the true labels of the sources and $p_i$ are the predict
 We have also used NN with two hidden layers, but the accuracy was similar to the networks with one hidden layer (Appendix \ref{sec:app}). For the final classification model, we have chosen to use one hidden layer.
 
 \begin{figure}[h]
-
+\centering
 \hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/nn_train_neurons_assocnewfeat.pdf}
 \caption{Dependence of accuracy on the number of neurons for different NN models.}
@@ -350,6 +352,7 @@ The accuracy increases with higher number of epochs and saturates at around 200 
 
 
 \begin{figure}[h]
+\centering
 \hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/nn_train_epochs_assocnewfeat.pdf}
 \caption{
@@ -365,7 +368,7 @@ For our final model we chose one hidden layer with eleven neurons, 300 training 
 
 
 \begin{figure}[h]
-\center
+\centering
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_300_lbfgs.pdf}
 \caption{NN classification domains for 2 input features
 averaged over 100 random splits into training and testing samples.
@@ -395,6 +398,7 @@ For the final classification we will use LBFGs solver with 200 iterations.
 
 
 \begin{figure}[h]
+\centering
 \includegraphics[width=\twopicsp\textwidth]{plots/lr_train_assocnewfeat.pdf}
 \caption{Dependence of LR testing accuracy on the number of iterations for different solvers.}
 \label{fig:LR_accuracy}
@@ -403,7 +407,7 @@ For the final classification we will use LBFGs solver with 200 iterations.
 
 
 \begin{figure}[h]
-
+\centering
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/lr_200_lbfgs.pdf}
 \caption{Classification domains for LR with two features 
 averaged over 100 random splits into training and testing samples.}
@@ -429,6 +433,7 @@ If we reduce the pulsar domain by attributing uncertain sources predominantly to
 
 
 \begin{figure}[h]
+\centering
 \includegraphics[width=\twopicsp\textwidth]{plots/all_algs_3FGL_precision_recall_oversample_PSR.pdf}
 \caption{Precision and recall for pulsars using all-algorithm and any-algorithm classification for unweighted training data and
 all-algorithm classification for oversampling of pulsars in training data. For details see Section \ref{sec:oversampling}.}
@@ -462,7 +467,8 @@ The precision and recall in this case are similar to the any-algorithm classific
 
 
 \begin{figure}[h]
-\includegraphics[width=0.5\textwidth]{plots/classification_domains/lr_200_lbfgs_oversample.pdf}
+\centering
+\includegraphics[width=0.5\textwidth]{plots/classification_domains/lr_200_lbfgs_oversample.pdf} \\
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/lr_200_lbfgs.pdf}
 \caption{Top panel: LR classification domains showing class probabilities for training with oversampling.
 The oversampling is illustrated by repeating the pulsar markers with a shift: the number of markers is equal to the number of times the pulsar appears in training.

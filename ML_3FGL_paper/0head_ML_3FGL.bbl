@@ -1,4 +1,4 @@
-\begin{thebibliography}{58}
+\begin{thebibliography}{64}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{{Abdo} {et~al.}(2010{\natexlab{a}}){Abdo}, {Ackermann}, {Ajello},
@@ -264,9 +264,19 @@ Liu, D.~C. \& Nocedal, J. 1989, Math. Program., 45, 503–528
   {Harding}, {S{\'a}nchez-Conde}, \& {Thompson}}]{2016ApJ...825...69M}
 {Mirabal}, N., {Charles}, E., {Ferrara}, E.~C., {et~al.} 2016, \apj, 825, 69
 
+\bibitem[{{Miville-Desch{\^e}nes} {et~al.}(2017){Miville-Desch{\^e}nes},
+  {Murray}, \& {Lee}}]{2017ApJ...834...57M}
+{Miville-Desch{\^e}nes}, M.-A., {Murray}, N., \& {Lee}, E.~J. 2017, \apj, 834,
+  57
+
 \bibitem[{{Nolan} {et~al.}(2012){Nolan}, {Abdo}, {Ackermann},
   {et~al.}}]{2012ApJS..199...31N}
 {Nolan}, P.~L., {Abdo}, A.~A., {Ackermann}, M., {et~al.} 2012, \apjs, 199, 31
+
+\bibitem[{{Peretto} {et~al.}(2016){Peretto}, {Lenfestey}, {Fuller},
+  {Traficante}, {Molinari}, {Thompson}, \&
+  {Ward-Thompson}}]{2016A&A...590A..72P}
+{Peretto}, N., {Lenfestey}, C., {Fuller}, G.~A., {et~al.} 2016, \aap, 590, A72
 
 \bibitem[{{Peron} {et~al.}(2020){Peron}, {Aharonian}, {Casanova}, {Zanin}, \&
   {Romoli}}]{2020ApJ...896L..23P}
@@ -275,6 +285,12 @@ Liu, D.~C. \& Nocedal, J. 1989, Math. Program., 45, 503–528
 
 \bibitem[{{Ritchey}(2020)}]{2020MNRAS.495.2909R}
 {Ritchey}, A.~M. 2020, \mnras, 495, 2909
+
+\bibitem[{{Robitaille} {et~al.}(2008){Robitaille}, {Meade}, {Babler},
+  {Whitney}, {Johnston}, {Indebetouw}, {Cohen}, {Povich}, {Sewilo}, {Benjamin},
+  \& {Churchwell}}]{2008AJ....136.2413R}
+{Robitaille}, T.~P., {Meade}, M.~R., {Babler}, B.~L., {et~al.} 2008, \aj, 136,
+  2413
 
 \bibitem[{{Robitaille} {et~al.}(2013){Robitaille}, {Tollerud}, {Greenfield},
   {et~al.}}]{2013A&A...558A..33A}
@@ -290,6 +306,11 @@ Liu, D.~C. \& Nocedal, J. 1989, Math. Program., 45, 503–528
 {Salvetti}, D., {Chiaro}, G., {La Mura}, G., \& {Thompson}, D.~J. 2017, \mnras,
   470, 1291
 
+\bibitem[{{Saral} {et~al.}(2017){Saral}, {Hora}, {Audard}, {Koenig},
+  {Mart{\'\i}nez-Galarza}, {Motte}, {Nguyen-Luong}, {Saygac}, \&
+  {Smith}}]{2017ApJ...839..108S}
+{Saral}, G., {Hora}, J.~L., {Audard}, M., {et~al.} 2017, \apj, 839, 108
+
 \bibitem[{{Saz Parkinson} {et~al.}(2016){Saz Parkinson}, {Xu}, {Yu},
   {Salvetti}, {Marelli}, \& {Falcone}}]{2016ApJ...820....8S}
 {Saz Parkinson}, P.~M., {Xu}, H., {Yu}, P.~L.~H., {et~al.} 2016, \apj, 820, 8
@@ -297,10 +318,21 @@ Liu, D.~C. \& Nocedal, J. 1989, Math. Program., 45, 503–528
 \bibitem[{Schmidt {et~al.}(2017)Schmidt, Le~Roux, \& Bach}]{sag}
 Schmidt, M., Le~Roux, N., \& Bach, F. 2017, Math. Program., 162, 83–112
 
+\bibitem[{{Simpson} {et~al.}(2012){Simpson}, {Povich}, {Kendrew}, {Lintott},
+  {Bressert}, {Arvidsson}, {Cyganowski}, {Maddison}, {Schawinski}, {Sherman},
+  {Smith}, \& {Wolf-Chase}}]{2012MNRAS.424.2442S}
+{Simpson}, R.~J., {Povich}, M.~S., {Kendrew}, S., {et~al.} 2012, \mnras, 424,
+  2442
+
 \bibitem[{{Taylor}(2005)}]{2005ASPC..347...29T}
 {Taylor}, M.~B. 2005, in Astronomical Society of the Pacific Conference Series,
   Vol. 347, Astronomical Data Analysis Software and Systems XIV, ed.
   P.~{Shopbell}, M.~{Britton}, \& R.~{Ebert}, 29
+
+\bibitem[{{Wenger} {et~al.}(2000){Wenger}, {Ochsenbein}, {Egret}, {Dubois},
+  {Bonnarel}, {Borde}, {Genova}, {Jasniewicz}, {Lalo{\"e}}, {Lesteven}, \&
+  {Monier}}]{2000A&AS..143....9W}
+{Wenger}, M., {Ochsenbein}, F., {Egret}, D., {et~al.} 2000, \aaps, 143, 9
 
 \bibitem[{{Yang} \& {Wang}(2020)}]{2020A&A...640A..60Y}
 {Yang}, R.-Z. \& {Wang}, Y. 2020, \aap, 640, A60

@@ -10,7 +10,7 @@ The effect of the choice of these parameters on accuracy is less than 1\% (Figur
 Therefore we used the default values for these parameters (tolerance is 1$e^{-4}$ and regularization parameter is set at 1). The same was used in the 3-class case where the change from GLON to cos(GLON) was seen as the main improvement for LR algorithm.
 %\dima{Did we change the regularization in the oversampling 3-class case? I guess it was probably not as important as the change from GLON to cos(GLON).}. 
 \begin{figure}[h]
-%\centerin
+\centering
 \includegraphics[width=\twopicsp\textwidth]{plots/lr_train_reg.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/unassoc_complex.pdf}
 \caption{Dependence of LR on tolerance and regularization. 
@@ -22,7 +22,7 @@ In Figure \ref{fig:nn_nn} we show the effect of adding the second hidden layer i
 The difference between the best accuracies with the additional hidden layer is less then 1\%
 compared with the NN with one hidden layer (cf. Table \ref{tab:selected_algs}).
 \begin{figure}[h]
-%\centerin
+\centering
 \includegraphics[width=\twopicsp\textwidth]{plots/nn_2layers_3fgl.pdf}
 %\includegraphics[width=\twopicsp\textwidth]{plots/unassoc_complex.pdf}
 \caption{Dependence of NN on the number of neurons in the second hidden layer, for 11 neurons in the first hidden layer.
@@ -38,6 +38,7 @@ We show the feature importances for the 2-class classification of 4FGL-DR2 sourc
 
 \pgfplotstableread[col sep=comma]{tables/features/3fglassocfeaturesAGNPSRnewfeats.csv}\tablea
 \begin{table}
+\centering
 \resizebox{0.45\textwidth}{!}{
 \pgfplotstabletypeset[
 columns={Name,Mean,SD,Minimum,Maximum},
@@ -62,6 +63,7 @@ skip rows between index={11}{25}
 
 \pgfplotstableread[col sep=comma]{tables/features/4fgldr2agnpsrfeatures.csv}\tableaf
 \begin{table}
+\centering
 \resizebox{0.45\textwidth}{!}{
 \pgfplotstabletypeset[
 columns={Name,Mean,SD,Minimum,Maximum},
