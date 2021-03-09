@@ -1,12 +1,12 @@
-\section{Probabilistic catalogs based on the 3FGL and 4FGL catalogs}
+\section{Probabilistic catalogs based on the 3FGL and 4FGL-DR2 catalogs}
 \lb{sec:prob_cats}
 
 In this section we use the ML algorithms optimized in the previous section to construct probabilistic
-classification of sources in the 3FGL and 4FGL catalogs.
+classification of sources in the 3FGL and 4FGL-DR2 catalogs.
 
 
 
-\subsection{Probabilistic classification of sources in 3FGL and comparison with 4FGL}
+\subsection{Probabilistic classification of sources in 3FGL and comparison with 4FGL-DR2}
 \lb{sec:3FGLprediction1}
 
 
@@ -112,6 +112,27 @@ In the probabilistic catalogs we add columns with corresponding probabilities fo
 i.e., provided that there are 8 methods (including oversampling) and 2 classes, we add 16 columns: 8 for unweighted and 8 for oversampled training data. The columns with '\_O' represent the oversampled probabilities. We also add 16 columns for standard deviations of probabilities. Although class probabilities and standard deviation for each algorithm are not independent (probabilities add up to 1 and standard deviations are equal for AGN and PSR classes), we keep the corresponding columns in view of the generalizations to multi-class classification (e.g., 3-class classification in Section \ref{sec:3class}).
 
 
+\pgfplotstableread[col sep=comma]{tables/3FGL_unassoc_vs_4FGL_assoc.csv}\loadedtable
+\begin{table}
+\pgfplotstabletypeset[columns={Source_Name_3FGL,AGN_BDT,AGN_RF,AGN_LR,AGN_NN},
+column type=l,
+string type,
+every head row/.style={before row={\hline\hline & \multicolumn{4}{c}{AGN Probability} \\},after row=\hline,},
+every last row/.style={after row=\hline}, %\vdots },
+columns/Source_Name_3FGL/.style={column name=Source\_Name\_3FGL},
+columns/AGN_BDT/.style={column name=BDT,numeric type,fixed,precision=3},
+columns/AGN_NN/.style={column name=NN,numeric type,fixed,precision=3},
+columns/AGN_RF/.style={column name=RF,numeric type,fixed,precision=3},
+columns/AGN_LR/.style={column name=LR,numeric type,fixed,precision=3},
+skip rows between index={4}{302}
+]\loadedtable
+\caption{\label{tab:prob_cat}
+Example of the AGN classification probabilities for a few unassociated sources in the 3FGL catalog \citep{2015ApJS..218...23A}. We have ommited the oversampled probability columns here.}
+\end{table}
+
+
+
+
 \begin{table}[!h]
 \resizebox{0.4\textwidth}{!}{
     \tiny
@@ -145,7 +166,7 @@ i.e., provided that there are 8 methods (including oversampling) and 2 classes, 
 
 
 Table \ref{tab:prob_cat} shows an example of the probabilistic catalog for a few unassociated 3FGL sources.
-Notice that the first source is classified as a pulsar by BDT and as an AGN by RF, LR, and NN algorithms,
+Notice that the last source is classified as a pulsar by BDT and RF algorithms and as an AGN by LR and NN algorithms,
 it is an example of a source with mixed classification.
 We summarize the results of classification of unassociated 3FGL sources with the 2-class classification 
 in Table \ref{tab:prediction_2and3class} in the 3FGL ``2-class'' row.
@@ -181,26 +202,6 @@ We show this estimate in the OTHER column in the ``2-class corr'' row.
 We note that since 
 $N_{\rm AGN}^{\rm ass\,OTHER} + N_{\rm PSR}^{\rm ass\,OTHER} + N_{\rm MIXED}^{\rm ass\,OTHER} = N^{\rm ass\,OTHER}$,
 this estimate is consistent with corrections in Equation (\ref{eq:other_correction}) for sources classified as AGNs, pulsars, or with mixed classification.
-
-
-\pgfplotstableread[col sep=comma]{tables/3FGL_unassoc_vs_4FGL_assoc.csv}\loadedtable
-\begin{table}
-\pgfplotstabletypeset[columns={Source_Name_3FGL,AGN_BDT,AGN_RF,AGN_LR,AGN_NN},
-column type=l,
-string type,
-every head row/.style={before row={\hline\hline & \multicolumn{4}{c}{AGN Probability} \\},after row=\hline,},
-every last row/.style={after row=\hline}, %\vdots },
-columns/Source_Name_3FGL/.style={column name=Source\_Name\_3FGL},
-columns/AGN_BDT/.style={column name=BDT,numeric type,fixed,precision=3},
-columns/AGN_NN/.style={column name=NN,numeric type,fixed,precision=3},
-columns/AGN_RF/.style={column name=RF,numeric type,fixed,precision=3},
-columns/AGN_LR/.style={column name=LR,numeric type,fixed,precision=3},
-skip rows between index={4}{302}
-]\loadedtable
-\caption{\label{tab:prob_cat}
-Example of the AGN classification probabilities for a few unassociated sources in the 3FGL catalog \citep{2015ApJS..218...23A}. We have ommited the oversampled probability columns here.}
-\end{table}
-
 
 
 

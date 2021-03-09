@@ -30,7 +30,7 @@ We perform optimization of the meta-parameters for the four ML algorithms with t
 \includegraphics[width=0.5\textwidth]{plots/bdt_train_multi.pdf}
 \includegraphics[width=0.5\textwidth]{plots/lr_train_multi.pdf}
 \caption{Accuracy for the 3-class classification with RF, BDT and LR  methods. LR does not have liblinear solver here, since liblinear 
-doesn't support multi-class loss.
+does not support multi-class loss.
 }
 \label{fig:tree_multi}
 \end{figure}
@@ -212,7 +212,7 @@ We also used the 3-class classification to create lists of most likely PSR and O
 source in the 4FGL-DR2 catalog.
 In Section Section \ref{sec:4FGLprediction} we determined a list of 29 PSR candidates by requiring that 
 the unassociated sources are predicted to be pulsars by all 8 methods both in the 3FGL and in the 4FGL-DR2 catalogs.
-In this section we use a different method to determine candidates, which below to PSR and OTHER classes: 
+In this section we use a different method to determine candidates, which belong to PSR and OTHER classes: 
 we calculated the sums of probabilities for PSR and OTHER classes for all 8 methods in the 3-class classification case
 and select sources with the sums of probabilities larger than 7.0.
 
@@ -228,7 +228,7 @@ with the sum of PSR-class probabilities in the 3-class classification larger tha
 The PSR candidates are shown in Table \ref{tab:psr_candidates_3class}. 
 All of these sources are also among the list of 29 PSR candidates determined in the 2-class classification using both 3FGL and 4FGL-DR2 
 features in Section \ref{sec:4FGLprediction}. 
-\dima{Since all of these sources are among the 29 candidates in Section \ref{sec:4FGLprediction}, should we just add a column with the sum of probabilities in the corresponding csv file in SOM and remove the file with the 6 candidates?}
+%\dima{Since all of these sources are among the 29 candidates in Section \ref{sec:4FGLprediction}, should we just add a column with the sum of probabilities in the corresponding csv file in SOM and remove the file with the 6 candidates?}
 We note that the condition on the sum of probabilities to be larger than 7 is, as a rule, more stringent than the condition that a source
 is predicted to be a pulsar by all 8 methods, which we used in Section \ref{sec:4FGLprediction} in order to create the list of 29 pulsar
 candidates based on the 2-class classification.
@@ -312,7 +312,7 @@ In our 3FGL 3-class catalog, this source has a 'MIXED' classification.
 \item 4FGL J1631.7-4826c (3FGL J1632.4-4820 \citep{2015ApJS..218...23A})): Within 30 arcseconds of the Dark Cloud (Nebula) SDC G335.894-0.184 \citep{2016A&A...590A..72P}.
 \item 4FGL J1626.0-4917c (3FGL J1626.2-4911 \citep{2015ApJS..218...23A}, 3FHL J1626.3-4915 \citep{2017ApJS..232...18A}): 
 Associated with HESS J1626-490. It is also one of the 27 sources shortlisted by \citet{2020MNRAS.495.1093H}, 
-who used ML to select sources for analysis from the 3FHL. It is classified as OTHER based on the 3FGL values.
+who used ML methods to select pulsar candidates from the 3FHL catalog. It is also classified as OTHER based on the 3FGL values.
 \item 4FGL J1849.4-0117 (3FGL J1849.5-0124c \citep{2015ApJS..218...23A}): It is in the region of Galactic mini starburst W43 studied by \citet{2020A&A...640A..60Y}. Also within 1 arcminute of the Candidate YSO SSTOERC G031.5367-00.1555. Has a 'MIXED' classification based on the 3FGL values.
 \item 4FGL J1109.4-6115e (3FGL J1111.9-6038 \citep{2015ApJS..218...23A}): It is associated with the extended galactic source FGES J1109.4-6115 \citep{2017ApJ...843..139A}, near the speculated SFR 4FGL J1115.1-6118, in there region of Young Massive Stellar Cluster NGC 3603 \citep{2020ApJ...897..131S}. 'MIXED' classification with the 3FGL values.
 \item 4FGL J1850.2-0201: Also in the region of the starburst W43 \citep{2020A&A...640A..60Y}.
