@@ -5,7 +5,7 @@ One of the caveats of the analysis with two classes is that there are associated
 We collect all associated sources, which do not belong to AGN and PSR classes, into a new class, which we label as ``OTHER''.
 Since in two-class classification we train algorithm to classify sources only into AGN and PSR classes, OTHER sources are also classified as either AGN or PSR.
 This introduces a bias in the estimates of the number of AGNs and pulsars among unassociated sources.
-One possibility to correct this bias is to assume that the fractions of OTHER sources among associated and unassociated sources are the same (Equation (\ref{eq:other_correction})).
+One possibility to correct this bias is to assume that the fractions of OTHER sources among associated and unassociated sources are the same (Eq. (\ref{eq:other_correction})).
 This correction can be applied for the total number of sources or for the number of sources in some window of parameters,
 e.g., in a flux bin or in a range of latitudes and longitudes.
 This is a straightforward calculation but it has some limitations. In particular, it implicitly assigns equal probabilities to all AGNs (and all PSRs) to belong to the OTHER class.
@@ -46,7 +46,7 @@ does not support multi-class loss.
 \end{figure}
 
 
-The dependence of accuracy on meta-parameters of the algorithms is shown in Figures \ref{fig:tree_multi} and \ref{fig:nets_multi}.
+The dependence of accuracy on meta-parameters of the algorithms is shown in Figs. \ref{fig:tree_multi} and \ref{fig:nets_multi}.
 We see that for the tree-based algorithms, the optimal parameters are similar to the 2-class classification, i.e., 50 trees with depth 6 for RF and 100 trees with depth 2 for BDT 
 provide close to optimal performance at a minimal cost in complexity (depth of the trees).
 The main difference for NN and LR algorithms is that more steps are needed for convergence, especially in case of oversampling. 
@@ -63,7 +63,7 @@ The reason for a smaller oversampling factors is to avoid overweighting two the 
 \label{fig:RF_domains_3class}
 \end{figure}
 
-We show an example of domains in the 3-class case in Figure \ref{fig:RF_domains_3class}.
+We show an example of domains in the 3-class case in Fig. \ref{fig:RF_domains_3class}.
 A class domain is determined by the class with the largest probability.
 Since in the 3-class case there are two independent probabilities, which are difficult to show with a single color bar,
 we present only the domains represented by three different colors: brown for PSR, green for OTHER, and blue for AGN classes.
@@ -298,7 +298,6 @@ There are 30 unassociated 4FGL-DR2 sources
 with the sum of OTHER-class probabilities in the 3-class classification larger than 7.
 The OTHER-class candidates are shown in Table \ref{tab:other_candidates_3class}.
 Out of the 30 sources only two sources have no flags in 4FGL, and only eight sources have an association with the previous FGL catalogs (column name ASSOC\_FGL). 
-%Furthermore, we tried to find whether recent work could be found for some of these sources and used the  for this purpose. 
 The following sources had additional associations in Simbad database
 ordered by decreasing sum of OTHER-class probabilities:
 \begin{enumerate}

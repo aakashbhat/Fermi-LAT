@@ -6,13 +6,12 @@ into two (AGNs and pulsars) and three (AGNs, pulsars, and other sources) classes
 The probabilities are calculated with 8 different ML methods: RF, BDT, LR and NN -- each algorithm with and without oversampling during training.
 The algorithms were trained and tested with associated sources.
 We have scanned some meta-parameters of the algorithms, such as the depth of the trees, the number of trees, the number of neurons, in order to determine optimal parameters, which do not create overfitting of data and provide good accuracy of classification.
-%The accuracies, which we obtained for the 3FGL catalog for the four algorithms without oversampling in the 2-class case are about 97\%, and between 93\% and 97\% with oversampling.
 The testing accuracies of classification of associated sources in the 3FGL catalog for the four algorithms in the 2-class case without (with) oversampling are about  97\% (between 93\% and 97\%).
 
 We have also checked the accuracy of classification by selecting unassociated sources in 3FGL, which have associations in 4FGL-DR2.
 If we take the 4FGL-DR2 associations as the true classes, then the accuracies of classification in this subset of sources 
 without (with) oversampling are between 90\% and 91\% (85\% and 92\%).
-Most of misclassified sources in this comparison have spectral parameters in 3FGL which are typical of the other class (Figure \ref{fig:3FGL_vs_4FGL_classes}), i.e.,  the misclassification can be due to problems with reconstructing the spectrum of the sources.
+Most of misclassified sources in this comparison have spectral parameters in 3FGL which are typical of the other class (Fig. \ref{fig:3FGL_vs_4FGL_classes}), i.e.,  the misclassification can be due to problems with reconstructing the spectrum of the sources.
 In the 3-class classification, the testing accuracies for the 3FGL catalog are between 92\% and 94\% (both with and without oversampling), while comparison with 4FGL-DR2 give accuracy between 82\% and 85\%. For the 4FGL-DR2 classifications, the testing accuracy is between 90\% and 93\% (both with and without oversampling). If one takes into account that all other sources are misclassified in the 2-class case, then the 3-class case provides an improvement in accuracy of 1\% to 5\%.
 
 We have created four catalogs with probabilistic classifications of sources: based on 3FGL and on 4FGL-DR2 with 2- and 3-class classifications.

@@ -5,26 +5,23 @@ In this appendix we discuss tests of some meta-parameters, which had a relativel
 accuracy of the algorithms. For these tests we use the 2-class classification in the 3FGL catalog.
 
 LR algorithm has two meta-parameters: regularization and tolerance. 
-%These features are the limit up to which one wants to go before accepting a solution. 
-The effect of the choice of these parameters on accuracy is less than 1\% (Figure \ref{fig:LR_tol_reg}). 
+The effect of the choice of these parameters on accuracy is less than 1\% (Fig. \ref{fig:LR_tol_reg}). 
 Therefore we used the default values for these parameters (tolerance is 1$e^{-4}$ and regularization parameter is set at 1). The same was used in the 3-class case where the change from GLON to cos(GLON) was seen as the main improvement for LR algorithm.
-%\dima{Did we change the regularization in the oversampling 3-class case? I guess it was probably not as important as the change from GLON to cos(GLON).}. 
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=\twopicsp\textwidth]{plots/lr_train_reg.pdf}
-%\includegraphics[width=\twopicsp\textwidth]{plots/unassoc_complex.pdf}
-\caption{Dependence of LR on tolerance and regularization. 
+\\caption{Dependence of LR on tolerance and regularization. 
 }
 \label{fig:LR_tol_reg}
 \end{figure}
 
-In Figure \ref{fig:nn_nn} we show the effect of adding the second hidden layer in the NN algorithm.
+In Fig. \ref{fig:nn_nn} we show the effect of adding the second hidden layer in the NN algorithm.
 The difference between the best accuracies with the additional hidden layer is less then 1\%
 compared with the NN with one hidden layer (cf. Table \ref{tab:selected_algs}).
 \begin{figure}[h]
 \centering
 \includegraphics[width=\twopicsp\textwidth]{plots/nn_2layers_3fgl.pdf}
-%\includegraphics[width=\twopicsp\textwidth]{plots/unassoc_complex.pdf}
 \caption{Dependence of NN on the number of neurons in the second hidden layer, for 11 neurons in the first hidden layer.
 }
 \label{fig:nn_nn}
@@ -78,7 +75,6 @@ columns/Mean/.style={column name=Mean,column type=c,numeric type,fixed,precision
 columns/SD/.style={column name=Standard Deviation,numeric type,fixed,precision=2},
 columns/Minimum/.style={column name=Minimum,numeric type,fixed,precision=2},
 columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
-%skip rows between index={17}{28}
 ]{\tableaf}
 }
 \vspace{0.2cm}

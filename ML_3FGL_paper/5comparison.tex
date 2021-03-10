@@ -59,9 +59,9 @@ Blue band -- envelope of sums of class probabilities for associated sources for 
 Purple dash-dotted line -- sum of class probabilities for associated sources for the LR method without oversampling.
 Red solid line (band) -- sum of class probabilities for the LR model (the envelope of the eight ML methods) added to the source count of associated sources. 
 Purple dashed line -- sum of class probabilities for associated sources for the LR method without oversampling in the 2-class classification corrected for the presence of OTHER sources.
-Orange solid line (band) -- sum of class probabilities for the LR model (the envelope of the eight ML methods), corrected for the presence of OTHER sources, added to the source count of associated sources (the band and the line are the same as in Figure \ref{fig:logN_logS}).
-Green band in the PSR plots -- envelope of sums of class probabilities for associated sources for the eight ML methods in the 2-class classification corrected for the presence of OTHER sources (the same as in Figure \ref{fig:logN_logS}).
-Orange solid line in the OTHER plots -- OTHER source counts plus an estimate of the number of OTHER sources among unassociated ones using Equation (\ref{eq:unas_other}). 
+Orange solid line (band) -- sum of class probabilities for the LR model (the envelope of the eight ML methods), corrected for the presence of OTHER sources, added to the source count of associated sources (the band and the line are the same as in Fig. \ref{fig:logN_logS}).
+Green band in the PSR plots -- envelope of sums of class probabilities for associated sources for the eight ML methods in the 2-class classification corrected for the presence of OTHER sources (the same as in Fig. \ref{fig:logN_logS}).
+Orange solid line in the OTHER plots -- OTHER source counts plus an estimate of the number of OTHER sources among unassociated ones using Eq. (\ref{eq:unas_other}). 
 For details see Section \ref{sec:dNdS}.
 }  
 \label{fig:logN_logS_3classes}
@@ -78,14 +78,14 @@ For details see Section \ref{sec:dNdS}.
 \includegraphics[width=0.45\textwidth]{plots/N_logS_diff_OTHER.pdf}
 \caption{Ratio of the number of AGNs, pulsars and other sources among unassociated sources estimated with LR without oversampling
 to the counts of associated sources respectively.
-AGN and pulsar estimates are corrected for the presence of other sources using Equation (\ref{eq:unassoc_ev}),
-while the number of other sources among unassociated ones in the 2-class case is estimated using Equation (\ref{eq:unas_other}).
+AGN and pulsar estimates are corrected for the presence of other sources using Eq. (\ref{eq:unassoc_ev}),
+while the number of other sources among unassociated ones in the 2-class case is estimated using Eq. (\ref{eq:unas_other}).
 } 
 \label{fig:unass_vs_ass_frac}
 \end{figure}
 
 
-In Figure \ref{fig:logN_logS} we show the cumulative number of AGNs and pulsars with flux above 1 GeV larger than the
+In Fig. \ref{fig:logN_logS} we show the cumulative number of AGNs and pulsars with flux above 1 GeV larger than the
 value on the x-axis.
 Solid blue lines show the actual counts of sources (AGNs or pulsars) in the 3FGL and 4FGL-DR2 catalogs.
 As a consistency check of the method, we calculate the AGN- and PSR-like probabilities for associated sources.
@@ -113,7 +113,7 @@ The predictions for the number of AGNs and pulsars among the unassociated source
 added to the 3FGL and 4FGL-DR2  source counts are shown by solid orange lines for the LR model.
 The orange bands show the corresponding envelopes for the eight ML methods.
 We assume that the fractional contribution of other sources is the same for associated and unassociated sources in the different flux bands.
-Thus, the correction for the presence of other sources is calculated similarly to the associated sources in Equation (\ref{eq:assoc_ev}),
+Thus, the correction for the presence of other sources is calculated similarly to the associated sources in Eq. (\ref{eq:assoc_ev}),
 but we adjust for the fact that there are fewer unassociated than associated sources, i.e., 
 the correction is assumed to be proportionally smaller.
 In particular, the number of AGNs among unassociated sources in a flux band $\Delta F$ is estimated as
@@ -135,33 +135,12 @@ The expected numbers of pulsars and AGNs among the unassociated sources
 are summarized in Table \ref{tab:expected_counts_prob_3FGL} for the 3FGL catalog and 
 in Table \ref{tab:expected_counts_prob_4FGL-DR2} for the 4FGL-DR2 catalog.
 The row ``2-class'' shows the expectations for the 2-class classification uncorrected for the presence of other sources.
-The row ``2-class corr total'' shows the expectations corrected for other sources using Equation (\ref{eq:unassoc_ev}) without any binning,
-while ``2-class corr F-bins'' shows correction with the flux bins as in Figure \ref{fig:logN_logS}.
+The row ``2-class corr total'' shows the expectations corrected for other sources using Eq. (\ref{eq:unassoc_ev}) without any binning,
+while ``2-class corr F-bins'' shows correction with the flux bins as in Fig. \ref{fig:logN_logS}.
 We see that corrections using total source counts and source counts binned in flux are similar and relatively small.
 In the following section we also calculate the correction using latitude and longitude bins.
 
-\begin{comment}
-while the 
-In particular, the expected number of pulsars
-is $261 \pm 100$, where the range is the envelop of the sums of probabilities in Equation (\ref{eq:unassoc_ev})
-for different ML methods (including oversampling) corrected for other sources among the unassociated sources.
-The expected number of pulsars among the unassociated sources in the 4FGL-DR2  catalog corrected for other sources is 
-$459 \pm 201$.
-These numbers are larger than the number of associated PSRs without missing values (164 in 3FGL and 269 in 4FGL-DR2 ).
-Even at the lower range of expected numbers of pulsars among unassociated sources, there are potentially as many pulsars
-as there are associated ones.
-
-We note that according to Table \ref{tab:3FGL_prediction}, the number of unassociated 3FGL sources 
-with $p_{\rm PSR} > 0.5$ for all four ML algorithms is 111 (97), while there are 300 (279) sources with mixed classification,
-uncorrected (corrected) for other sources.
-The number of sources with mixed classification (279 for 3FGL or 563 for 4FGL-DR2)
-is larger than the range of values for the expected number of pulsars calculated for the sum of probabilities 
-(200 for 3FGL or 402 for 4FGL-DR2 ).
-It means that the decision which sources are considered to be more likely pulsars is more sensitive to the choice of the ML method
-and the probability threshold than the expected number of pulsars calculated from the sum of probabilities.
-\end{comment}
-
-The numbers of PSRs and OTHER sources in the 3-class classification as a function of flux are shown in Figure \ref{fig:logN_logS_3classes}.
+The numbers of PSRs and OTHER sources in the 3-class classification as a function of flux are shown in Fig. \ref{fig:logN_logS_3classes}.
 As in the 2-class case, solid blue line shows the counts of associated sources in the corresponding classes.
 Red and blue bands show the envelops of the expected number of associated sources and the number of associated sources plus the expected numbers of sources among unassociated ones respectively.
 In the PSR plots, we also replot the envelops of expected numbers of associated PSR (shown by the green band) and associated source counts plus prediction for unassociated sources by orange bands corrected for the presence of OTHER sources among unassociated ones.
@@ -169,7 +148,7 @@ We notice that the bands for the 3-class case are narrower in the PSR plots than
 In part this is due to less oversampling in the 3-class case. 
 We also note that the red band lies almost entirely below the orange one.
 This is due to a possible underestimation of the contribution of OTHER sources to the PSR class among unassociated sources.
-In particular, in the bottom panels of Figure \ref{fig:logN_logS_3classes} we show the estimated total number of OTHER sources in the 2-class case by the orange line.
+In particular, in the bottom panels of Fig. \ref{fig:logN_logS_3classes} we show the estimated total number of OTHER sources in the 2-class case by the orange line.
 Since we do not have probabilities for the OTHER sources in this case, we estimate the number of OTHER sources among unassociated ones 
 simply by rescaling the number of associated OTHER sources in each energy band as
 \bea
@@ -184,17 +163,17 @@ N_{\rm OTHER}^{\rm ass} &=& \sum_{i \in \rm ass\,other} p^i_{\rm AGN} + \sum_{i 
 \eea
 provided that $p^i_{\rm AGN} + p^i_{\rm PSR} = 1$ for each source in the two-class case.
 The estimated total number of OTHER sources in the 2-class case (orange line) is significantly below the red band derived from the sum of probabilities of the OTHER class in the 3-class case.
-The model in Equation (\ref{eq:unas_other}) depends on binning, as we see in the following section, for latitude binning this 2-class
+The model in Eq. (\ref{eq:unas_other}) depends on binning, as we see in the following section, for latitude binning this 2-class
 estimate of the number of OTHER sources among unassociated ones agrees with the 3-class estimate.
 The reason is that for flux bins, the ratio $\frac{N^{\rm unass}}{N^{\rm ass}}$ is dominated by AGNs at high latitudes and it is always smaller than 1, while at low latitudes, where most of OTHER sources are, the ratio $\frac{N^{\rm unass}}{N^{\rm ass}}$ is about 1.
 
 
 We note that the probabilistic classification mostly affects sources with small fluxes.
-In Figure \ref{fig:unass_vs_ass_frac} we plot the ratio of the expected number of sources of a certain class among unassociated sources
+In Fig. \ref{fig:unass_vs_ass_frac} we plot the ratio of the expected number of sources of a certain class among unassociated sources
 computed according to Eq. \ref{eq:unassoc_ev} with the LR algorithm (without oversampling) to the number of associated sources in this class.
 The ratio generally increases as the flux decreases.
 Negative values (e.g., at high fluxes for AGNs) are due to subtraction of probabilities for the ``other'' associated sources.
-For OTHER sources in the 2-class case we use estimates in Equation (\ref{eq:unas_other}).
+For OTHER sources in the 2-class case we use estimates in Eq. (\ref{eq:unas_other}).
 As discussed above, we see that these estimates are significantly below the estimated numbers of OTHER sources among unassociated ones in the 3-class classification (for the LR method without oversampling in this case).
 
 
@@ -235,9 +214,9 @@ For details see Section \ref{sec:lat-lon-profiles}. }
 \includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_3FGL_3classes.pdf}
 %\hspace*{-1cm}
 \includegraphics[width=0.45\textwidth]{plots/lat_profile_AGN_4FGL-DR2_3classes.pdf}
-\caption{Latitude profiles of source counts in case of 3-class classification. For the definition of labels see Figure \ref{fig:lat_profile}.
+\caption{Latitude profiles of source counts in case of 3-class classification. For the definition of labels see Fig. \ref{fig:lat_profile}.
 Black dashed line in plots of the OTHER class show the model for the number of OTHER sources among the unassociated ones
-in Equation (\ref{eq:unas_other}) for latitude bins.}
+in Eq. (\ref{eq:unas_other}) for latitude bins.}
 \label{fig:lat_profile_3class}
 \end{figure*}
 
@@ -251,7 +230,7 @@ in Equation (\ref{eq:unas_other}) for latitude bins.}
 \includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_3FGL_2classes.pdf}
 %\hspace*{-1cm}
 \includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_4FGL-DR2_2classes.pdf}
-\caption{Longitude profiles of source counts in case of 2-class classification. For the definition of labels see Figure \ref{fig:lat_profile}.}  
+\caption{Longitude profiles of source counts in case of 2-class classification. For the definition of labels see Fig. \ref{fig:lat_profile}.}  
 \label{fig:lon_profile}
 \end{figure*}
 
@@ -269,20 +248,20 @@ in Equation (\ref{eq:unas_other}) for latitude bins.}
 \includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_3FGL_3classes.pdf}
 %\hspace*{-1cm}
 \includegraphics[width=0.45\textwidth]{plots/lon_profile_AGN_4FGL-DR2_3classes.pdf}
-\caption{Longitude profiles of source counts in case of 3-class classification. For the definition of labels see Figures \ref{fig:lat_profile} and \ref{fig:lat_profile_3class}.}  
+\caption{Longitude profiles of source counts in case of 3-class classification. For the definition of labels see Figs. \ref{fig:lat_profile} and \ref{fig:lat_profile_3class}.}  
 \label{fig:lon_profile_3class}
 \end{figure*}
 
 
 In this section we show Galactic latitude and longitude profiles of the distributions of associated and unassociated sources.
-In Figures \ref{fig:lat_profile} and \ref{fig:lat_profile_3class} we present the source counts as a function of ${\rm abs(sin(GLAT))}$ 
+In Figs. \ref{fig:lat_profile} and \ref{fig:lat_profile_3class} we present the source counts as a function of ${\rm abs(sin(GLAT))}$ 
 for 2-class and 3-class classifications respectively.
 We use 20 bins, i.e., each bin corresponds to a solid angle of $4 \pi / 20$. 
 Solid blue lines show counts of associated sources in 3FGL and 4FGL-DR2  catalogs.
 The total counts of unassociated sources are shown by red dash-dotted lines.
 Green bands show the envelopes of sums of probabilities for classification of unassociated sources into AGN, PSR, and, in case of 3 classes, OTHER classes for the eight ML methods corrected in the case of 2 classes for the presence of OTHER sources.
 Black dotted line in plots of the OTHER class show the model for the number of OTHER sources among the unassociated ones
-in Equation (\ref{eq:unas_other}) for latitude bins.
+in Eq. (\ref{eq:unas_other}) for latitude bins.
 We see that in the latitude profile, the 2-class model for the contribution of OTHER sources to the unassociated ones is generally consistent with the estimate of the number of OTHER sources in the 3-class model.
 
 The classifications of unassociated 3FGL sources by \cite{2016ApJ...820....8S} are shown by gray dashed (RF) and dotted (LR) lines.
@@ -297,12 +276,12 @@ The average among the eight methods added to the counts of associated sources is
 We find that the number of associated AGNs is decreasing towards the GP, the expected number of AGNs among unassociated sources is increasing towards the GP, so that the sum of the two is relatively uniform as a function of Galactic latitude.
 
 
-In Figures \ref{fig:lon_profile} and \ref{fig:lon_profile_3class} we show plots analogous to Figures \ref{fig:lat_profile} and \ref{fig:lat_profile_3class} for Galactic longitudes (we use 30 bins).
+In Figs. \ref{fig:lon_profile} and \ref{fig:lon_profile_3class} we show plots analogous to Figs. \ref{fig:lat_profile} and \ref{fig:lat_profile_3class} for Galactic longitudes (we use 30 bins).
 We note that there is a significant increase in the number of unassociated sources in the 4FGL-DR2  catalog for $|\ell | \lesssim 50^\circ$.
 In the 2-class classification about half of the unassociated sources are attributed to pulsars and half to AGNs.
 In the 3-class classification at least one third of the unassociated sources in this range of longitudes is attributed to the OTHER class.
 This comes mostly at the expense of reducing the predicted number of pulsars.
-It is interesting to note that the 2-class model for the OTHER sources calculated using Equation (\ref{eq:unas_other}) for longitude bins
+It is interesting to note that the 2-class model for the OTHER sources calculated using Eq. (\ref{eq:unas_other}) for longitude bins
 (black dotted line in the OTHER plots) is significantly below the bands of 3-class expectations, whereas for the latitude bins the 2-class model
 is consistent with the bands.
 The reason is that the ratio of unassociated to associated sources, which we use to estimate the number of OTHER sources among the unassociated ones, depends on binning.
@@ -311,14 +290,14 @@ But for longitude and flux binning the ratio of unassociated to associated sourc
 
 We summarize the expected numbers of sources in the 2-class and 3-class models in Table \ref{tab:expected_counts_prob_3FGL} for the 3FGL and in Table \ref{tab:expected_counts_prob_4FGL-DR2} for the 4FGL-DR2 catalogs.
 In the 2-class case we also show the correction for the presence of OTHER sources among unassociated ones.
-We make the correction using the total numbers of unassociated and associated sources, as well as binning in flux from Figure \ref{fig:logN_logS} (F-bins), in latitudes from Figure \ref{fig:lat_profile} (Lat-bins), and in longitudes from Figure  \ref{fig:lon_profile} (Lon-bins).
+We make the correction using the total numbers of unassociated and associated sources, as well as binning in flux from Fig. \ref{fig:logN_logS} (F-bins), in latitudes from Fig. \ref{fig:lat_profile} (Lat-bins), and in longitudes from Fig. \ref{fig:lon_profile} (Lon-bins).
 We see that predictions for the numbers of sources using latitude binning in the 2-class case is closest to the 3-class case.
 Even better agreement would likely be achieved if one uses a simultaneous binning in flux, latitudes, longitudes and, possibly, other variables.
 If, in addition, one allows bins of variable size and non-rectangular boundaries in multi-dimensional space, then one will likely end up with one of the ML algorithms for classification.
 Indeed, ML algorithms are designed to provide an optimal binning, which maximizes the separation of classes and make predictions for data with unknown labels (e.g., unassociated sources) based on counts of samples in bins with known labels (e.g., associated sources).
 Thus the 3-class prediction for classification of unassociated sources is likely more accurate than the 2-class classification with correction for OTHER sources based on ad hoc binning of one of the variables.
 The 2-class classification may still be useful in situations, when high recall is necessary for either pulsars or AGNs:
-since OTHER sources are mixed with pulsars and AGNs (cf. Figure \ref{fig:RF_domains_3class}), 
+since OTHER sources are mixed with pulsars and AGNs (cf. Fig. \ref{fig:RF_domains_3class}), 
 some of pulsars and AGNs can be mistakenly classified as OTHER in the 3-class case.
 
 
