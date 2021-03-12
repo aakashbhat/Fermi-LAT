@@ -4,21 +4,22 @@
 In this appendix we discuss tests of some meta-parameters, which had a relatively little effect on the 
 accuracy of the algorithms. For these tests we use the 2-class classification in the 3FGL catalog.
 
-LR algorithm has two meta-parameters: regularization and tolerance. 
+For the LR algorithm, we test two additional meta-parameters: regularization and tolerance. 
 The effect of the choice of these parameters on accuracy is less than 1\% (Fig. \ref{fig:LR_tol_reg}). 
-Therefore we used the default values for these parameters (tolerance is 1$e^{-4}$ and regularization parameter is set at 1). The same was used in the 3-class case where the change from GLON to cos(GLON) was seen as the main improvement for LR algorithm.
+Therefore we used the default values for these parameters (tolerance is $10^{-4}$ and regularization parameter is 1)
+both in the 2-class and in the 3-class classifications.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\twopicsp\textwidth]{plots/lr_train_reg.pdf}
-\\caption{Dependence of LR on tolerance and regularization. 
+\caption{Dependence of LR on tolerance and regularization. 
 }
 \label{fig:LR_tol_reg}
 \end{figure}
 
 In Fig. \ref{fig:nn_nn} we show the effect of adding the second hidden layer in the NN algorithm.
-The difference between the best accuracies with the additional hidden layer is less then 1\%
-compared with the NN with one hidden layer (cf. Table \ref{tab:selected_algs}).
+The difference between the best accuracies of the NN with one hidden layer (cf. Table \ref{tab:selected_algs})
+and  the NN with the additional hidden layer is less then 1\%.
 \begin{figure}[h]
 \centering
 \includegraphics[width=\twopicsp\textwidth]{plots/nn_2layers_3fgl.pdf}
@@ -26,11 +27,6 @@ compared with the NN with one hidden layer (cf. Table \ref{tab:selected_algs}).
 }
 \label{fig:nn_nn}
 \end{figure}
-
-We summarize features and their statistics,
-which we use for probabilistic classification of sources in the 3FGL and 4FGL-DR2 catalogs,
-in Tables \ref{tab:3FGL_features} and \ref{tab:4FGL_features} respectively. 
-We show the feature importances for the 2-class classification of 4FGL-DR2 sources in Table \ref{tab:feat_imp2}.
 
 
 \pgfplotstableread[col sep=comma]{tables/features/3fglassocfeaturesAGNPSRnewfeats.csv}\tablea
@@ -53,7 +49,7 @@ columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
 skip rows between index={11}{25}
 ]{\tablea}
 }
-\vspace{0.2cm}
+\vspace{2mm}
 \caption{Statistics of features used for 2 class probabilistic classification of the 3FGL sources.
 \lb{tab:3FGL_features}}
 \end{table}
@@ -77,7 +73,7 @@ columns/Minimum/.style={column name=Minimum,numeric type,fixed,precision=2},
 columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
 ]{\tableaf}
 }
-\vspace{0.2cm}
+\vspace{2mm}
 \caption{Statistics of features used for 2 class probabilistic classification of the 4FGL-DR2 sources.
 \lb{tab:4FGL_features}}
 \end{table}
@@ -92,7 +88,7 @@ columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
 \begin{tabular}{c c c}
 \hline
 \hline
-Feature & RF: 50, 6& BDT:100, 2\\
+Feature & RF: 50, 6& BDT: 100, 2\\
 \hline
 { $\ln$(LP\_SigCurv)}&  0.297  & 0.465   \\
 {LP\_beta}&0.151&0.109\\
@@ -112,10 +108,20 @@ HR12&0.009&0.004\\
 GLAT&0.007&0.003\\
 \hline
 \end{tabular}
-\vspace{0.4cm}
-\caption{Feature importances for RF and BDT algorithms ordered by decreasing importance 
-in the case of RF algorithm for 4FGL-DR2.
+\vspace{2mm}
+\caption{Feature importances for classification of 4FGL-DR2 sources using
+RF (50 trees, max depth 6) and BDT (100 trees, max depth 2) algorithms
+ordered by decreasing importance 
+in the case of RF algorithm.
 }
 \label{tab:feat_imp2}
 \end{table}
 
+
+
+We summarize features and their statistics,
+which we use for probabilistic classification of sources in the 3FGL and 4FGL-DR2 catalogs
+in Tables \ref{tab:3FGL_features} and \ref{tab:4FGL_features} respectively. 
+We show the feature importances for the 2-class classification of 4FGL-DR2 sources in Table \ref{tab:feat_imp2}.
+Similarly to feature importances for the 3FGL 2-class classification reported in Table \ref{tab:feat_imp}, 
+some of the most important features are significance of curvature in the spectrum, variability index, energy flux above 100 MeV and its uncertainty.

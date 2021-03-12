@@ -4,7 +4,7 @@
 \subsection{General methodology}
 
 The first choice one has to make in constructing a probabilistic catalog is the input data and the machine learning methods.
-For the input data we take associated point sources (PS) in the 3FGL catalog, which we split into training and testing subsets.
+For the input data we take associated point sources (PS) in the 3FGL or 4FGL-DR2 catalogs, which we split into training and testing subsets.
 We consider four machine learning algorithms: random forests \citep[RF,][]{709601, Breiman:2001hzm}, 
 boosted decision trees \citep[BDT,][]{friedman2001},  
 logistic regression \citep[LR,][]{cox1958}, 
@@ -74,8 +74,8 @@ In the final probabilistic catalogs, we use a column ``Missing\_Values\_Flag'' t
 
 As an example of the construction of a probabilistic catalog, we will use the 3FGL catalog.
 In this section we will perform a two-class classification to separate PS into pulsars and AGNs.
-Thus for training and testing, we subselect the sources, which are associated to pulsars and AGNs
-(three-class classification into pulsars, AGNs, and other sources is discussed in Section \ref{sec:3class}).
+Thus for training and testing, we subselect the sources, which are associated to pulsars and AGNs.
+The three-class classification into pulsars, AGNs, and other sources is discussed in Section \ref{sec:3class}.
 After the training of the algorithms, we test the performance with the test sources and predict the classes of unassociated sources.
 The general workflow will have the following steps:
 \ben
@@ -98,12 +98,16 @@ based on the \Fermi-LAT 3FGL and 4FGL-DR2 catalogs.
 
 \subsection{Data and feature selection}
 
-For training of the algorithms we use the associated sources, which were classified as either AGNs (classification labels in the 3FGL catalog: agn, FSRQ, fsrq, BLL, bll, BCU, bcu, RDG, rdg, NLSY1, nlsy1, ssrq, and sey) or pulsars (classification labels in 3FGL: PSR, psr). There are 1905 such sources in the 3FGL catalog. 
+For training of the algorithms we use the associated sources without missing or unphysical values, 
+which were classified as either AGNs (classification labels in the 3FGL catalog: agn, FSRQ, fsrq, BLL, bll, BCU, bcu, RDG, rdg, NLSY1, nlsy1, ssrq, and sey) or pulsars (classification labels in 3FGL: PSR, psr). 
+There are 1905 such sources in the 3FGL catalog. 
 
 
-There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties. We took the main features, including those discussed in \cite{2016ApJ...820....8S}, and plotted their Pearson correlation coefficients. A graphical representation of the correlation table is shown is Fig. \ref{fig:assoc_corr_3fgli}. In the following, if two features have (anti)correlation $\gtrsim 0.75$ 
-($\lesssim -0.75$),
-then we keep only one of the features for classification.
+There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties. 
+We took the main features and calculated their Pearson correlation coefficients. 
+A graphical representation of the correlation table is shown in Fig.~\ref{fig:assoc_corr_3fgli}. 
+In the following, if two features have (anti)correlation $\gtrsim 0.75$ 
+($\lesssim -0.75$), then we keep only one of the features for classification.
 
 \begin{figure}[h]
 \centering
@@ -146,7 +150,7 @@ Galactic latitude (GLAT), Galactic longitude (GLON), ln(Energy\_Flux\_100), $\ln
 $\ln$(Variability\_Index), and four hardness ratios $hr_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i}$, where $EF_i$ is the energy flux in bin $i$
 and $j = i + 1$ (i.e., the bins are consecutive).
 We have added the hardness ratios in order to allow the algorithms to ``construct'' their own features from the raw data rather than to use the 
-derived features, such as spectral index or integrated flux.
+derived features, such as 500MeV\_Index or integrated energy flux.
 The table of features and their statistics can be found in Appendix \ref{sec:app}.
 
 
@@ -207,6 +211,7 @@ For the final classification with RF, we use 11 features and average over 1000 s
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/rf_50_6_final.pdf}
 \caption{RF classification domains showing class probabilities for training with two features
 averaged over 100 random splits into training and testing samples.
+One of these splits is shown for illustration.
 Color scale describes the probability for a source to be a pulsar.
 }
 \label{fig:RF_domains}
@@ -220,7 +225,7 @@ The meta-parameters for BDT algorithms are similar to RF algorithms: they are th
 We used the Gradient Boosting algorithm for the construction of BDT \citep{gb}.
 The classification is performed by a weighted average of trees, where the trees are constructed recursively in order to better address 
 misclassifications from the previous step. 
-Dependence of the accuracy on tree depth is shown in Fig. \ref{fig:BDT_depth}. 
+Dependence of the accuracy on tree depth is shown in Fig.~\ref{fig:BDT_depth}. 
 Unlike the RF, which is also an ensemble based method, the testing accuracy drops for the maximal depths larger than 7. 
 
 
@@ -231,7 +236,7 @@ Unlike the RF, which is also an ensemble based method, the testing accuracy drop
 \label{fig:BDT_depth}
 \end{figure}
 
-The classification domains in case of two features for 20 trees and the maximum depth of 2 is presented in Fig. \ref{fig:BDT_domains}. 
+The classification domains in case of two features for 20 trees and the maximum depth of 2 is presented in Fig.~\ref{fig:BDT_domains}. 
 For the classification we will use BDT with 100 trees and the maximum depth of 2.
 
 
@@ -252,7 +257,6 @@ We find that the most important feature for both cases is the significance of cu
 Other significant features are the hardness ratio of the last two energy bins, uncertainty of the energy flux at 100 MeV, and the variability index.
 
 
-
 \begin{table}[!h]
 \tiny
 \centering
@@ -262,7 +266,7 @@ Other significant features are the hardness ratio of the last two energy bins, u
 \begin{tabular}{c c c}
 \hline
 \hline
-Feature & RF: 50, 6& BDT:100, 2\\
+Feature & RF: 50, 6 & BDT: 100, 2\\
 \hline
 { $\ln$(Signif\_Curve)}&  0.331  & 0.518   \\
 { HR45}&0.137&0.071\\
@@ -277,7 +281,7 @@ GLAT &0.017& 0.002     \\
 GLON & 0.014&0.011  \\
 \hline
 \end{tabular}
-\vspace{0.4cm}
+\vspace{2mm}
 \caption{Feature importances for RF (50 trees, max depth 6) and BDT (100 trees, max depth 2) algorithms.
 The features are ordered by decreasing importance for the RF algorithm.
 }
@@ -288,7 +292,11 @@ It is interesting to note that Galactic latitude is among the least significant 
 We have also used sin(GLAT) to check that this is not due to scaling, i.e., the large range of values of GLAT,
 but the significance is similar to the GLAT itself.
 We further discuss the dependence on GLAT in Section \ref{sec:lat-lon-profiles}, 
-where we calculate the latitude and longitude profiles of the associated and unassociated source counts.
+where we calculate the latitude and longitude profiles of the associated and unassociated source counts.%
+\footnote{Feature importances for the classification of 4FGL-DR2 sources with RF and BDT algorithms are reported in Appendix \ref{sec:app}.}
+
+
+
 \subsubsection{Neural Networks}
 
 In the case of NN, the number of free parameters depends on the number of hidden layers and on the number of neurons in the hidden layers. The final model accuracy also depends on the number of epochs that the network is allowed to be trained for and on the optimization algorithm. 
@@ -408,7 +416,8 @@ averaged over 100 random splits into training and testing samples.}
 \lb{sec:oversampling}
 
 \Fermi-LAT catalogs have many more AGNs than pulsars, i.e., the datasets are imbalanced.
-For example, the 3FGL catalog has 1744 associated AGNs and 167 associated pulsars.
+For example, the 3FGL catalog has 1744 associated AGNs (1739 without missing or unphysical values)
+and 167 associated pulsars (166 without missing or unphysical values).
 In the previous subsections we have optimized the overall accuracy. In this case, the algorithms try to identify AGNs rather than pulsars,
 since it gives better accuracy. As a result, in the region of parameter space, where both pulsars and AGNs are present, the algorithms
 will give higher probability for a source to be an AGN.
