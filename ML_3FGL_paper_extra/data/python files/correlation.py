@@ -8,11 +8,11 @@ from sklearn.metrics import mutual_info_score
 from sklearn import preprocessing
 from sklearn.preprocessing import StandardScaler
 
-plt.rcParams['xtick.labelsize'] = 14
+plt.rcParams['xtick.labelsize'] = 18
 plt.rcParams['axes.labelsize'] = 14
 plt.rcParams['axes.titlesize'] = 25
-plt.rcParams['font.size'] = 14
-plt.rcParams['ytick.labelsize'] = 14
+plt.rcParams['font.size'] = 18
+plt.rcParams['ytick.labelsize'] = 18
 
 
 seed=5
@@ -23,20 +23,23 @@ file_2=fits.open('OUTPUT')
 file_3=fits.open('input_glat')
 '''
 dataframe = pd.read_csv("./files/3fglassoc.csv", header=None)
-dataset=dataframe.values[1:]
+dataset=dataframe.values
+#print(dataset)
 dataset2=dataframe.values[0]
-labels2=dataset2[1:17]
+labels2=dataset2[0:20]
+#print(labels2)
 labels2=labels2.ravel()
-print(dataset[0,17])
+#print(dataset[0,17])
 #labels2=dataset[0:1,1:12]
 #labels2=labels2.ravel()
 #dataset=dataset[1:,1:29].astype(float)
 #print(dataset)
-mat=np.zeros((16,16))
-for j in range(16):
-    for k in range(16):
-        X=[dataset[i,j+1] for i in range(len(dataset)) if dataset[i,17]=='AGN' or dataset[i,17]=='PSR']# or dataset[i,12]=='OTHER']
-        Y=[dataset[i,k+1] for i in range(len(dataset)) if dataset[i,17]=='AGN' or dataset[i,17]=='PSR']# or dataset[i,12]=='OTHER']
+mat=np.zeros((20,20))
+'''
+for j in range(20):
+    for k in range(20):
+        X=[dataset[i,j+1] for i in range(len(dataset)) if dataset[i,21]=='AGN' or dataset[i,21]=='PSR']# or dataset[i,12]=='OTHER']
+        Y=[dataset[i,k+1] for i in range(len(dataset)) if dataset[i,21]=='AGN' or dataset[i,21]=='PSR']# or dataset[i,12]=='OTHER']
         X=np.asarray(X)
         Y=np.asarray(Y)
         X=X.astype(float)
@@ -45,19 +48,45 @@ for j in range(16):
         mi = mutual_info_score(None,None,contingency=c_xy)
         print(dataset2[j+1],dataset2[k+1],mi)
         mat[j,k]=mi
-#dataset=pd.DataFrame(dataset,columns=labels2)
+'''
+
+dataset=dataset[1:,0:20].astype(float)
+df=pd.DataFrame(dataset,columns=labels2)
+#print(df)
 #plt.rc('xtick', labelsize=7) 
 #plt.rc('ytick', labelsize=10)
 #corr=sklearn.feature_selection.mutual_info_classif(X,Y)
+corr1=df.corr(method='pearson')
+print(corr1)
+mask = np.triu(np.ones_like(corr1, dtype=np.bool))
+#corr2=abs(corr1)
+#mask2=np.less(corr2,0.7)
+#mask=mask +mask2
+fig, ax = plt.subplots(figsize=(31,31))         # Sample figsize in inches
+ax.set_title("Correlation in 3FGL Associated Data")
+sns.heatmap(corr1, mask=mask, annot=True,annot_kws={"size": 8},cbar_kws={"shrink": .5},linewidths=3)
+plt.xticks(rotation='vertical')
+plt.yticks(rotation='horizontal')
+
+plt.show()
+
+
+
 #mat = StandardScaler().fit_transform(mat)
-print(mat)
-#mask = np.triu(np.ones_like(corr, dtype=np.bool))
-#corr2=abs(corr)
+#print(mat)
+mask = np.triu(np.ones_like(corr, dtype=np.bool))
+corr2=abs(corr)
 #mask2=np.less(corr2,0.7)
 #mask=mask +mask2
 #corr=corr*-1
 #print(mask)
 #print(sai)
+
+
+
+
+
+
 fig, ax = plt.subplots(figsize=(31,31))         # Sample figsize in inches
 ax.set_title("Mutual Information in 3FGL Associated Data")
 mat3=pd.DataFrame(mat,columns=labels2)
