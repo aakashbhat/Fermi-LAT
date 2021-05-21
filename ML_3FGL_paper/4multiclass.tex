@@ -1,20 +1,22 @@
 \section{Three-Class Classification}
 \lb{sec:3class}
 
-One of the caveats of the analysis with two classes is that there are associated sources, which do not belong to AGN or PSR classes. These have the labels: unk, spp, glc, snr, gal, sbg, GAL, sfr, bin, SNR, HMB, LMB, css, PWN, pwn, hmb, SFR, BIN, lmb, NOV.
+One of the caveats of the analysis with two classes is that there are associated sources, which do not belong to AGN or PSR classes. 
+These sources have the labels: unk, spp, glc, snr, gal, sbg, GAL, sfr, bin, SNR, HMB, LMB, css, PWN, pwn, hmb, SFR, BIN, lmb, NOV.
 We collect all associated sources, which do not belong to AGN and PSR classes, into a new class, which we label as ``OTHER''.
 Since in two-class classification we train algorithm to classify sources only into AGN and PSR classes, OTHER sources are also classified as either AGN or PSR.
 This introduces a bias in the estimates of the number of AGNs and pulsars among unassociated sources.
-One possibility to correct this bias is to assume that the fractions of OTHER sources among associated and unassociated sources are the same (Equation (\ref{eq:other_correction})).
+One possibility to correct this bias is to assume that the fractions of OTHER sources among associated and unassociated sources are the same (Eq. (\ref{eq:other_correction})).
 This correction can be applied for the total number of sources or for the number of sources in some window of parameters,
 e.g., in a flux bin or in a range of latitudes and longitudes.
-This is a straightforward calculation but it has some limitations. In particular, it implicitly assigns equal probabilities to all AGNs (and all PSRs) to belong to the OTHER class.
+This is a straightforward calculation but it has some limitations. 
+In particular, it implicitly assigns one probability for each AGN and one probability for each PSR to belong to the OTHER class inside a selected range of parameters.
 For a small range of parameters the variance of this estimate can be very large due to small number of associated OTHER sources in this parameter range.
 As we will see in Section \ref{sec:pop_studies}, this correction depends on the choice of the variable used for binning, e.g.,
 overall correction with latitude bins is not equal to the correction with longitude bins.
 
 In this section we discuss the construction of probabilistic catalogs with multi-class classification (3-class classification in our case).
-We start with the construction of the probabilistic catalog based on 3FGL by adding the class ``OTHER'', which includes all associated sources without AGN or PSR associations: there are 108 such sources in 3FGL.
+We start with the construction of the probabilistic catalog based on 3FGL by adding the class ``OTHER'', which includes all associated sources without AGN or PSR associations: there are 113 such sources in 3FGL (108 OTHER sources are without missing or unphysical values).
 We use the same 11 features as in the 2-class classification: the only difference is that we use cos(GLON) instead of GLON.
 The reason is that LR and NN methods have a significantly worse performance than RF and BDT methods when we use GLON,
 but, as we show below, all four methods have comparable accuracy when we use cos(GLON).
@@ -23,20 +25,20 @@ We perform optimization of the meta-parameters for the four ML algorithms with t
 
 
 \begin{figure}[h]
-\center
+\centering
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/rf_train_multi.pdf}\\
 %\hspace*{-1cm}
 \includegraphics[width=0.5\textwidth]{plots/bdt_train_multi.pdf}
 \includegraphics[width=0.5\textwidth]{plots/lr_train_multi.pdf}
-\caption{Accuracy for the 3-class classification with RF, BDT and LR  methods. LR does not have liblinear solver here, since liblinear 
+\caption{Accuracy of the 3-class classification with RF, BDT and LR  methods. LR does not have liblinear solver here, since liblinear 
 does not support multi-class loss.
 }
 \label{fig:tree_multi}
 \end{figure}
 
 \begin{figure}[h]
-\center
+\centering
 \includegraphics[width=0.5\textwidth]{plots/nn_epoch_train_multi.pdf}\\
 \includegraphics[width=0.5\textwidth]{plots/nn_neuron_train_multi.pdf}
 \caption{Accuracy of the NN classification as a function of the number of epochs and of the number of neurons
@@ -46,30 +48,32 @@ does not support multi-class loss.
 \end{figure}
 
 
-The dependence of accuracy on meta-parameters of the algorithms is shown in Figures \ref{fig:tree_multi} and \ref{fig:nets_multi}.
+The dependence of accuracy on meta-parameters of the algorithms is shown in Figs. \ref{fig:tree_multi} and \ref{fig:nets_multi}.
 We see that for the tree-based algorithms, the optimal parameters are similar to the 2-class classification, i.e., 50 trees with depth 6 for RF and 100 trees with depth 2 for BDT 
 provide close to optimal performance at a minimal cost in complexity (depth of the trees).
 The main difference for NN and LR algorithms is that more steps are needed for convergence, especially in case of oversampling. 
 In the following we use 600 epochs for NN and 500 iterations for LR instead of 300 epochs and 200 iterations respectively in the two-class case.
 For NN, the accuracy stops increasing above about 10 neurons in the hidden layer (in the following we use 11 neurons for classification: the same as in the two-class case).
 For oversampling, we use the oversampling factors $\sqrt{\frac{\text{\# AGN}}{\text{\# PSR}}}$ and $\sqrt{\frac{\text{\# AGN}}{\text{\# OTHER}}}$ for PSR and OTHER classes respectively (compared to the $\frac{\text{\# AGN}}{\text{\# PSR}}$ oversampling factor in the 2-class case).
-The reason for a smaller oversampling factors is to avoid overweighting two the relatively small PSR and OTHER classes.
+The reason for a smaller oversampling factors is to avoid overweighting the two relatively small PSR and OTHER classes.
 
 \begin{figure}[h]
+\centering
 \includegraphics[width=0.46\textwidth]{plots/classification_domains/rf_50_6_3class.pdf}
 \caption{Classification domains for RF in the 3-class classification.
+The sources in the blue, green, and brown areas are attributed to AGN, OTHER, and PSR classes respectively.
 }
 \label{fig:RF_domains_3class}
 \end{figure}
 
-We show an example of domains in the 3-class case in Figure \ref{fig:RF_domains_3class}.
+We show an example of domains in the 3-class case in Fig. \ref{fig:RF_domains_3class}.
 A class domain is determined by the class with the largest probability.
 Since in the 3-class case there are two independent probabilities, which are difficult to show with a single color bar,
 we present only the domains represented by three different colors: brown for PSR, green for OTHER, and blue for AGN classes.
 The corresponding training and testing data are shown by red crosses and brown rotated squares for PSR, by green squares and yellow diamonds for OTHER,
 and by blue and purple triangles for AGN classes.
 The classification domains are averaged over 100 realizations of splitting the data into training and testing samples.
-One of these splittings is shown on the figure.
+One of these splittings is shown on the figure for illustration.
 
 
 The accuracies of our chosen models for classification of the 3FGL sources are presented in Table \ref{tab:selected_algs_multi}.
@@ -82,12 +86,13 @@ Thus the testing accuracy of 93-94\% in Table \ref{tab:selected_algs_multi} prov
 after taking into account the misclassification of OTHER sources in the 2-class case
 and a similar improvement for the accuracy of classification of unassociated sources in 3FGL with 4FGL-DR2 associations.
 
-A comparison of predicted classes for the 3FGL unassociated sources in the 3-class classification case with the classes of the corresponding associated sources in the 4FGL-DR2 catalog are presented in Table \ref{tab:3FGL_vs_4FGL_2class}.
+A comparison of predicted classes for the 3FGL unassociated sources in the 3-class classification case with the classes of the corresponding associated sources in the 4FGL-DR2 catalog are presented in Table \ref{tab:3FGL_vs_4FGL_3class}.
 It is interesting to note that there are fewer sources with mixed classification in this case relative to the 2-class classification in 
 Table \ref{tab:3FGL_vs_4FGL_2class}.
 Also the number of correct predictions in the 3-class case is 263 (out of 339 sources), while in the 2-class case there are 246 correct predictions.
 
 \begin{table}[!h]
+\centering
 \hspace{-0.2cm}
 \resizebox{0.47\textwidth}{!}{
     \tiny
@@ -123,9 +128,9 @@ Also the number of correct predictions in the 3-class case is 263 (out of 339 so
 
 
 \begin{table}[!h]
+\centering
 %\resizebox{0.3\textwidth}{!}{
     %\tiny
-  %\centering
  \renewcommand{\tabcolsep}{0.3mm}
 \renewcommand{\arraystretch}{1.5}
 
@@ -140,11 +145,11 @@ Also the number of correct predictions in the 3-class case is 263 (out of 339 so
     OTHER & 6 & 5 & 8 & 18 \\ % 37
     \hline
     \end{tabular}%}
-    \vspace{0.2cm}
+    \vspace{2mm}
     \caption{Comparison of classes predicted for unassociated sources in the 3FGL catalog using 3-class classification
     with associations in the 4FGL-DR2 catalog. 
 }
-    \label{tab:3FGL_vs_4FGL_2class}
+    \label{tab:3FGL_vs_4FGL_3class}
 \end{table}
 
 
@@ -159,10 +164,10 @@ one has to take into account that there are 346 OTHER sources among 4116 associa
 Since all OTHER sources are ``misclassified'' by the 2-class classification, the 3-class classification provides an improvement of about 2-4\% compared to the 2-class classification.
 
 \begin{table}[!h]
+\centering
 \hspace{-0.2cm}
-%\resizebox{0.47\textwidth}{!}{
+\resizebox{0.47\textwidth}{!}{
     \tiny
-  \centering
     \renewcommand{\tabcolsep}{0.4mm}
 \renewcommand{\arraystretch}{1.6}
     \begin{tabular}{c c c c c c}
@@ -184,7 +189,7 @@ Since all OTHER sources are ``misclassified'' by the 2-class classification, the
     LR\_O &  &92.22&0.69\\
     \hline
      
-    \end{tabular}%}
+    \end{tabular}}
     \vspace{2mm}
     \caption{Testing accuracy of the four selected algorithms for the 3-class classification of 4FGL-DR2 sources. 
     ``\_O'' denotes training with oversampling.}
@@ -206,40 +211,36 @@ In particular, the number of OTHER sources predicted by NN was zero.
 In our case, the predictions of various algorithms are relatively consistent with each other.
 For example, in the 3FGL (4FGL-DR2) catalog all 8 methods classify 69 (271) unassociated sources as OTHER.
 Also, 8 out of 37 unassociated 3FGL sources, which are associated to OTHER sources in 4FGL-DR2, are classified by all 8 algorithms as
-OTHER (see Table \ref{tab:3FGL_vs_4FGL_2class}).
+OTHER (see Table \ref{tab:3FGL_vs_4FGL_3class}).
 
 We also used the 3-class classification to create lists of most likely PSR and OTHER sources among the unassociated
 source in the 4FGL-DR2 catalog.
-In Section Section \ref{sec:4FGLprediction} we determined a list of 29 PSR candidates by requiring that 
+In Section \ref{sec:4FGLprediction} we determined a list of 29 PSR candidates by requiring that 
 the unassociated sources are predicted to be pulsars by all 8 methods both in the 3FGL and in the 4FGL-DR2 catalogs.
 In this section we use a different method to determine candidates, which belong to PSR and OTHER classes: 
 we calculated the sums of probabilities for PSR and OTHER classes for all 8 methods in the 3-class classification case
-and select sources with the sums of probabilities larger than 7.0.
+and select sources with the sums of probabilities larger than 7.
 
-%We have used the 3-class classification for a candidate list of most promising objects. 
-%Our probabilistic method allows for a selection of the best sources which may be used in the future for follow up observations. 
-%In this section we summed up the probabilities of all 8 methods for the three classes and chose the threshold of 7.0 for the column $\text{OTHER\_TOTAL}$. 
-%This is a stringent condition on the probability that a source belongs to the other class. Furthermore, we sub-selected the unassociated candidates in 4FGL-DR2 and have created our final candidate list of 30 sources based on 4FGL-DR2 features, shown in table \ref{tab:other_candidates_3class}.
-%We also used the 3-class classification to create lists of most likely PSRs and OTHER sources. 
-%We summed up the probabilities of all 8 methods for the three classes and chose the threshold of 7.0 for the column $\text{OTHER\_TOTAL}$. 
 
 There are 6 unassociated 4FGL-DR2 sources
 with the sum of PSR-class probabilities in the 3-class classification larger than 7.
 The PSR candidates are shown in Table \ref{tab:psr_candidates_3class}. 
 All of these sources are also among the list of 29 PSR candidates determined in the 2-class classification using both 3FGL and 4FGL-DR2 
 features in Section \ref{sec:4FGLprediction}. 
-%\dima{Since all of these sources are among the 29 candidates in Section \ref{sec:4FGLprediction}, should we just add a column with the sum of probabilities in the corresponding csv file in SOM and remove the file with the 6 candidates?}
+For convenience, we also add the sums of PSR-like probabilities for the 3-class classification of the 4FGL-DR2 sources
+in the ``3FGL\_4FGL-DR2\_Candidates\_PSR.csv'' file.
 We note that the condition on the sum of probabilities to be larger than 7 is, as a rule, more stringent than the condition that a source
 is predicted to be a pulsar by all 8 methods, which we used in Section \ref{sec:4FGLprediction} in order to create the list of 29 pulsar
 candidates based on the 2-class classification.
 Three sources (4FGL J1539.4-3323, 4FGL J0933.8-6232,  and 4FGL J2112.5-3043) 
 have also possible associations in the Parkes survey (Table \ref{tab:parkes}).
-Interestingly, none of the sources in Table \ref{tab:psr_candidates_3class} have the sum of PSR probabilities greater than 7 when 3FGL features are used. However, five of them are categorized as PSRs by all 8 methods in 3FGL. %We therefore have two lists of candidate PSRs: 1 using 2-class classification on 3FGL and 4FGL-DR2 features, and 1 with 3-class classification on 4FGL-DR2 features. Dima: there is really only one list, since the 3-class list is a subset of the 2-class list.
+Interestingly, none of the sources in Table \ref{tab:psr_candidates_3class} have the sum of PSR probabilities greater than 7 when 3FGL features are used. However, five of them are categorized as PSRs by all 8 methods in 3FGL. 
 We also note that all sources with the sum of PSR probabilities larger than 7 for the 3-class classification of unassociated 3FGL sources
 are associated as PSRs in 4FGL-DR2.
 
 \pgfplotstableread[col sep=comma]{tables/4FGLDR2_PSR.csv}\loadedtable
 \begin{table}
+\centering
 \hspace{-0.1cm}
 \tiny
 \resizebox{0.47\textwidth}{!}{
@@ -270,6 +271,7 @@ in the 3-class classification for the 4FGL-DR2 (3FGL) catalog.
 
 \pgfplotstableread[col sep=comma]{tables/4FGLDR2_Candidates_OTHER.csv}\loadedtable
 \begin{table}
+\centering
 \hspace{-0.5cm}
 \tiny
 \resizebox{0.47\textwidth}{!}{
@@ -286,18 +288,20 @@ columns/Category_Prob_3FGL/.style={column name=3FGL cat.},
 ]\loadedtable
 }
 \normalsize
+\vspace{2mm}
 \caption{\label{tab:other_candidates_3class}
 Unassociated 4FGL-DR2 sources with the sum of OTHER-class probabilities for all 8 ML methods in the 3-class classification larger than 7. 
 For the description of columns, see Table \ref{tab:psr_candidates_3class}.
 Sources with missing values in the 3FGL columns are not detected in the 3FGL.
+We also save these OTHER-class 
+candidates in the supplementary online materials as ``4FGL-DR2\_Candidates\_OTHER\_3classes.csv''.
 }
 \end{table}
 
 There are 30 unassociated 4FGL-DR2 sources
 with the sum of OTHER-class probabilities in the 3-class classification larger than 7.
-The OTHER-class candidates are shown in Table \ref{tab:other_candidates_3class}. 
-Out of these 30 sources only two sources have no flags in 4FGL, and only eight sources have an association with the previous FGL catalogs (column name ASSOC\_FGL). 
-%Furthermore, we tried to find whether recent work could be found for some of these sources and used the  for this purpose. 
+The OTHER-class candidates are shown in Table \ref{tab:other_candidates_3class}.
+Out of the 30 sources only two sources have no flags in 4FGL, and only eight sources have an association with the previous FGL catalogs (column name ASSOC\_FGL). 
 The following sources had additional associations in Simbad database
 ordered by decreasing sum of OTHER-class probabilities:
 \begin{enumerate}
@@ -308,12 +312,12 @@ However, the source 1FGL J1800.5-2359c \citep{2010ApJS..188..405A} is associated
 \item 4FGL J1843.7-0326: Associated with 3FGL J1843.7-0322 and found near the HESS source HESS J1843-033, next to the SNR G28.6-0.1 \citep{2018A&A...612A...1H}. This source is
 among the 120 unassociated sources according to significance (>10) in the list of \citet{2016ApJ...820....8S} where the RF and LR methods predicted it to be a young pulsar based on the 2-class classification. 
 In our 3FGL 3-class catalog, this source has a 'MIXED' classification.
-\item 4FGL J1556.8-5242c: Within 1 arcminute of the Candidate YSO 2MASS J15564953-5241450 \citep{2008AJ....136.2413R}.
-\item 4FGL J1631.7-4826c (3FGL J1632.4-4820 \citep{2015ApJS..218...23A})): Within 30 arcseconds of the Dark Cloud (Nebula) SDC G335.894-0.184 \citep{2016A&A...590A..72P}.
+\item 4FGL J1556.8-5242c: Within 1 arcminute of the candidate YSO 2MASS J15564953-5241450 \citep{2008AJ....136.2413R}.
+\item 4FGL J1631.7-4826c (3FGL J1632.4-4820 \citep{2015ApJS..218...23A}): Within 30 arcseconds of the Dark Cloud (Nebula) SDC G335.894-0.184 \citep{2016A&A...590A..72P}.
 \item 4FGL J1626.0-4917c (3FGL J1626.2-4911 \citep{2015ApJS..218...23A}, 3FHL J1626.3-4915 \citep{2017ApJS..232...18A}): 
 Associated with HESS J1626-490. It is also one of the 27 sources shortlisted by \citet{2020MNRAS.495.1093H}, 
 who used ML methods to select pulsar candidates from the 3FHL catalog. It is also classified as OTHER based on the 3FGL values.
-\item 4FGL J1849.4-0117 (3FGL J1849.5-0124c \citep{2015ApJS..218...23A}): It is in the region of Galactic mini starburst W43 studied by \citet{2020A&A...640A..60Y}. Also within 1 arcminute of the Candidate YSO SSTOERC G031.5367-00.1555. Has a 'MIXED' classification based on the 3FGL values.
+\item 4FGL J1849.4-0117 (3FGL J1849.5-0124c \citep{2015ApJS..218...23A}): It is in the region of Galactic mini starburst W43 studied by \citet{2020A&A...640A..60Y}. Also within 1 arcminute of the candidate YSO SSTOERC G031.5367-00.1555. Has a 'MIXED' classification based on the 3FGL values.
 \item 4FGL J1109.4-6115e (3FGL J1111.9-6038 \citep{2015ApJS..218...23A}): It is associated with the extended galactic source FGES J1109.4-6115 \citep{2017ApJ...843..139A}, near the speculated SFR 4FGL J1115.1-6118, in there region of Young Massive Stellar Cluster NGC 3603 \citep{2020ApJ...897..131S}. 'MIXED' classification with the 3FGL values.
 \item 4FGL J1850.2-0201: Also in the region of the starburst W43 \citep{2020A&A...640A..60Y}.
 \item 4FGL J1801.8-2358: Associated with HESS J1800-240A and 2FHL J1801.7-2358. Located south of the SNR W28 \citep{2020MNRAS.495.2909R}.

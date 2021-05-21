@@ -1,4 +1,6 @@
-\documentclass[preprint]{aa}
+\documentclass{aa}
+%\documentclass[referee]{aa} % for a referee version
+%\documentclass[preprint]{aa}
 \pdfoutput=1
 
 \bibliographystyle{aa}
@@ -195,7 +197,7 @@ there may be no plausible association candidates.
 }
 % aims heading (mandatory)
 {
-In this work, we aim to determine probabilistic classification of unassociated sources in the third and the fourth \Fermi Large Area Telescope (LAT) point source catalogs (3FGL and 4FGL-DR2) into two classes (pulsars and active galactic nuclei (AGNs)) or three classes (pulsars, AGNs, and other sources).
+In this work, we aim to determine probabilistic classification of unassociated sources in the third and the fourth data release 2 \Fermi Large Area Telescope (LAT) point source catalogs (3FGL and 4FGL-DR2) into two classes (pulsars and active galactic nuclei (AGNs)) or three classes (pulsars, AGNs, and other sources).
 }
 % methods heading (mandatory)
 {
@@ -207,7 +209,7 @@ We evaluate the dependence of results on meta-parameters of the ML methods, such
 We determine probabilistic classification of both associated and unassociated sources in 3FGL and 4FGL-DR2 catalogs.
 We cross-check the accuracy by comparing the predicted classes of unassociated sources in 3FGL that have associations in 4FGL-DR2.
 We find that in the 2-class case it is important to correct for the presence of other sources among the unassociated ones in order to realistically estimate the number of pulsars and AGNs.
-In particular, the estimated number of pulsars in the 3FGL (4FGL-DR2) catalog is 270 (481) in the 2-class case without corrections for the other sources and 158 (214) in the 3-class case.
+In particular, the estimated number of pulsars in the 3FGL (4FGL-DR2) catalog is 270 (483) in the 2-class case without corrections for the other sources and 158 (215) in the 3-class case.
 Provided that the number of associated pulsars is 167 (271) in the 3FGL (4FGL-DR2) catalog,
 the number of pulsars among the unassociated sources is expected to be similar or larger than the number of associated ones. 
 }
@@ -215,7 +217,8 @@ the number of pulsars among the unassociated sources is expected to be similar o
 {}
 
 \keywords{Methods: statistical --
-                Catalogs
+                Catalogs --
+                Gamma rays: general
                 %Galaxy: halo --
                 %Galaxy: structure -- 
                 %ISM: jets and outflows
@@ -230,8 +233,8 @@ the number of pulsars among the unassociated sources is expected to be similar o
 \input{1intro_pcat}
 \input{2methods}
 \input{3prediction}
-\input{5multiclass}
-\input{4comparison}
+\input{4multiclass}
+\input{5comparison}
 \input{6conclusions}
 
 %\newpage
