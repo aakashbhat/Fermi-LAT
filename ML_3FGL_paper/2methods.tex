@@ -108,6 +108,10 @@ We took the main features and calculated their Pearson correlation coefficients.
 A graphical representation of the correlation table is shown in Fig.~\ref{fig:assoc_corr_3fgli}. 
 In the following, if two features have (anti)correlation $\gtrsim 0.75$ 
 ($\lesssim -0.75$), then we keep only one of the features for classification.
+Along with the normal features we also add 4 hardness ratios defined as $hr_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i}$, where $EF_i$ is the energy flux in bin $i$
+and $j = i + 1$ (i.e., the bins are consecutive).
+We have added the hardness ratios in order to allow the algorithms to ``construct'' their own features from the raw data rather than to use the 
+derived features, such as 500MeV\_Index or integrated energy flux.
 
 \begin{figure}[h]
 \centering
@@ -148,10 +152,7 @@ than PowerLaw\_Index, provided that pulsars have typically harder spectra at ene
 Taking into account the correlation among the features and the above discussion of the spectral index definition,
 we have selected the following eleven features for the classification of the 3FGL sources:
 Galactic latitude (GLAT), Galactic longitude (GLON), ln(Energy\_Flux\_100), $\ln$(Unc\_Energy\_Flux100), 500MeV\_Index, $\ln$(Signif\_Curve), 
-$\ln$(Variability\_Index), and four hardness ratios $hr_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i}$, where $EF_i$ is the energy flux in bin $i$
-and $j = i + 1$ (i.e., the bins are consecutive).
-We have added the hardness ratios in order to allow the algorithms to ``construct'' their own features from the raw data rather than to use the 
-derived features, such as 500MeV\_Index or integrated energy flux.
+$\ln$(Variability\_Index), and four hardness ratios $HR_ij$.  
 The table of features and their statistics can be found in Appendix \ref{sec:app}.
 
 
