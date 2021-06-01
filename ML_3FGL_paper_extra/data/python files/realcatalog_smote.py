@@ -132,9 +132,9 @@ while se<times:
     
     #oversample = RandomOverSampler(sampling_strategy=0.5)
     clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
-    clf2= MLPClassifier(max_iter=600,hidden_layer_sizes=(16,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
-    clf3= LogisticRegression(max_iter=1000, C=1,solver='lbfgs').fit(X_over, y_over)
-    clf4 = RandomForestClassifier(n_estimators=50,max_depth=8,oob_score=True)
+    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(16,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
+    clf3= LogisticRegression(max_iter=200, C=1,solver='lbfgs').fit(X_over, y_over)
+    clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
     clf4.fit(X_over, y_over)
     
     ##########################################
@@ -303,7 +303,7 @@ pro2=["Source_Name","AGN_BDT","AGN_BDT_STD","PSR_BDT","PSR_BDT_STD","AGN_NN","AG
 result_As=np.vstack((pro2,result_as))
 result_As=pandas.DataFrame(result_As)
 
-result_As.to_csv(path_or_buf="./catas/try_4fgl_smote_as_O.csv",index=False)
+result_As.to_csv(path_or_buf="./catas/try_4fgl_smote_as_2C.csv",index=False)
 
 
 
@@ -381,7 +381,7 @@ pro2=["Source_Name","AGN_BDT","AGN_BDT_STD","PSR_BDT","PSR_BDT_STD","AGN_NN","AG
 result=np.vstack((pro2,result2))
 result=pandas.DataFrame(result)
 
-result.to_csv(path_or_buf="./catas/try_4fgl_smote_unas_O.csv",index=False)
+result.to_csv(path_or_buf="./catas/try_4fgl_smote_unas_2C.csv",index=False)
 
 
 

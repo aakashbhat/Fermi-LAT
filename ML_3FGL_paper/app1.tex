@@ -125,3 +125,48 @@ in Tables \ref{tab:3FGL_features} and \ref{tab:4FGL_features} respectively.
 We show the feature importances for the 2-class classification of 4FGL-DR2 sources in Table \ref{tab:feat_imp2}.
 Similarly to feature importances for the 3FGL 2-class classification reported in Table \ref{tab:feat_imp}, 
 some of the most important features are significance of curvature in the spectrum, variability index, energy flux above 100 MeV and its uncertainty.
+
+\section{Comparison of Oversampling methods}
+
+Here we compare the oversampling method we use in our catalog with the SMOTE oversampling technique. SMOTE oversamples by creating synthetic data based on the data points already available. For a direct comparison we used the associated sources in 4FGL-DR2 and compared the probabilities of the individual sources. We calculate normalized differences of individiual probabilities $P_{D}$ by the formula:
+
+\begin{align}
+P_{D}= \frac{\Delta}{max(\sigma_{O},\sigma_{S})}
+\end{align}
+
+where $\Delta$ is the difference of probabilities for the normal oversampling (O) and the SMOTE oversampling (S), for individual methods. We then plot a histogram for this value. One would expect a difference of 0.0 and a standard deviation of 0.5 for there to be no statistical difference between the two methods. The table below shows the parameters:
+\begin{table}[!h]
+\tiny
+\centering
+\renewcommand{\tabcolsep}{1mm}
+\renewcommand{\arraystretch}{1}
+
+\begin{tabular}{c c c}
+\hline
+\hline
+Method & Mean&Std.\\
+\hline
+RF& -0.250 & 0.451\\
+\hline
+BDT&-0.040&0.511 \\
+\hline
+NN&0.555&0.573\\
+\hline
+LR&0.617&0.644\\
+\end{tabular}
+\vspace{2mm}
+\caption{The Parameters of histograms for the 4 algorithms used.
+}
+\label{tab:compO}
+\end{table}
+
+We plot here the histogram for BDT and LR:
+\begin{figure}[h]
+\centering
+\hspace*{-1cm}
+\includegraphics[width=0.55\textwidth]{plots/diffBDT2.pdf}
+\caption{Histogram for comparison of oversampling with BDT.
+}
+\label{fig:nn_nn}
+\end{figure}
+
