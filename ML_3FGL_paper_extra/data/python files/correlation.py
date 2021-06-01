@@ -62,12 +62,12 @@ mask = np.triu(np.ones_like(corr1, dtype=np.bool))
 #corr2=abs(corr1)
 #mask2=np.less(corr2,0.7)
 #mask=mask +mask2
-fig, ax = plt.subplots(figsize=(31,31))         # Sample figsize in inches
+fig, ax = plt.subplots(figsize=(35,35))         # Sample figsize in inches
+sns.heatmap(corr1, mask=mask, annot=True,annot_kws={"size": 8},cbar_kws = dict(use_gridspec=False,location="right",shrink=0.7,anchor=(1.2,0.7)),linewidths=3,vmin=-1,vmax=1)
 ax.set_title("Correlation in 3FGL Associated Data")
-sns.heatmap(corr1, mask=mask, annot=True,annot_kws={"size": 8},cbar_kws={"shrink": .5},linewidths=3)
+
 plt.xticks(rotation='vertical')
 plt.yticks(rotation='horizontal')
-
 plt.show()
 
 
