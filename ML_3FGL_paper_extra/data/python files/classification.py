@@ -25,7 +25,11 @@ from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 from sklearn.linear_model import LogisticRegression
 import matplotlib.colors as colors
 from imblearn.over_sampling import RandomOverSampler
-
+import imblearn as imbl
+from collections import Counter
+from sklearn.datasets import make_classification
+from imblearn.over_sampling import SMOTE
+from numpy import where
 '''
 plt.rcParams['xtick.labelsize'] = 22
 plt.rcParams['axes.labelsize'] = 30
@@ -42,27 +46,26 @@ plotting_dima.setup_figure_pars()
 score=0
 #Training Fata:
 se=0
-s1=563
-s2=451
+s1=11339
+s2=652
 zbig=np.zeros((s1,s2))
 while se<10:
     np.random.seed(se)
-    dataframe = pandas.read_csv("./catas/3fgl_multi_cata_newfeats.csv", header=None)
+    dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
     dataset1 = dataframe.values 
     np.random.shuffle(dataset1[1:])
 
 
-    X=[dataset1[i,[6,5]].astype(float) for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR'or dataset1[i,12]=='OTHER']
-    Y =[dataset1[i,12] for i in range(len(dataset1)) if dataset1[i,12]=='AGN' or dataset1[i,12]=='PSR'or dataset1[i,12]=='OTHER']
+    X=[dataset1[i,[10,9]].astype(float) for i in range(len(dataset1)) if dataset1[i,17]=='AGN' or dataset1[i,17]=='PSR']#or dataset1[i,12]=='OTHER']
+    Y =[dataset1[i,17] for i in range(len(dataset1)) if dataset1[i,17]=='AGN' or dataset1[i,17]=='PSR']#or dataset1[i,12]=='OTHER']
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
-
+    counter=Counter(Y)
     X=np.asarray(X)
-    print(X)
+    #print(X)
     h = .02  # step size in the mesh
-
-
+    
 
 
     #X, y = make_classification(n_features=2, n_redundant=0, n_informative=2,
@@ -72,19 +75,19 @@ while se<10:
     X1=X
     #print(dataset1[0,2:4])
     y=Y
-    #linearly_separable = (X1, y1)
+    linearly_separable = (X1, y)
     #print(linearly_separable)
-    #datasets = [linearly_separable]
-    #X, y = datasets[0]
+    datasets = [linearly_separable]
+    X, y = datasets[0]
 
 
 
         #X = StandardScaler(with_mean=False,with_std=False).fit_transform(X)
     X_t, X_test, y_t, y_test = \
-        train_test_split(X, y, test_size=.3, random_state=0)       #Split into training and validation
+        train_test_split(X1, y, test_size=.3, random_state=0)       #Split into training and validation
 
-    #oversample = RandomOverSampler(sampling_strategy='minority')
-    X_train, y_train = X_t, y_t#oversample.fit_resample(X_t, y_t)
+    oversample = SMOTE()
+    X_train, y_train = oversample.fit_resample(X_t, y_t)
     print(se)
     x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5   #Define minimumm and maximum of axes
     y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
@@ -92,9 +95,12 @@ while se<10:
                          np.arange(y_min, y_max, h))
 
     # just plot the dataset first
-    cm = plt.cm.RdBu
-    cm_bright = ListedColormap(['#FF0000', '#0000FF'])
+    #cm = plt.cm.RdBu
+    #cm_bright = ListedColormap(['#FF0000', '#0000FF'])
     #ax.legend(('Red=AGN', 'Blue=PSR'))
+    levels = np.arange(0., 1.01, 0.1)
+    cm = plt.cm.RdYlBu
+    norm = colors.Normalize(vmin=0, vmax=1.0)
     '''    
     if ds_cnt == 1:
         ax.set_title("Input data")
@@ -111,8 +117,8 @@ while se<10:
         ax.set_ylabel("Uncertainity on Energy Flux")
     ''' 
     #Main part of code:
-    c1_train_inds = [i for i in range(len(y_train)) if y_train[i] ==2]
-    c1_test_inds = [i for i in range(len(y_test)) if y_test[i] ==2]
+    #c1_train_inds = [i for i in range(len(y_train)) if y_train[i] ==2]
+    #c1_test_inds = [i for i in range(len(y_test)) if y_test[i] ==2]
     c2_train_inds = [i for i in range(len(y_train)) if y_train[i] == 0]
     c2_test_inds = [i for i in range(len(y_test)) if y_test[i] == 0]
     c3_train_inds = [i for i in range(len(y_train)) if y_train[i] == 1]
@@ -131,10 +137,10 @@ while se<10:
     trainc2_marker = '^'
     testc2_color = 'magenta'
     testc2_marker = 'v'
-    trainc1_color = 'red'
-    trainc1_marker = 'x'
-    testc1_color = 'orange'
-    testc1_marker = 'D'
+    #trainc1_color = 'red'
+    #trainc1_marker = 'x'
+    #testc1_color = 'orange'
+    #testc1_marker = 'D'
 
 
 
@@ -150,8 +156,10 @@ while se<10:
     score = score+clf.score(X_test, y_test)       #Score of our classifier
     i=0
     levels = np.arange(0., 1.01, 0.1)
-    cm = plt.cm.rainbow
-    norm = colors.Normalize(vmin=-1, vmax=3)
+    cm = plt.cm.GnBu_r
+    norm = colors.Normalize(vmin=0, vmax=0.9)
+    #cm=plt.cm.rainbow
+    #norm = colors.Normalize(vmin=-1, vmax=3)
 
     X_test_spec_agn=[]
     X_test_sig_agn=[]
@@ -171,19 +179,18 @@ while se<10:
         # Plot the decision boundary. For that, we will assign a color to each
         # point in the mesh [x_min, x_max]x[y_min, y_max].
 #if hasattr(clf, "decision_function"):
-#    Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
+    #Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
 #else:
-    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
-
+    Z = clf.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
 # Put the result into a color plot
     Z = Z.reshape(xx.shape)
     zbig=zbig+Z
     se=se+1
 fig1,ax2 = plt.subplots()
 
-zbig=(zbig/10).astype(int)
-cs=ax2.contourf(xx, yy, zbig, cmap=cm,norm=norm, alpha=.8)#,levels=levels)
-#fig1.colorbar(cs,ax=ax2,shrink=0.9)
+zbig=(zbig/10)#.astype(int)
+cs=ax2.contourf(xx, yy, zbig, cmap=cm,norm=norm, alpha=.8,levels=levels)
+fig1.colorbar(cs,ax=ax2,shrink=0.9)
         # Plot the training points
 score=score/10
 alpha=0.9
@@ -215,20 +222,20 @@ ax2.scatter(X_train[c2_train_inds, 0], X_train[c2_train_inds, 1], c=trainc2_colo
 ax2.scatter(X_test[c2_test_inds, 0], X_test[c2_test_inds, 1], c=testc2_color, alpha=alpha,
                    marker=testc2_marker, edgecolors='k', label='AGN testing')
         # Training points for class 1
-ax2.scatter(X_train[c1_train_inds, 0], X_train[c1_train_inds, 1], color=trainc1_color,
-                   marker=trainc1_marker, edgecolors='k', label='PSR training')
+#ax2.scatter(X_train[c1_train_inds, 0], X_train[c1_train_inds, 1], color=trainc1_color,
+ #                  marker=trainc1_marker, edgecolors='k', label='PSR training')
         # Testing points for class 1
-ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, alpha=alpha,
-                   marker=testc1_marker, edgecolors='k', label='PSR testing')
+#ax2.scatter(X_test[c1_test_inds, 0], X_test[c1_test_inds, 1], c=testc1_color, alpha=alpha,
+#                   marker=testc1_marker, edgecolors='k', label='PSR testing')
 ax2.scatter(X_train[c3_train_inds, 0], X_train[c3_train_inds, 1], color=trainc3_color,
-                   marker=trainc3_marker, edgecolors='k', label='OTHER training')
+                   marker=trainc3_marker, edgecolors='k', label='PSR training')
         # Testing points for class 1
 ax2.scatter(X_test[c3_test_inds, 0], X_test[c3_test_inds, 1], c=testc3_color, alpha=alpha,
-                   marker=testc3_marker, edgecolors='k', label='OTHER testing')
+                   marker=testc3_marker, edgecolors='k', label='PSR testing')
 
 ax2.legend(loc=1)
-ax2.text(6.5,-2.3,"Iterations: 200")
-ax2.text(6.5,-2.6,"Solver: LBFGS")
+ax2.text(6.5,0.3,"Iterations: 200")
+ax2.text(6.5,0,"Solver: LBFGS")
 #ax2.text(0.02,-1.3,"Trees: 100")
 #ax2.text(0.02,-1.6,"Maximum Depth: 6")
 #ax2.set_xlim(xx.min(), xx.max())
@@ -237,15 +244,15 @@ ax2.set_title('Logistic Regression')
 
 #ax2.set_ylim(yy.min(), yy.max())
 ax2.set_xlabel('Ln(Variability_Index)')
-ax2.set_ylabel('Ln(Significant_Curvature)')
-ax2.set_ylim((-3,5))
-ax2.set_xlim((2.9,8))
+ax2.set_ylabel('Signif_Curv')
+ax2.set_ylim((-0.5,15))
+ax2.set_xlim((0,8))
 
 #ax.set_xticks(np.arange(-5,3,step=1))
  #       ax.set_yticks(())
   #      if ds_cnt == 0:
    #         ax.set_title(name)
-ax2.text(6.5 , -2.9, ('Testing Score:%.2f' % score).lstrip('0'))
+ax2.text(6.5 , -0.3, ('Testing Score:%.2f' % score).lstrip('0'))
  #       i += 1
 
 
