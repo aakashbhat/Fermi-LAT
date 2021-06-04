@@ -30,40 +30,45 @@ from collections import Counter
 from sklearn.datasets import make_classification
 from imblearn.over_sampling import SMOTE
 from numpy import where
-'''
-plt.rcParams['xtick.labelsize'] = 22
-plt.rcParams['axes.labelsize'] = 30
-plt.rcParams['axes.titlesize'] = 28
-plt.rcParams['font.size'] = 25
-plt.rcParams['ytick.labelsize'] = 25
-plt.rcParams['lines.markersize'] = 12
-'''
+
+#plt.rcParams['xtick.labelsize'] = 22
+#plt.rcParams['axes.labelsize'] = 30
+#plt.rcParams['axes.titlesize'] = 28
+#plt.rcParams['font.size'] = 25
+#plt.rcParams['ytick.labelsize'] = 25
+#plt.rcParams['lines.markersize'] = 12
+
 import plotting_dima
 
 plotting_dima.setup_figure_pars()
-#plt.rcParams['lines.markersize'] = 8
+plt.rcParams['lines.markersize'] = 8
 
 score=0
 #Training Fata:
 se=0
-s1=11339
-s2=652
+s1=563     #3FGL
+s2=451  #3FGL
 zbig=np.zeros((s1,s2))
+length=12 #Number where the classification is in the file
+
+
 while se<10:
     np.random.seed(se)
-    dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
+    #dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
+    dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
+
     dataset1 = dataframe.values 
     np.random.shuffle(dataset1[1:])
 
 
-    X=[dataset1[i,[10,9]].astype(float) for i in range(len(dataset1)) if dataset1[i,17]=='AGN' or dataset1[i,17]=='PSR']#or dataset1[i,12]=='OTHER']
-    Y =[dataset1[i,17] for i in range(len(dataset1)) if dataset1[i,17]=='AGN' or dataset1[i,17]=='PSR']#or dataset1[i,12]=='OTHER']
+    X=[dataset1[i,[6,5]].astype(float) for i in range(len(dataset1)) if dataset1[i,length]=='AGN' or dataset1[i,length]=='PSR']#or dataset1[i,12]=='OTHER']
+    Y =[dataset1[i,length] for i in range(len(dataset1)) if dataset1[i,length]=='AGN' or dataset1[i,length]=='PSR']#or dataset1[i,12]=='OTHER']
     encoder = preprocessing.LabelEncoder()
     encoder.fit(Y)
     Y = encoder.transform(Y)
     counter=Counter(Y)
     X=np.asarray(X)
-    #print(X)
+    print(X)
     h = .02  # step size in the mesh
     
 
@@ -234,32 +239,34 @@ ax2.scatter(X_test[c3_test_inds, 0], X_test[c3_test_inds, 1], c=testc3_color, al
                    marker=testc3_marker, edgecolors='k', label='PSR testing')
 
 ax2.legend(loc=1)
-ax2.text(6.5,0.3,"Iterations: 200")
-ax2.text(6.5,0,"Solver: LBFGS")
-#ax2.text(0.02,-1.3,"Trees: 100")
-#ax2.text(0.02,-1.6,"Maximum Depth: 6")
-#ax2.set_xlim(xx.min(), xx.max())
-ax2.set_title('Logistic Regression')
-#ax2.set_title('Random Forests (3-Class)')
 
-#ax2.set_ylim(yy.min(), yy.max())
-ax2.set_xlabel('Ln(Variability_Index)')
-ax2.set_ylabel('Signif_Curv')
-ax2.set_ylim((-0.5,15))
-ax2.set_xlim((0,8))
+if(length==12):
+    ax2.text(6.5,-2.3,"Iterations: 200")
+    ax2.text(6.5,-2.6,"Solver: LBFGS")
+    #ax2.text(0.02,-1.3,"Trees: 100")
+    #ax2.text(0.02,-1.6,"Maximum Depth: 6")
+    #ax2.set_xlim(xx.min(), xx.max())
+    ax2.set_title('Logistic Regression (SMOTE)')
+    #ax2.set_title('Random Forests (3-Class)')
 
-#ax.set_xticks(np.arange(-5,3,step=1))
- #       ax.set_yticks(())
-  #      if ds_cnt == 0:
-   #         ax.set_title(name)
-ax2.text(6.5 , -0.3, ('Testing Score:%.2f' % score).lstrip('0'))
- #       i += 1
+    #ax2.set_ylim(yy.min(), yy.max())
+    ax2.set_xlabel('Ln(Variability_Index)')
+    ax2.set_ylabel('Ln(Significant_Curvature)')
+    ax2.set_ylim((-3,5))
+    ax2.set_xlim((3,8))
+
+    #ax.set_xticks(np.arange(-5,3,step=1))
+     #       ax.set_yticks(())
+      #      if ds_cnt == 0:
+       #         ax.set_title(name)
+    ax2.text(6.5 , -2.9, ('Testing Score:%.2f' % score).lstrip('0'))
+     #       i += 1
 
 
-#plt.tight_layout()
-plt.show()
-fn = 'plots/rf_50_6_3class.pdf'
+plt.tight_layout()
+#plt.show()
+fn = 'plots/LR_200_LBFGS_SMOTE_3FGL.pdf'
 print('save plot to file')
 print(fn)
-#plt.savefig(fn)
+plt.savefig(fn)
 
