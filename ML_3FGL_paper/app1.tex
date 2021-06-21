@@ -169,20 +169,21 @@ LR&0.550&0.547&1.251&0.730\\
 \tiny
 \centering
 \renewcommand{\tabcolsep}{1mm}
-\renewcommand{\arraystretch}{1}
+\renewcommand{\arraystretch}{1.3}
 
-\begin{tabular}{c c c}
+\begin{tabular}{c c c c c}
 \hline
 \hline
-Method & Mean&Std.\\
+Classes&\multicolumn{2}{c}{2-Class}&\multicolumn{2}{c}{3-Class}\\
+Method & Mean&Std.&Mean&Std.\\
 \hline
-RF& -0.250 & 0.451\\
+RF& -0.250 & 0.451&2.427&0.914\\
 \hline
-BDT&-0.040&0.511 \\
+BDT&-0.040&0.511 &0.682&0.848\\
 \hline
-NN&0.555&0.573\\
+NN&0.555&0.573&0.683&0.270\\
 \hline
-LR&0.617&0.644\\
+LR&0.617&0.644&1.847&1.219\\
 \end{tabular}
 \vspace{2mm}
 \caption{The Parameters of histograms for the 4 algorithms used in 4FGL-DR2
@@ -206,8 +207,8 @@ Since Logistic Regression was used also to compare the domains, we plot the Hist
 \centering
 \hspace*{-0.5cm}
 \includegraphics[width=0.55\textwidth]{plots/hist_diff_smote_LR_4FGL-DR2_2class.pdf}
-%\hspace*{-0.5cm}
-%\includegraphics[width=0.55\textwidth]{plots/hist_diff_smote_LR_4FGL-DR2_3class.pdf}
+\hspace*{-0.5cm}
+\includegraphics[width=0.55\textwidth]{plots/hist_diff_smote_LR_4FGL-DR2_3class.pdf}
 \caption{Histograms for comparison of oversampling with LR in 3FGL data with 2-Class (Top) and 3-Class (Bottom) classification
 }
 \label{fig:nn_nn}
