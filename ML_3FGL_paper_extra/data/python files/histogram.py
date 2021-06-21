@@ -5,7 +5,7 @@ plt.rcParams['axes.labelsize'] = 28
 plt.rcParams['axes.titlesize'] = 28
 plt.rcParams['font.size'] = 28
 plt.rcParams['ytick.labelsize'] = 28
-data = pd.read_csv('./catas/4FGLDR2comparison.csv', quoting=2,usecols=['diffNN2'])
+data = pd.read_csv('./catas/3FGLcomparison_3CLASS.csv', quoting=2,usecols=['diffBDT'])
 
 data.hist(bins=50)
 plt.title("Neural Network")
