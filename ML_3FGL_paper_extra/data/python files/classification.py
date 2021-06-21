@@ -151,11 +151,11 @@ while se<10:
 
 
 #Choose classifier:
-    #clf=RandomForestClassifier(max_depth=6, n_estimators=50,oob_score=True)
+    clf=RandomForestClassifier(max_depth=6, n_estimators=50,oob_score=True)
     #clf= MLPClassifier(max_iter=600,hidden_layer_sizes=(2,), activation='tanh', solver='lbfgs').fit(X_train,y_train)
     #clf=GradientBoostingClassifier(n_estimators=20, learning_rate=0.3,max_depth=2, random_state=0).fit(X_train,y_train)
-    clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
-    #clf.fit(X_train, y_train)
+    #clf=LogisticRegression(max_iter=200, C=0.1,solver='lbfgs').fit(X_train,y_train)
+    clf.fit(X_train, y_train)
 
     lenth=len(X_test)
     score = score+clf.score(X_test, y_test)       #Score of our classifier
@@ -241,12 +241,12 @@ ax2.scatter(X_test[c3_test_inds, 0], X_test[c3_test_inds, 1], c=testc3_color, al
 ax2.legend(loc=1)
 
 if(length==12):
-    ax2.text(6.5,-2.3,"Iterations: 200")
-    ax2.text(6.5,-2.6,"Solver: LBFGS")
-    #ax2.text(0.02,-1.3,"Trees: 100")
-    #ax2.text(0.02,-1.6,"Maximum Depth: 6")
+    #ax2.text(6.5,-2.3,"Iterations: 200")
+    #ax2.text(6.5,-2.6,"Solver: LBFGS")
+    ax2.text(6.5,-2.3,"Trees: 50")
+    ax2.text(6.5,-2.6,"Maximum Depth: 6")
     #ax2.set_xlim(xx.min(), xx.max())
-    ax2.set_title('Logistic Regression (SMOTE)')
+    ax2.set_title('Random Forests(SMOTE)')
     #ax2.set_title('Random Forests (3-Class)')
 
     #ax2.set_ylim(yy.min(), yy.max())
@@ -265,7 +265,7 @@ if(length==12):
 
 plt.tight_layout()
 #plt.show()
-fn = 'plots/LR_200_LBFGS_SMOTE_3FGL.pdf'
+fn = 'plots/RF_SMOTE_3FGL.pdf'
 print('save plot to file')
 print(fn)
 plt.savefig(fn)
