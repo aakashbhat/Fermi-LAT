@@ -48,13 +48,13 @@ nn=[]
 lr=[]
 
 
-#dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
-dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
+dataframe = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
+#dataframe = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
 dataset1 = dataframe.values
-lenth=12
+lenth=17
 
-names_assoc=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR']#or dataset1[i,lenth]=='OTHER']
-unassocnames=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,lenth]=='UNAS']
+names_assoc=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,lenth]=='AGN' or dataset1[i,lenth]=='PSR']
+unassocnames=[dataset1[i,0] for i in range(len(dataset1)) if dataset1[i,lenth]=='UNAS'or dataset1[i,lenth]=='OTHER']
 
 print(names_assoc)
 ###################
@@ -73,13 +73,13 @@ times=1000
 while se<times:
     #data:
     np.random.seed(se)
-    #dataframe3 = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
-    dataframe3 = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
+    dataframe3 = pandas.read_csv("./files/4fgldr2_all_newfeats.csv", header=None)
+    #dataframe3 = pandas.read_csv("./files/3fgl_all_newfeats.csv", header=None)
 
     dataset3 = dataframe3.values
     k=dataset3[1:,1].astype(float)
     dataset3[1:,1]=np.cos(k)
-    X2 = [dataset3[i,1:lenth].astype(float) for i in range(len(dataset3)) if dataset3[i,lenth]=='UNAS' ]
+    X2 = [dataset3[i,1:lenth].astype(float) for i in range(len(dataset3)) if dataset3[i,lenth]=='UNAS' or dataset3[i,lenth]=='OTHER']
     np.random.shuffle(dataset3[1:])
     
     ##############################
@@ -135,7 +135,7 @@ while se<times:
     
     #oversample = RandomOverSampler(sampling_strategy=0.5)
     clf= GradientBoostingClassifier(n_estimators=100, learning_rate=0.3,max_depth=2).fit(X_over, y_over)
-    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(11,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
+    clf2= MLPClassifier(max_iter=300,hidden_layer_sizes=(16,), activation='tanh', solver='lbfgs').fit(X_over, y_over)
     clf3= LogisticRegression(max_iter=200, C=1,solver='lbfgs').fit(X_over, y_over)
     clf4 = RandomForestClassifier(n_estimators=50,max_depth=6,oob_score=True)
     clf4.fit(X_over, y_over)
@@ -306,7 +306,7 @@ pro2=["Source_Name","AGN_BDT","AGN_BDT_STD","PSR_BDT","PSR_BDT_STD","AGN_NN","AG
 result_As=np.vstack((pro2,result_as))
 result_As=pandas.DataFrame(result_As)
 
-result_As.to_csv(path_or_buf="./catas/try_3fgl_smote_as_2C.csv",index=False)
+result_As.to_csv(path_or_buf="./catas/try_4FGL-DR2_smote_as_2C.csv",index=False)
 
 
 
@@ -384,7 +384,7 @@ pro2=["Source_Name","AGN_BDT","AGN_BDT_STD","PSR_BDT","PSR_BDT_STD","AGN_NN","AG
 result=np.vstack((pro2,result2))
 result=pandas.DataFrame(result)
 
-result.to_csv(path_or_buf="./catas/try_3fgl_smote_unas_2C.csv",index=False)
+result.to_csv(path_or_buf="./catas/try_4FGL-DR2_smote_unas_2C.csv",index=False)
 
 
 
