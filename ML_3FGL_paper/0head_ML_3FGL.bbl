@@ -1,4 +1,4 @@
-\begin{thebibliography}{64}
+\begin{thebibliography}{65}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{{Abdo} {et~al.}(2010{\natexlab{a}}){Abdo}, {Ackermann}, {Ajello},
@@ -105,6 +105,11 @@ Camilo, F., Kerr, M., Ray, P.~S., {et~al.} 2015, The Astrophysical Journal,
   {Yokoyama}}]{2010PhRvD..81j4019C}
 {Carr}, B.~J., {Kohri}, K., {Sendouda}, Y., \& {Yokoyama}, J. 2010, \prd, 81,
   104019
+
+\bibitem[{{Chawla} {et~al.}(2011){Chawla}, {Bowyer}, {Hall}, \&
+  {Kegelmeyer}}]{2011arXiv1106.1813C}
+{Chawla}, N.~V., {Bowyer}, K.~W., {Hall}, L.~O., \& {Kegelmeyer}, W.~P. 2011,
+  arXiv e-prints, arXiv:1106.1813
 
 \bibitem[{{Chiaro} {et~al.}(2016){Chiaro}, {Salvetti}, {La Mura}, {Giroletti},
   {Thompson}, \& {Bastieri}}]{2016MNRAS.462.3180C}

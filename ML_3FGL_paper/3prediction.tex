@@ -113,7 +113,7 @@ while the average for AGNs and pulsar without missing or unphysical values is ov
 
 
 In the probabilistic catalogs we add columns with corresponding probabilities for each algorithm and each class,
-i.e., provided that there are 8 methods (including oversampling) and 2 classes, we add 16 columns: 8 for unweighted and 8 for oversampled training data. The columns with '\_O' represent the oversampled probabilities. We also add 16 columns for standard deviations of probabilities. Although class probabilities and standard deviation for each algorithm are not independent (probabilities add up to 1 and standard deviations are equal for AGN and PSR classes), we keep the corresponding columns in view of the generalizations to multi-class classification (e.g., 3-class classification in Section \ref{sec:3class}).
+i.e., provided that there are 8 methods (including oversampling) and 2 classes, we add 16 columns: 8 for unweighted and 8 for oversampled training data. The columns with '\_O' represent the oversampled probabilities. We also add 16 columns for standard deviations of probabilities. Although class probabilities and standard deviation for each algorithm are not independent (probabilities add up to 1 and standard deviations are equal for AGN and PSR classes), we keep the corresponding columns in view of the generalizations to multi-class classification (e.g., the 3-class classification in Section \ref{sec:3class}).
 
 
 \pgfplotstableread[col sep=comma]{tables/3FGL_unassoc_vs_4FGL_assoc.csv}\loadedtable
@@ -178,7 +178,13 @@ it is an example of a source with mixed classification.
 We summarize the results of classification of unassociated 3FGL sources with the 2-class classification 
 in Table \ref{tab:prediction_2and3class} in the 3FGL ``2-class'' row.
 The ``AGNs'' column shows the number of unassociated sources where all eight methods from Table \ref{tab:selected_algs} 
-give the probability for a source to be an AGN above 50\%.
+give the probability for a source to be an AGN above 50\%.%
+\footnote{We use the 50\% threshold in the 2-class case for illustration. 
+Even if the probabilities for a source to be a pulsar is larger than 50\% for all eight methods, 
+there is still a large chance for the source to be an AGN if the probabilities are around 50\%.
+Depending on the application, a higher (lower) threshold can be used for a cleaner (more complete) sample. 
+The full catalogs with all probabilities are available online in the SOM folder of the paper source: 
+\url{https://arxiv.org/format/2102.07642}.}
 Similarly the ``Pulsars'' column shows the number of unassociated sources where all algorithms predict the source to be more likely a pulsar.
 The ``Mixed'' column shows the number of sources with mixed classification, i.e., some algorithms predict that the source is more likely an AGN while the other algorithms predict that it is more likely a pulsar.
 We also add the ``OTHER'' column in order to compare the results with the 3-class classification in Section \ref{sec:3class}.
@@ -234,13 +240,12 @@ which have no missing or unphysical values.
 The unphysical and missing values are replaced according to the procedure described at the beginning of Section \ref{sec:training}.
 We calculate the classification probabilities of AGN and PSR classes for both the associated and the unassociated sources.
 The 4FGL catalog has higher number of features, especially due to the difference in modeling of the spectra compared with the 3FGL catalog. 
-We selected 28 of these features and looked for correlations among them. If any feature was correlated or anti-correlated with a Pearson index of $\pm$0.75 or higher with another feature, then only one of these features was kept. 
-
-The resulting 10 features are:
-GLON, GLAT, ln(Pivot\_Energy), ln(Energy\_Flux100), ln(Unc\_Energy\_Flux100), LP\_Index, Unc\_LP\_Index, LP\_beta, LP\_SigCurv, ln(Variability\_Index).
-In addition similar to the classification of the 3FGL sources, we add 6 hardness ratios to the list of features:
-hr12, hr23, hr34, hr45, hr56, hr67 (in the 4FGL-DR2 catalog there are two more energy bins compared to the 3FGL catalog).
-Thus, in total we use 16 features for classification of 4FGL-DR2 sources.
+We selected 28 of these features plus 6 hardness ratios hr12, ..., hr67 (the 4FGL-DR2 catalog has 7 energy bins)
+and looked for correlations among them. 
+\dima{Do we have the correlation matrix including the HRs?}
+If any feature was correlated or anti-correlated with a Pearson index of $\pm$0.75 or higher with another feature, then only one of these features was kept. 
+The resulting 16 features are:
+GLON, GLAT, ln(Pivot\_Energy), ln(Energy\_Flux100), ln(Unc\_Energy\_Flux100), LP\_Index, Unc\_LP\_Index, LP\_beta, LP\_SigCurv, ln(Variability\_Index) and the 6 hardness ratios.
 
 For the classification of 4FGL-DR2 sources, we confirmed that the parameters used in 3FGL classification provide an optimal performance also for the 4FGL-DR2 catalog, except for NN, which requires more neurons in the hidden layer in the 4FGL-DR2 case.
 Therefore, we used the same meta-parameters for the four algorithms as in the construction of the probabilistic catalog based on 3FGL, except for NN where we increased the number of neurons in the hidden layer to 16. Similar to the construction of the 3FGL probabilistic catalog, we use both unweighted training samples and oversampling, i.e., we have 8 classification methods.
@@ -305,7 +310,7 @@ columns/Separation_Parkes/.style={column name=Sep (arcsec),numeric type,fixed,pr
 ]\loadedtable
 \vspace{2mm}
 \caption{\label{tab:parkes}
-Connection of unassociated 3FGL and 4FGL-DR2 sources classified as pulsars with Parkes pulsars \citep{Camilo2015}. GLON and GLAT are taken from 4FGL-DR2 and the separation with Parkes pulsars are given in arcseconds.}
+Connection of unassociated 3FGL and 4FGL-DR2 sources classified as pulsars with Parkes pulsars \citep{Camilo2015}. GLON and GLAT are taken from 4FGL-DR2 and the separations in arcseconds with Parkes pulsars are given in the ``Sep (arcsec)'' column.}
 \end{table}
 
 

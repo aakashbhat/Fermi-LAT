@@ -70,7 +70,8 @@ while a missing value is substituted by the average in the sample.
 There can be other ways to replace the missing or unphysical values, e.g., by using k nearest neighbors regression, 
 but since the number of such sources is relatively small (13 for 3FGL and 14 for 4FGL-DR2), 
 the choice of the method to replace the missing values does not significantly affect the results.
-In the final probabilistic catalogs, we use a column ``Missing\_Values\_Flag'' to mark sources with missing or unphysical values.
+In the final probabilistic catalogs, we use a column ``Missing\_Values\_Flag'' to mark 
+the sources with missing or unphysical values.
 
 As an example of the construction of a probabilistic catalog, we will use the 3FGL catalog.
 In this section we will perform a two-class classification to separate PS into pulsars and AGNs.
@@ -104,30 +105,16 @@ There are 1905 such sources in the 3FGL catalog.
 
 
 There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties. 
-We took the main features and calculated their Pearson correlation coefficients. 
-A graphical representation of the correlation table is shown in Fig.~\ref{fig:assoc_corr_3fgli}. 
-In the following, if two features have (anti)correlation $\gtrsim 0.75$ 
-($\lesssim -0.75$), then we keep only one of the features for classification.
-Along with the normal features we also add 4 hardness ratios defined as $hr_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i}$, where $EF_i$ is the energy flux in bin $i$
-and $j = i + 1$ (i.e., the bins are consecutive).
-We have added the hardness ratios in order to allow the algorithms to ``construct'' their own features from the raw data rather than to use the 
-derived features, such as 500MeV\_Index or integrated energy flux.
-
-\begin{figure*}[h]
-\centering
-\includegraphics[width=0.75\textwidth]{plots/3fgl_assoc_cor.pdf}
-\hspace*{-0.9cm}
-\caption{The corelation matrix of features for 3FGL associated sources.
-The ``500MeV\_Index'' is defined in Eq. (\ref{eq:n500_def}), all other features are taken directly 
-from the 3FGL catalog.
-}
-\label{fig:assoc_corr_3fgli}
-\end{figure*}
+We took some of the main features and also added 4 hardness ratios defined as 
+\bea
+\lb{eq:hr}
+HR_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i},
+\eea
+where $EF_i$ is the energy flux in bin $i$ and $j = i + 1$ (i.e., the bins are consecutive).
 
 Spectral index is one of the important characteristics of sources. 
 Unfortunately in the 3FGL catalog, the definition of the spectral index is different for associated and unassociated sources.
-In particular, the gamma-ray flux of pulsars is described by a power-law with a (super)exponential cutoff $\propto E^{-\Gamma} e^{-(E / E_c)^b}$ 
-function, where the ``Spectral\_Index'' feature in the catalog is the parameter $\Gamma$.
+In particular, the gamma-ray flux of pulsars is described by a power-law with a (super)exponential cutoff $\propto E^{-\Gamma} e^{-(E / E_c)^b}$, where the ``Spectral\_Index'' feature in the catalog is the parameter $\Gamma$.
 Gamma-ray flux of unassociated sources with significant curvature is represented by log-parabola function $\propto (E/E_0)^{-\al - \bt \ln (E/E_0)}$,
 where the ``Spectral\_Index'' feature is the parameter $\al$, i.e., the tilt in the spectrum at the pivot energy $E_0$ (which also varies for different sources).
 Since the ``Spectral\_Index'' feature has different definitions for associated pulsars and for possible pulsars among unassociated sources,
@@ -149,10 +136,31 @@ n({\rm 500\,MeV}) &=& \Gamma + b\,({\rm 500\,MeV} / E_c)^b
 This feature has a more uniform definition for all sources in the 3FGL catalog than the Spectral\_Index. It also has a better separating power 
 than PowerLaw\_Index, provided that pulsars have typically harder spectra at energies below 1 GeV than AGNs.
 
+
+\begin{figure*}[h]
+\centering
+\includegraphics[width=0.75\textwidth]{plots/3fgl_assoc_cor.pdf}
+\hspace*{-0.9cm}
+\caption{The correlation matrix of features for the associated sources in the 3FGL catalog.
+The ``500MeV\_Index'' is defined in Eq. (\ref{eq:n500_def}).
+The hardness ratios (HR12, HR23, etc.) are defined in Eq. (\ref{eq:hr}).
+All other features are taken directly from the 3FGL catalog.
+See text for the description of labels.
+}
+\label{fig:assoc_corr_3fgli}
+\end{figure*}
+
+In order to select independent features, we calculate the Pearson correlation coefficients. 
+A graphical representation of the correlations is shown in Fig.~\ref{fig:assoc_corr_3fgli}. 
+\dima{add description of abbreviations used in the plot.}
+In the following, if two features have (anti)correlation $\gtrsim 0.75$ 
+($\lesssim -0.75$), then we keep only one of the features for classification.
+%Along with the normal features we also add 
+%We have added the hardness ratios in order to allow the algorithms to ``construct'' their own features from the raw data rather than to use the derived features, such as 500MeV\_Index or integrated energy flux.
 Taking into account the correlation among the features and the above discussion of the spectral index definition,
 we have selected the following eleven features for the classification of the 3FGL sources:
 Galactic latitude (GLAT), Galactic longitude (GLON), ln(Energy\_Flux\_100), $\ln$(Unc\_Energy\_Flux100), 500MeV\_Index, $\ln$(Signif\_Curve), 
-$\ln$(Variability\_Index), and four hardness ratios $HR_ij$.  
+$\ln$(Variability\_Index), and four hardness ratios $HR_{ij}$.  
 The table of features and their statistics can be found in Appendix \ref{sec:app}.
 
 
@@ -173,6 +181,7 @@ while the test sample is used to check that the model is not overtrained (for ov
 sample is significantly worse than the performance on the training sample).
 We will split the data randomly into 70\% training and 30\% testing samples.
 
+In this paper we determine the probabilistic classification of a source with an algorithm by the class with the maximal probability (as estimated by this algorithm). In the case of two classes, this is the class with probability larger than 0.5. In the case of three classes, the largest probability can be smaller than 0.5 but always larger than 1/3. Although the classification probabilities for some sources are not very large, e.g., a significant fraction of sources classified as pulsars may turn out to be AGNs or other sources, the main goal of our analysis is not to determine a list of sources, which are classified as pulsars or AGNs with high probabilities, but to determine the probabilities themselves and to estimate the uncertainties on the probabilities. In other words, our main goal is the construction of the probabilistic catalogs, which we make available online (in the SOM folder of the paper source on arxiv). A user of the probabilistic catalogs can choose a smaller or a larger probability threshold for a particular class depending on the purpose of his or her analysis.
 
 
 \subsubsection{Random Forests}
@@ -195,6 +204,7 @@ the maximal depth of trees.
 Fig. \ref{fig:RF_complexity} shows the dependence of the accuracy of the test sample as a function of maximum depth and the number of trees. 
 The results for each point are averaged over 100 realizations of the split into training and testing samples.
 We notice that the accuracy does not decrease as the maximal depth of the trees increases, i.e., there is no overfitting as the complexity of the model increases with increased maximum depth.
+
 
 This is due to the random choice of a subset of features at each node (maximal number of allowed features is $\sqrt{\text{\# features}}$).
 It is also insensitive to the number of trees above approximately 20 trees.
@@ -371,8 +381,7 @@ For our final model we chose one hidden layer with eleven neurons, 300 training 
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_300_lbfgs.pdf}
 \caption{NN classification domains for 2 input features
 averaged over 100 random splits into training and testing samples.
-We use 2 neurons in the hidden layer. 
-We use tanh activation function and LBFGS solver. 
+We use 2 neurons in the hidden layer, tanh activation function, and LBFGS solver. 
 }
 \label{fig:NN_domains}
 \end{figure}
@@ -427,7 +436,7 @@ will give higher probability for a source to be an AGN.
 
 The problem of classification of imbalanced datasets can be quantitatively described in terms of precision and recall.
 If we denote by ``\# true'' the number of pulsars in the dataset, by ``\# positive'' -- the number of sources predicted to be pulsars, and by 
-``\# true positive'' -- the number of pulsars predicted to be pulsars, then  $precision \rm = \frac{\#\ true\ positive}{\#\ positive}$ is a measure how clean the prediction is, while $recall \rm = \frac{\#\ true\ positive}{\#\ true}$ is a measure how well the algorithm can detect the pulsars, i.e., how complete is the list of predicted pulsars.
+``\# true positive'' -- the number of pulsars predicted to be pulsars, then  $precision \rm = \frac{\#\ true\ positive}{\#\ positive}$ is a measure how clean the prediction is, while $recall \rm = \frac{\#\ true\ positive}{\#\ true}$ is a measure how well the algorithm can detect pulsars, i.e., how complete is the list of predicted pulsars.
 If we reduce the pulsar domain by attributing uncertain sources predominantly to AGNs, then for pulsars the precision will increase, but the recall will decrease.
 
 
@@ -462,8 +471,9 @@ Since the overall number of AGNs is larger than the number of pulsars, the testi
 
 The results of training with oversampling are presented  in Fig. \ref{fig:prec_recall},
 lines 5 and 6 (solid purple with circles and dashed brown with stars). 
-These lines show precision and recall when a source is categorized as a pulsar, if all four algorithms trained with oversampling classify it as a pulsar. 
-The precision and recall in this case are similar to the any-algorithm classification for the training without oversampling.
+These lines show precision and recall when a source is categorized as a pulsar, if all four algorithms trained with oversampling classify it as a pulsar. The precision and recall in this case are similar to the any-algorithm classification for the training without oversampling.
+
+In order to test the oversampling method, we compare in Appendix \ref{sec:app_O_vs_S} the oversampling-by-repetition with Synthetic Minority Over-sampling Technique \cite[SMOTE,][]{2011arXiv1106.1813C}. The result of the comparison is that for class probabilities of individual sources, the difference in oversampling is generally smaller than the uncertainty due to the random choice of the training sample, while the differences in population studies are comparable to the differences among the different algorithms.
 
 
 \begin{figure}[h]
