@@ -163,6 +163,9 @@ In comparing the accuracies with the 2-class classification in Table \ref{tab:se
 one has to take into account that there are 346 OTHER sources among 4116 associated sources in 4FGL-DR2, which is about 8.4\%.
 Since all OTHER sources are ``misclassified'' by the 2-class classification, the 3-class classification provides an improvement of about 2-4\% compared to the 2-class classification.
 
+Another comparison of the performance of the 2- and 3-class classifications is provided in Appendix \ref{sec:reliability} where we present the reliability diagrams.
+The conclusion is that the reliability diagrams for the 3-class are similar to the reliability diagrams for the 2-class case, which includes only AGN and PSR sources, with an additional advantage that in the 2-class classification one needs to account for the contribution of the OTHER sources among the unassociated ones, while in the 3-class case the contribution of the OTHER sources is included in the model.
+
 \begin{table}[!h]
 \centering
 \hspace{-0.2cm}
@@ -203,8 +206,8 @@ Since there are three classes, the largest probability can have the value just a
 The ``Mixed'' column shows the number of sources with different classification results for different algorithms.
 
 
-Classification of \Fermi-LAT 4FGL sources into three classes was considered earlier by, e.g., \cite{2021RAA....21...15Z}.
-\cite{2021RAA....21...15Z} have primarily used a two-step classification procedure, where in the first step AGNs are separated from the rest of sources and in the second step the remaining sources are split into pulsars and other sources.
+Classification of \Fermi-LAT 4FGL sources into three classes was considered earlier by, e.g., \cite{2021RAA....21...15Z}, 
+who have primarily used a two-step classification procedure, where in the first step AGNs are separated from the rest of sources and in the second step the remaining sources are split into pulsars and other sources.
 \cite{2021RAA....21...15Z} have also tested a simultaneous classification of sources into three classes (AGN, pulsars, and other),
 but the results were inconsistent for the two ML algorithms used by \cite{2021RAA....21...15Z} (RF and NN).
 In particular, the number of OTHER sources predicted by NN was zero.
@@ -212,9 +215,11 @@ In our case, the predictions of various algorithms are relatively consistent wit
 For example, in the 3FGL (4FGL-DR2) catalog all 8 methods classify 69 (271) unassociated sources as OTHER.
 Also, 8 out of 37 unassociated 3FGL sources, which are associated to OTHER sources in 4FGL-DR2, are classified by all 8 algorithms as
 OTHER (see Table \ref{tab:3FGL_vs_4FGL_3class}).
+We have also checked that the reliability diagrams for the OTHER class in the 3-class classification look reasonable
+(see Fig. \ref{fig:rel_OTHER}).
 
 We also used the 3-class classification to create lists of most likely PSR and OTHER sources among the unassociated
-source in the 4FGL-DR2 catalog.
+sources in the 4FGL-DR2 catalog.
 In Section \ref{sec:4FGLprediction} we determined a list of 29 PSR candidates by requiring that 
 the unassociated sources are predicted to be pulsars by all 8 methods both in the 3FGL and in the 4FGL-DR2 catalogs.
 In this section we use a different method to determine candidates, which belong to PSR and OTHER classes: 

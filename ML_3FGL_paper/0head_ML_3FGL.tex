@@ -33,7 +33,7 @@
 \usepackage{xcolor}
 
 \usepackage{lineno}
-%\linenumbers
+\linenumbers
 \usepackage[export]{adjustbox}
 
 
@@ -206,12 +206,14 @@ We evaluate the dependence of results on meta-parameters of the ML methods, such
 }
 % results heading (mandatory)
 {
-We determine probabilistic classification of both associated and unassociated sources in 3FGL and 4FGL-DR2 catalogs.
+We determine probabilistic classification of both associated and sources in 3FGL and 4FGL-DR2 catalogs.
 We cross-check the accuracy by comparing the predicted classes of unassociated sources in 3FGL that have associations in 4FGL-DR2.
 We find that in the 2-class case it is important to correct for the presence of other sources among the unassociated ones in order to realistically estimate the number of pulsars and AGNs.
-In particular, the estimated number of pulsars in the 3FGL (4FGL-DR2) catalog is 270 (483) in the 2-class case without corrections for the other sources and 158 (215) in the 3-class case.
-Provided that the number of associated pulsars is 167 (271) in the 3FGL (4FGL-DR2) catalog,
-the number of pulsars among the unassociated sources is expected to be similar or larger than the number of associated ones. 
+We find that the 3-class classification, in spite of different types of sources in the OTHER class, has similar performance as the 2-class classification in terms of reliability diagrams and, at the same time, it does not require adjustment due to presence of the OTHER sources among the unassociated sources.
+%In particular, the number of pulsars among unassociated sources estimated by summing the pulsar-like probabilities  in the 3FGL (4FGL-DR2) catalog is  $270^{+98}_{-76}$ ($483^{+245}_{-174}$) in the 2-class case without corrections for the other sources and $158^{+22}_{-24}$  ($215^{+47}_{-42}$) in the 3-class case.
+%Provided that the number of associated pulsars is 167 (271) in the 3FGL (4FGL-DR2) catalog, the number of pulsars among the unassociated sources is expected to be similar or larger than the number of associated ones. 
+We show an example of the use of the probabilistic catalogs for populations studies, which include both associated and 
+unassociated sources.
 }
 % conclusions heading (optional), leave it empty if necessary 
 {}
@@ -225,8 +227,7 @@ the number of pulsars among the unassociated sources is expected to be similar o
                }
 
 \maketitle
-   
-   
+
 \tableofcontents
 
 
@@ -242,6 +243,7 @@ the number of pulsars among the unassociated sources is expected to be similar o
 
 \begin{appendix}
 \input{app1}
+\input{app_reliability}
 
 \end{appendix}
 
