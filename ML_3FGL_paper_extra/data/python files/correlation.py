@@ -22,11 +22,11 @@ file_1=fits.open('input3')
 file_2=fits.open('OUTPUT')
 file_3=fits.open('input_glat')
 '''
-dataframe = pd.read_csv("./files/3fglassoc.csv", header=None)
+dataframe = pd.read_csv("./files/4fgldr2_all_newfeats_ass.csv", header=None)
 dataset=dataframe.values
 #print(dataset)
 dataset2=dataframe.values[0]
-labels2=dataset2[0:20]
+labels2=dataset2[1:17]
 #print(labels2)
 labels2=labels2.ravel()
 #print(dataset[0,17])
@@ -34,7 +34,7 @@ labels2=labels2.ravel()
 #labels2=labels2.ravel()
 #dataset=dataset[1:,1:29].astype(float)
 #print(dataset)
-mat=np.zeros((20,20))
+mat=np.zeros((16,16))
 '''
 for j in range(20):
     for k in range(20):
@@ -50,7 +50,9 @@ for j in range(20):
         mat[j,k]=mi
 '''
 
-dataset=dataset[1:,0:20].astype(float)
+dataset=dataset[1:,1:17].astype(float)
+print(1)
+#dataset3 = [dataset[1:,1:17].astype(float) for i in range(len(dataset)) if dataset[i,17]=='AGN' or dataset[i,17]=='PSR'or dataset[i,17]=='OTHER']
 df=pd.DataFrame(dataset,columns=labels2)
 #print(df)
 #plt.rc('xtick', labelsize=7) 
@@ -64,7 +66,7 @@ mask = np.triu(np.ones_like(corr1, dtype=np.bool))
 #mask=mask +mask2
 fig, ax = plt.subplots(figsize=(35,35))         # Sample figsize in inches
 sns.heatmap(corr1, mask=mask, annot=True,annot_kws={"size": 8},cbar_kws = dict(use_gridspec=False,location="right",shrink=0.7,anchor=(1.2,0.7)),linewidths=3,vmin=-1,vmax=1)
-ax.set_title("Correlation in 3FGL Associated Data")
+ax.set_title("Correlation in 4FGL-DR2 Associated Data")
 
 plt.xticks(rotation='vertical')
 plt.yticks(rotation='horizontal')

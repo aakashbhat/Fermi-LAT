@@ -233,13 +233,13 @@ As in the previous section, we use for training sources associated with either A
 which have no missing or unphysical values.
 The unphysical and missing values are replaced according to the procedure described at the beginning of Section \ref{sec:training}.
 We calculate the classification probabilities of AGN and PSR classes for both the associated and the unassociated sources.
-The 4FGL catalog has higher number of features, especially due to the difference in modeling of the spectra compared with the 3FGL catalog. 
-We selected 28 of these features and looked for correlations among them. If any feature was correlated or anti-correlated with a Pearson index of $\pm$0.75 or higher with another feature, then only one of these features was kept. 
+The 4FGL-DR2 catalog has higher number of features, especially due to the difference in modeling of the spectra compared with the 3FGL catalog. 
+We selected 28 of these features and looked for correlations among them. We looked for correlations between these features similar to the correlation done for 3FGL. 
 
-The resulting 10 features are:
+Finally, we chose 10 features from the catalog:
 GLON, GLAT, ln(Pivot\_Energy), ln(Energy\_Flux100), ln(Unc\_Energy\_Flux100), LP\_Index, Unc\_LP\_Index, LP\_beta, LP\_SigCurv, ln(Variability\_Index).
-In addition similar to the classification of the 3FGL sources, we add 6 hardness ratios to the list of features:
-hr12, hr23, hr34, hr45, hr56, hr67 (in the 4FGL-DR2 catalog there are two more energy bins compared to the 3FGL catalog).
+In addition similar to the classification of the 3FGL sources, we added 6 hardness ratios to the list of features:
+hr12, hr23, hr34, hr45, hr56, hr67 (in the 4FGL-DR2 catalog there are two more energy bins compared to the 3FGL catalog). The correlation of these with the rest 10 features was also found to be lower than $\pm 0.75$ for all of the hardness ratios.
 Thus, in total we use 16 features for classification of 4FGL-DR2 sources.
 
 For the classification of 4FGL-DR2 sources, we confirmed that the parameters used in 3FGL classification provide an optimal performance also for the 4FGL-DR2 catalog, except for NN, which requires more neurons in the hidden layer in the 4FGL-DR2 case.
