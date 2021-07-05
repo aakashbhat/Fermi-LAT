@@ -1,40 +1,40 @@
 \section{Introduction}
 
 Multi-wavelength association of astronomical sources is important for understanding their nature.
-Unfortunately, in many cases a firm association of sources at different wavelength is not possible.
-For example, about one third of gamma-ray sources in \Fermi Large Area Telescope (LAT) catalogs are unassociated
+Unfortunately, in many cases a firm association of sources at different wavelengths is not possible.
+For example, about one third of the gamma-ray sources in \Fermi Large Area Telescope (LAT) catalogs are unassociated
 \citep{2010ApJS..188..405A, 2012ApJS..199...31N, 2015ApJS..218...23A, 2020ApJS..247...33A}.
-It is useful to know at least to which class the unassociated sources belong to or, which is more typical,
-what are the probabilities for the source to belong to various classes.
-In this paper we use several machine learning (ML) algorithms to find probabilistic classification of
+It is at least useful to know the classes to which the unassociated sources belong to or, as is more typical,
+the probabilities for the sources to belong to various classes.
+In this paper we use several machine learning (ML) algorithms to find a probabilistic classification of
  sources in the third \Fermi-LAT catalog \citep[3FGL,][]{2015ApJS..218...23A} and the fourth data release two catalog
-\citep[4FGL-DR2,][]{2020ApJS..247...33A, 2020arXiv200511208B}. We used  versions gll\_psc\_v16.fit for 3FGL
-and  gll\_psc\_v27.fit for 4FGL-DR2.
+\citep[4FGL-DR2,][]{2020ApJS..247...33A, 2020arXiv200511208B}. We used the versions gll\_psc\_v16.fit for 3FGL
+and gll\_psc\_v27.fit for 4FGL-DR2.
 
-We will refer to the catalogs, where the classification of the sources is given by probabilities as probabilistic catalogs.
+We will refer to the catalogs, where the classification of the sources is given in terms of probabilities as probabilistic catalogs.
 In general, the classes may include the possibility that a source is not a real source but a fluctuation of the background 
-or that a source is an overlay of two sources etc.
+or that a source is an overlay of two sources.
 Probabilistic catalogs
-were previously introduced for optical sources 
+have previously been introduced for optical sources 
 \citep[e.g.,][]{2010EAS....45..351H, 2013AJ....146....7B}
 and for gamma-ray sources \citep{2017ApJ...839....4D}.
 Bayesian association probabilities were also included in the 4FGL \citep{2020ApJS..247...33A} and
 4FGL-DR2 \citep{2020arXiv200511208B} catalogs for faint sources.
-Probabilistic classification of unassociated \Fermi-LAT sources was performed by, e.g.,
+Probabilistic classification of unassociated \Fermi-LAT sources was performed, for example, by
 \cite{2012ApJ...753...83A, 2016ApJ...820....8S, 2016ApJ...825...69M, 2017A&A...602A..86L, 2020MNRAS.492.5377L, 
 2020arXiv201205251F, 2021RAA....21...15Z},
 or in the application for sub-classification of blazars by
 \cite{2013MNRAS.428..220H, 2014ApJ...782...41D, 2016MNRAS.462.3180C, 2017MNRAS.470.1291S, 2019MNRAS.490.4770K, 2020MNRAS.493.1926K}
 and in subclassification of pulsars by \cite{2012MNRAS.424.2832L, 2016ApJ...820....8S}.
-In this work, we consider classification of gamma-ray sources into two classes (AGNs and pulsars) as well as into three classes 
+In this work, we consider the classification of gamma-ray sources into two classes (AGNs and pulsars) as well as into three classes 
 (AGNs, pulsars, and other associated sources).
-We revisit probabilistic classification of 3FGL sources and compare results of classification of unassociated sources
-with associations in 4FGL-DR2.
-We also determine probabilistic classification of the 4FGL-DR2 sources.
+We revisit probabilistic classification of 3FGL sources and compare the results of the classification of unassociated sources
+with their respective associations in 4FGL-DR2.
+We also determine a probabilistic classification of the 4FGL-DR2 sources.
 
 
-Catalogs of gamma-ray point sources are typically designed to have low false detection rate. 
-Nevertheless, 469 sources out of 3033 in the 3FGL catalog \citep{2015ApJS..218...23A} have no counterparts 
+Catalogs of gamma-ray point sources are typically designed to have a low false detection rate. 
+Nevertheless, 469 sources out of the 3033 in the 3FGL catalog \citep{2015ApJS..218...23A} have no counterparts 
 in the 4FGL catalog \citep{2020ApJS..247...33A}.
 This is much larger than the expected false detection rate in 3FGL arising from statistical fluctuations.
 For the majority of sources in the 3FGL catalog without counterparts in the 4FGL catalog the problem is not the false detection, 
@@ -46,39 +46,39 @@ Another reason could be that two (or more) point-like sources in 3FGL are associ
 or a single source is resolved into two sources.
 Again, this is a problem of classification (or association) rather than false detection.
 
-Another reason for an absence of a previously detected source in a new catalog is variability.
+Another reason for the absence of a previously detected source in a new catalog is variability.
 In particular, flat spectrum radio quasars (FSRQs) are highly variable AGNs.
 If a source was active during the observation time of 3FGL but inactive afterwards, 
 then its significance in the 4FGL can be below the detection threshold.
 This problem is connected to a selection of a hard detection threshold of $TS = 25$ for 3FGL and 4FGL catalogs.
 Selection of a lower detection threshold could help to keep the variable sources inside the catalog, 
 but it will not solve the problem, since the variable sources near the lower threshold can also disappear in the new catalog.
-Moreover, lower threshold would lead to more false detections due to fluctuations of the background.
-Thus, on the one hand, lower threshold can be useful in studies, where a more complete list of sources is desirable,
-while the higher false detection rate is admissible. On the other hand, lower threshold can be problematic for studies where 
+Moreover, a lower threshold would lead to more false detections due to fluctuations of the background.
+Thus, on the one hand, a lower threshold can be useful in studies where a more complete list of sources is desirable,
+while the higher false detection rate is admissible. On the other hand, a lower threshold can be problematic for studies where 
 a clean sample is necessary. 
 The problem of the detection threshold selection can be ameliorated with the development of a probabilistic catalog.
 In this catalog, each point-like object detected above a certain relatively low confidence level
-are probabilistically classified into classes, which include the statistical fluctuations class.
+is probabilistically classified into classes, which include the statistical fluctuation class.
 At low confidence, the probability for a source to come from a background fluctuation is high.
-This probability is decreasing as the significance of sources increases.
-Apart from the statistical fluctuations class, classes can include various types of Galactic and extra-galactic sources, diffuse emission deficiencies, extended sources.
-A user of such a catalog will have the freedom to choose the probability threshold for the class that he or she is interested in.
-In this paper we make a first step in this direction by providing probabilistic classification of \Fermi-LAT sources into two or three classes.
+This probability decreases as the significance of sources increases.
+Apart from the statistical fluctuation class, classes can include various types of Galactic and extra-galactic sources, diffuse emission deficiencies, extended sources, etc.
+Any user of such a catalog may have the freedom to choose the probability threshold for the class that he or she is interested in.
+In this paper we make a first step in this direction by providing a probabilistic classification of \Fermi-LAT sources into two or three classes.
 We also show how the probabilistic catalogs can be used for population studies of sources, e.g., as a function of their flux or position on the sky, where one includes not only associated sources but also unassociated ones according to their class probabilities.
 
 The paper is organized as follows.
-In Section \ref{sec:methods} we discuss general questions of constructing the probabilistic catalogs and the choice of the ML methods.
-In Section \ref{sec:training} we construct the classification algorithms using the associated sources in the 3FGL catalog for training. We consider several aspects: 1) feature selection, 2) training of the algorithms and selection of the meta-parameters,
+In Section \ref{sec:methods} we discuss general questions about construction of the probabilistic catalogs and the choices of the ML methods.
+In Section \ref{sec:training} we construct the classification algorithms using the associated sources in the 3FGL catalog for training. We consider several aspects: 1) feature selection, 2) training of the algorithms and selection of meta-parameters,
 3) oversampling of the datasets in order to have equal number of pulsars and AGNs in training (there are many more AGNs observed than pulsars).
 
 In Section \ref{sec:prob_cats} we apply the classification algorithms determined in Section \ref{sec:training} for the classification of 3FGL and 4FGL-DR2 sources.
-We compare the predictions for the unassociated sources in 3FGL with the associations in 4FGL-DR2.
-In Section \ref{sec:3class} we classify sources in 3FGL and 4FGL-DR2 catalogs into three classes (AGNs, pulsars, and other sources).
+We compare our predictions for the unassociated sources in 3FGL with the respective associations in 4FGL-DR2.
+In Section \ref{sec:3class} we classify sources in the 3FGL and 4FGL-DR2 catalogs into three classes (AGNs, pulsars, and other sources).
 In Section \ref{sec:pop_studies} we show applications of the probabilistic catalogs for predicting the number of pulsars, AGNs, and other sources among the unassociated sources and in construction of the source counts as a function of their flux, $N(S)$, and as a function of 
 Galactic latitude and longitude, $N(b)$ and $N(\ell)$.
 We compare the $N(S)$, $N(b)$, and $N(\ell)$ distributions for associated and unassociated sources in the 3FGL and 4FGL-DR2 catalogs.
-In Section \ref{sec:conclusions} we present conclusions.
+In Section \ref{sec:conclusions} we present our conclusions.
 
 In Appendix \ref{sec:app} we perform further studies of meta-parameters of some of the ML algorithms, 
 in Appendix \ref{sec:app_O_vs_S} we compare the oversampling method used in the paper with the SMOTE oversampling,

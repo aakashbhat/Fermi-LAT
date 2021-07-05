@@ -5,7 +5,7 @@ In this paper we determine the probabilities of classification of sources in the
 into two (AGNs and pulsars) and three (AGNs, pulsars, and other sources) classes.
 The probabilities are calculated with 8 different ML methods: RF, BDT, LR and NN -- each algorithm with and without oversampling during training.
 The algorithms were trained and tested with associated sources.
-We have scanned some meta-parameters of the algorithms, such as the depth of the trees, the number of trees, the number of neurons, in order to determine optimal parameters, which do not create overfitting of data and provide good accuracy of classification.
+We optimized meta-parameters of the algorithms, such as the depth of the trees, the number of trees, the number of neurons, etc. to avoid any overfitting of data while providing a good accuracy of classification.
 The testing accuracies of classification of associated sources in the 3FGL catalog for the four algorithms in the 2-class case without (with) oversampling are about  97\% (between 93\% and 97\%).
 
 We have also checked the accuracy of classification by selecting unassociated sources in 3FGL, which have associations in 4FGL-DR2.
@@ -19,12 +19,12 @@ For each source and for each class we report class probabilities for each of the
 We also provide individual standard deviations for all classification probabilities by using sample average over selection of training and testing datasets.
 We report the classification probabilities not only for the unassociated sources, but also for the associated ones, which can be used to find outliers.
 The full probabilistic catalogs for 2- and 3-class classifications of the 3FGL and 4FGL-DR2 catalogs are available online in the SOM folder of the paper source in arxiv.
-An advantage of such probabilistic classification is that a threshold on probability for selecting, e.g., pulsar candidates, can be chosen by the user based on his or her needs.
-For example, in a search of new pulsars, one can select a low threshold in order to avoid missing possible pulsars.
+An advantage of such probabilistic classification is that a threshold on probability for selecting, e.g., pulsar candidates, can be chosen by the user based on their needs.
+For example, in a search for new pulsars, one can select a low threshold in order to avoid missing possible pulsars.
 In a derivation of an average property of the class, e.g., spectral index or cutoff energy, one can select a high threshold in order to avoid contamination from the other classes.
 
 
-As an example of application of the probabilistic catalogs, we derive the expected number of sources in the catalog as a function of their flux, including the unassociated sources.
+As an example of the application of the probabilistic catalogs, we derive the expected number of sources in the catalog as a function of their flux, including the unassociated sources.
 As a consistency check, we compare the counts of associated sources to the sums of probabilities for the associated sources.
 We find that correcting for the contribution of other sources in the 2-class case plays an important role for the estimation of the expected number of sources in a particular class.
 We find the total expected number of AGNs and pulsars in the 3FGL and 4FGL catalogs by adding the class probabilities for the unassociated sources in the 2- and 3-class cases to the source counts of associated sources and correcting in the 2-class case for the contribution of other classes in the unassociated sources.
@@ -46,6 +46,6 @@ We would like to acknowledge the use of the following software:
 Astropy \citep[\url{http://www.astropy.org},][]{2013A&A...558A..33A}, 
 matplotlib \citep{Hunter:2007}, 
 scikit-learn [\url{https://scikit-learn.org/stable/about.html}], 
-TOPCAT \citep{2005ASPC..347...29T}.
+TOPCAT \citep{2005ASPC..347...29T}, and Imbalanced-learn \cite{JMLR:v18:16-365}.
 This research has also made use of the SIMBAD database,
 operated at CDS, Strasbourg, France \citep{2000A&AS..143....9W}.

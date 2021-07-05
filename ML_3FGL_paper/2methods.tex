@@ -3,18 +3,18 @@
 
 \subsection{General methodology}
 
-The first choice one has to make in constructing a probabilistic catalog is the input data and the machine learning methods.
-For the input data we take associated point sources (PS) in the 3FGL or 4FGL-DR2 catalogs, which we split into training and testing subsets.
+The first choices that must be made to construct probabilistic catalogs are the choices of the input data and the machine learning methods to be used.
+For the input data we take associated point sources (PS) in the 3FGL or 4FGL-DR2 catalogs, which we then split into training and testing subsets.
 We consider four machine learning algorithms: random forests \citep[RF,][]{709601, Breiman:2001hzm}, 
 boosted decision trees \citep[BDT,][]{friedman2001},  
 logistic regression \citep[LR,][]{cox1958}, 
 and neural networks \citep[NN,][]{Hopfield:1982pe}.
 Although the performance of algorithms on testing data is slightly different, 
 we report the classification probabilities for all four algorithms.
-The difference among the predictions will serve as a measure of modeling uncertainty related 
+The difference among the predictions serves as a measure of modeling uncertainty related 
 to the choice of the classification algorithm.
 
-\subsection{Discussion of the choice of the classification algorithms}
+\subsection{Discussion of the classification algorithms}
 \lb{sec:class_alg}
 
 
@@ -22,26 +22,26 @@ One of the most simple and transparent algorithms for classification is decision
 In this algorithm, at each step the sample is split into two subsets using one of the input features.
 The choice of the feature and the separating value are determined by minimizing an objective function, such as misclassification
 error, Gini index, or cross-entropy.
-This method is very intuitive, since at each step the results can be described in words, 
-for example, at the first step, the sources can be split in mostly Galactic and extragalactic by a cut on the Galactic latitude.
-At the next step, the high latitude sources can be further subsplit into millisecond pulsars and other sources, by a cut on the spectral index around 1 GeV (pulsars have a hard spectrum below a few GeV) etc.
-One of the problems with decision trees is either overfitting or bias: if a tree is too deep, then it will pick up particular cases of the training sample resulting in overfitting, while too shallow trees would not be able to describe the data well, which can lead to bias. 
-As a result, one needs to be very careful in selecting the depth of the tree.
-This problem can be avoided if a random subset of features is used to find a division at each node. This is the basis of the RF algorithm,
+This method is very intuitive, since at each step the results can be described in words. 
+For example, at the first step, the sources can be split into mostly Galactic and extragalactic sources by a cut on the Galactic latitude.
+At the next step, the high latitude sources can be further sub-split into millisecond pulsars and other sources, by a cut on the spectral index around 1 GeV (pulsars have a hard spectrum below a few GeV), etc.
+The main problems with decision trees is either overfitting or bias: if a tree is too deep, then it will pick up particular cases of the training sample resulting in overfitting, while if the trees are too shallow they will not be able to describe the data well, thereby leading to a bias. 
+As a result, one needs to be very careful when selecting the depth of the tree.
+These problems can be avoided if a random subset of features is used to find a division at each node. This is the basis of the RF algorithm,
 where the final classification is given by an average of several trees with random subsets of features used at each node.
-Another problem with the simple trees is that it can miss the classification of some subsets of data. In BDT algorithms, the final classification is given by a collection of trees, where each new tree is created by increasing the weights of misclassified samples of the previous step. 
-Finally, simple trees predict classes for the data samples, while we would like to have probabilities of classes (also known as soft classification).
+Another problem with the simple trees algorithm is that it can miss the classification of some subsets of data. This is rectified in the BDT algorithm, where the final classification is given by a collection of trees, where each new tree is created by increasing the weights of misclassified samples of the previous step. 
+Finally, simple trees predict classes for the data samples, while we would like to have probabilities for these classes (also known as soft classification).
 RF and BDT algorithms, by virtue of averaging, provide probabilities. As a result, we will use RF and BDT algorithms rather than simple decision trees in this paper.
 
 Tree-based algorithms, even after averaging in RF and BDT methods, have sharp edges among domains with different probabilities.
-In LR algorithm, the probabilities of classes are by construction smooth functions of features.
-In particular, for two-class classification the probability of class 1, given the set of features $x$, is modeled by sigmoid (logit) function
+In LR algorithm, the probabilities of classes are by construction smooth functions of input features.
+In particular, for two-class classification the probability of class 1, given the set of features $x$, is modeled by the sigmoid (logit) function
 \bea
 \lb{eq:logit}
 p_1(x) = \frac{e^{m(x)}}{1 + e^{m(x)}}.
 \eea
 The probability of class 0 is then modeled as $p_0(x) = 1 - p_1(x)$.
-If $m(x)$ is a linear function of features, then the boundary between the domains, defined, e.g., as $p_1(x) = 0.5$, will be linear
+Therefore, if $m(x)$ is a linear function of features, then the boundary between the domains, defined, e.g., as $p_1(x) = 0.5$, will also be linear
 at $m(x) = 0$.
 More complicated boundaries can be modeled by taking non-linear functions $m(x)$.
 Unknown parameters of the function $m(x)$ are determined by maximizing the log likelihood of the model given the known classes of the data in the training sample.
@@ -49,50 +49,50 @@ A useful feature of the LR method is that it, by construction, provides probabil
 A limitation is that the form of the probability function is fixed to the sigmoid function in Eq. (\ref{eq:logit}).
 
 We notice that if $m(x)$ is a linear function of features $x$, then the LR model is obtained by an application of sigmoid function to a linear combination of input features.
-This is in fact a single layer perceptron, or a NN, with several input nodes (each node corresponds to a feature) and one output node, which corresponds to $p_0(x)$, but without any hidden layers.
+This is in fact a single layer perceptron, or a NN, with several input nodes (each node corresponding to a feature) and one output node, which corresponds to $p_0(x)$, but without any hidden layers.
 The output value is obtained by a non-linear transformation (sigmoid) of a linear combination of features.
-Neural network with several hidden layers is obtained by a sequence of non-linear transformations of linear combinations of features.
+A Neural network with several hidden layers is obtained by a sequence of non-linear transformations of linear combinations of features.
 In particular, the values in the first hidden layer are obtained by a non-linear transformation of linear combinations of input features.
-Then the values in the second hidden layer are obtained by a non-linear transformation of linear combinations of values in the first hidden layer etc.
-In the context of neural networks, the non-linear transformations are called activation functions.
-If the activation function for the output layer is sigmoid, then the output value (values) can be interpreted as probabilities.
+Then the values in the second hidden layer are obtained by a non-linear transformation of linear combinations of values in the first hidden layer, and so on till the required number of hidden layers is reached.
+In the context of neural networks, the non-linear transformations are also called activation functions.
+If the activation function for the output layer is sigmoid, then the output values can be interpreted as a probabilities.
 
 
 \section{Construction of probabilistic catalogs}
 \lb{sec:training}
 
-One of the first problems, one has to deal with for the 3FGL and 4FGL-DR2 catalogs, is that
+One of the first problems one has to deal with for the 3FGL and 4FGL-DR2 catalogs, is that
 some of the sources in the catalogs have missing or unphysical values (e.g., infinity).
 In order to avoid a bias in predictions, we include sources with missing or unphysical values only in testing or in predictions (for unassociated sources), but not in training.
-If the value is infinity, then we formally substitute it by the largest value found in the samples multiplied by 10.
+If the value is infinity, then we formally substitute it by the largest value found in the sample multiplied by 10.
 An unphysical zero (e.g., in significance) is substituted by the smallest value in the sample divided by 10,
-while a missing value is substituted by the average in the sample.
+while a missing value is substituted by the average of the sample.
 There can be other ways to replace the missing or unphysical values, e.g., by using k nearest neighbors regression, 
 but since the number of such sources is relatively small (13 for 3FGL and 14 for 4FGL-DR2), 
 the choice of the method to replace the missing values does not significantly affect the results.
 In the final probabilistic catalogs, we use a column ``Missing\_Values\_Flag'' to mark 
 the sources with missing or unphysical values.
 
-As an example of the construction of a probabilistic catalog, we will use the 3FGL catalog.
-In this section we will perform a two-class classification to separate PS into pulsars and AGNs.
+As an example of the construction of a probabilistic catalog, we use the 3FGL catalog.
+In this section we perform a two-class classification to separate PS into pulsars and AGNs.
 Thus for training and testing, we subselect the sources, which are associated to pulsars and AGNs.
 The three-class classification into pulsars, AGNs, and other sources is discussed in Section \ref{sec:3class}.
-After the training of the algorithms, we test the performance with the test sources and predict the classes of unassociated sources.
+After the training of the algorithms, we test the performance with the test sources and predict the classes of the unassociated sources.
 The general workflow will have the following steps:
 \ben
 \item
-Select data for learning and testing.
+Select data for training and testing.
 \item
 Optimize algorithms using training datasets.
 We select meta-parameters of the algorithms by optimizing accuracy of classification and test for overfitting using the test datasets.
 In order to get stable results, we repeat the separation of the data into training and testing samples 100 times and 
 average the accuracy.
 \item
-Make prediction for unassociated point sources of the 3FGL.
-We also apply the classification for associated sources, which we use for consistency checks.
+Make predictions for unassociated point sources in the 3FGL catalog.
+We also apply the classification to associated sources, which we use for consistency checks.
 \een
 As a result of the analysis in this section, we select meta-parameters for the four ML algorithms,
-which we use in the following section for a construction of probabilistic catalogs
+which we then use in the following section to construct probabilistic catalogs
 based on the \Fermi-LAT 3FGL and 4FGL-DR2 catalogs.
 
 
@@ -103,8 +103,7 @@ For training of the algorithms we use the associated sources without missing or 
 which were classified as either AGNs (classification labels in the 3FGL catalog: agn, FSRQ, fsrq, BLL, bll, BCU, bcu, RDG, rdg, NLSY1, nlsy1, ssrq, and sey) or pulsars (classification labels in 3FGL: PSR, psr). 
 There are 1905 such sources in the 3FGL catalog. 
 
-
-There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index as well as corresponding uncertainties. 
+There are several tens of features of point sources quoted in the catalog, such as the position, photon and energy fluxes integrated in different energy bands, spectral parameters, variability index, as well as corresponding uncertainties. 
 We took some of the main features and also added 4 hardness ratios defined as 
 \bea
 \lb{eq:hr}
@@ -112,10 +111,10 @@ HR_{ij} = \frac{EF_j - EF_i}{EF_j + EF_i},
 \eea
 where $EF_i$ is the energy flux in bin $i$ and $j = i + 1$ (i.e., the bins are consecutive).
 
-Spectral index is one of the important characteristics of sources. 
+Spectral index is one of the most important characteristic of sources. 
 Unfortunately in the 3FGL catalog, the definition of the spectral index is different for associated and unassociated sources.
 In particular, the gamma-ray flux of pulsars is described by a power-law with a (super)exponential cutoff $\propto E^{-\Gamma} e^{-(E / E_c)^b}$, where the ``Spectral\_Index'' feature in the catalog is the parameter $\Gamma$.
-Gamma-ray flux of unassociated sources with significant curvature is represented by log-parabola function $\propto (E/E_0)^{-\al - \bt \ln (E/E_0)}$,
+On the other hand, gamma-ray flux of unassociated sources with significant curvature is represented by the log-parabola function $\propto (E/E_0)^{-\al - \bt \ln (E/E_0)}$,
 where the ``Spectral\_Index'' feature is the parameter $\al$, i.e., the tilt in the spectrum at the pivot energy $E_0$ (which also varies for different sources).
 Since the ``Spectral\_Index'' feature has different definitions for associated pulsars and for possible pulsars among unassociated sources,
 its use for training the algorithms to separate pulsars from AGNs is problematic.
@@ -128,7 +127,7 @@ Consequently, in the classification of the 3FGL sources we have constructed a ne
 \lb{eq:n500_def}
 n({\rm 500\,MeV}) = - \left. \frac{d \ln F}{d \ln E} \right|_{E = \rm 500\,MeV}
 \eea
-For log parabola and for power law with (super)exponential cutoff it is respectively
+For log-parabola and for power-law with (super)exponential cutoff it is respectively
 \bea
 n(\rm 500\,MeV) &=& \al + 2 \bt \ln(\rm 500\,MeV / E_0)    \\
 n({\rm 500\,MeV}) &=& \Gamma + b\,({\rm 500\,MeV} / E_c)^b
@@ -162,7 +161,7 @@ In the following, if two features have (anti)correlation $\gtrsim 0.75$
 Taking into account the correlation among the features and the above discussion of the spectral index definition,
 we have selected the following eleven features for the classification of the 3FGL sources:
 Galactic latitude (GLAT), Galactic longitude (GLON), ln(Energy\_Flux\_100), $\ln$(Unc\_Energy\_Flux100), 500MeV\_Index, $\ln$(Signif\_Curve), 
-$\ln$(Variability\_Index), and four hardness ratios $HR_{ij}$.  
+$\ln$(Variability\_Index), and the four hardness ratios $HR_{ij}$.  
 The table of features and their statistics can be found in Appendix \ref{sec:app}.
 
 
@@ -173,17 +172,17 @@ The table of features and their statistics can be found in Appendix \ref{sec:app
 \subsection{Construction of classification algorithms}
 
 The number of tunable parameters in the classification algorithms is not fixed a priori. 
-Moreover there is a certain freedom in the choice of the architecture of the algorithms, such as
+Moreover, there is a certain freedom in the choice of the architecture of the algorithms, such as
 the number of hidden layers and the number of neurons in neural networks.
 In general, one starts with a simple model and increases the complexity (the number of tunable parameters)
 until the model can describe the data well, but does not overfit it.
-The overfitting is tested by splitting the input data into the training and testing samples.
+The overfitting is tested by splitting the input data into training and testing samples.
 The training sample is used for optimizing the parameters,
 while the test sample is used to check that the model is not overtrained (for overtrained models the accuracy on the test
 sample is significantly worse than the performance on the training sample).
-We will split the data randomly into 70\% training and 30\% testing samples.
+For our catalogs we split the data randomly into 70\% training and 30\% testing samples.
 
-In this paper we determine the probabilistic classification of a source with an algorithm by the class with the maximal probability (as estimated by this algorithm). In the case of two classes, this is the class with probability larger than 0.5. In the case of three classes, the largest probability can be smaller than 0.5 but always larger than 1/3. Although the classification probabilities for some sources are not very large, e.g., a significant fraction of sources classified as pulsars may turn out to be AGNs or other sources, the main goal of our analysis is not to determine a list of sources, which are classified as pulsars or AGNs with high probabilities, but to determine the probabilities themselves and to estimate the uncertainties on the probabilities. In other words, our main goal is the construction of the probabilistic catalogs, which we make available online (in the SOM folder of the paper source on arxiv). A user of the probabilistic catalogs can choose a smaller or a larger probability threshold for a particular class depending on the purpose of his or her analysis.
+In this paper we determine the probabilistic classification of a source with an algorithm by the class with the maximal probability (as estimated by this algorithm). In the case of two classes, this is the class with probability larger than 0.5. In the case of three classes, the largest probability can be smaller than 0.5 but always larger than 1/3. Although the classification probabilities for some sources are not very large, e.g., a significant fraction of sources classified as pulsars may turn out to be AGNs or other sources, the main goal of our analysis is not to determine a list of sources, which are classified as pulsars or AGNs with high probabilities, but to determine the probabilities themselves and to estimate the uncertainties on the probabilities. In other words, our main goal is the construction of the probabilistic catalogs, which we make available online (in the SOM folder of the paper source on arxiv). A user of these probabilistic catalogs can choose a smaller or a larger probability threshold for a particular class depending on the purpose of their analysis.
 
 
 \subsubsection{Random Forests}
@@ -210,11 +209,11 @@ We notice that the accuracy does not decrease as the maximal depth of the trees 
 
 This is due to the random choice of a subset of features at each node (maximal number of allowed features is $\sqrt{\text{\# features}}$).
 It is also insensitive to the number of trees above approximately 20 trees.
-For classification we will use 50 trees with the maximum depth of 6.
+For classification we select 50 trees with a maximum depth of 6.
 
 
 In order to illustrate the separation of PS into AGNs and pulsars, we retrain the RF algorithm using only two features: log of curvature significance and log of the variability index, and plot the resulting probabilities of classes in Fig. \ref{fig:RF_domains}
-for the model with 50 trees with the maximum depth of 6.
+for the model with 50 trees with a maximum depth of 6.
 The probabilities are averaged over 100 splits into training and testing samples.
 It is important to note that in this plot the model is trained on only two features. Nevertheless a good testing accuracy of 97\% is reached, 
 which is similar to the accuracy of the RF classification with all 11 features.
@@ -235,7 +234,7 @@ Color scale describes the probability for a source to be a pulsar.
 
 \subsubsection{Boosted Decision Trees}
 
-The meta-parameters for BDT algorithms are similar to RF algorithms: they are the number of trees and the maximal depth.
+The meta-parameters for BDT algorithms are similar to RF algorithms: the number of trees and the maximal depth.
 We used the Gradient Boosting algorithm for the construction of BDT \citep{gb}.
 The classification is performed by a weighted average of trees, where the trees are constructed recursively in order to better address 
 misclassifications from the previous step. 
@@ -297,7 +296,7 @@ GLON & 0.014&0.011  \\
 \end{tabular}
 \vspace{2mm}
 \caption{Feature importances for RF (50 trees, max depth 6) and BDT (100 trees, max depth 2) algorithms.
-The features are ordered by decreasing importance for the RF algorithm.
+The features are ordered by decreasing importance in the case of the RF algorithm.
 }
 \label{tab:feat_imp}
 \end{table}
@@ -438,7 +437,7 @@ will give higher probability for a source to be an AGN.
 
 The problem of classification of imbalanced datasets can be quantitatively described in terms of precision and recall.
 If we denote by ``\# true'' the number of pulsars in the dataset, by ``\# positive'' -- the number of sources predicted to be pulsars, and by 
-``\# true positive'' -- the number of pulsars predicted to be pulsars, then  $precision \rm = \frac{\#\ true\ positive}{\#\ positive}$ is a measure how clean the prediction is, while $recall \rm = \frac{\#\ true\ positive}{\#\ true}$ is a measure how well the algorithm can detect pulsars, i.e., how complete is the list of predicted pulsars.
+``\# true positive'' -- the number of pulsars predicted to be pulsars, then  $precision \rm = \frac{\#\ true\ positive}{\#\ positive}$ is a measure how clean the prediction is, while $recall \rm = \frac{\#\ true\ positive}{\#\ true}$ is a measure how well the algorithm can detect pulsars, i.e., how complete the list of predicted pulsars is.
 If we reduce the pulsar domain by attributing uncertain sources predominantly to AGNs, then for pulsars the precision will increase, but the recall will decrease.
 
 
@@ -459,9 +458,9 @@ It is clear that for lines 1 and 2 the pulsar domain is smaller than for lines 3
 For all-algorithms classification the precision is 100\% for most of latitudes, while the recall is between 40\% and 80\%, i.e., the list of pulsars is generally clean but incomplete.
 In case of any-algorithm classification, the recall is increased by about 20\% for most latitudes compared to the all-algorithms classification, but the precision drops by up to 20\% at some latitudes, i.e., the completeness improves at the expense of cleanliness of the sample.
 Alternatively to using any-algorithm classification, one can give larger weights to pulsars or oversample pulsars in the training process, i.e., use the same source several times, so that the numbers of pulsars and AGNs in training are the same.
-Provided that in some applications it is beneficial to have as complete as possible the list of pulsar candidates among unassociated sources, we have retrained the algorithms using oversampling with the same meta-parameters as in the previous sections.
+Provided that in some applications it is beneficial to have as complete a list as possible of pulsar candidates among unassociated sources, we have retrained the algorithms using oversampling with the same meta-parameters as in the previous sections.
 
-In general one can either under- or oversample a dataset. Undersampling would reduce the number of AGNs to match the number of pulsars. However, since the total number of sources is not very high, we have chosen oversampling. 
+In general one can either under- or oversample a dataset. Undersampling would reduce the number of AGNs to match the number of pulsars. However, since the total number of sources is not very high, we chose to oversample the data. 
 For training with oversampling, we copy randomly existing pulsars and add them to the dataset until the number of pulsars and AGNs are the same.
 Although pulsars in the training dataset are redundant, they help to increase the weight of pulsars in the classification model.
 We illustrate the oversampling procedure in Fig. \ref{fig:LR_domains_O} top panel:
