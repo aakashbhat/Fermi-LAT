@@ -25,9 +25,9 @@ error, Gini index, or cross-entropy.
 This method is very intuitive, since at each step the results can be described in words. 
 For example, at the first step, the sources can be split into mostly Galactic and extragalactic sources by a cut on the Galactic latitude.
 At the next step, the high latitude sources can be further sub-split into millisecond pulsars and other sources, by a cut on the spectral index around 1 GeV (pulsars have a hard spectrum below a few GeV), etc.
-The main problems with decision trees is either overfitting or bias: if a tree is too deep, then it will pick up particular cases of the training sample resulting in overfitting, while if the trees are too shallow they will not be able to describe the data well, thereby leading to a bias. 
+One of the main problems with decision trees is either overfitting or bias: if a tree is too deep, then it will pick up particular cases of the training sample resulting in overfitting, while if the trees are too shallow they will not be able to describe the data well, thereby leading to a bias. 
 As a result, one needs to be very careful when selecting the depth of the tree.
-These problems can be avoided if a random subset of features is used to find a division at each node. This is the basis of the RF algorithm,
+This problem can be avoided if a random subset of features is used to find a division at each node. This is the basis of the RF algorithm,
 where the final classification is given by an average of several trees with random subsets of features used at each node.
 Another problem with the simple trees algorithm is that it can miss the classification of some subsets of data. This is rectified in the BDT algorithm, where the final classification is given by a collection of trees, where each new tree is created by increasing the weights of misclassified samples of the previous step. 
 Finally, simple trees predict classes for the data samples, while we would like to have probabilities for these classes (also known as soft classification).
@@ -51,11 +51,11 @@ A limitation is that the form of the probability function is fixed to the sigmoi
 We notice that if $m(x)$ is a linear function of features $x$, then the LR model is obtained by an application of sigmoid function to a linear combination of input features.
 This is in fact a single layer perceptron, or a NN, with several input nodes (each node corresponding to a feature) and one output node, which corresponds to $p_0(x)$, but without any hidden layers.
 The output value is obtained by a non-linear transformation (sigmoid) of a linear combination of features.
-A Neural network with several hidden layers is obtained by a sequence of non-linear transformations of linear combinations of features.
+A neural network with several hidden layers is obtained by a sequence of non-linear transformations of linear combinations of features.
 In particular, the values in the first hidden layer are obtained by a non-linear transformation of linear combinations of input features.
-Then the values in the second hidden layer are obtained by a non-linear transformation of linear combinations of values in the first hidden layer, and so on till the required number of hidden layers is reached.
+Then the values in the second hidden layer are obtained by a non-linear transformation of linear combinations of values in the first hidden layer and so on till the required number of hidden layers is reached.
 In the context of neural networks, the non-linear transformations are also called activation functions.
-If the activation function for the output layer is sigmoid, then the output values can be interpreted as a probabilities.
+If the activation function for the output layer is sigmoid, then the output values can be interpreted as probabilities.
 
 
 \section{Construction of probabilistic catalogs}
@@ -149,10 +149,10 @@ See text for the description of labels.
 \label{fig:assoc_corr_3fgli}
 \end{figure*}
 
-In order to select independent features, we calculate the Pearson correlation coefficients for the features: GLON (Galactic longitude), GLAT(Galactic Latitude),
+In order to select independent features, we calculate the Pearson correlation coefficients for the features: GLON (Galactic longitude), GLAT (Galactic Latitude),
 Sign\_Avg (Signif Average), Pivote\_E (Pivot Energy), FD (Flux Density), Un\_FD (Uncertainty on Flux Density), F1000 (Flux\_1000), Un\_F1000 (Uncertainty\_Flux\_1000),
 E\_F100 (Energy\_Flux100),  Un\_E\_F100 (Uncertainty\_Energy\_F100), Sig\_Cur (Signif\_Curvature), Sp\_Ind (Spectral Index), Un\_Sp\_Ind (Uncertainty\_Spectral\_Index),
-PL\_Ind (PowerLaw\_Index), Var\_Ind (Variability\_Index), 500\_Ind (Index at 500 Mev), HR$_{ij}$ for the Hardness Ratios defined above.
+PL\_Ind (PowerLaw\_Index), Var\_Ind (Variability\_Index), 500\_Ind (Index at 500 MeV), HR$_{ij}$ for the Hardness Ratios defined above.
 A graphical representation of the correlations is shown in Fig.~\ref{fig:assoc_corr_3fgli}. 
 In the following, if two features have (anti)correlation $\gtrsim 0.75$ 
 ($\lesssim -0.75$), then we keep only one of the features for classification.
@@ -161,7 +161,7 @@ In the following, if two features have (anti)correlation $\gtrsim 0.75$
 Taking into account the correlation among the features and the above discussion of the spectral index definition,
 we have selected the following eleven features for the classification of the 3FGL sources:
 Galactic latitude (GLAT), Galactic longitude (GLON), ln(Energy\_Flux\_100), $\ln$(Unc\_Energy\_Flux100), 500MeV\_Index, $\ln$(Signif\_Curve), 
-$\ln$(Variability\_Index), and the four hardness ratios $HR_{ij}$.  
+$\ln$(Variability\_Index), and the four hardness ratios ${\rm HR}_{ij}$.  
 The table of features and their statistics can be found in Appendix \ref{sec:app}.
 
 
@@ -182,7 +182,7 @@ while the test sample is used to check that the model is not overtrained (for ov
 sample is significantly worse than the performance on the training sample).
 For our catalogs we split the data randomly into 70\% training and 30\% testing samples.
 
-In this paper we determine the probabilistic classification of a source with an algorithm by the class with the maximal probability (as estimated by this algorithm). In the case of two classes, this is the class with probability larger than 0.5. In the case of three classes, the largest probability can be smaller than 0.5 but always larger than 1/3. Although the classification probabilities for some sources are not very large, e.g., a significant fraction of sources classified as pulsars may turn out to be AGNs or other sources, the main goal of our analysis is not to determine a list of sources, which are classified as pulsars or AGNs with high probabilities, but to determine the probabilities themselves and to estimate the uncertainties on the probabilities. In other words, our main goal is the construction of the probabilistic catalogs, which we make available online (in the SOM folder of the paper source on arxiv). A user of these probabilistic catalogs can choose a smaller or a larger probability threshold for a particular class depending on the purpose of their analysis.
+In this paper we determine the probabilistic classification of a source with an algorithm by the class with the maximal probability (as estimated by this algorithm). In the case of two classes, this is the class with probability larger than 0.5. In the case of three classes, the largest probability can be smaller than 0.5 but always larger than 1/3. Although the classification probabilities for some sources are not very large, e.g., a significant fraction of sources classified as pulsars may turn out to be AGNs or other sources, the main goal of our analysis is not to determine a list of sources, which are classified as pulsars or AGNs with high probabilities, but to determine the probabilities themselves and to estimate the uncertainties on the probabilities. In other words, our main goal is the construction of the probabilistic catalogs, which we make available online \citep{SOM_material}. A user of these probabilistic catalogs can choose a smaller or a larger probability threshold for a particular class depending on the purpose of their analysis.
 
 
 \subsubsection{Random Forests}
@@ -209,7 +209,7 @@ We notice that the accuracy does not decrease as the maximal depth of the trees 
 
 This is due to the random choice of a subset of features at each node (maximal number of allowed features is $\sqrt{\text{\# features}}$).
 It is also insensitive to the number of trees above approximately 20 trees.
-For classification we select 50 trees with a maximum depth of 6.
+For classification we use 50 trees with a maximum depth of 6.
 
 
 In order to illustrate the separation of PS into AGNs and pulsars, we retrain the RF algorithm using only two features: log of curvature significance and log of the variability index, and plot the resulting probabilities of classes in Fig. \ref{fig:RF_domains}

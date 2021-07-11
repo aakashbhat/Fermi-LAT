@@ -1,4 +1,4 @@
-\begin{thebibliography}{65}
+\begin{thebibliography}{69}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{{Abdo} {et~al.}(2010{\natexlab{a}}){Abdo}, {Ackermann}, {Ajello},
@@ -101,10 +101,21 @@ Breiman, L. 2001, Machine Learning, 45, 5
 Camilo, F., Kerr, M., Ray, P.~S., {et~al.} 2015, The Astrophysical Journal,
   810, 85
 
+\bibitem[{{Caron} {et~al.}(2021){Caron}, {Dijkstra}, {Eckner}, {Hendriks},
+  {J{\'o}hannesson}, {Panes}, {Ruiz de Austri}, \&
+  {Zaharijas}}]{2021arXiv210311068C}
+{Caron}, S., {Dijkstra}, K., {Eckner}, C., {et~al.} 2021, arXiv e-prints,
+  arXiv:2103.11068
+
 \bibitem[{{Carr} {et~al.}(2010){Carr}, {Kohri}, {Sendouda}, \&
   {Yokoyama}}]{2010PhRvD..81j4019C}
 {Carr}, B.~J., {Kohri}, K., {Sendouda}, Y., \& {Yokoyama}, J. 2010, \prd, 81,
   104019
+
+\bibitem[{Chawla {et~al.}(2002)Chawla, Bowyer, Hall, \&
+  Kegelmeyer}]{Chawla_2002}
+Chawla, N.~V., Bowyer, K.~W., Hall, L.~O., \& Kegelmeyer, W.~P. 2002, Journal
+  of Artificial Intelligence Research, 16, 321
 
 \bibitem[{{Chawla} {et~al.}(2011){Chawla}, {Bowyer}, {Hall}, \&
   {Kegelmeyer}}]{2011arXiv1106.1813C}
@@ -245,6 +256,11 @@ Hunter, J.~D. 2007, Computing In Science \& Engineering, 9, 90
 \bibitem[{{Lefaucheur} \& {Pita}(2017)}]{2017A&A...602A..86L}
 {Lefaucheur}, J. \& {Pita}, S. 2017, \aap, 602, A86
 
+\bibitem[{Lema{{\^i}}tre {et~al.}(2017)Lema{{\^i}}tre, Nogueira, \&
+  Aridas}]{JMLR:v18:16-365}
+Lema{{\^i}}tre, G., Nogueira, F., \& Aridas, C.~K. 2017, Journal of Machine
+  Learning Research, 18, 1
+
 \bibitem[{{Lisanti} {et~al.}(2016){Lisanti}, {Mishra-Sharma}, {Necib}, \&
   {Safdi}}]{2016ApJ...832..117L}
 {Lisanti}, M., {Mishra-Sharma}, S., {Necib}, L., \& {Safdi}, B.~R. 2016, \apj,
@@ -328,6 +344,10 @@ Schmidt, M., Le~Roux, N., \& Bach, F. 2017, Math. Program., 162, 83–112
   {Smith}, \& {Wolf-Chase}}]{2012MNRAS.424.2442S}
 {Simpson}, R.~J., {Povich}, M.~S., {Kendrew}, S., {et~al.} 2012, \mnras, 424,
   2442
+
+\bibitem[{SOM(2021)}]{SOM_material}
+SOM. 2021, The probabilistic catalogs are available online in the SOM folder of
+  the paper source: \url{https://arxiv.org/format/2102.07642}
 
 \bibitem[{{Taylor}(2005)}]{2005ASPC..347...29T}
 {Taylor}, M.~B. 2005, in Astronomical Society of the Pacific Conference Series,
