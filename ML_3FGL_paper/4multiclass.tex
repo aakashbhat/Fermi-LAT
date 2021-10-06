@@ -154,24 +154,25 @@ Also the number of correct predictions in the 3-class case is 263 (out of 339 so
 
 \begin{table}[!h]
 \centering
-%\resizebox{0.3\textwidth}{!}{
-    %\tiny
+\resizebox{0.45\textwidth}{!}{
+    \tiny
  \renewcommand{\tabcolsep}{0.3mm}
 \renewcommand{\arraystretch}{1.5}
 
-    \begin{tabular}{l c c c c c}
+    \begin{tabular}{l c c c c c c}
     \hline
     \hline
-    4FGL-DR2 class & \multicolumn{4}{c}{3FGL prediction} & Recall \\
-      &\ AGN &\ PSR &\ OTHER &\ MIXED \\
+    4FGL-DR2 class & \multicolumn{4}{c}{3FGL prediction} & Recall\ \ & Recall \\
+      &\ AGN &\ PSR &\ OTHER &\ MIXED & & (test)\\
     \hline
-    AGN & 238 & 2 &  1 & 17 & 0.92 \\ % 258
-    PSR & 12 & 17 &  0 & 16 & 0.38 \\ % 45
-    OTHER & 6 & 5 & 8 & 18 & 0.23 \\ % 37
+    AGN & 238 & 2 &  1 & 17 & 0.92 & 0.00 \\ % 258
+    PSR & 12 & 17 &  0 & 16 & 0.38 & 0.00 \\ % 45
+    OTHER & 6 & 5 & 8 & 18 & 0.23 & 0.00 \\ % 37
     \hline
     Precision & 0.93 & 0.71 & 0.89  \\
+    Precision (test) & 0.00 & 0.00 & 0.00  \\
     \hline
-    \end{tabular}%}
+    \end{tabular}}
     \vspace{2mm}
     \caption{Including precision and recall.
     Comparison of classes predicted for unassociated sources in the 3FGL catalog using 3-class classification

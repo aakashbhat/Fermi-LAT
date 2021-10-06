@@ -105,25 +105,26 @@ Many of these sources also have flags in the 3FGL catalog, such as a potential p
 
 \begin{table}[!h]
 \centering
-%\resizebox{0.3\textwidth}{!}{
-    %\tiny
+\resizebox{0.47\textwidth}{!}{
+    \tiny
   
  \renewcommand{\tabcolsep}{0.3mm}
 \renewcommand{\arraystretch}{1.5}
 
-    \begin{tabular}{l c c c c}
+    \begin{tabular}{l c c c c c}
     \hline
     \hline
-    4FGL-DR2 class & \multicolumn{3}{c}{3FGL prediction} &  Recall\\
-      &\ AGN &\ PSR &\ MIXED \\
+    4FGL-DR2 class & \multicolumn{3}{c}{3FGL prediction} \ &  Recall\ \ & Recall\\
+      &\ AGN &\ PSR &\ MIXED & & (test)\\
     \hline
-    AGN & 223 & 5 &  30 & 0.86 \\ % 258
-    PSR & 10 & 23 &  12  & 0.51 \\ % 45
-    OTHER & 8 & 6 & 23  & -- \\ % 37
+    AGN & 223 & 5 &  30 & 0.86 & 0.00 \\ % 258
+    PSR & 10 & 23 &  12  & 0.51 & 0.00 \\ % 45
+    OTHER & 8 & 6 & 23  & -- & -- \\ % 37
     \hline
     Precision & 0.93 & 0.68 & --  \\
+    Precision (test) & 0.00 & 0.00 & --  \\
     \hline
-    \end{tabular}%}
+    \end{tabular}}
     \vspace{2mm}
     \caption{Including precision and recall.
     Comparison of classes predicted for unassociated sources in the 3FGL catalog using 2-class classification
