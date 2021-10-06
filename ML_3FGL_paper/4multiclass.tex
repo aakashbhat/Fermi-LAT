@@ -152,6 +152,34 @@ Also the number of correct predictions in the 3-class case is 263 (out of 339 so
     \label{tab:3FGL_vs_4FGL_3class}
 \end{table}
 
+\begin{table}[!h]
+\centering
+%\resizebox{0.3\textwidth}{!}{
+    %\tiny
+ \renewcommand{\tabcolsep}{0.3mm}
+\renewcommand{\arraystretch}{1.5}
+
+    \begin{tabular}{l c c c c c}
+    \hline
+    \hline
+    4FGL-DR2 class & \multicolumn{4}{c}{3FGL prediction} & Recall \\
+      &\ AGN &\ PSR &\ OTHER &\ MIXED \\
+    \hline
+    AGN & 238 & 2 &  1 & 17 & 0.92 \\ % 258
+    PSR & 12 & 17 &  0 & 16 & 0.38 \\ % 45
+    OTHER & 6 & 5 & 8 & 18 & 0.23 \\ % 37
+    \hline
+    Precision & 0.93 & 0.71 & 0.89  \\
+    \hline
+    \end{tabular}%}
+    \vspace{2mm}
+    \caption{Including precision and recall.
+    Comparison of classes predicted for unassociated sources in the 3FGL catalog using 3-class classification
+    with associations in the 4FGL-DR2 catalog. 
+}
+    \label{tab:3FGL_vs_4FGL_3class}
+\end{table}
+
 
 
 The 3-class classification of 4FGL-DR2 sources is performed analogously to the 3-class classification of the 3FGL sources.
