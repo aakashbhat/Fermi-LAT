@@ -31,8 +31,9 @@ OTHER		70	17	133	127		0.383
 
 Precision	0.976	0.893	0.801
 
-
+########################################################################################################
 Probabilities>7.0:
+########################################################################################################
 
 3FGL CLASS	3FGLPRED (2-CLASS)			Recall
 		AGN	PSR	MIXED
@@ -41,3 +42,27 @@ PSR		4	102	61			0.61
 OTHER		21	20	72
 
 Precision	0.984	0.822
+
+3FGL CLASS	3FGLPRED(3-CLASS)			Recall
+		AGN	PSR	OTHER	MIXED	
+AGN		1597    0	0	157		0.91
+PSR		3	46	0	118		0.275
+OTHER		10	1	0       102		0.
+
+Precision	0.991	0.978	0.	
+
+4FGL CLASS	4FGLPRED (2-CLASS)			Recall
+		AGN	PSR	MIXED
+AGN		3301	7	195  			0.942
+PSR		6	174     91			0.642
+OTHER		111	43	193
+
+Precision	0.965	0.776
+
+4FGL CLASS	4FGLPRED(3-CLASS)			Recall
+		AGN	PSR	OTHER	MIXED	
+AGN		3052	0	2	449		0.871
+PSR		3	82	2	184		0.302
+OTHER		30	5	22	290 		0.063
+
+Precision	0.989	0.942	0.846
