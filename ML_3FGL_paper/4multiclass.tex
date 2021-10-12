@@ -81,7 +81,7 @@ As in the 2-class case, the accuracies are averaged over 1000 realizations of sp
 We notice that accuracies presented in Table \ref{tab:selected_algs} are calculated relative to AGN and PSR classes only. If we take into account that all OTHER sources
 are misclassified in this case, then the testing accuracy is reduced by about 5\% (the fraction of OTHER sources among associated sources in 3FGL),
 while the accuracy of comparison with 4FGL-DR2 is reduced by about 10\% (there are 37 unassociated sources in 3FGL with OTHER class associations in 4FGL-DR2,
-while there are in total 339 unassociated sources in 3FGL with associations in 4FGL-DR2).
+while there are in total 340 unassociated sources in 3FGL with associations in 4FGL-DR2).
 Thus the testing accuracy of 93-94\% in Table \ref{tab:selected_algs_multi} provides at least a 1-2\% improvement over the accuracy in Table \ref{tab:selected_algs},
 after taking into account the misclassification of OTHER sources in the 2-class case.
 A similar improvement is seen for the accuracy of classification of unassociated sources in 3FGL with correspoding 4FGL-DR2 associations.
@@ -89,7 +89,7 @@ A similar improvement is seen for the accuracy of classification of unassociated
 A comparison of predicted classes for the 3FGL unassociated sources in the 3-class classification case with the classes of the corresponding associated sources in the 4FGL-DR2 catalog are presented in Table \ref{tab:3FGL_vs_4FGL_3class}.
 It is interesting to note that there are fewer sources with mixed classification in this case relative to the 2-class classification in 
 Table \ref{tab:3FGL_vs_4FGL_2class}.
-Also the number of correct predictions in the 3-class case is 263 (out of 339 sources), while in the 2-class case there are 246 correct predictions.
+Also the number of correct predictions in the 3-class case is 263 (out of 340 sources), while in the 2-class case there are 246 correct predictions.
 
 \begin{table}[!h]
 \centering
@@ -126,7 +126,7 @@ Also the number of correct predictions in the 3-class case is 263 (out of 339 so
     \label{tab:selected_algs_multi}
 \end{table}
 
-
+\begin{comment}
 \begin{table}[!h]
 \centering
 %\resizebox{0.3\textwidth}{!}{
@@ -151,6 +151,7 @@ Also the number of correct predictions in the 3-class case is 263 (out of 339 so
 }
     \label{tab:3FGL_vs_4FGL_3class}
 \end{table}
+\end{comment}
 
 \begin{table}[!h]
 \centering
@@ -159,22 +160,23 @@ Also the number of correct predictions in the 3-class case is 263 (out of 339 so
  \renewcommand{\tabcolsep}{0.3mm}
 \renewcommand{\arraystretch}{1.5}
 
-    \begin{tabular}{l c c c c c c}
+    \begin{tabular}{l c c c c c c c}
     \hline
     \hline
-    4FGL-DR2 class & \multicolumn{4}{c}{3FGL prediction} & Recall\ \ & Recall \\
-      &\ AGN &\ PSR &\ OTHER &\ MIXED & & (test)\\
+    4FGL-DR2 class & \multicolumn{4}{c}{3FGL prediction} & Recall\ \ & Recall & Recall \\
+      &\ AGN &\ PSR &\ OTHER &\ MIXED & (4FGL assoc) & (all agree) & ($\sum_a p_a > 7$)\\
     \hline
-    AGN & 238 & 2 &  1 & 17 & 0.92 & 0.00 \\ % 258
-    PSR & 12 & 17 &  0 & 16 & 0.38 & 0.00 \\ % 45
-    OTHER & 6 & 5 & 8 & 18 & 0.23 & 0.00 \\ % 37
+    AGN & 238 & 2 &  1 & 17 & 0.92 & 0.97 & 0.91\\ % 258
+    PSR & 12 & 17 &  0 & 16 & 0.38 & 0.58 & 0.28 \\ % 45
+    OTHER & 6 & 5 & 8 & 18 & 0.23 & 0.29 & --\\ % 37
     \hline
-    Precision & 0.93 & 0.71 & 0.89  \\
-    Precision (test) & 0.00 & 0.00 & 0.00  \\
+    Precision (4FGL assoc) & 0.93 & 0.71 & 0.89  \\
+    Precision (all agree) & 0.99 & 0.89 & 0.75  \\
+    Precision ($\sum_a p_a > 7$) & 0.99 & 0.98 & --  \\
     \hline
     \end{tabular}}
     \vspace{2mm}
-    \caption{Including precision and recall.
+    \caption{
     Comparison of classes predicted for unassociated sources in the 3FGL catalog using 3-class classification
     with associations in the 4FGL-DR2 catalog. 
 }
