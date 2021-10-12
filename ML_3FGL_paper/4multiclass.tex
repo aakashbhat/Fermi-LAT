@@ -22,6 +22,8 @@ The reason for this is that the LR and NN methods have a significantly worse per
 but, as we show below, all four methods have comparable accuracy when we use cos(GLON).
 This may be due to a discontinuity in the GLON variable. 
 We perform optimization of the meta-parameters for the four ML algorithms with the 3 classes.
+In the calculation of accuracy we determine the probabilistic class as the class with the maximum probability among the three classes,
+in some cases the maximal probability can be less than 0.5, but it is always above 1/3.
 
 
 \begin{figure}[h]
@@ -84,12 +86,19 @@ while the accuracy of comparison with 4FGL-DR2 is reduced by about 10\% (there a
 while there are in total 340 unassociated sources in 3FGL with associations in 4FGL-DR2).
 Thus the testing accuracy of 93-94\% in Table \ref{tab:selected_algs_multi} provides at least a 1-2\% improvement over the accuracy in Table \ref{tab:selected_algs},
 after taking into account the misclassification of OTHER sources in the 2-class case.
-A similar improvement is seen for the accuracy of classification of unassociated sources in 3FGL with correspoding 4FGL-DR2 associations.
+A similar improvement is seen for the accuracy of classification of unassociated sources in 3FGL with corresponding 4FGL-DR2 associations.
 
-A comparison of predicted classes for the 3FGL unassociated sources in the 3-class classification case with the classes of the corresponding associated sources in the 4FGL-DR2 catalog are presented in Table \ref{tab:3FGL_vs_4FGL_3class}.
+Similarly to the 2-class classification, we use the condition that all algorithms agree to determine the candidate probabilistic classes of sources.
+In the end of this Section we also use a stricter condition that the sum of probabilities is larger than 7 in order to determine lists of most likely PSR and OTHER source candidates.
+A comparison of predicted classes (using the all algorithms agreement condition) for the 3FGL unassociated sources in the 3-class classification case with the classes of the corresponding associated sources in the 4FGL-DR2 catalog are presented in Table~\ref{tab:3FGL_vs_4FGL_3class}.
 It is interesting to note that there are fewer sources with mixed classification in this case relative to the 2-class classification in 
-Table \ref{tab:3FGL_vs_4FGL_2class}.
+Table~\ref{tab:3FGL_vs_4FGL_2class}.
 Also the number of correct predictions in the 3-class case is 263 (out of 340 sources), while in the 2-class case there are 246 correct predictions.
+We also show in this table the expected precision and recall for the all-algorithms-agree and $\sum_a p_a > 7$
+conditions.
+We note that in spite of adding an additional class, the precision of the AGN and PSR classifications in 3FGL
+is higher in the 3-class case (Table~\ref{tab:3FGL_vs_4FGL_3class}) compared to the 2-class case
+(Table~\ref{tab:3FGL_vs_4FGL_2class}), but the recall is smaller for pulsars and similar or larger for AGNs in the 3-class case.
 
 \begin{table}[!h]
 \centering
@@ -179,6 +188,7 @@ Also the number of correct predictions in the 3-class case is 263 (out of 340 so
     \caption{
     Comparison of classes predicted for unassociated sources in the 3FGL catalog using 3-class classification
     with associations in the 4FGL-DR2 catalog. 
+    For the definition of precision and recall labels see Table \ref{tab:3FGL_vs_4FGL_2class}.
 }
     \label{tab:3FGL_vs_4FGL_3class}
 \end{table}
@@ -194,6 +204,10 @@ In comparing the accuracies with the 2-class classification in Table \ref{tab:se
 one has to take into account that there are 346 OTHER sources among 4116 associated sources in 4FGL-DR2, which is about 8.4\%.
 Since all OTHER sources are ``misclassified'' by the 2-class classification, the 3-class classification provides an improvement of about 2-4\% compared to the 2-class classification.
 
+The expected precision and recall for the classification of sources using agreement among all algorithms and the
+$\sum_a p_a > 7$ conditions are presented in Table \ref{tab:prec_recall_4FGL}.
+We note that for the 4FGL-DR2 sources the
+precision in the 3-class case is better than the precision in the 2-class case, while the recall is better in the 2-class case.
 Another comparison of the performance of the 2- and 3-class classifications is provided in Appendix \ref{sec:reliability} where we present the reliability diagrams.
 The conclusion is that the reliability diagrams for the 3-class are similar to the reliability diagrams for the 2-class case, which includes only AGN and PSR sources, with an additional advantage that in the 2-class classification one needs to account for the contribution of the OTHER sources among the unassociated ones, while in the 3-class case the contribution of the OTHER sources is included in the model.
 
@@ -233,9 +247,7 @@ The conclusion is that the reliability diagrams for the 3-class are similar to t
 
 The numbers of unassociated sources classified by all 8 methods as AGNs, pulsars, and other sources for the 3FGL and 4FGL-DR2 catalogs are presented in Table \ref{tab:prediction_2and3class} in the ``3-class'' rows.
 For each algorithm the most probable class of the source is determined by the class with the largest probability.
-Since there are three classes, the largest probability can have a value just above 1/3.
 The ``Mixed'' column shows the number of sources with different classification results for different algorithms.
-
 
 Classification of \Fermi-LAT 4FGL sources into three classes was considered earlier by, e.g., \cite{2021RAA....21...15Z}, 
 who have primarily used a two-step classification procedure, where in the first step AGNs are separated from the rest of sources and in the second step the remaining sources are split into pulsars and other sources.
@@ -253,10 +265,13 @@ We also used the 3-class classification to create lists of most likely PSR and O
 sources in the 4FGL-DR2 catalog.
 In Section \ref{sec:4FGLprediction} we determined a list of 29 PSR candidates by requiring that 
 the unassociated sources are predicted to be pulsars by all 8 methods both in the 3FGL and in the 4FGL-DR2 catalogs.
-In this section we use a different method to determine candidates which belong to PSR and OTHER classes: 
-we calculated the sums of probabilities for PSR and OTHER classes for all 8 methods in the 3-class classification case
-and selected sources with the sums of probabilities larger than 7.
-
+As one can from Table \ref{tab:selected_algs_multi} and also from the comparison of Tables \ref{tab:3FGL_vs_4FGL_3class}
+and \ref{tab:3FGL_vs_4FGL_2class}, the sum of probabilities larger than 7 condition provides a better precision than the 
+agreement among the algorithms condition.
+In this section we use the $\sum_a p_a > 7$ condition to create lists of PSR and OTHER candidates
+among the unassociated 4FGL-DR2 sources.
+In the 3FGL case, all PSR candidates satisfying the $\sum_a p_a > 7$ condition are already associated to pulsars in 4FGL-DR2,
+while there are no OTHER candidates satisfying the $\sum_a p_a > 7$ condition among the unassociated sources. 
 
 There are 6 unassociated 4FGL-DR2 sources
 with the sum of PSR-class probabilities in the 3-class classification larger than 7.
@@ -265,14 +280,11 @@ All of these sources are also among the list of 29 PSR candidates determined in 
 features in Section \ref{sec:4FGLprediction}. 
 For convenience, we also add the sums of PSR-like probabilities for the 3-class classification of the 4FGL-DR2 sources
 in the ``3FGL\_4FGL-DR2\_Candidates\_PSR.csv'' file.
-We note that the condition on the sum of probabilities to be larger than 7 is, as a rule, more stringent than the condition that a source
-is predicted to be a pulsar by all 8 methods, which we used in Section \ref{sec:4FGLprediction} in order to create the list of 29 pulsar
-candidates based on the 2-class classification.
+%We note that the condition on the sum of probabilities to be larger than 7 is, as a rule, more stringent than the condition that a source is predicted to be a pulsar by all 8 methods, which we used in Section \ref{sec:4FGLprediction} in order to create the list of 29 pulsar candidates based on the 2-class classification.
 Three sources (4FGL J1539.4-3323, 4FGL J0933.8-6232,  and 4FGL J2112.5-3043) 
 have also possible associations in the Parkes survey (Table \ref{tab:parkes}).
-Interestingly, none of the sources in Table \ref{tab:psr_candidates_3class} have the sum of PSR probabilities greater than 7 when 3FGL features are used. However, five of them are categorized as PSRs by all 8 methods in 3FGL. 
-We also note that all sources with the sum of PSR probabilities larger than 7 for the 3-class classification of unassociated 3FGL sources
-are associated as PSRs in 4FGL-DR2.
+%Interestingly, none of the sources in Table \ref{tab:psr_candidates_3class} have the sum of PSR probabilities greater than 7 when 3FGL features are used. However, five of them are categorized as PSRs by all 8 methods in 3FGL. 
+%We also note that all sources with the sum of PSR probabilities larger than 7 for the 3-class classification of unassociated 3FGL sources are associated as PSRs in 4FGL-DR2.
 
 \pgfplotstableread[col sep=comma]{tables/4FGLDR2_PSR.csv}\loadedtable
 \begin{table}

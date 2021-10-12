@@ -202,7 +202,10 @@ We conclude that even if the estimated precision for AGNs (pulsars) is better th
     \vspace{2mm}
     \caption{
     Comparison of classes predicted for unassociated sources in the 3FGL catalog using 2-class classification
-    with associations in the 4FGL-DR2 catalog. See text for the description of precision and recall calculations.
+    with associations in the 4FGL-DR2 catalog. 
+    The precision and recall are calculated using all-algorithms-agreement condition and 4FGL-DR2 associations (``4FGL assoc'' labels)
+    or the test samples with 3FGL associations (``all agree'' labels) as well as $\sum_a p_a > 7$ condition for test samples
+    with 3FGL associations (``$\sum_a p_a > 7$'' labels).
     The AGN and PSR sources are also represented in Fig. \ref{fig:3FGL_vs_4FGL_classes}.}
     \label{tab:3FGL_vs_4FGL_2class}
 \end{table}
@@ -390,12 +393,15 @@ The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
     for two classification conditions: all algorithms agree (``all agree'' rows) and that the sum of probabilities for the 8 algorithms 
     is larger than 7 (``$\sum_a p_a > 7$'' rows). For details on the 2- and 3-class classification see Sections \ref{sec:4FGLprediction} and 
     \ref{sec:3class} respectively. }
-    \label{tab:prec_recall_3FGL}
+    \label{tab:prec_recall_4FGL}
 \end{table}
 
-
-The expected numbers of pulsars and AGNs among the 1658 unassociated sources in 4FGL-DR2 without missing values are
-presented in the 4FGL-DR2 part of Table \ref{tab:prediction_2and3class}.
+Analogously to the 3FGL catalog, we use the agreement among the algorithms for the probabilistic classification of sources.
+We report the corresponding precision and recall in Table \ref{tab:prec_recall_4FGL}, where we also show precision and recall
+for the $\sum_a p_a > 7$ condition and for the 3-class classification described in Section \ref{sec:3class}.
+Using the agreement among the algorithms condition,
+we calculate the expected numbers of pulsars and AGNs among the 1658 unassociated sources in 4FGL-DR2 without missing values 
+(see 4FGL-DR2 part of Table \ref{tab:prediction_2and3class}).
 The definition of rows is the same as in the 3FGL catalog 2-class classification in Section \ref{sec:3FGLprediction1}.
 
 Finally, we looked at sources which were unassociated in both 3FGL and 4FGL-DR2 (using 'ASSOC\_FGL' as an identifier for 3FGL sources). Out of 303 such sources%
