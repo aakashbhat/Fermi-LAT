@@ -128,7 +128,7 @@ which have associations with sources other than pulsars and AGNs.
 
 We also present in Table~\ref{tab:3FGL_vs_4FGL_2class} the precision and recall estimates from the comparison of the 3FGL and 4FGL-DR2 catalogs (``4FGL assoc'' columns and rows) and the expected precision and recall using the condition that all
 methods agree (``all agree'' columns and rows) and the condition that the sum of probabilities is larger than 7 (``$\sum_a p_a > 7$'' columns and rows).
-For example, the precision for AGNs is the number of true positive predictions (223) over the number of positive predictions (the sum of numbers in the AGN column: 223 + 10 + 8), which gives $223 / 241 \approx 0.93$.
+For example, the precision for AGNs is the number of true positive predictions (223) over the number of positive predictions (the sum of numbers in the AGN column: (223 + 10 + 8), which gives $223 / 241 \approx 0.93$.
 The estimated precision for PSRs is $ 23 / (23 + 5 + 6) \approx 0.68$.
 The precision (recall) estimates using, e.g., the condition that all algorithms agree is computed by taking the ratio of associated pulsars in 3FGL, which are also predicted to be pulsars by all 8 algorithms, to the number of sources associated with pulsars (to the total number of sources predicted to be pulsars among associated sources) in the 3FGL catalog.
 The precision and recall estimates for the $\sum_a p_a > 7$ condition are computed analogously.
@@ -389,7 +389,7 @@ The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
     \hline
     \end{tabular}%}
     \vspace{2mm}
-    \caption{The expected precision and recall for the classification of unassociated 4FGL-DR2 sources
+    \caption{The expected precision and recall for the classification of associated 4FGL-DR2 sources
     for two classification conditions: all algorithms agree (``all agree'' rows) and that the sum of probabilities for the 8 algorithms 
     is larger than 7 (``$\sum_a p_a > 7$'' rows). For details on the 2- and 3-class classification see Sections \ref{sec:4FGLprediction} and 
     \ref{sec:3class} respectively. }
