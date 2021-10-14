@@ -111,7 +111,13 @@ We have omitted the oversampled probability columns here.}
 
 %It can happen that different algorithms classify a source both as an AGN and as a pulsar.
 For the determination of candidate classes based on the probabilistic classification, we consider the following two conditions:
-1) that all algorithms agree and 
+1) that all algorithms agree, i.e., each algorithm predicts the same class for a source with more than 50\% probability,%
+\footnote{We use the 50\% threshold in the 2-class case for illustration. Even if the probabilities for a source to be, e.g., a pulsar is larger than 50\% for all eight methods, there is still a large chance for the source to be an AGN if the probabilities are around 50\%. 
+For this reason, the classes of sources reported in this work derived from the class probabilities should be viewed as candidate classes.
+Depending on the application, a higher (lower) threshold can be used for a cleaner (more complete) sample. The full catalogs with all probabilities are available online \citep{SOM_material}.
+More confident classification of particular sources can be obtained with multiwavelength studies, 
+which are beyond the analysis in this paper.}
+ and 
 2) that the sum of probabilities for a source to belong to a certain class is larger than 7 
 (this means that on average the probability is larger than 7/8 = 0.875).
 Both of these conditions are stricter than the classification using probabilities for any of the 8 algorithms.
@@ -126,54 +132,29 @@ Columns show the predictions for the 3FGL unassociated sources, while the rows s
 For the later comparison with the 3-class classification, we also add unassociated source in the 3FGL catalog, 
 which have associations with sources other than pulsars and AGNs.
 
-We also present in Table~\ref{tab:3FGL_vs_4FGL_2class} the precision and recall estimates from the comparison of the 3FGL and 4FGL-DR2 catalogs (``4FGL assoc'' columns and rows) and the expected precision and recall using the condition that all
-methods agree (``all agree'' columns and rows) and the condition that the sum of probabilities is larger than 7 (``$\sum_a p_a > 7$'' columns and rows).
+We also present in Table~\ref{tab:3FGL_vs_4FGL_2class} the precision and recall estimates from the comparison of the 3FGL and 4FGL-DR2 catalogs (``4FGL assoc'' columns and rows).
 For example, the precision for AGNs is the number of true positive predictions (223) over the number of positive predictions (the sum of numbers in the AGN column: (223 + 10 + 8), which gives $223 / 241 \approx 0.93$.
 The estimated precision for PSRs is $ 23 / (23 + 5 + 6) \approx 0.68$.
+In addition we show the expected precision and recall using the condition that all
+methods agree (``all agree'' columns and rows) and the condition that the sum of probabilities is larger than 7 (``$\sum_a p_a > 7$'' columns and rows) calculated using the class probabilities for associated sources reported in the probabilistic catalogs (these probabilities are derived as an average over the test samples).
 The precision (recall) estimates using, e.g., the condition that all algorithms agree is computed by taking the ratio of associated pulsars in 3FGL, which are also predicted to be pulsars by all 8 algorithms, to the number of sources associated with pulsars (to the total number of sources predicted to be pulsars among associated sources) in the 3FGL catalog.
 The precision and recall estimates for the $\sum_a p_a > 7$ condition are computed analogously.
-This condition is on average stricter than the ``all agree'' condition, which results in larger precision and smaller recall than in the ``all agree'' case.
+The latter condition is on average stricter than the ``all agree'' condition, which results in larger precision and smaller recall than in the ``all agree'' case.
 Also all unassociated 3FGL pulsar candidates, which satisfy $\sum_a p_a > 7$ condition, are associated to pulsars in the 4FGL-DR2.
 
 We note that the precision and recall with the ``all agree'' condition from the comparison of 3FGL and 4FGL-DR2 catalogs is worse than the precision and recall expectations using the estimates from the test samples in training.
-In order to understand the reason for the worse performance of classification in comparison of 3FGL predictions with the 4FGL-DR2 associations relative to the expectations we plot the 303 sources unassociated in 3FGL but with PSR or AGN associations in 4FGL-DR2 in 
-Fig.~\ref{fig:3FGL_vs_4FGL_classes}.
+In order to understand the reason for the worse performance of classification in comparison of 3FGL predictions with the 4FGL-DR2 associations relative to the expectations we plot in Fig.~\ref{fig:3FGL_vs_4FGL_classes} the 303 sources unassociated in 3FGL but with PSR or AGN associations in 4FGL-DR2.
 The class at the beginning of the label name in Fig.~\ref{fig:3FGL_vs_4FGL_classes} corresponds to the association in the 4FGL-DR2, while the second half of the labels corresponds to classification of unassociated sources in 3FGL. For example, ``PSRs classified only as PSRs'' shows sources which have a PSR association in 4FGL-DR2 and all eight methods classified the corresponding unassociated sources in 3FGL as a pulsar. ``PSRs classified as either PSRs or AGNs'' labels sources with PSR associations in 4FGL-DR2 but the corresponding unassociated sources in 3FGL have both PSR and AGN classifications by different ML methods.
 We notice that misclassified or partially misclassified sources in Fig. \ref{fig:3FGL_vs_4FGL_classes} typically happen on the boundary between the two classes or even inside the opposite class.
 Many of these sources also have flags in the 3FGL catalog, such as a potential problem with the background diffuse emission model in the location of the source, which can lead to a poor reconstruction of the source spectrum and, consequently, misclassification of the source.
-We conclude that even if the estimated precision for AGNs (pulsars) is better than about 97\% (80\%) with either 2- or 3-class classification, the precision estimates from the comparison of 3FGL and 4FGL-DR2 catalogs is about 93\% (70\%) for AGNs (pulsars), which is mostly due to errors and uncertainties in the input data and represents an irreducible error of the analysis.
+The estimated precision for AGNs (pulsars) using either ``all-agree'' or $\sum_a p_a > 7$ condition is better than about 97\% (80\%) with the 2-class classification, while the precision estimates from the comparison of 3FGL and 4FGL-DR2 catalogs is about 93\% (70\%) for AGNs (pulsars).
+We will see in Section \ref{sec:3class} that the expected precision using  either ``all-agree'' or $\sum_a p_a > 7$ condition for the 3-class classification for AGNs (pulsars) is better than about 99\% (90\%), but the precision estimated from the comparison of 3FGL and 4FGL-DR2 catalogs is still about 93\% (70\%).
+Thus even if the expected precision is better in the 3-class case than in the 2-class case, the precision estimates from the comparison of 3FGL and 4FGL-DR2 catalogs are similar in the 2- and 3-class cases.
+We conclude that the smaller precision in the comparison of the 3FGL and 4FGL-DR2 catalogs is mostly due to errors and uncertainties in the input data and represents an irreducible error of the analysis
+
 
 %
 %\dima{new text: Overall there are 275 sources in Table \ref{tab:3FGL_vs_4FGL_2class} classified as pulsars or AGNs by all 8 methods. Among these sources, 246 have correspondingly pulsar or AGN associations in the 4FGL-DR2 catalog, while the remaining 29 sources were misclassified, which can be interpreted as 10.5\% false positive rate. This false positive rate is consistent with about 90\% accuracy for the individual methods.}
-
-\begin{comment}
-\begin{table}[!h]
-\centering
-%\resizebox{0.3\textwidth}{!}{
-    %\tiny
-  
- \renewcommand{\tabcolsep}{0.3mm}
-\renewcommand{\arraystretch}{1.5}
-
-    \begin{tabular}{l c c c}
-    \hline
-    \hline
-    4FGL-DR2 class & \multicolumn{3}{c}{3FGL prediction} \\
-      &\ AGN &\ PSR &\ MIXED \\
-    \hline
-    AGN & 223 & 5 &  30 \\ % 258
-    PSR & 10 & 23 &  12  \\ % 45
-    OTHER & 8 & 6 & 23  \\ % 37
-    \hline
-    \end{tabular}%}
-    \vspace{2mm}
-    \caption{Comparison of classes predicted for unassociated sources in the 3FGL catalog using 2-class classification
-    with associations in the 4FGL-DR2 catalog. 
-    The AGN and PSR sources are also represented in Fig. \ref{fig:3FGL_vs_4FGL_classes}.}
-    \label{tab:3FGL_vs_4FGL_2class}
-\end{table}
-
-\end{comment}
 
 
 \begin{table}[!h]
@@ -204,8 +185,7 @@ We conclude that even if the estimated precision for AGNs (pulsars) is better th
     Comparison of classes predicted for unassociated sources in the 3FGL catalog using 2-class classification
     with associations in the 4FGL-DR2 catalog. 
     The precision and recall are calculated using all-algorithms-agreement condition and 4FGL-DR2 associations (``4FGL assoc'' labels)
-    or the test samples with 3FGL associations (``all agree'' labels) as well as $\sum_a p_a > 7$ condition for test samples
-    with 3FGL associations (``$\sum_a p_a > 7$'' labels).
+    or the class probabilities of associated 3FGL sources derived from test samples using either all-algorithms-agreement condition (``all agree'' labels) or the $\sum_a p_a > 7$ condition (``$\sum_a p_a > 7$'' labels).
     The AGN and PSR sources are also represented in Fig. \ref{fig:3FGL_vs_4FGL_classes}.}
     \label{tab:3FGL_vs_4FGL_2class}
 \end{table}
@@ -252,13 +232,7 @@ We conclude that even if the estimated precision for AGNs (pulsars) is better th
 
 We summarize the results of classification of unassociated 3FGL sources with the 2-class classification 
 in Table \ref{tab:prediction_2and3class} in the 3FGL ``2-class'' row.
-The ``AGNs'' column shows the number of unassociated sources where all eight methods from Table \ref{tab:selected_algs} 
-give the probability for a source to be an AGN above 50\%.%
-\footnote{We use the 50\% threshold in the 2-class case for illustration. Even if the probabilities for a source to be a pulsar is larger than 50\% for all eight methods, there is still a large chance for the source to be an AGN if the probabilities are around 50\%. 
-For this reason, the classes of sources reported in this work derived from the class probabilities should be viewed as candidate classes.
-Depending on the application, a higher (lower) threshold can be used for a cleaner (more complete) sample. The full catalogs with all probabilities are available online \citep{SOM_material}.
-More confident classification of particular sources can be obtained with multiwavelength studies, 
-which are beyond the analysis in this paper.}
+The ``AGNs'' column shows the number of unassociated sources predicted to be AGNs using the all-algorithms-agree condition.
 Similarly the ``Pulsars'' column shows the number of unassociated sources where all the algorithms predict the source to more likely be a pulsar.
 The ``Mixed'' column shows the number of sources with mixed classification, i.e., some algorithms predict that the source is more likely an AGN while the other algorithms predict that it is more likely a pulsar.
 We also add the ``OTHER'' column in order to compare the results with the 3-class classification in Section \ref{sec:3class}.
@@ -389,7 +363,7 @@ The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
     \hline
     \end{tabular}%}
     \vspace{2mm}
-    \caption{The expected precision and recall for the classification of associated 4FGL-DR2 sources
+    \caption{The expected precision and recall for the classification of 4FGL-DR2 sources
     for two classification conditions: all algorithms agree (``all agree'' rows) and that the sum of probabilities for the 8 algorithms 
     is larger than 7 (``$\sum_a p_a > 7$'' rows). For details on the 2- and 3-class classification see Sections \ref{sec:4FGLprediction} and 
     \ref{sec:3class} respectively. }

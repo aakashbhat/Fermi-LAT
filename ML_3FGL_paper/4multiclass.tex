@@ -135,32 +135,6 @@ is higher in the 3-class case (Table~\ref{tab:3FGL_vs_4FGL_3class}) compared to 
     \label{tab:selected_algs_multi}
 \end{table}
 
-\begin{comment}
-\begin{table}[!h]
-\centering
-%\resizebox{0.3\textwidth}{!}{
-    %\tiny
- \renewcommand{\tabcolsep}{0.3mm}
-\renewcommand{\arraystretch}{1.5}
-
-    \begin{tabular}{l c c c c}
-    \hline
-    \hline
-    4FGL-DR2 class & \multicolumn{4}{c}{3FGL prediction} \\
-      &\ AGN &\ PSR &\ OTHER &\ MIXED \\
-    \hline
-    AGN & 238 & 2 &  1 & 17 \\ % 258
-    PSR & 12 & 17 &  0 & 16 \\ % 45
-    OTHER & 6 & 5 & 8 & 18 \\ % 37
-    \hline
-    \end{tabular}%}
-    \vspace{2mm}
-    \caption{Comparison of classes predicted for unassociated sources in the 3FGL catalog using 3-class classification
-    with associations in the 4FGL-DR2 catalog. 
-}
-    \label{tab:3FGL_vs_4FGL_3class}
-\end{table}
-\end{comment}
 
 \begin{table}[!h]
 \centering
@@ -265,10 +239,10 @@ We also used the 3-class classification to create lists of most likely PSR and O
 sources in the 4FGL-DR2 catalog.
 In Section \ref{sec:4FGLprediction} we determined a list of 29 PSR candidates by requiring that 
 the unassociated sources are predicted to be pulsars by all 8 methods both in the 3FGL and in the 4FGL-DR2 catalogs.
-As one can from Table \ref{tab:selected_algs_multi} and also from the comparison of Tables \ref{tab:3FGL_vs_4FGL_3class}
-and \ref{tab:3FGL_vs_4FGL_2class}, the sum of probabilities larger than 7 condition provides a better precision than the 
+As one can see from Table \ref{tab:selected_algs_multi} and also from the comparison of Tables \ref{tab:3FGL_vs_4FGL_3class}
+and \ref{tab:3FGL_vs_4FGL_2class}, the $\sum_a p_a > 7$ condition provides a better precision than the 
 agreement among the algorithms condition.
-In this section we use the $\sum_a p_a > 7$ condition to create lists of PSR and OTHER candidates
+For this reason, in this section we use the $\sum_a p_a > 7$ condition to create lists of PSR and OTHER candidates
 among the unassociated 4FGL-DR2 sources.
 In the 3FGL case, all PSR candidates satisfying the $\sum_a p_a > 7$ condition are already associated to pulsars in 4FGL-DR2,
 while there are no OTHER candidates satisfying the $\sum_a p_a > 7$ condition among the unassociated sources. 
