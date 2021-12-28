@@ -34,15 +34,15 @@ The points on some precision curves are absent for high thresholds, when there a
 \label{fig:thres_3_vs_4}
 \end{figure*}
 
-In the paper we use the largest probability rule to classify sources by individual algorithms,
-in particular, it means that in the 2-class case a source is classified as an AGN or a pulsar if the corresponding probability
-is larger than 50\%.
-Although the classification by the largest probability is a common approach in machine learning and we use it
-for the calculation of accuracy of individual algorithms and for the optimization of the meta-parameters, 
-one can choose other thresholds for the classification depending on the goals of the analysis.
-For instance, if a list of high-probability pulsars is required, one could use a higher threshold, 
-which is expected to reject most of the false candidates but real pulsars would be rejected as well, 
-i.e., generally one expects a higher precision for higher threshold
+In the paper we use the largest probability rule to classify sources by individual algorithms.
+In particular, this means that in the 2-class case a source is classified as an AGN or a pulsar if the corresponding probability
+is larger than 50\%. Similarly, in the 3-class case a source may be classified based on a minimum required 33.3\% probability.
+Classification by the largest probability is a common approach in machine learning and we use it
+for the calculation of accuracy of individual algorithms and for the optimization of the meta-parameters. 
+However, one can choose other thresholds for the classification depending on the goals of the analysis.
+For instance, if a list of high-probability pulsars is required one could use a higher threshold, 
+which is expected to reject most of the false candidates but real pulsars would be rejected as well. 
+Statistically this means one expects a higher precision for higher threshold
 at the expense of lower recall.
 On the other hand, lower threshold would increase the recall (one would miss fewer true candidates), 
 but decrease the precision (there will be more false positives).
@@ -51,7 +51,7 @@ but decrease the precision (there will be more false positives).
 
 In this appendix we study the effect of changing the threshold on the probabilistic classification of sources by the individual
 algorithms on the overall precision and recall of classification using the agreement of all 8 algorithms.
-In Figure \ref{fig:thres} we show precision and recall for the 2- and 3-class classification cases of 3FGL and 4FGL-DR2 PSR and OTHER sources.
+In Figure \ref{fig:thres} we show precision and recall for the 2- and 3-class classification cases of 3FGL and 4FGL-DR2 for PSR and OTHER sources.
 In the calculation we use the probabilistic classification of associated sources described in Section \ref{sec:3FGLprediction1},
 i.e., we perform 1000 random splits into training and testing samples and determine the class probabilities for a source by averaging the probabilities when the source is included in the test samples.
 We note that with increasing threshold the recall is decreasing while the precision is generally increasing  (except for a few high threshold values in the 3FGL PSR and OTHER 3-class classification, where the number of candidates is very small).
