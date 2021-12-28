@@ -129,28 +129,6 @@ some of the most important features are significance of curvature in the spectru
 \section{Comparison of Oversampling methods}
 \lb{sec:app_O_vs_S}
 
-In this appendix we compare the method of oversampling by repeating sources described in Section \ref{sec:oversampling} 
-with SMOTE \citep{2011arXiv1106.1813C}. We use SMOTE from the Imbalanced-learn library, which is based on an implementation of \citet{Chawla_2002}. 
-We estimate the probabilities of classification of all sources in the 3FGL and 4FGL-DR2 catalogs using the same algorithms and meta-parameters as in Section \ref{sec:oversampling}.
-The only difference in the SMOTE case is the oversampling technique.
-%SMOTE oversamples by creating synthetic data based on the data points already available. 
-%For a direct comparison we used the associated sources in 3FGL/4FGL-DR2 and compared the probabilities of the individual sources. 
-First, we compare the difference in class probabilities for individual sources relative to the statistical uncertainty due to the random choice of the training samples.
-%We calculate normalized differences of individiual probabilities $P_{D}$ by the formula:
-In particular, we calculate the difference of probabilities to belong to, e.g., PSR class relative to the maximal standard deviation
-between the oversampling-by-repeating and SMOTE
-
-\be
-\lb{eq:OS_diff}
-\Delta = \frac{P_O - P_S}{max(\sigma_{O},\sigma_{S})},
-\ee
-where $P_O$ ($P_S$) is the probability for the oversampling-by-repeating (SMOTE) and $\sigma_O$ ($\sigma_S$) is the corresponding standard deviation. 
-The mean and the standard deviation of $\Delta$ for 2- and 3-class cases in the 3FGL and 4FGL-DR2 catalogs are presented in 
-Tables \ref{tab:OvsS_3FGL} and \ref{tab:OvsS_4FGL} respectively.
-We note that in the 3-class case we use less oversampling than in the 2-class case, namely, the oversampling factor in the 3-class case is equal to the square root of the ratio of the number of sources, while in the 2-class case it is equal to the ratio of the number of associated AGNs to the number of associated pulsars.
-This is the reason for the smaller bias and standard deviation of the difference in the 3-class case relative to the 2-class case.
-Overall, the differences for individual probabilities are smaller than the uncertainties due to randomness of training.
-
 \begin{table}[!h]
 \tiny
 \centering
@@ -209,6 +187,29 @@ for the 4 algorithms used in 4FGL-DR2 with PSR-like probabilities for all source
 \label{tab:OvsS_4FGL}
 \end{table}
 
+In this appendix we compare the method of oversampling by repeating sources described in Section \ref{sec:oversampling} 
+with SMOTE \citep{2011arXiv1106.1813C}. We use SMOTE from the Imbalanced-learn library, which is based on an implementation of \citet{Chawla_2002}. 
+We estimate the probabilities of classification of all sources in the 3FGL and 4FGL-DR2 catalogs using the same algorithms and meta-parameters as in Section \ref{sec:oversampling}.
+The only difference in the SMOTE case is the oversampling technique.
+%SMOTE oversamples by creating synthetic data based on the data points already available. 
+%For a direct comparison we used the associated sources in 3FGL/4FGL-DR2 and compared the probabilities of the individual sources. 
+First, we compare the difference in class probabilities for individual sources relative to the statistical uncertainty due to the random choice of the training samples.
+%We calculate normalized differences of individiual probabilities $P_{D}$ by the formula:
+In particular, we calculate the difference of probabilities to belong to, e.g., PSR class relative to the maximal standard deviation
+between the oversampling-by-repeating and SMOTE
+
+\be
+\lb{eq:OS_diff}
+\Delta = \frac{P_O - P_S}{max(\sigma_{O},\sigma_{S})},
+\ee
+where $P_O$ ($P_S$) is the probability for the oversampling-by-repeating (SMOTE) and $\sigma_O$ ($\sigma_S$) is the corresponding standard deviation. 
+The mean and the standard deviation of $\Delta$ for 2- and 3-class cases in the 3FGL and 4FGL-DR2 catalogs are presented in 
+Tables \ref{tab:OvsS_3FGL} and \ref{tab:OvsS_4FGL} respectively.
+We note that in the 3-class case we use less oversampling than in the 2-class case, namely, the oversampling factor in the 3-class case is equal to the square root of the ratio of the number of sources, while in the 2-class case it is equal to the ratio of the number of associated AGNs to the number of associated pulsars.
+This is the reason for the smaller bias and standard deviation of the difference in the 3-class case relative to the 2-class case.
+Overall, the differences for individual probabilities are smaller than the uncertainties due to randomness of training.
+
+
 The LR algorithm has some of the largest differences.
 We plot the histogram of the $\Delta$ for the PSR-like probabilities in the 3FGL (4FGL-DR2) catalogs in Fig. \ref{fig:OvsS_3FGL_PSR}
 (\ref{fig:OvsS_4FGL_PSR}).
@@ -237,16 +238,6 @@ for LR in the 2-class (top) and the 3-class (bottom) classifications of the 3FGL
 \label{fig:OvsS_4FGL_PSR}
 \end{figure}
 
-
-The difference between oversampling-by-repeating and SMOTE is illustrated in Fig. \ref{fig:domains_smote_over}.
-The domains are determined by averaging over 100 random choices of the training data.
-One of these choices is shown on the plots: in this case, both oversampling-by-repeating and SMOTE have the same 
-training and testing samples.
-In the oversampling-by-repeating the training sources are oversampled by simply repeating the sources,
-while in SMOTE new sources are created by randomly placing sources in the parameter space along the lines connecting a source
-and one of its nearest neighbours. In our implementation we choose one out of the 5 nearest neighbours. 
-
-
 \begin{figure}[h]
 \centering
 %\hspace*{-0.5cm}
@@ -258,17 +249,6 @@ using LR with oversampling by repeating sources (top) and SMOTE (bottom).
 }
 \label{fig:domains_smote_over}
 \end{figure}
-
-
-Although the mean and the standard deviations for the probabilities of the individual sources are smaller than the 
-statistical uncertainties of the probabilities, the presence of the bias can have a significant effect when we sum the probabilities, e.g., in population studies.
-In order to check this effect we compare the source count distributions as a function of flux for oversampling-by-repeating and SMOTE 
-in Fig. \ref{fig:S_vs_O_NlogS}.
-We show the expected number of pulsars among unassociated sources for the 2- and 3-class cases using the 3FGL and 4FGL-DR2 catalogs.
-We also show the expected number of OTHER sources in the 3-class case.
-The difference can indeed be significant for some of the algorithms, but the change is comparable or smaller than the difference among the algorithms.
-The classification probabilities in the 2- and 3-class cases with SMOTE for the 3FGL and 4FGL-DR2 catalogs 
-are available online in the SOM/SMOTE subfolder in the supplementary online materials \citep{SOM_material}.
 
 \begin{figure*}[h]
 \centering
@@ -292,3 +272,26 @@ for oversampling by repeating.
 }
 \label{fig:S_vs_O_NlogS}
 \end{figure*}
+
+
+The difference between oversampling-by-repeating and SMOTE is illustrated in Fig. \ref{fig:domains_smote_over}.
+The domains are determined by averaging over 100 random choices of the training data.
+One of these choices is shown on the plots: in this case, both oversampling-by-repeating and SMOTE have the same 
+training and testing samples.
+In the oversampling-by-repeating the training sources are oversampled by simply repeating the sources,
+while in SMOTE new sources are created by randomly placing sources in the parameter space along the lines connecting a source
+and one of its nearest neighbours. In our implementation we choose one out of the 5 nearest neighbours. 
+
+
+
+
+Although the mean and the standard deviations for the probabilities of the individual sources are smaller than the 
+statistical uncertainties of the probabilities, the presence of the bias can have a significant effect when we sum the probabilities, e.g., in population studies.
+In order to check this effect we compare the source count distributions as a function of flux for oversampling-by-repeating and SMOTE 
+in Fig. \ref{fig:S_vs_O_NlogS}.
+We show the expected number of pulsars among unassociated sources for the 2- and 3-class cases using the 3FGL and 4FGL-DR2 catalogs.
+We also show the expected number of OTHER sources in the 3-class case.
+The difference can indeed be significant for some of the algorithms, but the change is comparable or smaller than the difference among the algorithms.
+The classification probabilities in the 2- and 3-class cases with SMOTE for the 3FGL and 4FGL-DR2 catalogs 
+are available online in the SOM/SMOTE subfolder in the supplementary online materials \citep{SOM_material}.
+

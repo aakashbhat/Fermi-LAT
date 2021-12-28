@@ -1,22 +1,8 @@
 \section{Reliability diagrams}
 \lb{sec:reliability}
 
-One of the characteristics of a classification algorithm is the reliability diagram (also known as the calibration curve),
-where one compares predicted probabilities with the true fractions of correct classifications.
-For the calculations we use ``calibration\_curve'' function implemented in scikit-learn.
 
-In Fig. \ref{fig:rel_PSR} we show the reliability diagram for PSR classification in the 2- and 3-class cases
-for the 3FGL and 4FGL-DR2 catalogs.
-The predicted PSR-like probabilities for the associated sources are separated in 10 equally spaced bins between 0 and 1, 
-the x-values are the average predicted probabilities in each bin,
-the y-values are the fractions of associated pulsars among the sources with predicted probabilities 
-in the corresponding bins.
-The solid lines at $45^\circ$ show the perfect calibration, when the expected probabilities are on average equal to the 
-fraction of true classifications.
-If the curve is above (below) the perfect calibration line, then the expected probabilities are smaller (larger) than the true fraction,
-i.e., the algorithm underestimates (overestimates) the true fraction.
-
-\begin{figure*}[h]
+\begin{figure*}[ht]
 \centering
 \hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/reliability/calibration_PSR_3FGL_2classes_AGN_PSR.pdf}
@@ -36,6 +22,34 @@ Bottom panels: 3-class classification of 3FGL and 4FGL-DR2 sources.
 \end{figure*}
 
 
+\begin{figure*}[ht]
+\centering
+\hspace*{-0.5cm}
+\includegraphics[width=0.45\textwidth]{plots/reliability/calibration_OTHER_3FGL_3classes.pdf}
+\includegraphics[width=0.45\textwidth]{plots/reliability/calibration_OTHER_4FGL-DR2_3classes.pdf}
+	%\hspace*{-0.5cm}
+%\includegraphics[width=0.55\textwidth]{plots/hist_diff_smote_LR_4FGL-DR2_3class.pdf}
+\caption{Reliability diagrams for the OTHER class in the case of the 3-class classification of the 3FGL and 4FGL-DR2 sources.
+}
+\label{fig:rel_OTHER}
+\end{figure*}
+
+One of the characteristics of a classification algorithm is the reliability diagram (also known as the calibration curve),
+where one compares predicted probabilities with the true fractions of correct classifications.
+For the calculations we use ``calibration\_curve'' function implemented in scikit-learn.
+
+In Fig. \ref{fig:rel_PSR} we show the reliability diagram for PSR classification in the 2- and 3-class cases
+for the 3FGL and 4FGL-DR2 catalogs.
+The predicted PSR-like probabilities for the associated sources are separated in 10 equally spaced bins between 0 and 1, 
+the x-values are the average predicted probabilities in each bin,
+the y-values are the fractions of associated pulsars among the sources with predicted probabilities 
+in the corresponding bins.
+The solid lines at $45^\circ$ show the perfect calibration, when the expected probabilities are on average equal to the 
+fraction of true classifications.
+If the curve is above (below) the perfect calibration line, then the expected probabilities are smaller (larger) than the true fraction,
+i.e., the algorithm underestimates (overestimates) the true fraction.
+
+
 In the top panels of Fig. \ref{fig:rel_PSR} we show the reliability diagrams for the 2-class classification
 where we take into account only sources in PSR and AGN classes.
 One can see that without oversampling, some algorithms tend to underestimate the true fraction (e.g., RF and LR in the 3FGL 2-class case),
@@ -48,20 +62,6 @@ none of which are pulsars.
 It shows that the 2-class classification is likely overestimating the number of pulsars among the unassociated sources
 due to the presence of the OTHER sources.
 Thus some correction or calibration is needed.
-
-
-
-\begin{figure*}[h]
-\centering
-\hspace*{-0.5cm}
-\includegraphics[width=0.45\textwidth]{plots/reliability/calibration_OTHER_3FGL_3classes.pdf}
-\includegraphics[width=0.45\textwidth]{plots/reliability/calibration_OTHER_4FGL-DR2_3classes.pdf}
-	%\hspace*{-0.5cm}
-%\includegraphics[width=0.55\textwidth]{plots/hist_diff_smote_LR_4FGL-DR2_3class.pdf}
-\caption{Reliability diagrams for the OTHER class in the case of the 3-class classification of the 3FGL and 4FGL-DR2 sources.
-}
-\label{fig:rel_OTHER}
-\end{figure*}
 
 The bottom panels of Fig. \ref{fig:rel_PSR} show the reliability diagrams in the 3-class case.
 One can see that the performance of the algorithms is not worse than in the 2-class case on the top panels
