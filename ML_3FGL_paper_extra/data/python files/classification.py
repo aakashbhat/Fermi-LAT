@@ -91,9 +91,10 @@ while se<10:
     X_t, X_test, y_t, y_test = \
         train_test_split(X1, y, test_size=.3, random_state=0)       #Split into training and validation
 
-    oversample = SMOTE()
+    #oversample = SMOTE()
     #oversample = RandomOverSampler(sampling_strategy='minority')
-    X_train, y_train = oversample.fit_resample(X_t, y_t)
+    #X_train, y_train = oversample.fit_resample(X_t, y_t)
+    X_train, y_train = (X_t, y_t)
     print(se)
     x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5   #Define minimumm and maximum of axes
     y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
@@ -247,7 +248,7 @@ if(length==12):
     #ax2.text(6.5,-2.3,"Trees: 50")
     #ax2.text(6.5,-2.6,"Maximum Depth: 6")
     #ax2.set_xlim(xx.min(), xx.max())
-    ax2.set_title('Logistic regression, 3FGL (SMOTE)')
+    ax2.set_title('Logistic regression')
     #ax2.set_title('Random Forests (3-Class)')
 
     #ax2.set_ylim(yy.min(), yy.max())
@@ -266,8 +267,9 @@ if(length==12):
 
 plt.tight_layout()
 #plt.show()
-fn = 'plots/domains_smote_LR_3FGL_2class.pdf'
+fn = 'plots/LR_3FGL_2class.pdf'
 print('save plot to file')
 print(fn)
+
 plt.savefig(fn)
 
