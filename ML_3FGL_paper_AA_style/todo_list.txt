@@ -13,7 +13,8 @@ ML_3FGL_paper/plots/classification_domains/lr_200_lbfgs_oversample.pdf
 @ Aakash
 
 - remove all the background grids from your figures (A&A reinforced graphic policy).
-@ Dima & Aakash
+@ Dima 
+@ Aakash: Histogram grids removed in appendix
 
 
 2. Create a single tex file inside "ML_3FGL_paper_AA_style" folder
