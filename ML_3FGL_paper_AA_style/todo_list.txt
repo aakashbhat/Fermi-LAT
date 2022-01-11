@@ -1,0 +1,42 @@
+0. Tables and references:
+
+- you should update your arxiv references with the published reference, when possible.
+* Dima: done
+
+- Table captions should be a short title. The description and the references should be moved into a note below the table.
+* Dima: done
+
+1. Update figures
+
+- add space in the title of 
+ML_3FGL_paper/plots/classification_domains/lr_200_lbfgs_oversample.pdf
+@ Aakash
+
+- remove all the background grids from your figures (A&A reinforced graphic policy).
+@ Dima & Aakash
+
+
+2. Create a single tex file inside "ML_3FGL_paper_AA_style" folder
+@ Aakash?
+
+- the appendices are now published as camera-ready material. Please refer to https://www.aanda.org/for-authors/latex-issues/appendices to prepare the appendices for publication
+@ Aakash?
+
+- check that all abbreviations and acronyms are introduced when first used (both in the abstract and in the main text).
+@ Aakash?
+
+
+- run a spell check specific to your language preference (US or UK)
+* Dima: should we use US convention?
+@ Aakash?
+
+3. Submit to A&A:
+@ Dima
+
+- a single tex file that includes all the text in your article (including appendix text, if any)
+
+- the corresponding bbl (if you used bibtex)
+
+- the language convention you used (US or UK).
+
+
