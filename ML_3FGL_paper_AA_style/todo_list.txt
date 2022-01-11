@@ -10,7 +10,7 @@
 
 - add space in the title of 
 ML_3FGL_paper/plots/classification_domains/lr_200_lbfgs_oversample.pdf
-@ Aakash
+@ Aakash : Done
 
 - remove all the background grids from your figures (A&A reinforced graphic policy).
 @ Dima 
@@ -21,7 +21,7 @@ ML_3FGL_paper/plots/classification_domains/lr_200_lbfgs_oversample.pdf
 @ Aakash?
 
 - the appendices are now published as camera-ready material. Please refer to https://www.aanda.org/for-authors/latex-issues/appendices to prepare the appendices for publication
-@ Aakash?
+@ Aakash: done
 
 - check that all abbreviations and acronyms are introduced when first used (both in the abstract and in the main text).
 @ Aakash?
