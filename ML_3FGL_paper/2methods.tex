@@ -271,6 +271,9 @@ Other significant features are the hardness ratio of the last two energy bins, u
 
 
 \begin{table}[!h]
+\caption{Feature importances for RF and BDT algorithms.
+}
+\label{tab:feat_imp}
 \tiny
 \centering
 \renewcommand{\tabcolsep}{1mm}
@@ -294,11 +297,10 @@ GLAT &0.017& 0.002     \\
 GLON & 0.014&0.011  \\
 \hline
 \end{tabular}
-\vspace{2mm}
-\caption{Feature importances for RF (50 trees, max depth 6) and BDT (100 trees, max depth 2) algorithms.
+\tablefoot{RF algorithm: 50 trees with maximal depth 6; BDT algorithm: 100 trees with maximal depth 2.
 The features are ordered by decreasing importance in the case of the RF algorithm.
 }
-\label{tab:feat_imp}
+%\vspace{2mm}
 \end{table}
 
 It is interesting to note that Galactic latitude is among the least significant features.
@@ -474,7 +476,7 @@ The results of training with oversampling are presented  in Fig. \ref{fig:prec_r
 lines 5 and 6 (solid purple with circles and dashed brown with stars). 
 These lines show precision and recall when a source is categorized as a pulsar, if all four algorithms trained with oversampling classify it as a pulsar. The precision and recall in this case are similar to the any-algorithm classification for the training without oversampling.
 
-In order to test the oversampling method, we compare in Appendix \ref{sec:app_O_vs_S} the oversampling-by-repetition with Synthetic Minority Over-sampling Technique \cite[SMOTE,][]{2011arXiv1106.1813C}. The result of the comparison is that for class probabilities of individual sources, the difference in oversampling is generally smaller than the uncertainty due to the random choice of the training sample, while the differences in population studies are comparable to the differences among the different algorithms.
+In order to test the oversampling method, we compare in Appendix \ref{sec:app_O_vs_S} the oversampling-by-repetition with Synthetic Minority Over-sampling Technique \cite[SMOTE,][]{Chawla_2002}. The result of the comparison is that for class probabilities of individual sources, the difference in oversampling is generally smaller than the uncertainty due to the random choice of the training sample, while the differences in population studies are comparable to the differences among the different algorithms.
 
 
 \begin{figure}[h]

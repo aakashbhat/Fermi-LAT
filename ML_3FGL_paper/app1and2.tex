@@ -31,6 +31,8 @@ and  the NN with the additional hidden layer is less then 1\%.
 
 \pgfplotstableread[col sep=comma]{tables/features/3fglassocfeaturesAGNPSRnewfeats.csv}\tablea
 \begin{table}
+\caption{Statistics of features used for 2 class probabilistic classification of the 3FGL sources.
+\label{tab:3FGL_features}}
 \centering
 \resizebox{0.45\textwidth}{!}{
 \pgfplotstabletypeset[
@@ -50,12 +52,12 @@ skip rows between index={11}{25}
 ]{\tablea}
 }
 \vspace{2mm}
-\caption{Statistics of features used for 2 class probabilistic classification of the 3FGL sources.
-\lb{tab:3FGL_features}}
 \end{table}
 
 \pgfplotstableread[col sep=comma]{tables/features/4fgldr2agnpsrfeatures.csv}\tableaf
 \begin{table}
+\caption{Statistics of features used for 2 class probabilistic classification of the 4FGL-DR2 sources.
+\lb{tab:4FGL_features}}
 \centering
 \resizebox{0.45\textwidth}{!}{
 \pgfplotstabletypeset[
@@ -73,13 +75,16 @@ columns/Minimum/.style={column name=Minimum,numeric type,fixed,precision=2},
 columns/Maximum/.style={column name=Maximum,numeric type,fixed,precision=2},
 ]{\tableaf}
 }
-\vspace{2mm}
-\caption{Statistics of features used for 2 class probabilistic classification of the 4FGL-DR2 sources.
-\lb{tab:4FGL_features}}
+%\vspace{2mm}
 \end{table}
 
 
 \begin{table}[!h]
+\caption{Feature importances for classification of 4FGL-DR2 sources for
+RF and BDT algorithms.
+}
+\label{tab:feat_imp2}
+
 \tiny
 \centering
 \renewcommand{\tabcolsep}{1mm}
@@ -108,13 +113,10 @@ HR12&0.009&0.004\\
 GLAT&0.007&0.003\\
 \hline
 \end{tabular}
-\vspace{2mm}
-\caption{Feature importances for classification of 4FGL-DR2 sources using
-RF (50 trees, max depth 6) and BDT (100 trees, max depth 2) algorithms
-ordered by decreasing importance 
-in the case of RF algorithm.
+%\vspace{2mm}
+\tablefoot{RF algorithm: 50 trees with maximal depth 6; BDT algorithm: 100 trees with maximal depth 2.
+The features are ordered by decreasing importance in the case of the RF algorithm.
 }
-\label{tab:feat_imp2}
 \end{table}
 
 
@@ -126,10 +128,16 @@ We show the feature importances for the 2-class classification of 4FGL-DR2 sourc
 Similarly to feature importances for the 3FGL 2-class classification reported in Table \ref{tab:feat_imp}, 
 some of the most important features are significance of curvature in the spectrum, variability index, energy flux above 100 MeV and its uncertainty.
 
-\section{Comparison of Oversampling methods}
+\section{Comparison of oversampling methods}
 \lb{sec:app_O_vs_S}
 
 \begin{table}[!h]
+\caption{
+Mean and standard deviation of the significance of differences between 
+oversampling-by-repeating and SMOTE class probabilities for the 3FGL catalog.
+}
+\label{tab:OvsS_3FGL}
+
 \tiny
 \centering
 \renewcommand{\tabcolsep}{1mm}
@@ -150,10 +158,10 @@ NN&0.285&0.419&0.224&0.254\\
 LR&0.437&0.615&0.357&0.325\\
 \end{tabular}
 \vspace{2mm}
-\caption{The parameters of the distribution of $\Delta$ in Eq.  (\ref{eq:OS_diff})
-for the 4 algorithms used in 3FGL with PSR-like probabilities for all sources.
+\tablefoot{The significance of the probability difference $\Delta$ is defined in Eq. (\ref{eq:OS_diff}).
+The mean and the standard deviation of $\Delta$
+are computed with the PSR-like probabilities for all sources in the 3FGL catalog.
 }
-\label{tab:OvsS_3FGL}
 \end{table}
 
 
@@ -161,6 +169,12 @@ for the 4 algorithms used in 3FGL with PSR-like probabilities for all sources.
 
 
 \begin{table}[!h]
+\caption{
+Mean and standard deviation of the significance of differences between 
+oversampling-by-repeating and SMOTE class probabilities for the 4FGL-DR2 catalog.
+}
+\label{tab:OvsS_4FGL}
+
 \tiny
 \centering
 \renewcommand{\tabcolsep}{1mm}
@@ -181,14 +195,14 @@ NN&0.472&0.430&0.171&0.145\\
 LR&0.531&0.732&0.347&370\\
 \end{tabular}
 \vspace{2mm}
-\caption{The parameters of the distribution of $\Delta$ in Eq.  (\ref{eq:OS_diff})
-for the 4 algorithms used in 4FGL-DR2 with PSR-like probabilities for all sources.
+\tablefoot{The significance of the probability difference $\Delta$ is defined in Eq. (\ref{eq:OS_diff}).
+The mean and the standard deviation of $\Delta$
+are computed with the PSR-like probabilities for all sources in the 4FGL-DR2 catalog.
 }
-\label{tab:OvsS_4FGL}
 \end{table}
 
 In this appendix we compare the method of oversampling by repeating sources described in Section \ref{sec:oversampling} 
-with SMOTE \citep{2011arXiv1106.1813C}. We use SMOTE from the Imbalanced-learn library, which is based on an implementation of \citet{Chawla_2002}. 
+with SMOTE \citep{Chawla_2002}. We use SMOTE from the Imbalanced-learn library, which is based on an implementation of \citet{Chawla_2002}. 
 We estimate the probabilities of classification of all sources in the 3FGL and 4FGL-DR2 catalogs using the same algorithms and meta-parameters as in Section \ref{sec:oversampling}.
 The only difference in the SMOTE case is the oversampling technique.
 %SMOTE oversamples by creating synthetic data based on the data points already available. 

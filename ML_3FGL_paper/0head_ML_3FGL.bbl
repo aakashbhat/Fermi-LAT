@@ -1,4 +1,4 @@
-\begin{thebibliography}{69}
+\begin{thebibliography}{68}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{{Abdo} {et~al.}(2010{\natexlab{a}}){Abdo}, {Ackermann}, {Ajello},
@@ -101,12 +101,6 @@ Breiman, L. 2001, Machine Learning, 45, 5
 Camilo, F., Kerr, M., Ray, P.~S., {et~al.} 2015, The Astrophysical Journal,
   810, 85
 
-\bibitem[{{Caron} {et~al.}(2021){Caron}, {Dijkstra}, {Eckner}, {Hendriks},
-  {J{\'o}hannesson}, {Panes}, {Ruiz de Austri}, \&
-  {Zaharijas}}]{2021arXiv210311068C}
-{Caron}, S., {Dijkstra}, K., {Eckner}, C., {et~al.} 2021, arXiv e-prints,
-  arXiv:2103.11068
-
 \bibitem[{{Carr} {et~al.}(2010){Carr}, {Kohri}, {Sendouda}, \&
   {Yokoyama}}]{2010PhRvD..81j4019C}
 {Carr}, B.~J., {Kohri}, K., {Sendouda}, Y., \& {Yokoyama}, J. 2010, \prd, 81,
@@ -116,11 +110,6 @@ Camilo, F., Kerr, M., Ray, P.~S., {et~al.} 2015, The Astrophysical Journal,
   Kegelmeyer}]{Chawla_2002}
 Chawla, N.~V., Bowyer, K.~W., Hall, L.~O., \& Kegelmeyer, W.~P. 2002, Journal
   of Artificial Intelligence Research, 16, 321
-
-\bibitem[{{Chawla} {et~al.}(2011){Chawla}, {Bowyer}, {Hall}, \&
-  {Kegelmeyer}}]{2011arXiv1106.1813C}
-{Chawla}, N.~V., {Bowyer}, K.~W., {Hall}, L.~O., \& {Kegelmeyer}, W.~P. 2011,
-  arXiv e-prints, arXiv:1106.1813
 
 \bibitem[{{Chiaro} {et~al.}(2016){Chiaro}, {Salvetti}, {La Mura}, {Giroletti},
   {Thompson}, \& {Bastieri}}]{2016MNRAS.462.3180C}
@@ -152,10 +141,9 @@ Cox, D.~R. 1958, J R Stat Soc B, 20, 215
 Fan, R.-E., Chang, K.-W., Hsieh, C.-J., Wang, X.-R., \& Lin, C.-J. 2008, J.
   Mach. Learn. Res., 9, 1871–1874
 
-\bibitem[{{Finke} {et~al.}(2020){Finke}, {Kr{\"a}mer}, \&
-  {Manconi}}]{2020arXiv201205251F}
-{Finke}, T., {Kr{\"a}mer}, M., \& {Manconi}, S. 2020, arXiv e-prints,
-  arXiv:2012.05251
+\bibitem[{{Finke} {et~al.}(2021){Finke}, {Kr{\"a}mer}, \&
+  {Manconi}}]{2021MNRAS.507.4061F}
+{Finke}, T., {Kr{\"a}mer}, M., \& {Manconi}, S. 2021, \mnras, 507, 4061
 
 \bibitem[{{Fornasa} \& {S{\'a}nchez-Conde}(2015)}]{2015PhR...598....1F}
 {Fornasa}, M. \& {S{\'a}nchez-Conde}, M.~A. 2015, \physrep, 598, 1
@@ -293,6 +281,11 @@ Liu, D.~C. \& Nocedal, J. 1989, Math. Program., 45, 503–528
 \bibitem[{{Nolan} {et~al.}(2012){Nolan}, {Abdo}, {Ackermann},
   {et~al.}}]{2012ApJS..199...31N}
 {Nolan}, P.~L., {Abdo}, A.~A., {Ackermann}, M., {et~al.} 2012, \apjs, 199, 31
+
+\bibitem[{{Panes} {et~al.}(2021){Panes}, {Eckner}, {Hendriks}, {Caron},
+  {Dijkstra}, {J{\'o}hannesson}, {de Austri}, \&
+  {Zaharijas}}]{2021A&A...656A..62P}
+{Panes}, B., {Eckner}, C., {Hendriks}, L., {et~al.} 2021, \aap, 656, A62
 
 \bibitem[{{Peretto} {et~al.}(2016){Peretto}, {Lenfestey}, {Fuller},
   {Traficante}, {Molinari}, {Thompson}, \&

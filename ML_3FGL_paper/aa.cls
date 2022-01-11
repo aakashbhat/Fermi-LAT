@@ -25,7 +25,7 @@
 %%   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %%   Right brace   \}     Tilde         \~}
 %%
-% Dima: I have set columnsep=12mm at line 194: change back columnsep=4mm when finish referee stage
+% columnsep=12mm at line 194 for line numbers, columnsep=4mm in the original version
 \def\filedate{2016/09/01}
 \let\aafiledate\filedate
 \def\fileversion{9.1}
@@ -191,7 +191,7 @@
                 \ifaa@twocolumn\aa@column\fi, \ifaa@referee\else twoside,\fi
                 textheight=\aa@fullheight,headheight=12pt,headsep=12pt,
                 footskip=20pt,
-                textwidth=\aa@fullwidth, columnsep=12mm,
+                textwidth=\aa@fullwidth, columnsep=4mm,
                 marginpar=0in, marginparsep=0in]{geometry}
 \RequirePackage{setspace}
 \ifaa@referee
@@ -235,12 +235,15 @@
 \def\@hangfrom##1{\setbox\@tempboxa\hbox{{##1}}%
       \hangindent \parindent\noindent\box\@tempboxa}
 \def\sectcounterend{:}
-\def\@seccntformat##1{\appendixname\ \csname the##1\endcsname\sectcounterend%
+\def\@seccntformat##1{\csname theap##1\endcsname%
                       \hskip\betweenumberspace}
   \setcounter{section}{0}%
   \setcounter{subsection}{0}%
   \setcounter{figure}{0}%
   \setcounter{table}{0}%
+  \newcommand\theapsection{\appendixname\ \@Alph\c@section\sectcounterend}%
+  \newcommand\theapsubsection{\@Alph\c@section.\@arabic\c@subsection.}%
+  \newcommand\theapsubsubsection{\theapsubsection\@arabic\c@subsubsection.}%
   \renewcommand\thesection{\@Alph\c@section}%
   \renewcommand\thesubsection{\@Alph\c@section.\@arabic\c@subsection}%
   \renewcommand\thesubsubsection{\thesubsection.\@arabic\c@subsubsection}%
@@ -2030,6 +2033,12 @@
   \newcommand*\bbbx{\ensuremath{\mathbf{X}}}
   \newcommand*\bbby{\ensuremath{\mathbf{Y}}}
   \newcommand*\bbbz{\ensuremath{\mathbf{Z}}}}
+\@ifpackageloaded{hyperref}%
+{}{\RequirePackage[colorlinks=true,
+    linkcolor=blue, citecolor=blue, filecolor=blue, urlcolor=blue]{hyperref}}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Macro ORCID %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\orcid}[1]{\unskip\protect\href{https://orcid.org/#1}{\protect\includegraphics[width=8pt,clip]{logo_orcid}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 }
 \setlength\leftmargini  {\parindent}
 \leftmargin  \leftmargini
@@ -2064,6 +2073,8 @@
 \newcommand{\eprint}[2][]{%
 {\tt\if!#1!#2\else#1\arxivprefixesep\ignorespaces#2\fi}%
 }
+% \corr : Mute tag used by LE
+\newcommand{\corr}[1]{#1}
 \endinput
 %%
 %% End of file `aa.cls'.

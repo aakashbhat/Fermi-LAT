@@ -17,6 +17,9 @@ As a result, we have 8 classification methods: 4 algorithms trained with and wit
 
 
 \begin{table}[!h]
+    \caption{Testing accuracy of the selected algorithms.}
+    \label{tab:selected_algs}
+    
 \centering
 \hspace{-0.2cm}
 \resizebox{0.47\textwidth}{!}{
@@ -43,12 +46,11 @@ As a result, we have 8 classification methods: 4 algorithms trained with and wit
     LR & 200 iterations, LBFGS solver & 97.63&0.54& 90.43 \\
     LR\_O &  &93.68&0.99& 85.15 \\
     \hline
-     
     \end{tabular}}
-    \vspace{2mm}
-    \caption{Testing accuracy of the 4 selected algorithms for classification of 3FGL sources and comparison with associations in the 4FGL-DR2 catalog. 
+    %\vspace{2mm}
+    \tablefoot{Testing accuracy is computed for classification of 3FGL sources. Comparison with associations in the 4FGL-DR2 catalog
+    is presented in the last column. 
     ``\_O'' denotes training with oversampling.}
-    \label{tab:selected_algs}
 \end{table}
 
 
@@ -89,6 +91,9 @@ It is therefore an example of a source with mixed classification.
 
 \pgfplotstableread[col sep=comma]{tables/3FGL_unassoc_vs_4FGL_assoc.csv}\loadedtable
 \begin{table}
+\caption{
+Examples of the AGN classification probabilities.}
+\label{tab:prob_cat}
 \centering
 \pgfplotstabletypeset[columns={Source_Name_3FGL,AGN_BDT,AGN_RF,AGN_LR,AGN_NN},
 column type=l,
@@ -102,10 +107,10 @@ columns/AGN_RF/.style={column name=RF,numeric type,fixed,precision=3},
 columns/AGN_LR/.style={column name=LR,numeric type,fixed,precision=3},
 skip rows between index={4}{302}
 ]\loadedtable
-\vspace{2mm}
-\caption{\label{tab:prob_cat}
-Example of the AGN classification probabilities for a few unassociated sources in the 3FGL catalog \citep{2015ApJS..218...23A}. 
-We have omitted the oversampled probability columns here.}
+%\vspace{2mm}
+\tablefoot{
+The probabilities are presented for a few unassociated sources in the 3FGL catalog \citep{2015ApJS..218...23A}. 
+We have omitted the oversampled probability columns for brevity.}
 \end{table}
 
 
@@ -159,6 +164,12 @@ take into account possible errors in the reconstruction of source parameters (su
 
 
 \begin{table}[!h]
+
+    \caption{
+    Comparison of classes predicted for unassociated sources in the 3FGL catalog
+    with associations in the 4FGL-DR2 catalog.}
+    \label{tab:3FGL_vs_4FGL_2class}
+
 \centering
 \resizebox{0.47\textwidth}{!}{
     \tiny
@@ -181,14 +192,12 @@ take into account possible errors in the reconstruction of source parameters (su
     Precision ($\sum_a p_a > 7$) & 0.98 & 0.82 & --  \\
     \hline
     \end{tabular}}
-    \vspace{2mm}
-    \caption{
-    Comparison of classes predicted for unassociated sources in the 3FGL catalog using 2-class classification
-    with associations in the 4FGL-DR2 catalog. 
+    %\vspace{2mm}
+    \tablefoot{
+    The classes are predicted using 2-class classification.
     The precision and recall are calculated using all-algorithms-agreement condition and 4FGL-DR2 associations (``4FGL assoc'' labels)
     or the class probabilities of associated 3FGL sources derived from test samples using either all-algorithms-agreement condition (``all agree'' labels) or the $\sum_a p_a > 7$ condition (``$\sum_a p_a > 7$'' labels).
     The AGN and PSR sources are also represented in Fig. \ref{fig:3FGL_vs_4FGL_classes}.}
-    \label{tab:3FGL_vs_4FGL_2class}
 \end{table}
 
 
@@ -199,6 +208,10 @@ take into account possible errors in the reconstruction of source parameters (su
 
 
 \begin{table}[!h]
+
+    \caption{Expected numbers of sources among the unassociated 3FGL and 4FGL-DR2 sources.}
+    \label{tab:prediction_2and3class}
+
 \centering
 \resizebox{0.4\textwidth}{!}{
     \tiny
@@ -220,13 +233,12 @@ take into account possible errors in the reconstruction of source parameters (su
     \hline
      
     \end{tabular}}
-    \vspace{2mm}
-    \caption{Expected number of AGNs, pulsars, and other sources as well as sources with mixed classifications
-    among the unassociated 3FGL and 4FGL-DR2 sources derived with the 2-class (Section \ref{sec:prob_cats}) 
+    %\vspace{2mm}
+    \tablefoot{Expected numbers of AGNs, pulsars, and other sources as well as sources with mixed classifications
+    are derived with the 2-class (Section \ref{sec:prob_cats}) 
     and 3-class (Section \ref{sec:3class}) classification.
     The ``2-class corr'' row shows correction of the 2-class classification prediction due to the presence of OTHER sources among 
     the unassociated ones (see Section \ref{sec:3FGLprediction1} for details).}
-    \label{tab:prediction_2and3class}
 \end{table}
 
 
@@ -304,6 +316,9 @@ The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
 
 
 \begin{table}[!h]
+    \caption{Testing accuracy of the algorithms for the 4FGL-DR2 associated sources. }
+    \label{tab:selected_algs2}
+
 \centering
 %\resizebox{0.45\textwidth}{!}{
     \tiny
@@ -330,13 +345,15 @@ The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
     \hline
      
     \end{tabular}%}
-    \vspace{2mm}
-    \caption{Testing accuracy of the 4 algorithms on 4FGL-DR2 associated data. ``\_O'' denotes training with oversampling.}
-    \label{tab:selected_algs2}
+    %\vspace{2mm}
+    \tablefoot{``\_O'' denotes training with oversampling.}
 \end{table}
 
 
 \begin{table}[!h]
+    \caption{The expected precision and recall for the classification of 4FGL-DR2 sources.}
+    \label{tab:prec_recall_4FGL}
+
 \centering
 %\resizebox{0.47\textwidth}{!}{
     \tiny
@@ -362,12 +379,11 @@ The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
                                 & $\sum_a p_a > 7$ & 0.87 &  0.30  & 0.06 \\
     \hline
     \end{tabular}%}
-    \vspace{2mm}
-    \caption{The expected precision and recall for the classification of 4FGL-DR2 sources
+    %\vspace{2mm}
+    \tablefoot{The expected precision and recall are calculated
     for two classification conditions: all algorithms agree (``all agree'' rows) and that the sum of probabilities for the 8 algorithms 
     is larger than 7 (``$\sum_a p_a > 7$'' rows). For details on the 2- and 3-class classification see Sections \ref{sec:4FGLprediction} and 
     \ref{sec:3class} respectively. }
-    \label{tab:prec_recall_4FGL}
 \end{table}
 
 Analogously to the 3FGL catalog, we use the agreement among the algorithms for the probabilistic classification of sources.
@@ -385,6 +401,9 @@ For convenience, we save these 29 pulsar candidates as a separate file (``3FGL\_
 
 \pgfplotstableread[col sep=comma]{tables/3fgl_unassoc_predictions_matches_with_Parkes_2015_1.csv}\loadedtable
 \begin{table}[h]
+\caption{
+Connection of unassociated 3FGL and 4FGL-DR2 sources classified as pulsars with the Parkes pulsar survey.}
+\label{tab:parkes}
 \centering
 \pgfplotstabletypeset[columns={Source_Name_4FGL,GLON_4FGL,GLAT_4FGL,Separation_Parkes},
 column type=l,
@@ -397,8 +416,10 @@ columns/GLAT_4FGL/.style={column name=GLAT,numeric type,fixed,precision=1},
 columns/Separation_Parkes/.style={column name=Sep (arcsec),numeric type,fixed,precision=1}
 ]\loadedtable
 \vspace{2mm}
-\caption{\label{tab:parkes}
-Connection of unassociated 3FGL and 4FGL-DR2 sources classified as pulsars with Parkes pulsars \citep{Camilo2015}. GLON and GLAT are taken from 4FGL-DR2 and the separations in arcseconds with Parkes pulsars are given in the ``Sep (arcsec)'' column.}
+\tablefoot{
+Galactic longitude (GLON) and latitude (GLAT) coordinates are taken from the 4FGL-DR2 catalog. 
+The corresponding separation in arcseconds from the Parkes pulsars \citep{Camilo2015} 
+is shown in the ``Sep (arcsec)'' column.}
 \end{table}
 
 

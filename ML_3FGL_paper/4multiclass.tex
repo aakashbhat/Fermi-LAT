@@ -101,6 +101,9 @@ is higher in the 3-class case (Table~\ref{tab:3FGL_vs_4FGL_3class}) compared to 
 (Table~\ref{tab:3FGL_vs_4FGL_2class}), but the recall is smaller for pulsars and similar or larger for AGNs in the 3-class case.
 
 \begin{table}[!h]
+    \caption{Testing accuracy of the selected algorithms for the 3-class classification of 3FGL sources.}
+    \label{tab:selected_algs_multi}
+
 \centering
 \hspace{-0.2cm}
 \resizebox{0.47\textwidth}{!}{
@@ -129,14 +132,20 @@ is higher in the 3-class case (Table~\ref{tab:3FGL_vs_4FGL_3class}) compared to 
     LR\_O &   & 93.01 & 0.96 & 83.24 \\
     \hline
     \end{tabular}}
-    \vspace{2mm}
-    \caption{Testing accuracy of the four selected algorithms for the 3-class classification of 3FGL sources and comparison with associations in the 4FGL-DR2 catalog. 
+    %\vspace{2mm}
+    \tablefoot{
+    Comparison with associations in the 4FGL-DR2 catalog
+    is presented in the last column.
     ``\_O'' denotes training with oversampling.}
-    \label{tab:selected_algs_multi}
 \end{table}
 
 
 \begin{table}[!h]
+    \caption{
+    Comparison of classes predicted for unassociated sources in the 3FGL catalog using 3-class classification
+    with associations in the 4FGL-DR2 catalog.}
+    \label{tab:3FGL_vs_4FGL_3class}
+
 \centering
 \resizebox{0.45\textwidth}{!}{
     \tiny
@@ -158,13 +167,8 @@ is higher in the 3-class case (Table~\ref{tab:3FGL_vs_4FGL_3class}) compared to 
     Precision ($\sum_a p_a > 7$) & 0.99 & 0.98 & --  \\
     \hline
     \end{tabular}}
-    \vspace{2mm}
-    \caption{
-    Comparison of classes predicted for unassociated sources in the 3FGL catalog using 3-class classification
-    with associations in the 4FGL-DR2 catalog. 
-    For the definition of precision and recall labels see Table \ref{tab:3FGL_vs_4FGL_2class}.
-}
-    \label{tab:3FGL_vs_4FGL_3class}
+    %\vspace{2mm}
+    \tablefoot{For the definition of precision and recall labels see Table \ref{tab:3FGL_vs_4FGL_2class}.}
 \end{table}
 
 
@@ -186,6 +190,9 @@ Another comparison of the performance of the 2- and 3-class classifications is p
 The conclusion is that the reliability diagrams for the 3-class are similar to the reliability diagrams for the 2-class case, which includes only AGN and PSR sources, with an additional advantage that in the 2-class classification one needs to account for the contribution of the OTHER sources among the unassociated ones, while in the 3-class case the contribution of the OTHER sources is included in the model.
 
 \begin{table}[!h]
+    \caption{Testing accuracy of the four selected algorithms for the 3-class classification of 4FGL-DR2 sources.}
+    \label{tab:selected_algs_4fgl_multi}
+
 \centering
 \hspace{-0.2cm}
 \resizebox{0.47\textwidth}{!}{
@@ -212,10 +219,8 @@ The conclusion is that the reliability diagrams for the 3-class are similar to t
     \hline
      
     \end{tabular}}
-    \vspace{2mm}
-    \caption{Testing accuracy of the four selected algorithms for the 3-class classification of 4FGL-DR2 sources. 
-    ``\_O'' denotes training with oversampling.}
-    \label{tab:selected_algs_4fgl_multi}
+    %\vspace{2mm}
+    \tablefoot{``\_O'' denotes training with oversampling.}
 \end{table}
 
 
@@ -293,6 +298,11 @@ in the 3-class classification for the 4FGL-DR2 (3FGL) catalog.
 
 \pgfplotstableread[col sep=comma]{tables/4FGLDR2_Candidates_OTHER.csv}\loadedtable
 \begin{table}
+\caption{
+OTHER-class candidates among the unassociated 4FGL-DR2 sources.
+}
+\label{tab:other_candidates_3class}
+
 \centering
 \hspace{-0.5cm}
 \tiny
@@ -311,9 +321,9 @@ columns/Category_Prob_3FGL/.style={column name=3FGL cat.},
 }
 \normalsize
 \vspace{2mm}
-\caption{\label{tab:other_candidates_3class}
-Unassociated 4FGL-DR2 sources with the sum of OTHER-class probabilities for all 8 ML methods in the 3-class classification larger than 7. 
-For the description of columns, see Table \ref{tab:psr_candidates_3class}.
+\tablefoot{
+For the selected sources the sum of OTHER-class probabilities of all 8 ML methods in the 3-class classification is larger than 7. 
+See Table \ref{tab:psr_candidates_3class} for the description of columns.
 Sources with missing values in the 3FGL columns are not detected in the 3FGL.
 We also save these OTHER-class 
 candidates in the supplementary online materials as ``4FGL-DR2\_Candidates\_OTHER\_3classes.csv'' \citep{SOM_material}.
