@@ -13,12 +13,12 @@ ML_3FGL_paper/plots/classification_domains/lr_200_lbfgs_oversample.pdf
 @ Aakash : Done
 
 - remove all the background grids from your figures (A&A reinforced graphic policy).
-@ Dima 
+@ Dima: Done
 @ Aakash: Histogram grids removed in appendix
 
 
 2. Create a single tex file inside "ML_3FGL_paper_AA_style" folder
-@ Aakash?
+@ Aakash: done
 
 - the appendices are now published as camera-ready material. Please refer to https://www.aanda.org/for-authors/latex-issues/appendices to prepare the appendices for publication
 @ Aakash: done	

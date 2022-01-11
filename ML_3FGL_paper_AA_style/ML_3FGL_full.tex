@@ -1,6 +1,6 @@
-%\documentclass{aa}
+\documentclass{aa}
 %\documentclass[referee]{aa} % for a referee version
-\documentclass[preprint]{aa}
+%\documentclass[preprint]{aa}
 \pdfoutput=1
 
 \bibliographystyle{aa}
@@ -314,11 +314,12 @@ in Appendix \ref{sec:app_O_vs_S} we compare the oversampling method used in the 
 while in Appendix \ref{sec:reliability} we discuss the reliability diagrams.
 
 
-
 \section{Choice of methods}
 \lb{sec:methods}
 
+
 \subsection{General methodology}
+\lb{sec:general_method}
 
 The first choices that must be made to construct probabilistic catalogs are the choices of the input data and the machine learning methods to be used.
 For the input data we take associated point sources (PS) in the 3FGL or 4FGL-DR2 catalogs, which we then split into training and testing subsets.
@@ -330,6 +331,9 @@ Although the performance of algorithms on testing data is slightly different,
 we report the classification probabilities for all four algorithms.
 The difference among the predictions serves as a measure of modeling uncertainty related 
 to the choice of the classification algorithm.
+
+
+
 
 \subsection{Discussion of the classification algorithms}
 \lb{sec:class_alg}
