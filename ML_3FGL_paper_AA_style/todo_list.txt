@@ -24,12 +24,12 @@ ML_3FGL_paper/plots/classification_domains/lr_200_lbfgs_oversample.pdf
 @ Aakash: done	
 
 - check that all abbreviations and acronyms are introduced when first used (both in the abstract and in the main text).
-@ Aakash?
+@ Aakash: Done
 
 
 - run a spell check specific to your language preference (US or UK)
 * Dima: should we use US convention?
-@ Aakash?
+@ Aakash: Done with US
 
 3. Submit to A&A:
 @ Dima

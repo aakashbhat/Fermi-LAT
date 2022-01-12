@@ -329,7 +329,7 @@ logistic regression \citep[LR,][]{cox1958},
 and neural networks \citep[NN,][]{Hopfield:1982pe}.
 Although the performance of algorithms on testing data is slightly different, 
 we report the classification probabilities for all four algorithms.
-The difference among the predictions serves as a measure of modeling uncertainty related 
+The difference among the predictions serves as a measure of modelling uncertainty related 
 to the choice of the classification algorithm.
 
 
@@ -434,7 +434,7 @@ where $EF_i$ is the energy flux in bin $i$ and $j = i + 1$ (i.e., the bins are c
 
 Spectral index is one of the most important characteristic of sources. 
 Unfortunately in the 3FGL catalog, the definition of the spectral index is different for associated and unassociated sources.
-In particular, the gamma-ray flux of pulsars is described by a power-law with a (super)exponential cutoff $\propto E^{-\Gamma} e^{-(E / E_c)^b}$, where the ``Spectral\_Index'' feature in the catalog is the parameter $\Gamma$.
+In particular, the gamma-ray flux of pulsars is described by a power-law with a (super)exponential cut-off $\propto E^{-\Gamma} e^{-(E / E_c)^b}$, where the ``Spectral\_Index'' feature in the catalog is the parameter $\Gamma$.
 On the other hand, gamma-ray flux of unassociated sources with significant curvature is represented by the log-parabola function $\propto (E/E_0)^{-\al - \bt \ln (E/E_0)}$,
 where the ``Spectral\_Index'' feature is the parameter $\al$, i.e., the tilt in the spectrum at the pivot energy $E_0$ (which also varies for different sources).
 Since the ``Spectral\_Index'' feature has different definitions for associated pulsars and for possible pulsars among unassociated sources,
@@ -560,7 +560,7 @@ We used the Gradient Boosting algorithm for the construction of BDT \citep{gb}.
 The classification is performed by a weighted average of trees, where the trees are constructed recursively in order to better address 
 misclassifications from the previous step. 
 Dependence of the accuracy on tree depth is shown in Fig.~\ref{fig:BDT_depth}. 
-Unlike the RF, which is also an ensemble based method, the testing accuracy drops for the maximal depths larger than 7. 
+Unlike the RF, which is also an ensemble-based method, the testing accuracy drops for the maximal depths larger than 7. 
 
 
 \begin{figure}[h]
@@ -2299,7 +2299,7 @@ The only difference in the SMOTE case is the oversampling technique.
 %SMOTE oversamples by creating synthetic data based on the data points already available. 
 %For a direct comparison we used the associated sources in 3FGL/4FGL-DR2 and compared the probabilities of the individual sources. 
 First, we compare the difference in class probabilities for individual sources relative to the statistical uncertainty due to the random choice of the training samples.
-%We calculate normalized differences of individiual probabilities $P_{D}$ by the formula:
+%We calculate normalized differences of individual probabilities $P_{D}$ by the formula:
 In particular, we calculate the difference of probabilities to belong to, e.g., PSR class relative to the maximal standard deviation
 between the oversampling-by-repeating and SMOTE
 
@@ -2327,7 +2327,7 @@ One of these choices is shown on the plots: in this case, both oversampling-by-r
 training and testing samples.
 In the oversampling-by-repeating the training sources are oversampled by simply repeating the sources,
 while in SMOTE new sources are created by randomly placing sources in the parameter space along the lines connecting a source
-and one of its nearest neighbours. In our implementation we choose one out of the 5 nearest neighbours. 
+and one of its nearest neighbors. In our implementation we choose one out of the 5 nearest neighbors. 
 
 
 
