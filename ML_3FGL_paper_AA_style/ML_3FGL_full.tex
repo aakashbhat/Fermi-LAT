@@ -14,7 +14,7 @@
 \usepackage{amsfonts}
 \usepackage{dsfont}
 \usepackage{amsxtra}
-\usepackage{hyperref}
+%\usepackage{hyperref}
 \usepackage{amssymb}
 \usepackage{upgreek}
 \usepackage{comment}
@@ -225,7 +225,6 @@ unassociated sources.
 
 %\tableofcontents
 
-
 \section{Introduction}
 
 Multi-wavelength association of astronomical sources is important for understanding their nature.
@@ -253,7 +252,11 @@ Probabilistic classification of unassociated \Fermi-LAT sources was performed, f
 \cite{2012ApJ...753...83A, 2016ApJ...820....8S, 2016ApJ...825...69M, 2017A&A...602A..86L, 2020MNRAS.492.5377L, 
 2021MNRAS.507.4061F, 2021RAA....21...15Z},
 or in the application for sub-classification of blazars by
-\cite{2013MNRAS.428..220H, 2014ApJ...782...41D, 2016MNRAS.462.3180C, 2017MNRAS.470.1291S, 2019MNRAS.490.4770K, 2020MNRAS.493.1926K}
+\hbox{\cite{2013MNRAS.428..220H, 2014ApJ...782...41D};}
+% we have used \hbox here otherwise there is an error:
+% \pdfendlink ended up in different nesting level than \pdfstartlink.
+% due to page break in the middle of citation
+\cite{2016MNRAS.462.3180C, 2017MNRAS.470.1291S, 2019MNRAS.490.4770K, 2020MNRAS.493.1926K}
 and in subclassification of pulsars by \cite{2012MNRAS.424.2832L, 2016ApJ...820....8S}.
 In this work, we consider the classification of gamma-ray sources into two classes (AGNs and pulsars) as well as into three classes 
 (AGNs, pulsars, and other associated sources).
@@ -319,7 +322,7 @@ while in Appendix \ref{sec:reliability} we discuss the reliability diagrams.
 
 
 \subsection{General methodology}
-\lb{sec:general_method}
+
 
 The first choices that must be made to construct probabilistic catalogs are the choices of the input data and the machine learning methods to be used.
 For the input data we take associated point sources (PS) in the 3FGL or 4FGL-DR2 catalogs, which we then split into training and testing subsets.
@@ -460,7 +463,7 @@ than PowerLaw\_Index, provided that pulsars have typically harder spectra at ene
 \begin{figure*}[h]
 \centering
 \includegraphics[width=0.75\textwidth]{plots/3fgl_assoc_cor.pdf}
-\hspace*{-0.9cm}
+%\hspace*{-0.9cm}
 \caption{The correlation matrix of features for the associated sources in the 3FGL catalog.
 The ``500MeV\_Index'' is defined in Eq. (\ref{eq:n500_def}).
 The hardness ratios (HR12, HR23, etc.) are defined in Eq. (\ref{eq:hr}).
@@ -514,7 +517,7 @@ We use the Gini index as the objective function for the optimization of paramete
 
 \begin{figure}[h]
 \centering
-\hspace*{-0.5cm}
+%\hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/rf_train_assocnewfeats.pdf}
 \caption{
 Test score (accuracy) of RF classification as a function of the number of trees and 
@@ -639,7 +642,7 @@ In the case of NN, the number of free parameters depends on the number of hidden
 
 \begin{figure}[h]
 \centering
-\hspace*{-0.5cm}
+%\hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/CNN_network.pdf}
 \caption{
 NN architecture that we use in the construction of the probabilistic catalogs.
@@ -664,7 +667,7 @@ We have also used NN with two hidden layers, but the accuracy was similar to the
 
 \begin{figure}[h]
 \centering
-\hspace*{-0.5cm}
+%\hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/nn_train_neurons_assocnewfeat.pdf}
 \caption{Dependence of accuracy on the number of neurons for different NN models.}
 \label{fig:NN_neurons}
@@ -686,7 +689,7 @@ The accuracy increases with higher number of epochs and saturates at around 200 
 
 \begin{figure}[h]
 \centering
-\hspace*{-0.5cm}
+%\hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/nn_train_epochs_assocnewfeat.pdf}
 \caption{
 Dependence of testing accuracy on the number of epochs in training for different solvers and activation functions.
@@ -2235,9 +2238,9 @@ are computed with the PSR-like probabilities for all sources in the 4FGL-DR2 cat
 \end{table}
 \begin{figure}[h!]
 \centering
-\hspace*{-0.5cm}
+%\hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/hist_diff_smote_LR_3FGL_2class.pdf}
-\hspace*{-0.5cm}
+%\hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/hist_diff_smote_LR_3FGL_3class.pdf}
 \caption{Distribution of difference  of probabilities derived with oversampling-by-repeating ($P_O$) and SMOTE ($P_S$) 
 relative to the standard deviations due to random choice of training samples
@@ -2248,9 +2251,7 @@ for LR in the 2-class (top) and the 3-class (bottom) classifications of the 3FGL
 
 \begin{figure}[h!]
 \centering
-\hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/hist_diff_smote_LR_4FGL-DR2_2class.pdf}
-\hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/hist_diff_smote_LR_4FGL-DR2_3class.pdf}
 \caption{Same as Fig. \ref{fig:OvsS_3FGL_PSR} for the 4FGL-DR2 catalog.
 }
@@ -2259,9 +2260,7 @@ for LR in the 2-class (top) and the 3-class (bottom) classifications of the 3FGL
 
 \begin{figure}[h!]
 \centering
-%\hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/domains_oversampled_LR_3FGL_2class.pdf}
-%\hspace*{-0.5cm}
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/domains_smote_LR_3FGL_2class.pdf}
 \caption{Comparison of classification domains for the 2-class classification of the 3FGL sources
 using LR with oversampling by repeating sources (top) and SMOTE (bottom).
@@ -2271,17 +2270,11 @@ using LR with oversampling by repeating sources (top) and SMOTE (bottom).
 
 \begin{figure*}[h]
 \centering
-\hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/oversample/N_logS_3FGL_PSR_2classes_O_vs_S.pdf}
-\hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/oversample/N_logS_4FGL-DR2_PSR_2classes_O_vs_S.pdf}\\
-\hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/oversample/N_logS_3FGL_PSR_3classes_O_vs_S.pdf}
-\hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/oversample/N_logS_4FGL-DR2_PSR_3classes_O_vs_S.pdf}\\
-\hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/oversample/N_logS_3FGL_OTHER_3classes_O_vs_S.pdf}
-\hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/oversample/N_logS_4FGL-DR2_OTHER_3classes_O_vs_S.pdf}
 \caption{Comparison of source count distributions as a function of flux for the estimated number of PSR and OTHER sources
 among the unassociated sources in the 2- and 3-class cases for oversampling-by-repeating and SMOTE.
@@ -2348,7 +2341,6 @@ are available online in the SOM/SMOTE subfolder in the supplementary online mate
 
 \begin{figure*}[h!]
 \centering
-\hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/thresholds/thresholds_prec_recall_3FGL_PSR.pdf}
 \includegraphics[width=0.45\textwidth]{plots/thresholds/thresholds_prec_recall_4FGL-DR2_PSR.pdf} \\ 
 \includegraphics[width=0.45\textwidth]{plots/thresholds/thresholds_prec_recall_3FGL_OTHER.pdf}
@@ -2365,7 +2357,6 @@ In these estimates, we use associated sources, the corresponding class probabili
 
 \begin{figure*}[h!]
 \centering
-\hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/thresholds/thresholds_prec_recall_3FGL_vs_4FGL-DR2_PSR.pdf}
 \includegraphics[width=0.45\textwidth]{plots/thresholds/thresholds_prec_recall_3FGL_vs_4FGL-DR2_OTHER.pdf}
 	%\hspace*{-0.5cm}
@@ -2415,7 +2406,6 @@ In Figure \ref{fig:thres_3_vs_4} we show the precision and recall for different 
 
 \begin{figure*}[h!t]
 \centering
-\hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/reliability/calibration_PSR_3FGL_2classes_AGN_PSR.pdf}
 \includegraphics[width=0.45\textwidth]{plots/reliability/calibration_PSR_4FGL-DR2_2classes_AGN_PSR.pdf} \\ 
 \includegraphics[width=0.45\textwidth]{plots/reliability/calibration_PSR_3FGL_2classes_all_assoc.pdf}
@@ -2435,7 +2425,6 @@ Bottom panels: 3-class classification of 3FGL and 4FGL-DR2 sources.
 
 \begin{figure*}[ht]
 \centering
-\hspace*{-0.5cm}
 \includegraphics[width=0.45\textwidth]{plots/reliability/calibration_OTHER_3FGL_3classes.pdf}
 \includegraphics[width=0.45\textwidth]{plots/reliability/calibration_OTHER_4FGL-DR2_3classes.pdf}
 	%\hspace*{-0.5cm}
