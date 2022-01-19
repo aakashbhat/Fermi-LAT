@@ -198,7 +198,7 @@ there may be no plausible association candidates.
 }
 % aims heading (mandatory)
 {
-In this work we aim to determine the probabilistic classification of unassociated sources in the third \Fermi Large Area Telescope (LAT) point source catalog (3FGL and the fourth \Fermi LAT data release 2 point source catalog (4FGL-DR2) using two classes  -- pulsars and active galactic nuclei (AGNs) -- or three classes -- pulsars, AGNs, and ``OTHER'' sources.
+In this work we aim to determine the probabilistic classification of unassociated sources in the third \Fermi Large Area Telescope (LAT) point source catalog (3FGL) and the fourth \Fermi LAT data release 2 point source catalog (4FGL-DR2) using two classes  -- pulsars and active galactic nuclei (AGNs) -- or three classes -- pulsars, AGNs, and ``OTHER'' sources.
 }
 % methods heading (mandatory)
 {
@@ -239,7 +239,7 @@ It is at least useful to know the classes to which the unassociated sources belo
 the probabilities of the sources belonging to various classes.
 In this paper we use several machine learning (ML) algorithms to find a probabilistic classification of
  sources in the third \Fermi-LAT catalog \citep[3FGL;][]{2015ApJS..218...23A} and the fourth data release two catalog
-\citep[4FGL-DR2;][]{2020ApJS..247...33A, 2020arXiv200511208B}. \LEt{ Verify that your intended meaning has not been changed.}We used the versions gll\_psc\_v16.fit for 3FGL
+\citep[4FGL-DR2;][]{2020ApJS..247...33A, 2020arXiv200511208B}. The first data release of the fourth \Fermi-LAT catalog (4FGL) is not used for analysis but only for discussions. Therefore the analysis corresponds to the versions gll\_psc\_v16.fit for 3FGL
 and gll\_psc\_v27.fit for 4FGL-DR2.
 
 
@@ -251,7 +251,7 @@ Probabilistic catalogs
 have previously been introduced for optical sources 
 \citep[e.g.,][]{2010EAS....45..351H, 2013AJ....146....7B}
 and for gamma-ray sources \citep{2017ApJ...839....4D}.
-Bayesian association probabilities were also included in the 4FGL\LEt{ should this be "3FGL"?.} \citep{2020ApJS..247...33A} and
+Bayesian association probabilities were also included in the 4FGL \citep{2020ApJS..247...33A} and
 4FGL-DR2 \citep{2020arXiv200511208B} catalogs for faint sources.
 Probabilistic classification of unassociated \Fermi-LAT sources was performed by, for example,
 \cite{2012ApJ...753...83A}, \cite{2016ApJ...820....8S}, \cite{2016ApJ...825...69M}, \cite{2017A&A...602A..86L}, \cite{2020MNRAS.492.5377L}, 
@@ -261,9 +261,10 @@ or in the application for the subclassification of blazars by
 % we have used \hbox here otherwise there is an error:
 % \pdfendlink ended up in different nesting level than \pdfstartlink.
 % due to page break in the middle of citation
-\cite{2016MNRAS.462.3180C, 2017MNRAS.470.1291S, 2019MNRAS.490.4770K, 2020MNRAS.493.1926K},
+\cite{2016MNRAS.462.3180C, 2017MNRAS.470.1291S, 2019MNRAS.490.4770K}, and \cite{2020MNRAS.493.1926K},
 and in subclassification of pulsars \LEt{ In this paper you seem to use "pulsar" and "PSR" interchangeably.\ Please choose one and use it consistently.\ Or, use "PSR" when referring to the classification and "pulsar" otherwise.}by \cite{2012MNRAS.424.2832L} and \cite{2016ApJ...820....8S}.
-\LEt{ When listing references in the running text of a sentence, please separate by commas and place an �and� between the last comma and the reference (or an �and� and no comma if there are only two references). Please check for this throughout the paper. If you have trouble with the formatting, highlight the references in red. Some help is provided by the Journal at https://www.aanda.org/for-authors/latex-issues/texnicalbackground-information .}In this work we consider the classification of gamma-ray sources into two classes -- active galactic nuclei (AGNs) and pulsars -- as well as into three classes 
+%\LEt{ When listing references in the running text of a sentence, please separate by commas and place an �and� between the last comma and the reference (or an �and� and no comma if there are only two references). Please check for this throughout the paper. If you have trouble with the formatting, highlight the references in red. Some help is provided by the Journal at https://www.aanda.org/for-authors/latex-issues/texnicalbackground-information .}
+In this work we consider the classification of gamma-ray sources into two classes -- active galactic nuclei (AGNs) and pulsars -- as well as into three classes 
 -- AGNs, pulsars, and other associated sources (``OTHER'').
 We revisit the probabilistic classification of 3FGL sources and compare the results of the classification of unassociated sources
 with their respective associations in 4FGL-DR2.
@@ -287,11 +288,12 @@ Another reason for the absence of a previously detected source in a new catalog 
 In particular, flat spectrum radio quasars (FSRQs) are highly variable AGNs.
 If a source was active during the observation time of 3FGL but inactive afterward, 
 then its significance in the 4FGL can be below the detection threshold.
-This problem is connected to the selection of a hard detection threshold of $TS = 25$ for the 3FGL and 4FGL \LEt{ Is there a difference between 4FGL and 4FGL-DR2? Either way, this different nomenclature should be explained.}catalogs.
-Selection of a lower detection threshold could help to keep the variable sources inside the catalog, 
+This problem is connected to the selection of a hard detection threshold of $TS = 25$ for the 3FGL and 4FGL %\LEt{ Is there a difference between 4FGL and 4FGL-DR2? Either way, this different nomenclature should be explained.}
+catalogs.Selection of a lower detection threshold could help to keep the variable sources inside the catalog, 
 but it will not solve the problem since the variable sources near the lower threshold can also disappear in the new catalog.
 Moreover, a lower threshold would lead to more false detections due to fluctuations of the background.
-Thus, on the one hand, a lower threshold can be useful in studies where a more complete list of sources is desirable and a higher false detection rate is admissible.\LEt{ Verify that your intended meaning has not been changed.} On the other hand, a lower threshold can be problematic for studies where 
+Thus, on the one hand, a lower threshold can be useful in studies where a more complete list of sources is desirable and a higher false detection rate is admissible.%\LEt{ Verify that your intended meaning has not been changed.} 
+On the other hand, a lower threshold can be problematic for studies where 
 a clean sample is necessary. 
 The problem of detection threshold selection can be ameliorated with the development of a probabilistic catalog.
 In this catalog, each point-like object detected above a certain relatively low confidence level
@@ -301,7 +303,8 @@ This probability decreases as the significance of sources increases.
 Apart from the statistical fluctuation class, classes can include various types of Galactic and extra-galactic sources, diffuse emission deficiencies, extended sources, and so on.
 Any user of such a catalog has the freedom to choose the probability threshold for the class that he or she is interested in.
 In this paper we make a first step in this direction by providing a probabilistic classification of \Fermi-LAT sources into two or three classes.
-We also show how the probabilistic catalogs can be used for population studies of sources, for example,\LEt{ We do not allow the use of "e.g." or "i.e." within the main text (in parentheses or within figure/table captions is fine).} as a function of their flux or position on the sky, where one includes not only associated sources but also unassociated ones according to their class probabilities.
+We also show how the probabilistic catalogs can be used for population studies of sources, for example,%\LEt{ We do not allow the use of "e.g." or "i.e." within the main text (in parentheses or within figure/table captions is fine).} 
+as a function of their flux or position on the sky, where one includes not only associated sources but also unassociated ones according to their class probabilities.
 
 The paper is organized as follows.
 In Sect. \ref{sec:methods} we discuss general questions about the construction of the probabilistic catalogs and the choices of the ML methods.
@@ -317,7 +320,8 @@ We compare the $N(S)$, $N(b)$, and $N(\ell)$ distributions for associated and un
 In Sect. \ref{sec:conclusions} we present our conclusions.
 
 In Appendix \ref{sec:app} we perform further studies of the meta-parameters of some of the ML algorithms, 
-in Appendix \ref{sec:app_O_vs_S} we compare the oversampling method used in the paper with Synthetic Minority Over-sampling TEchnique (SMOTE) \LEt{ Please remember to spell out acronyms upon first appearance in the abstract and then again beginning with the introduction. All subsequent appearances should be in the acronym form (unless at the beginning of sentence).}oversampling,
+in Appendix \ref{sec:app_O_vs_S} we compare the oversampling method used in the paper with Synthetic Minority Over-sampling TEchnique (SMOTE)% \LEt{ Please remember to spell out acronyms upon first appearance in the abstract and then again beginning with the introduction. All subsequent appearances should be in the acronym form (unless at the beginning of sentence).}
+oversampling,
 and in Appendix \ref{sec:reliability} we discuss the reliability diagrams.
 
 
@@ -406,7 +410,8 @@ In this section we perform a two-class classification to separate point sources 
 Thus for training and testing, we sub-select the sources, which are associated with pulsars and AGNs.
 The three-class classification into pulsars, AGNs, and OTHER sources is discussed in Sect. \ref{sec:3class}.
 After the training of the algorithms, we test the performance with the test sources and predict the classes of the unassociated sources.
-\LEt{ A\&A does not allow bulleted or numbered lists outside of the conclusion, so I have reformatted accordingly.}The general workflow will have the following three steps: (1) Select data for training and testing. (2) Optimize algorithms using training data sets.
+%\LEt{ A\&A does not allow bulleted or numbered lists outside of the conclusion, so I have reformatted accordingly.}
+The general workflow will have the following three steps: (1) Select data for training and testing. (2) Optimize algorithms using training data sets.
 We select meta-parameters of the algorithms by optimizing the accuracy of the classification and test for overfitting using the test data sets.
 In order to get stable results, we repeat the separation of the data into training and testing samples 100 times and 
 average the accuracy. (3)
@@ -438,7 +443,8 @@ Spectral index is one of the most important characteristic of sources.
 Unfortunately in the 3FGL catalog, the definition of the spectral index is different for associated and unassociated sources.
 In particular, the gamma-ray flux of pulsars is described by a power-law with a (super)exponential cut-off $\propto E^{-\Gamma} e^{-(E / E_c)^b}$, where the ``Spectral\_Index'' feature in the catalog is the parameter $\Gamma$.
 On the other hand, gamma-ray flux of unassociated sources with significant curvature is represented by the log-parabola function $\propto (E/E_0)^{-\al - \bt \ln (E/E_0)}$,
-where the Spectral\_Index \LEt{ Quotation marks can be used to introduce a special meaning for a word or phrase the first time it is used in the text, but thereafter quotation marks are not needed. Please check for this throughout}feature is the parameter $\al$, that is, the tilt in the spectrum at the pivot energy $E_0$ (which also varies for different sources).
+where the Spectral\_Index %\LEt{ Quotation marks can be used to introduce a special meaning for a word or phrase the first time it is used in the text, but thereafter quotation marks are not needed. Please check for this throughout}
+feature is the parameter $\al$, that is, the tilt in the spectrum at the pivot energy $E_0$ (which also varies for different sources).
 Since the Spectral\_Index feature has different definitions for associated pulsars and for possible pulsars among unassociated sources,
 its use for training the algorithms to separate pulsars from AGNs is problematic.
 If one fits all spectra of sources in the catalog by a power-law function, then the corresponding indices of the power laws are represented by the
@@ -472,7 +478,8 @@ All other features are taken directly from the 3FGL catalog (see text for the de
 \end{figure*}
 
 In order to select independent features, we calculate the Pearson correlation coefficients for the features: GLON (Galactic longitude), GLAT (Galactic latitude),
-Sign\_Avg (signif \LEt{ significant?}average), Pivote\_E (pivot energy), FD (flux density), Un\_FD (uncertainty on flux density), F1000 (Flux\_1000), Un\_F1000 (Uncertainty\_Flux\_1000),
+Sign\_Avg (significance %\LEt{ significant?}
+average), Pivot\_E (pivot energy), FD (flux density), Un\_FD (uncertainty on flux density), F1000 (Flux\_1000), Un\_F1000 (Uncertainty\_Flux\_1000),
 E\_F100 (Energy\_Flux100),  Un\_E\_F100 (Uncertainty\_Energy\_F100), Sig\_Cur (Signif\_Curvature), Sp\_Ind (spectral index), Un\_Sp\_Ind (Uncertainty\_Spectral\_Index),
 PL\_Ind (PowerLaw\_Index), Var\_Ind (Variability\_Index), 500\_Ind (index at 500 MeV), and HR$_{ij}$ for the hardness ratios defined above.
 A graphical representation of the correlations is shown in Fig.~\ref{fig:assoc_corr_3fgli}. 
@@ -803,9 +810,11 @@ In order to test the oversampling method, we compare in Appendix \ref{sec:app_O_
 
 \begin{figure}[h]
 \centering
+%Comparison of oversampled and normal data for LR algorithm
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/lr_200_lbfgs_oversample.pdf} \\
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/lr_200_lbfgs.pdf}
-\caption{\LEt{ Please provide a title for this figure.}Top panel: LR classification domains showing class probabilities for training with oversampling.
+\caption{\LEt{ Please provide a title for this figure.}
+Top panel: LR classification domains showing class probabilities for training with oversampling.
 The oversampling is illustrated by repeating the pulsar markers with a shift: the number of markers is equal to the number of times the pulsar appears in training.
 Bottom panel: Repeat of Fig. \ref{fig:LR_domains} for the convenience of comparison with the oversampled training in the top panel.
 In both panels the domains are obtained by averaging over 100 random splits into training and testing samples.
@@ -896,7 +905,8 @@ We repeated the splitting and training 1000 times and report the sample average 
 In the probabilistic catalogs we add columns with corresponding probabilities for each algorithm and each class; provided that there are eight methods (including oversampling) and two classes, we add 16 columns: eight for unweighted and eight for oversampled training data. The columns with ``\_O'' represent the oversampled probabilities. We also add 16 columns for the standard deviations of probabilities. Although class probabilities and standard deviations for each algorithm are not independent (probabilities add up to 1 and standard deviations are equal for AGN and PSR classes), we keep the corresponding columns in view of the generalizations to multi-class classification (e.g., the three-class classification in Sect. \ref{sec:3class}).
 
 Table \ref{tab:prob_cat} shows an example of the probabilistic catalog for a few unassociated 3FGL sources.
-We notice \LEt{ A\&A encourages authors to avoid directly addressing the reader, e.g., by using the imperative or posing direct questions.}that the last source is classified as a pulsar by BDT and RF algorithms and as an AGN by LR and NN algorithms.
+We notice %\LEt{ A\&A encourages authors to avoid directly addressing the reader, e.g., by using the imperative or posing direct questions.}
+that the last source is classified as a pulsar by BDT and RF algorithms and as an AGN by LR and NN algorithms.
 It is therefore an example of a source with mixed classification.
 
 
@@ -959,7 +969,7 @@ The precision (recall) estimates using, for example, the condition that all algo
 The precision and recall estimates for the $\sum_a p_a > 7$ condition are computed analogously.
 This condition is, on average, stricter than the ``all-agree'' condition, which results in larger precision and smaller recall than in the all-agree case.
 Also, all unassociated 3FGL pulsar candidates, which satisfy the $\sum_a p_a > 7$ condition, are associated with pulsars in the 4FGL-DR2.
-\LEt{ or "All unassociated 3FGL pulsar candidates, which satisfy the $\sum_a p_a > 7$ condition, are also associated..." depending on your meaning.}
+%\LEt{ or "All unassociated 3FGL pulsar candidates, which satisfy the $\sum_a p_a > 7$ condition, are also associated..." depending on your meaning.}
 We note that the precision and recall calculated with the all-agree condition from the comparison of 3FGL and 4FGL-DR2 catalogs are smaller than the precision and recall determined using the test samples and the all-agree and $\sum_a p_a > 7$ conditions (Table~\ref{tab:3FGL_vs_4FGL_2class}).
 In order to understand the reason for the worse performance of classification in comparison of 3FGL predictions with the 4FGL-DR2 associations relative to the expectations, we plot in Fig.~\ref{fig:3FGL_vs_4FGL_classes} the 303 sources unassociated in 3FGL but with PSR or AGN associations in 4FGL-DR2.
 The class at the beginning of the label name in Fig.~\ref{fig:3FGL_vs_4FGL_classes} corresponds to the association in the 4FGL-DR2, while the second half of the labels corresponds to classification of unassociated sources in 3FGL. For example, ``PSRs classified only as PSRs'' shows sources that have a PSR association in 4FGL-DR2 and all eight methods classified the corresponding unassociated sources in 3FGL as a pulsar. ``PSRs classified as either PSRs or AGNs'' labels sources with PSR associations in 4FGL-DR2 but the corresponding unassociated sources in 3FGL have both PSR and AGN classifications by different ML methods.
@@ -1089,7 +1099,8 @@ In the 4FGL-DR2 catalog,
 3503 sources are associated with AGNs,
 271 sources are associated with pulsars,
 1658 sources are unassociated (we only look at CLASS1 column in the catalog), 
-and the rest 346 sources are OTHER sources, such as PWN\LEt{ Please define.}, supernova remnants (SNRs), and so on.
+and the rest 346 sources are OTHER sources, such as pulsar wind nebulas PWN%\LEt{ Please define.}
+, supernova remnants (SNRs), and so on.
 There are 14 sources in 4FGL-DR2 with missing or unphysical values: four AGNs, one PWN (Crab), and nine unassociated sources.
 As in the previous section, we use sources associated with either AGNs or pulsars for training,
 which have no missing or unphysical values.
@@ -1562,39 +1573,39 @@ The OTHER-class candidates are shown in Table \ref{tab:other_candidates_3class}.
 Out of the 30 sources only two sources have no flags in 4FGL, and only eight sources have an association with the previous FGL catalogs (column name ASSOC\_FGL). 
 The following sources had additional associations in the SIMBAD database
 ordered by decreasing sum of OTHER-class probabilities:
-\LEt{ Please write the following in full sentences.}
+%\LEt{ Please write the following in full sentences.}
 
 \textbf{4FGL J1800.2-2403c}: This source has the largest sum of OTHER-class probabilities but no entry in Simbad. 
 However, the source 1FGL J1800.5-2359c \citep{2010ApJS..188..405A} is associated with two sources in 4FGL-DR2:
 4FGL J1800.7-2355, which has OTHER association in the region of the SNR W28 \citep{2020MNRAS.495.2909R}, and 4FGL J1800.2-2403c.
 
-\textbf{4FGL J1847.7-0125}: Within 1 arcminute of the candidate Young Stellar Object (YSO) SSTOERC G031.2256+00.1711 \citep{2017ApJ...839..108S}.
+\textbf{4FGL J1847.7-0125}: This source is Within 1 arcminute of the candidate Young Stellar Object (YSO) SSTOERC G031.2256+00.1711 \citep{2017ApJ...839..108S}.
 
-\textbf{4FGL J1843.7-0326}: Associated with 3FGL J1843.7-0322 and found near the HESS source HESS J1843-033, next to the SNR G28.6-0.1 \citep{2018A&A...612A...1H}. This source is
+\textbf{4FGL J1843.7-0326}: This source is associated with 3FGL J1843.7-0322 and is near the HESS source HESS J1843-033, next to the SNR G28.6-0.1 \citep{2018A&A...612A...1H}. This source is
 among the 120 unassociated sources according to significance (>10) in the list of \citet{2016ApJ...820....8S} where the RF and LR methods predicted it to be a young pulsar based on the two-class classification. 
 In our 3FGL three-class catalog, this source has a MIXED classification.
 
-\textbf{4FGL J1556.8-5242c}: Within 1 arcminute of the candidate YSO 2MASS J15564953-5241450 \citep{2008AJ....136.2413R}.
+\textbf{4FGL J1556.8-5242c}: This source is within 1 arcminute of the candidate YSO 2MASS J15564953-5241450 \citep{2008AJ....136.2413R}.
 
-\textbf{4FGL J1631.7-4826c} (3FGL J1632.4-4820; \citealt{2015ApJS..218...23A}): Within 30 arcseconds of the Dark Cloud (Nebula) SDC G335.894-0.184 \citep{2016A&A...590A..72P}.
+\textbf{4FGL J1631.7-4826c} (3FGL J1632.4-4820; \citealt{2015ApJS..218...23A}): This source is within 30 arcseconds of the Dark Cloud (Nebula) SDC G335.894-0.184 \citep{2016A&A...590A..72P}.
 
 \textbf{4FGL J1626.0-4917c} (3FGL J1626.2-4911 -- \citealt{2015ApJS..218...23A}; 3FHL J1626.3-4915 -- \citealt{2017ApJS..232...18A}): 
-Associated with HESS J1626-490. It is also one of the 27 sources shortlisted by \citet{2020MNRAS.495.1093H}, 
+This source is associated with the HESS source HESS J1626-490. It is also one of the 27 sources shortlisted by \citet{2020MNRAS.495.1093H}, 
 who used ML methods to select pulsar candidates from the 3FHL catalog. It is also classified as OTHER based on the 3FGL values.
 
-\textbf{4FGL J1849.4-0117} (3FGL J1849.5-0124c; \citealt{2015ApJS..218...23A}): It is in the region of Galactic mini starburst W43 studied by \citet{2020A&A...640A..60Y} and is also within 1 arcminute of the candidate YSO SSTOERC G031.5367-00.1555. It has a ``MIXED'' classification based on the 3FGL values.
+\textbf{4FGL J1849.4-0117} (3FGL J1849.5-0124c; \citealt{2015ApJS..218...23A}): This source is in the region of Galactic mini starburst W43 studied by \citet{2020A&A...640A..60Y} and is also within 1 arcminute of the candidate YSO SSTOERC G031.5367-00.1555. It has a ``MIXED'' classification based on the 3FGL values.
 
-\textbf{4FGL J1109.4-6115e} (3FGL J1111.9-6038; \citealt{2015ApJS..218...23A}): It is associated with the extended galactic source FGES J1109.4-6115 \citep{2017ApJ...843..139A}, near the speculated SFR 4FGL J1115.1-6118, in there region of Young Massive Stellar Cluster NGC 3603 \citep{2020ApJ...897..131S}. It has a ``MIXED'' classification with the 3FGL values.
+\textbf{4FGL J1109.4-6115e} (3FGL J1111.9-6038; \citealt{2015ApJS..218...23A}): This source is associated with the extended galactic source FGES J1109.4-6115 \citep{2017ApJ...843..139A}, near the speculated Star forming region (SFR) 4FGL J1115.1-6118, in the region of the Young Massive Stellar Cluster NGC 3603 \citep{2020ApJ...897..131S}. It has a ``MIXED'' classification with the 3FGL values.
 
-\textbf{4FGL J1850.2-0201}: It is also in the region of the starburst W43 \citep{2020A&A...640A..60Y}.
+\textbf{4FGL J1850.2-0201}: This source is also in the region of the starburst W43 \citep{2020A&A...640A..60Y}.
 
-\textbf{4FGL J1801.8-2358}: Associated with HESS J1800-240A and 2FHL J1801.7-2358. Located south of the SNR W28 \citep{2020MNRAS.495.2909R}.
+\textbf{4FGL J1801.8-2358}: This source is associated with HESS J1800-240A and 2FHL J1801.7-2358. Located south of the SNR W28 \citep{2020MNRAS.495.2909R}.
 
-\textbf{4}\textbf{FGL J1855.8+0150}: In the region of SNR W44 \citep{2020ApJ...896L..23P}
+\textbf{4}\textbf{FGL J1855.8+0150}: This source is in the region of SNR W44 \citep{2020ApJ...896L..23P}
 
-\textbf{4FGL J1742.0-3020}: Within 1 arcminute of the Molecular cloud [MML2017] 777 \citep{2017ApJ...834...57M}.
+\textbf{4FGL J1742.0-3020}: This source is within 1 arcminute of the Molecular cloud [MML2017] 777 \citep{2017ApJ...834...57M}.
 
-\textbf{4FGL J1904.7+0615}: Within 1 arcminute of the Bubble [SPK2012] MWP1G040012-001102 \citep{2012MNRAS.424.2442S}.
+\textbf{4FGL J1904.7+0615}: This source is within 1 arcminute of the Bubble [SPK2012] MWP1G040012-001102 \citep{2012MNRAS.424.2442S}.
 \end{enumerate}
 
 \section{Application of probabilistic catalogs for population studies}
@@ -2458,7 +2469,7 @@ and poor performance of classification.
 Overall, we find that the reliability of predictions in the three-class case is similar to the performance
 in the two-class case when only PSR and AGN classes are taken into account.
 In addition, we expect a similar performance for the unassociated sources since the OTHER class is included in the 
-calculation of the reliability diagrams (i.e., no correction is needed, contrary to the two-class case)\LEt{ Verify that your intended meaning has not been changed.}.
+calculation of the reliability diagrams (i.e., no correction is needed, contrary to the two-class case).%\LEt{ Verify that your intended meaning has not been changed.}.
 We also note that, although a particular algorithm can be above or below the perfect calibration curve, 
 the envelope of the predictions contains the perfect calibration curve (i.e., the envelope of the predictions gives a reasonable
 estimate of the modeling uncertainty).
