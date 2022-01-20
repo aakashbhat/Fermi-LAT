@@ -2,6 +2,7 @@
 paper/0head_ML_3FGL.pdf
 ML_3FGL_paper/0head_ML_3FGL.pdf
 ML_3FGL_paper_AA_style/ML_3FGL_full.pdf
+AandA/40766corr/40766corr.pdf
 *.blg
 *.aux
 *.log
@@ -9,7 +10,6 @@ ML_3FGL_paper_AA_style/ML_3FGL_full.pdf
 *.toc
 *synctex*
 *.pyc
-*.bbl
 .ipynb_checkpoints
 py_dima/.ipynb_checkpoints
 
