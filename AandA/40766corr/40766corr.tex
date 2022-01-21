@@ -237,7 +237,7 @@ For example, about one-third of the gamma-ray sources in \Fermi Large Area Teles
 \citep{2010ApJS..188..405A, 2012ApJS..199...31N, 2015ApJS..218...23A, 2020ApJS..247...33A}.
 It is at least useful to know the classes to which the unassociated sources belong or, as is more typical,
 the probabilities of the sources belonging to various classes.
-In this paper we use several machine learning (ML) algorithms to find a probabilistic classification of
+In this paper we used several machine learning (ML) algorithms to find a probabilistic classification of
  sources in the third \Fermi-LAT catalog \citep[3FGL;][]{2015ApJS..218...23A} and the fourth data release two catalog
 \citep[4FGL-DR2;][]{2020ApJS..247...33A, 2020arXiv200511208B}. The first data release of the fourth \Fermi-LAT catalog (4FGL) is not used for analysis but only for discussions. Therefore the analysis corresponds to the versions gll\_psc\_v16.fit for 3FGL
 and gll\_psc\_v27.fit for 4FGL-DR2.
@@ -264,11 +264,11 @@ or in the application for the subclassification of blazars by
 \cite{2016MNRAS.462.3180C, 2017MNRAS.470.1291S, 2019MNRAS.490.4770K}, and \cite{2020MNRAS.493.1926K},
 and in subclassification of pulsars \LEt{ In this paper you seem to use "pulsar" and "PSR" interchangeably.\ Please choose one and use it consistently.\ Or, use "PSR" when referring to the classification and "pulsar" otherwise.}by \cite{2012MNRAS.424.2832L} and \cite{2016ApJ...820....8S}.
 %\LEt{ When listing references in the running text of a sentence, please separate by commas and place an �and� between the last comma and the reference (or an �and� and no comma if there are only two references). Please check for this throughout the paper. If you have trouble with the formatting, highlight the references in red. Some help is provided by the Journal at https://www.aanda.org/for-authors/latex-issues/texnicalbackground-information .}
-In this work we consider the classification of gamma-ray sources into two classes -- active galactic nuclei (AGNs) and pulsars -- as well as into three classes 
--- AGNs, pulsars, and other associated sources (``OTHER'').
-We revisit the probabilistic classification of 3FGL sources and compare the results of the classification of unassociated sources
+In this work we considered the classification of gamma-ray sources into two classes -- active galactic nuclei (AGNs) and pulsars (PSRs) -- as well as into three classes 
+-- AGNs, PSRs, and other associated sources (``OTHER'').
+We revisited the probabilistic classification of 3FGL sources and compared the results of the classification of unassociated sources
 with their respective associations in 4FGL-DR2.
-We also determine a probabilistic classification of the 4FGL-DR2 sources.
+We also determined a probabilistic classification of the 4FGL-DR2 sources.
 
 
 Catalogs of gamma-ray point sources are typically designed to have low false detection rates. 
@@ -284,7 +284,7 @@ Another reason could be that two (or more) point-like sources in 3FGL are associ
 or a single source is resolved into two sources.
 Again, this is a problem of classification (or association) rather than false detection.
 
-Another reason for the absence of a previously detected source in a new catalog is variability.
+The absence of a previously detected source in a new catalog may also be due to variability.
 In particular, flat spectrum radio quasars (FSRQs) are highly variable AGNs.
 If a source was active during the observation time of 3FGL but inactive afterward, 
 then its significance in the 4FGL can be below the detection threshold.
@@ -295,8 +295,8 @@ Moreover, a lower threshold would lead to more false detections due to fluctuati
 Thus, on the one hand, a lower threshold can be useful in studies where a more complete list of sources is desirable and a higher false detection rate is admissible.%\LEt{ Verify that your intended meaning has not been changed.} 
 On the other hand, a lower threshold can be problematic for studies where 
 a clean sample is necessary. 
-The problem of detection threshold selection can be ameliorated with the development of a probabilistic catalog.
-In this catalog, each point-like object detected above a certain relatively low confidence level
+This problem of detection threshold selection can be ameliorated with the development of a probabilistic catalog.
+In such a catalog, each point-like object detected above a certain relatively low confidence level
 is probabilistically classified into classes, which include the statistical fluctuation class.
 At low confidence, the probability of a source coming from a background fluctuation is high.
 This probability decreases as the significance of sources increases.
@@ -313,8 +313,8 @@ and (3) oversampling of the data sets in order to have equal numbers of pulsars 
 
 In Sect. \ref{sec:prob_cats} we apply the classification algorithms determined in Sect. \ref{sec:training} to the classification of 3FGL and 4FGL-DR2 sources.
 We compare our predictions for the unassociated sources in 3FGL with the respective associations in 4FGL-DR2.
-In Sect. \ref{sec:3class} we classify sources in the 3FGL and 4FGL-DR2 catalogs into three classes (AGNs, pulsars, and OTHER).
-In Sect. \ref{sec:pop_studies} we show applications of the probabilistic catalogs for predicting the number of pulsars, AGNs, and OTHER sources among the unassociated sources and in the construction of the source counts as a function of their flux, $N(S)$, and as a function of 
+In Sect. \ref{sec:3class} we classify sources in the 3FGL and 4FGL-DR2 catalogs into three classes (AGNs, PSRs, and OTHER).
+In Sect. \ref{sec:pop_studies} we show applications of the probabilistic catalogs for predicting the number of AGNs, PSRs, and OTHER sources among the unassociated sources and in the construction of the source counts as a function of their flux, $N(S)$, and as a function of 
 Galactic latitude and longitude, $N(b)$ and $N(\ell)$.
 We compare the $N(S)$, $N(b)$, and $N(\ell)$ distributions for associated and unassociated sources in the 3FGL and 4FGL-DR2 catalogs.
 In Sect. \ref{sec:conclusions} we present our conclusions.
@@ -333,8 +333,8 @@ and in Appendix \ref{sec:reliability} we discuss the reliability diagrams.
 
 
 The first choices that must be made to construct probabilistic catalogs are the choices of the input data and the ML methods to be used.
-For the input data we take associated point sources in the 3FGL or 4FGL-DR2 catalogs, which we then split into training and testing subsets.
-We consider four ML algorithms: random forests \citep[RF;][]{709601, Breiman:2001hzm}, 
+For the input data we took associated point sources in the 3FGL or 4FGL-DR2 catalogs, which we then split into training and testing subsets.
+We considered four ML algorithms: random forests \citep[RF;][]{709601, Breiman:2001hzm}, 
 boosted decision trees \citep[BDT;][]{friedman2001},  
 logistic regression \citep[LR;][]{cox1958}, 
 and neural networks \citep[NN;][]{Hopfield:1982pe}.
@@ -350,7 +350,7 @@ to the choice of the classification algorithm.
 \lb{sec:class_alg}
 
 
-One of the most simple and transparent algorithms for classification is decision trees.
+One of the simplest and most transparent algorithms for classification is decision trees.
 In this algorithm, at each step the sample is split into two subsets using one of the input features.
 The choice of the feature and the separating value are determined by minimizing an objective function, such as misclassification
 error, Gini index, or cross-entropy.
@@ -393,7 +393,7 @@ If the activation function for the output layer is sigmoid, then the output valu
 \section{Construction of probabilistic catalogs}
 \lb{sec:training}
 
-One of the first problems one has to deal with for the 3FGL and 4FGL-DR2 catalogs, is that
+One of the first problems with the 3FGL and 4FGL-DR2 catalogs is that
 some of the sources in the catalogs have missing or unphysical values (e.g., infinity).
 In order to avoid a bias in predictions, we include sources with missing or unphysical values only in testing or in predictions (for unassociated sources), but not in training.
 If the value is infinity, then we formally substitute it by the largest value found in the sample multiplied by 10.
@@ -406,20 +406,20 @@ In the final probabilistic catalogs, we use a column ``Missing\_Values\_Flag'' t
 the sources with missing or unphysical values.
 
 As an example of the construction of a probabilistic catalog, we use the 3FGL catalog.
-In this section we perform a two-class classification to separate point sources into pulsars and AGNs.
-Thus for training and testing, we sub-select the sources, which are associated with pulsars and AGNs.
+In this section we performed a two-class classification to separate point sources into pulsars and AGNs.
+Thus for training and testing, we sub-selected the sources, which are associated with pulsars and AGNs.
 The three-class classification into pulsars, AGNs, and OTHER sources is discussed in Sect. \ref{sec:3class}.
-After the training of the algorithms, we test the performance with the test sources and predict the classes of the unassociated sources.
+After training the algorithms, we tested the performance with the test sources and predicted the classes of the unassociated sources.
 %\LEt{ A\&A does not allow bulleted or numbered lists outside of the conclusion, so I have reformatted accordingly.}
-The general workflow will have the following three steps: (1) Select data for training and testing. (2) Optimize algorithms using training data sets.
-We select meta-parameters of the algorithms by optimizing the accuracy of the classification and test for overfitting using the test data sets.
-In order to get stable results, we repeat the separation of the data into training and testing samples 100 times and 
-average the accuracy. (3)
+The general workflow had the following three steps: (1) Select data for training and testing. (2) Optimize algorithms using training data sets.
+We selected meta-parameters of the algorithms by optimizing the accuracy of the classification and tested for overfitting using the test data sets.
+In order to get stable results, we repeated the separation of the data into training and testing samples 100 times and 
+averaged the accuracy. (3)
 Make predictions for unassociated point sources in the 3FGL catalog.
-We also apply the classification to associated sources, which we use for consistency checks.
+We also applied the classification to associated sources, which we use for consistency checks.
 
 \
-As a result of the analysis in this section, we select meta-parameters for the four ML algorithms,
+As a result of the analysis in this section, we selected meta-parameters for the four ML algorithms,
 which we then use in the following section to construct probabilistic catalogs
 based on the \Fermi-LAT 3FGL and 4FGL-DR2 catalogs.
 
@@ -427,7 +427,7 @@ based on the \Fermi-LAT 3FGL and 4FGL-DR2 catalogs.
 
 \subsection{Data and feature selection}
 
-For training of the algorithms we use the associated sources without missing or unphysical values, 
+For training of the algorithms we used the associated sources without missing or unphysical values, 
 which were classified as either AGNs (classification labels in the 3FGL catalog: agn, FSRQ, fsrq, BLL, bll, BCU, bcu, RDG, rdg, NLSY1, nlsy1, ssrq, and sey) or pulsars (classification labels in 3FGL: PSR, psr). 
 There are 1905 such sources in the 3FGL catalog. 
 
@@ -477,7 +477,7 @@ All other features are taken directly from the 3FGL catalog (see text for the de
 \label{fig:assoc_corr_3fgli}
 \end{figure*}
 
-In order to select independent features, we calculate the Pearson correlation coefficients for the features: GLON (Galactic longitude), GLAT (Galactic latitude),
+In order to select independent features, we calculated the Pearson correlation coefficients for the features: GLON (Galactic longitude), GLAT (Galactic latitude),
 Sign\_Avg (significance %\LEt{ significant?}
 average), Pivot\_E (pivot energy), FD (flux density), Un\_FD (uncertainty on flux density), F1000 (Flux\_1000), Un\_F1000 (Uncertainty\_Flux\_1000),
 E\_F100 (Energy\_Flux100),  Un\_E\_F100 (Uncertainty\_Energy\_F100), Sig\_Cur (Signif\_Curvature), Sp\_Ind (spectral index), Un\_Sp\_Ind (Uncertainty\_Spectral\_Index),
@@ -504,21 +504,21 @@ The number of tunable parameters in the classification algorithms is not fixed a
 Moreover, there is a certain freedom in the choice of the architecture of the algorithms, such as
 the number of hidden layers and the number of neurons in NN.
 In general, one starts with a simple model and increases the complexity (the number of tunable parameters)
-until the model can describe the data well, but does not overfit it.
+until the model can describe the data well without overfitting it.
 The overfitting is tested by splitting the input data into training and testing samples.
 The training sample is used for optimizing the parameters,
 while the test sample is used to check that the model is not overtrained (for overtrained models the accuracy on the test
 sample is significantly worse than the performance on the training sample).
 For our catalogs we split the data randomly into 70\% training and 30\% testing samples.
 
-In this paper we determine the probabilistic classification of a source with an algorithm by the class with the maximal probability (as estimated by this algorithm). In the case of two classes, this is the class with probability larger than 0.5. In the case of three classes, the largest probability can be smaller than 0.5 but always larger than 1/3. Although the classification probabilities for some sources are not very large; for example, a significant fraction of sources classified as pulsars may turn out to be AGNs or OTHER sources, the main goal of our analysis is not to determine a list of sources, which are classified as pulsars or AGNs with high probabilities, but to determine the probabilities themselves and to estimate the uncertainties on the probabilities. In other words, our main goal is the construction of the probabilistic catalogs, which we make available online \citep{SOM_material}. A user of these probabilistic catalogs can choose a smaller or a larger probability threshold for a particular class depending on the purpose of their analysis.
+In this paper we determined the probabilistic classification of a source with an algorithm by the class with the maximal probability (as estimated by this algorithm). In the case of two classes, this is the class with probability larger than 0.5. In the case of three classes, the largest probability can be smaller than 0.5 but always larger than 1/3. Although the classification probabilities for some sources are not very large; for example, a significant fraction of sources classified as PSRs may turn out to be AGNs or OTHER sources, the main goal of our analysis is not to determine a list of sources, which are classified as PSRs or AGNs with high probabilities, but to determine the probabilities themselves and to estimate the uncertainties on the probabilities. In other words, our main goal is the construction of the probabilistic catalogs, which we make available online \citep{SOM_material}. A user of these probabilistic catalogs can choose a smaller or a larger probability threshold for a particular class depending on the purpose of their analysis.
 
 
 \subsubsection{Random forests}
 \lb{sec:rf}
 
 The two main parameters characterizing the RF algorithm are the number of trees and the maximum depth allowed in the trees. 
-We use the Gini index as the objective function for the optimization of parameters (split values of features in the nodes).
+We used the Gini index as the objective function for the optimization of parameters (split values of features in the nodes).
 
 \begin{figure}[h]
 \centering
@@ -536,9 +536,9 @@ The results for each point are averaged over 100 realizations of the split into 
 We notice that the accuracy does not decrease as the maximal depth of the trees increases (i.e., there is no overfitting as the complexity of the model increases with increased maximum depth).
 
 
-This is due to the random choice of a subset of features at each node (maximal number of allowed features is $\sqrt{\text{\# features}}$).
+This is due to the random choice of a subset of features at each node (maximal number of allowed features was $\sqrt{\text{\# features}}$).
 It is also insensitive to the number of trees above approximately 20 trees.
-For classification we use 50 trees with a maximum depth of 6.
+For classification we used 50 trees with a maximum depth of 6.
 
 
 In order to illustrate the separation of point sources into AGNs and pulsars, we retrain the RF algorithm using only two features: log of curvature significance and log of the variability index, and plot the resulting probabilities of classes in Fig. \ref{fig:RF_domains}
@@ -546,7 +546,7 @@ for the model with 50 trees with a maximum depth of 6.
 The probabilities are averaged over 100 splits into training and testing samples.
 It is important to note that in this plot the model is trained on only two features. Nevertheless a good testing accuracy of 97\% is reached, 
 which is similar to the accuracy of the RF classification with all 11 features.
-For the final classification with RF, we use 11 features and average over 1000 splits into training and testing samples.
+For the final classification with RF, we used 11 features and averaged over 1000 splits into training and testing samples.
 
 \begin{figure}[h]
 \centering
@@ -565,7 +565,7 @@ The color scale describes the probability of a source being a pulsar.
 
 The meta-parameters for BDT algorithms are similar to RF algorithms: the number of trees and the maximal depth.
 We used the gradient boosting algorithm for the construction of BDT \citep{gb}.
-The classification is performed by a weighted average of trees, where the trees are constructed recursively in order to better address 
+The classification was performed by a weighted average of trees, where the trees are constructed recursively in order to better address 
 misclassifications from the previous step. 
 Dependence of the accuracy on tree depth is shown in Fig.~\ref{fig:BDT_depth}. 
 Unlike the RF, which is also an ensemble-based method, the testing accuracy drops for the maximal depths larger than 7. 
@@ -578,8 +578,8 @@ Unlike the RF, which is also an ensemble-based method, the testing accuracy drop
 \label{fig:BDT_depth}
 \end{figure}
 
-The classification domains in case of two features for 20 trees and the maximum depth of 2 is presented in Fig.~\ref{fig:BDT_domains}. 
-For the classification we use BDT with 100 trees and the maximum depth of 2.
+The classification domains in case of two features for 20 trees and the maximum depth of 2 are presented in Fig.~\ref{fig:BDT_domains}. 
+For the classification we used BDT with 100 trees and the maximum depth of 2.
 
 
 \begin{figure}[h]
@@ -633,10 +633,10 @@ The features are ordered by decreasing importance in the case of the RF algorith
 \end{table}
 
 It is interesting to note that Galactic latitude is among the least significant features.
-We also used sin(GLAT) to check that this is not due to scaling (i.e., the large range of values of GLAT),
-but the significance is similar to the GLAT itself.
+We also used sin(GLAT) to check that this was not due to scaling (i.e., the large range of values of GLAT),
+but the significance was similar to the GLAT itself.
 We further discuss the dependence on GLAT in Sect. \ref{sec:lat-lon-profiles}, 
-where we calculate the latitude and longitude profiles of the associated and unassociated source counts.%
+where we calculated the latitude and longitude profiles of the associated and unassociated source counts.%
 \footnote{Feature importances for the classification of 4FGL-DR2 sources with RF and BDT algorithms are reported in Appendix \ref{sec:app}.}
 
 
@@ -664,7 +664,7 @@ For the activation function at the hidden layer we use either hyperbolic tangent
 The activation function for the output layer is sigmoid, which we use to make sure that the output value can be interpreted as a class probability.
 The unknown parameters are weights of features in the hidden layer $w_{ji}$ and in the output layer $v_j$ including
 offsets $w_{j0}$ and $v_0$.
-The unknown parameters are optimized by minimizing a loss function, which we chose to be
+The unknown parameters were optimized by minimizing a loss function, which we chose to be
 the cross entropy
 $-\text{log}L = - \sum_i (y_i\text{log}(p_i)+(1-y_i)\text{log}(1 - p_i))$, 
 where $y_i = 0,\,1$ are the true labels of the sources and $p_i$ are the predicted class probabilities.
@@ -683,8 +683,8 @@ and on the optimization algorithm is shown in Fig. \ref{fig:NN_neurons}.
 We compare two activation functions at the hidden layer (tanh and relu) and two optimization algorithms: 
 limited memory Broyden-Fletcher-Goldfarb-Shanno \citep[LBFGS;][]{lbfgs} 
 and the stochastic gradient descent algorithm Adam \citep{2014arXiv1412.6980K}.
-We use 300 epochs for training.
-Around 11 neurons in the hidden layer appears to be an optimal choice, since increasing the number of neurons leads to no significant increase in accuracy for all models. 
+We used 300 epochs for training.
+Around 11 neurons in the hidden layer appears to be an optimal choice, since increasing the number of neurons lead to no significant increase in accuracy for all models. 
 
 Dependence on the number of epochs (number of iterations in fitting) is presented in Fig. \ref{fig:NN_epochs}. 
 The accuracy increases with higher number of epochs and saturates at around 200 for LBFGS and 300 for Adam. 
@@ -713,7 +713,7 @@ For our final model we chose one hidden layer with eleven neurons, 300 training 
 \includegraphics[width=0.5\textwidth]{plots/classification_domains/nn_300_lbfgs.pdf}
 \caption{NN classification domains for two input features
 averaged over 100 random splits into training and testing samples.
-We use two neurons in the hidden layer, the tanh activation function, and the LBFGS solver. 
+We used two neurons in the hidden layer, the tanh activation function, and the LBFGS solver. 
 }
 \label{fig:NN_domains}
 \end{figure}
@@ -768,7 +768,7 @@ will give a higher probability of a source being an AGN.
 
 The problem of classification of imbalanced data sets can be quantitatively described in terms of precision and recall.
 If we denote by ``\# true'' the number of pulsars in the data set, by ``\# positive'' -- the number of sources predicted to be pulsars, and by 
-``\# true positive'' -- the number of pulsars predicted to be pulsars, then  $precision \rm = \frac{\#\ true\ positive}{\#\ positive}$ is a measure how clean the prediction is, while $recall \rm = \frac{\#\ true\ positive}{\#\ true}$ is a measure how well the algorithm can detect pulsars (i.e., how complete the list of predicted pulsars is).
+``\# true positive'' -- the number of pulsars predicted to be pulsars, then  $precision \rm = \frac{\#\ true\ positive}{\#\ positive}$ is a measure of how clean the prediction is, while $recall \rm = \frac{\#\ true\ positive}{\#\ true}$ is a measure of how well the algorithm can detect pulsars (i.e., how complete the list of predicted pulsars is).
 If we reduce the pulsar domain by attributing uncertain sources predominantly to AGNs, then for pulsars the precision will increase, but the recall will decrease.
 
 
@@ -792,8 +792,8 @@ As an alternative to using an any-algorithm classification, one can give larger 
 Provided that in some applications it is beneficial to have as complete a list as possible of pulsar candidates among unassociated sources, we retrained the algorithms using oversampling with the same meta-parameters as in the previous sections.
 
 In general one can either under- or oversample a data set. Undersampling would reduce the number of AGNs to match the number of pulsars. However, since the total number of sources is not very high, we chose to oversample the data. 
-For training with oversampling, we copy randomly existing pulsars and add them to the data set until the number of pulsars and AGNs are the same.
-Although pulsars in the training data set are redundant, they help to increase the weight of pulsars in the classification model.
+For training with oversampling, we copied randomly existing pulsars and added them to the data set until the number of pulsars and AGNs were the same.
+Although pulsars in the training data set were redundant, they helped to increase the weight of pulsars in the classification model.
 We illustrate the oversampling procedure in Fig. \ref{fig:LR_domains_O} top panel:
 the number of times a source appears in training is shown by adding markers with shifts to the right and above the original position of the source (we note that the shift is introduced for presentation only, the parameters of the sources are exactly the same as in the original source).
 In the bottom panel of Fig. \ref{fig:LR_domains_O} we repeat Fig.  \ref{fig:LR_domains} in order to compare the classification domains with and without oversampling.
@@ -835,9 +835,9 @@ classification of sources in the 3FGL and 4FGL-DR2 catalogs.
 \lb{sec:3FGLprediction1}
 
 
-We use the following four algorithms for the classification of sources: RF with 50 trees and maximal depth of 6, BDT with 100 trees and maximal depth of 2, NN with 11 neurons, LBFGS solver, and 300 epochs, and LR with LBFGS solver and 200 iterations. 
-For training we use the pulsars and AGNs from the 3FGL catalog without missing or unphysical values. 
-In addition to original data sets, we perform oversampling of pulsars in order to balance the numbers of pulsars and AGNs.
+We used the following four algorithms for the classification of sources: RF with 50 trees and maximal depth of 6, BDT with 100 trees and maximal depth of 2, NN with 11 neurons, LBFGS solver, and 300 epochs, and LR with LBFGS solver and 200 iterations. 
+For training we used the pulsars and AGNs from the 3FGL catalog without missing or unphysical values. 
+In addition to original data sets, we performed oversampling of pulsars in order to balance the numbers of pulsars and AGNs.
 As a result, we have eight classification methods: four algorithms trained with and without oversampling.
 
 
@@ -890,20 +890,20 @@ As a result, we have eight classification methods: four algorithms trained with 
 The selected algorithms are summarized in Table \ref{tab:selected_algs}, where oversampling is shown by ``\_O.''
 ``Average testing accuracy'' is computed by taking 1000 times the 70\% - 30\% split into training and testing samples and averaging over the 
 accuracies computed for the testing samples.
-In addition, we look at sources, which are unassociated in 3FGL but have either pulsar or AGN association in 4FGL-DR2: there are 303 such sources.
+In addition, we looked at sources, which are unassociated in 3FGL but have either pulsar or AGN association in 4FGL-DR2: there are 303 such sources.
 The accuracy of our prediction for the four selected algorithms with and without oversampling, taking the 4FGL-DR2 classes as the true values, is reported in the column ``Comparison with 4FGL Accuracy.''
 %The unassociated sources are classified as PSRs or AGNs by the individual ML algorithms, if the corresponding probability is larger than 0.5.
 
 As a result of the classification with the eight ML methods,
 we created a probabilistic catalog based on the 3FGL sources.
-We train on 70\% of the sources associated with pulsars or AGNs without missing or unphysical values 
+We trained on 70\% of the sources associated with pulsars or AGNs without missing or unphysical values 
 (there are thirteen sources with missing or unphysical values in the 3FGL catalog: two unassociated, five AGNs, one pulsar, and five OTHER sources).
-We replace the missing and unphysical values according to the procedure described at the beginning of Sect. \ref{sec:training}.
+We replaced the missing and unphysical values according to the procedure described at the beginning of Sect. \ref{sec:training}.
 We calculated the probabilities of classes for testing sources, for sources that are not classified as pulsars or AGNs or have missing or unphysical values, and for unassociated sources.
-We repeated the splitting and training 1000 times and report the sample average and standard deviation of the classification probabilities; in other words, we averaged over 1000 values for unassociated sources, sources not classified as AGNs or pulsars, and sources with missing or unphysical values. The average for AGNs and pulsar without missing or unphysical values is over the number of times the sources appear in the testing sample, which is 300 on average.
+We repeated the splitting and training 1000 times and report the sample average and standard deviation of the classification probabilities; in other words, we averaged over 1000 values for unassociated sources, sources not classified as AGNs or PSRs, and sources with missing or unphysical values. The average for AGNs and PSRs without missing or unphysical values is over the number of times the sources appeared in the testing sample, which is 300 on average.
 
 
-In the probabilistic catalogs we add columns with corresponding probabilities for each algorithm and each class; provided that there are eight methods (including oversampling) and two classes, we add 16 columns: eight for unweighted and eight for oversampled training data. The columns with ``\_O'' represent the oversampled probabilities. We also add 16 columns for the standard deviations of probabilities. Although class probabilities and standard deviations for each algorithm are not independent (probabilities add up to 1 and standard deviations are equal for AGN and PSR classes), we keep the corresponding columns in view of the generalizations to multi-class classification (e.g., the three-class classification in Sect. \ref{sec:3class}).
+In the probabilistic catalogs we added columns with corresponding probabilities for each algorithm and each class; provided that there are eight methods (including oversampling) and two classes, we add 16 columns: eight for unweighted and eight for oversampled training data. The columns with ``\_O'' represent the oversampled probabilities. We also added 16 columns for the standard deviations of probabilities. Although class probabilities and standard deviations for each algorithm are not independent (probabilities add up to 1 and standard deviations are equal for AGN and PSR classes), we keep the corresponding columns in view of the generalizations to multi-class classification (e.g., the three-class classification in Sect. \ref{sec:3class}).
 
 Table \ref{tab:prob_cat} shows an example of the probabilistic catalog for a few unassociated 3FGL sources.
 We notice %\LEt{ A\&A encourages authors to avoid directly addressing the reader, e.g., by using the imperative or posing direct questions.}
@@ -937,7 +937,7 @@ We have omitted the oversampled probability columns for brevity.}
 
 
 %It can happen that different algorithms classify a source both as an AGN and as a pulsar.
-For the determination of candidate classes based on the probabilistic classification, we consider the following two conditions:
+For the determination of candidate classes based on the probabilistic classification, we considered the following two conditions:
 1) that all algorithms agree (i.e., each algorithm predicts the same class for a source with a more than 50\% probability%
 \footnote{We use the 50\% threshold in the two-class case for illustration. Even if the probability of a source being, e.g., a pulsar is larger than 50\% for all eight methods, there is still a large chance of the source being an AGN if the probabilities are around 50\%. 
 For this reason, the classes of sources reported in this work derived from the class probabilities should be viewed as candidate classes.
@@ -950,7 +950,7 @@ which are beyond the analysis in this paper.}) and
 2) that the sum of probabilities of a source belonging to a certain class is larger than 7 
 (this means that on average the probability is larger than 7/8 = 0.875).
 Both of these conditions are stricter than the classification using probabilities for any of the eight algorithms.
-For convenience, we add a column in the probabilistic catalogs with the most likely probabilistic classes of sources based on the condition that all algorithms agree on the classification (sources with mixed classification are labeled as ``MIXED'' in this column).
+For convenience, we added a column in the probabilistic catalogs with the most likely probabilistic classes of sources based on the condition that all algorithms agree on the classification (sources with mixed classification are labeled as ``MIXED'' in this column).
 In order to test the performance of the classification conditions we compare the precision and recall for unassociated source in the 3FGL catalog, which are associated in the 4FGL-DR2, and also calculate the expected precision and recall based on
 test samples used in training.
 In total there are 340 sources, which are unassociated in 3FGL but have associations in 4FGL-DR2.
@@ -958,7 +958,7 @@ The result of classification of the unassociated sources in the 3FGL catalog, wh
 using the condition that all methods agree on the classification are presented in Table~\ref{tab:3FGL_vs_4FGL_2class}.
 The MIXED column shows the numbers of sources, for which different algorithms predict different classifications.
 Columns show the predictions for the 3FGL unassociated sources, while the rows show the associations in the 4FGL-DR2 catalog.
-For the later comparison with the three-class classification, we also add unassociated source in the 3FGL catalog, 
+For the latter comparison with the three-class classification, we also added unassociated source in the 3FGL catalog, 
 which have associations with sources other than pulsars and AGNs.
 
 We also present in Table~\ref{tab:3FGL_vs_4FGL_2class} the precision and recall estimates from the comparison of the 3FGL and 4FGL-DR2 catalogs (``4FGL assoc'' columns and rows).
@@ -966,7 +966,7 @@ For example, the precision for AGNs is the number of true positive predictions (
 The estimated precision for PSRs is $ 23 / (23 + 5 + 6) \approx 0.68$.
 In addition we show the expected precision and recall using the condition that all
 methods agree (``all agree'' columns and rows) and the condition that the sum of probabilities is larger than 7 (``$\sum_a p_a > 7$'' columns and rows) calculated using the class probabilities for associated sources reported in the probabilistic catalogs (these probabilities are derived as an average over the test samples).
-The precision (recall) estimates using, for example, the condition that all algorithms agree is computed by taking the ratio of associated pulsars in 3FGL, which are also predicted to be pulsars by all eight algorithms, to the number of sources associated with pulsars (to the total number of sources predicted to be pulsars among associated sources) in the 3FGL catalog.
+The precision (recall) estimates using, for example, the condition that all algorithms agree were computed by taking the ratio of associated pulsars in 3FGL, which are also predicted to be pulsars by all eight algorithms, to the number of sources associated with pulsars (to the total number of sources predicted to be pulsars among associated sources) in the 3FGL catalog.
 The precision and recall estimates for the $\sum_a p_a > 7$ condition are computed analogously.
 This condition is, on average, stricter than the ``all-agree'' condition, which results in larger precision and smaller recall than in the all-agree case.
 Also, all unassociated 3FGL pulsar candidates, which satisfy the $\sum_a p_a > 7$ condition, are associated with pulsars in the 4FGL-DR2.
@@ -1065,7 +1065,7 @@ Out of 1010 unassociated sources in 3FGL, 111 are classified as pulsars by all e
 
 In the ``two-class corr'' row of Table \ref{tab:prediction_2and3class}
 we show a possible correction of the number of pulsars and AGNs due to the presence of OTHER sources.
-Here we assume that the fraction of AGN-like and pulsar-like sources among the OTHER sources is the same for associated and for unassociated sources.
+Here we assumed that the fraction of AGN-like and pulsar-like sources among the OTHER sources is the same for associated and for unassociated sources.
 In particular, if we denote by $N_{\rm AGN}$ the number of unassociated sources with AGN-like probabilistic classification,
 by $N_{\rm AGN}^{\rm ass\,OTHER}$ the number of sources with AGN-like classification among associated OTHER sources,
 by $N_{\rm ass}$ ($N_{\rm unass}$) the total number of associated (unassociated) sources, then
@@ -1084,7 +1084,7 @@ N^{\rm unass}_{\rm OTHER} = N^{\rm ass\,OTHER} \,\frac{N_{\rm unass}}{N_{\rm ass
 We show this estimate in the OTHER column in the ``two-class corr'' row.
 We note that since 
 $N_{\rm AGN}^{\rm ass\,OTHER} + N_{\rm PSR}^{\rm ass\,OTHER} + N_{\rm MIXED}^{\rm ass\,OTHER} = N^{\rm ass\,OTHER}$,
-this estimate is consistent with corrections in Eq. (\ref{eq:other_correction}) for sources classified as AGNs, pulsars, or with mixed classification.
+this estimate is consistent with corrections in Eq. (\ref{eq:other_correction}) for sources classified as AGNs, PSRs, or with mixed classification.
 The expected numbers of sources for the 4FGL-DR2 catalog and in the three-class case are calculated in Sects. \ref{sec:4FGLprediction}
 and \ref{sec:3class}, respectively.
 
@@ -1092,7 +1092,7 @@ and \ref{sec:3class}, respectively.
 \subsection{Probabilistic classification of sources in the 4FGL-DR2 catalog}
 \lb{sec:4FGLprediction}
 
-In this section we construct a probabilistic classification of sources in the 4FGL-DR2 catalog. The 4FGL-DR2 catalog \citep{2020arXiv200511208B} 
+In this section we constructed a probabilistic classification of sources in the 4FGL-DR2 catalog. The 4FGL-DR2 catalog \citep{2020arXiv200511208B} 
 is based on 10 years of \Fermi-LAT data \citep[compared to 8 years of data in the 4FGL catalog,][]{2020ApJS..247...33A}.
 It contains 5788 sources, which is 723 sources more than in the 4FGL catalog (all sources in 4FGL are kept in 4FGL-DR2 even if they fall
 below the detection threshold with 10 years of data). 
@@ -1100,13 +1100,13 @@ In the 4FGL-DR2 catalog,
 3503 sources are associated with AGNs,
 271 sources are associated with pulsars,
 1658 sources are unassociated (we only look at CLASS1 column in the catalog), 
-and the rest 346 sources are OTHER sources, such as pulsar wind nebulas PWN%\LEt{ Please define.}
+and the rest 346 sources are OTHER sources, such as pulsar wind nebulas (PWNs)%\LEt{ Please define.}
 , supernova remnants (SNRs), and so on.
 There are 14 sources in 4FGL-DR2 with missing or unphysical values: four AGNs, one PWN (Crab), and nine unassociated sources.
-As in the previous section, we use sources associated with either AGNs or pulsars for training,
+As in the previous section, we used sources associated with either AGNs or pulsars for training,
 which have no missing or unphysical values.
 The unphysical and missing values are replaced according to the procedure described at the beginning of Sect. \ref{sec:training}.
-We calculate the classification probabilities of AGN and PSR classes for both the associated and the unassociated sources.
+We calculated the classification probabilities of AGN and PSR classes for both the associated and the unassociated sources.
 
 The 4FGL-DR2 catalog has a higher number of features, especially due to the difference in modeling of the spectra compared with the 3FGL catalog. 
 We selected 28 of these features plus six hardness ratios HR12, ..., HR67 (the 4FGL-DR2 catalog has seven energy bins)
@@ -1116,9 +1116,9 @@ If any feature was correlated or anticorrelated with a Pearson index of $\pm$0.7
 The resulting 16 features are:
 GLON, GLAT, ln(Pivot\_Energy), ln(Energy\_Flux100), ln(Unc\_Energy\_Flux100), LP\_Index, Unc\_LP\_Index, LP\_beta, LP\_SigCurv, ln(Variability\_Index), and the six hardness ratios.
 
-For the classification of 4FGL-DR2 sources, we confirmed that the parameters used in 3FGL classification provide an optimal performance also for the 4FGL-DR2 catalog, except for NN, which requires more neurons in the hidden layer in the 4FGL-DR2 case.
+For the classification of 4FGL-DR2 sources, we confirmed that the parameters used in 3FGL classification provided an optimal performance also for the 4FGL-DR2 catalog, except for NN, which required more neurons in the hidden layer in the 4FGL-DR2 case.
 Therefore, we used the same meta-parameters for the four algorithms as in the construction of the probabilistic catalog based on 3FGL, except for NN where we increased the number of neurons in the hidden layer to 16. Similar to the construction of the 3FGL probabilistic catalog, we used both unweighted training samples and oversampling (i.e., we have eight classification methods).
-We retrain the algorithms using the 16 features for the 4FGL-DR2 sources.
+We retrained the algorithms using the 16 features for the 4FGL-DR2 sources.
 The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
 
 
@@ -1194,11 +1194,11 @@ The corresponding accuracies are reported in Table \ref{tab:selected_algs2}.
     \ref{sec:3class}, respectively). }
 \end{table}
 
-Analogously to the 3FGL catalog, we use the agreement among the algorithms for the probabilistic classification of sources.
+Analogously to the 3FGL catalog, we used the agreement among the algorithms for the probabilistic classification of sources.
 We report the corresponding precision and recall in Table \ref{tab:prec_recall_4FGL}, where we also show precision and recall
 for the $\sum_a p_a > 7$ condition and for the three-class classification described in Sect. \ref{sec:3class}.
 Using the agreement among the algorithms condition,
-we calculate the expected numbers of pulsars and AGNs among the 1658 unassociated sources in 4FGL-DR2 without missing values 
+we calculated the expected numbers of pulsars and AGNs among the 1658 unassociated sources in 4FGL-DR2 without missing values 
 (see 4FGL-DR2 part of Table \ref{tab:prediction_2and3class}).
 The definition of rows is the same as in the 3FGL catalog two-class classification in Sect. \ref{sec:3FGLprediction1}.
 
@@ -1255,12 +1255,12 @@ the overall correction with latitude bins is not equal to the correction with lo
 
 In this section we discuss the construction of probabilistic catalogs with multi-class classification (three-class classification in our case).
 We start with the construction of the probabilistic catalog based on 3FGL by adding the class OTHER, which includes all associated sources without AGN or PSR associations: there are 113 such sources in 3FGL (108 OTHER sources are without missing or unphysical values).
-We use the same 11 features as in the two-class classification: the only difference is that we use cos(GLON) instead of GLON.
-The reason for this is that the LR and NN methods have a significantly worse performance than RF and BDT methods when we use GLON,
-but, as we show below, all four methods have comparable accuracy when we use cos(GLON).
+We used the same 11 features as in the two-class classification: the only difference is that we used cos(GLON) instead of GLON.
+The reason for this is that the LR and NN methods had a significantly worse performance than RF and BDT methods when we used GLON,
+but, as we show below, all four methods have comparable accuracy when we used cos(GLON).
 This may be due to a discontinuity in the GLON variable. 
-We perform optimization of the meta-parameters for the four ML algorithms with the three classes.
-In the calculation of accuracy we determine the probabilistic class as the class with the maximum probability among the three classes,
+We performed optimization of the meta-parameters for the four ML algorithms with the three classes.
+In the calculation of accuracy we determined the probabilistic class as the class with the maximum probability among the three classes,
 in some cases the maximal probability can be less than 0.5, but it is always above one-third.
 
 
@@ -1292,9 +1292,9 @@ The dependence of accuracy on meta-parameters of the algorithms is shown in Figs
 We see that for the tree-based algorithms, the optimal parameters are similar to the two-class classification: 50 trees with depth 6 for RF and 100 trees with depth 2 for BDT 
 provide close to optimal performance at a minimal cost in complexity (depth of the trees).
 The main difference for NN and LR algorithms is that more steps are needed for convergence, especially in the case of oversampling. 
-In the following we use 600 epochs for NN and 500 iterations for LR instead of 300 epochs and 200 iterations, respectively, in the two-class case.
-For NN, the accuracy stops increasing above about ten neurons in the hidden layer (in the following we use 11 neurons for classification: the same as in the two-class case).
-For oversampling, we use the oversampling factors $\sqrt{\frac{\text{\# AGN}}{\text{\# PSR}}}$ and $\sqrt{\frac{\text{\# AGN}}{\text{\# OTHER}}}$ for the PSR and OTHER classes, respectively (compared to the $\frac{\text{\# AGN}}{\text{\# PSR}}$ oversampling factor in the two-class case).
+In the following we used 600 epochs for NN and 500 iterations for LR instead of 300 epochs and 200 iterations, respectively, in the two-class case.
+For NN, the accuracy stops increasing above about ten neurons in the hidden layer (in the following we used 11 neurons for classification: the same as in the two-class case).
+For oversampling, we used the oversampling factors $\sqrt{\frac{\text{\# AGN}}{\text{\# PSR}}}$ and $\sqrt{\frac{\text{\# AGN}}{\text{\# OTHER}}}$ for the PSR and OTHER classes, respectively (compared to the $\frac{\text{\# AGN}}{\text{\# PSR}}$ oversampling factor in the two-class case).
 The reason for the smaller oversampling factors is to avoid overweighting the two relatively small PSR and OTHER classes.
 
 \begin{figure}[h]
@@ -1312,12 +1312,12 @@ Since in the three-class case there are two independent probabilities, which are
 we present only the domains represented by three different colors: brown for PSR, green for OTHER, and blue for AGN classes.
 The corresponding training and testing data are shown by red crosses and brown rotated squares for PSR, by green squares and yellow diamonds for OTHER,
 and by blue and purple triangles for AGN.
-The classification domains are averaged over 100 realizations of splitting the data into training and testing samples.
+The classification domains were averaged over 100 realizations of splitting the data into training and testing samples.
 One of these splittings is shown in the figure for illustration.
 
 
 The accuracies of our chosen models for classification of the 3FGL sources are presented in Table \ref{tab:selected_algs_multi}.
-As in the two-class case, the accuracies are averaged over 1000 realizations of splitting the data into training and testing samples.
+As in the two-class case, the accuracies were averaged over 1000 realizations of splitting the data into training and testing samples.
 We notice that accuracies presented in Table \ref{tab:selected_algs} are calculated relative to AGN and PSR classes only. If we take into account that all OTHER sources
 are misclassified in this case, then the testing accuracy is reduced by about 5\% (the fraction of OTHER sources among associated sources in 3FGL),
 while the accuracy of comparison with 4FGL-DR2 is reduced by about 10\% (there are 37 unassociated sources in 3FGL with OTHER class associations in 4FGL-DR2,
@@ -1326,9 +1326,9 @@ Thus the testing accuracy of 93-94\% in Table \ref{tab:selected_algs_multi} prov
 after taking into account the misclassification of OTHER sources in the two-class case.
 A similar improvement is seen for the accuracy of classification of unassociated sources in 3FGL with corresponding 4FGL-DR2 associations.
 
-Similarly to the two-class classification, we use the condition that all algorithms agree to determine the candidate probabilistic classes of sources.
-In the end of this section we also use a stricter condition that the sum of probabilities is larger than 7 in order to determine lists of most likely PSR and OTHER source candidates.
-A comparison of predicted classes (using the all algorithms agreement condition) for the 3FGL unassociated sources in the three-class classification case with the classes of the corresponding associated sources in the 4FGL-DR2 catalog are presented in Table~\ref{tab:3FGL_vs_4FGL_3class}.
+Similarly to the two-class classification, we used the condition that all algorithms agree to determine the candidate probabilistic classes of sources.
+In the end of this section we also used a stricter condition that the sum of probabilities is larger than 7 in order to determine lists of most likely PSR and OTHER source candidates.
+A comparison of predicted classes (using the all algorithms agreement condition) for the 3FGL unassociated sources in the three-class classification case with the classes of the corresponding associated sources in the 4FGL-DR2 catalog is presented in Table~\ref{tab:3FGL_vs_4FGL_3class}.
 It is interesting to note that there are fewer sources with mixed classification in this case relative to the two-class classification in 
 Table~\ref{tab:3FGL_vs_4FGL_2class}.
 Also, the number of correct predictions in the three-class case is 263 (out of 340 sources), while in the two-class case there are 246 correct predictions.
@@ -1413,8 +1413,8 @@ is higher in the three-class case (Table~\ref{tab:3FGL_vs_4FGL_3class}) compared
 
 The three-class classification of 4FGL-DR2 sources is performed analogously to the three-class classification of the 3FGL sources.
 The differences between the 4FGL-DR2 and 3FGL three-class classifications are similar to the differences in the two-class classification of 3FGL and 4FGL-DR2 sources:
-we use 16 features instead of 11 features in the 3FGL case (the features are the same as in the two-class classification of 4FGL-DR2 sources in Sect. \ref{sec:4FGLprediction} but with GLON replaced by cos(GLON))
-and we have 16 neurons in the hidden layer of the NN method. Furthermore, for LR we use 1000 iterations as it gives better performance for oversampled cases.
+we used 16 features instead of 11 features in the 3FGL case (the features are the same as in the two-class classification of 4FGL-DR2 sources in Sect. \ref{sec:4FGLprediction} but with GLON replaced by cos(GLON))
+and we have 16 neurons in the hidden layer of the NN method. Furthermore, for LR we used 1000 iterations as it gives better performance for oversampled cases.
 The corresponding accuracies are reported in Table \ref{tab:selected_algs_4fgl_multi}.
 In comparing the accuracies with the two-class classification in Table \ref{tab:selected_algs2}, 
 one has to take into account that there are 346 OTHER sources among 4116 associated sources in 4FGL-DR2, which is about 8.4\%.
@@ -1462,13 +1462,13 @@ The conclusion is that the reliability diagrams for the three-class are similar 
 \end{table}
 
 
-The numbers of unassociated sources classified by all 8 methods as AGNs, pulsars, and OTHER sources for the 3FGL and 4FGL-DR2 catalogs are presented in Table \ref{tab:prediction_2and3class} in the ``three-class'' rows.
+The numbers of unassociated sources classified by all 8 methods as AGNs, PSRs, and OTHER sources for the 3FGL and 4FGL-DR2 catalogs are presented in Table \ref{tab:prediction_2and3class} in the ``three-class'' rows.
 For each algorithm the most probable class of the source is determined by the class with the largest probability.
 The ``MIXED'' column shows the number of sources with different classification results for different algorithms.
 
 Classification of \Fermi-LAT 4FGL sources into three classes was considered earlier by, for example, \cite{2021RAA....21...15Z}, 
-who have primarily used a two-step classification procedure, where in the first step AGNs are separated from the rest of sources and in the second step the remaining sources are split into pulsars and OTHER sources.
-\cite{2021RAA....21...15Z} have also tested a simultaneous classification of sources into three classes (AGN, pulsars, and OTHER),
+who primarily used a two-step classification procedure, where in the first step AGNs were separated from the rest of sources and in the second step the remaining sources were split into pulsars and OTHER sources.
+\cite{2021RAA....21...15Z} have also tested a simultaneous classification of sources into three classes (AGN, PSRs, and OTHER),
 but the results were inconsistent for the two ML algorithms used by \cite{2021RAA....21...15Z} (RF and NN).
 In particular, the number of OTHER sources predicted by NN was zero.
 In our case, the predictions of various algorithms are relatively consistent with each other.
@@ -1485,7 +1485,7 @@ the unassociated sources are predicted to be pulsars by all 8 methods both in th
 As one can see from Table \ref{tab:selected_algs_multi} and also from the comparison of Tables \ref{tab:3FGL_vs_4FGL_3class}
 and \ref{tab:3FGL_vs_4FGL_2class}, the $\sum_a p_a > 7$ condition provides a better precision than the 
 agreement among the algorithms condition.
-For this reason, in this section we use the $\sum_a p_a > 7$ condition to create lists of PSR and OTHER candidates
+For this reason, in this section we used the $\sum_a p_a > 7$ condition to create lists of PSR and OTHER candidates
 among the unassociated 4FGL-DR2 sources.
 In the 3FGL case, all PSR candidates satisfying the $\sum_a p_a > 7$ condition are already associated with pulsars in 4FGL-DR2,
 while there are no OTHER candidates satisfying the $\sum_a p_a > 7$ condition among the unassociated sources. 
@@ -1627,7 +1627,7 @@ on the evaporation of primordial black holes \citep{2010PhRvD..81j4019C}.
 In particular, it is important to understand the contribution to the population of AGNs from the unassociated sources.
 A probabilistic catalog provides an answer to the question: how many sources among the unassociated ones are expected to belong to different classes, such as pulsars or AGNs. 
 One can calculate the total expected number of AGNs or pulsars among the unassociated sources, or calculate the contribution as a function of one or more parameters.
-In this subsection we determine the numbers of AGNs, pulsars, and, in case of three-class classification, OTHER sources as a function of their flux.
+In this subsection we determined the numbers of AGNs, PSRs, and, in case of three-class classification, OTHER sources as a function of their flux.
 In the following subsection we also discuss the distributions of sources as functions
 of Galactic latitude and longitude.
 
@@ -1686,10 +1686,10 @@ while the number of OTHER sources among unassociated ones in the two-class case 
 In Fig. \ref{fig:logN_logS} we show the cumulative number of AGNs and pulsars with a flux above 1 GeV larger than the
 value on the x-axis.
 Solid blue lines show the actual counts of sources (AGNs or pulsars) in the 3FGL and 4FGL-DR2 catalogs.
-As a consistency check of the method, we calculate the AGN- and PSR-like probabilities for associated sources.
+As a consistency check of the method, we calculated the AGN- and PSR-like probabilities for associated sources.
 The sum of probabilities (uncorrected for sources other than AGNs and pulsars) for LR algorithm are shown by dotted purple lines.
 In order to correct the expected number of AGNs among associated sources for AGN-like probabilities in OTHER sources, 
-we subtract the corresponding AGN-like probabilities in each flux band:
+we subtracted the corresponding AGN-like probabilities in each flux band:
 \bea
 \lb{eq:assoc_ev}
 N_{\rm AGN}^{\rm ass}  = \sum_{i \in \rm ass} p^i_{\rm AGN}\,\, - \sum_{i \in \rm ass\,other} p^i_{\rm AGN}.
@@ -1883,12 +1883,12 @@ But for longitude and flux binning the ratio of unassociated with associated sou
 We summarize the expected numbers of sources in the two-class and three-class models in Table \ref{tab:expected_counts_prob_3FGL} for the 3FGL and in Table \ref{tab:expected_counts_prob_4FGL-DR2} for the 4FGL-DR2 catalogs.
 In the two-class case we also show the correction for the presence of OTHER sources among unassociated ones.
 We make the correction using the total numbers of unassociated and associated sources, as well as binning in flux from Fig. \ref{fig:logN_logS} (F-bins), in latitudes from Fig. \ref{fig:lat_profile} (Lat-bins), and in longitudes from Fig. \ref{fig:lon_profile} (Lon-bins).
-We see that predictions for the numbers of sources using latitude binning in the two-class case is closest to the three-class case.
+We see that predictions for the number of sources using latitude binning in the two-class case is closest to the three-class case.
 Even better agreement would likely be achieved if one uses a simultaneous binning in flux, latitudes, longitudes and, possibly, other variables.
 If, in addition, one allows bins of variable size and non-rectangular boundaries in multidimensional space, then one will likely end up with one of the ML algorithms for classification.
-Indeed, ML algorithms are designed to provide an optimal binning, which maximizes the separation of classes and make predictions for data with unknown labels (e.g., unassociated sources) based on counts of samples in bins with known labels (e.g., associated sources).
+Indeed, ML algorithms are designed to provide an optimal binning, which maximizes the separation of classes and makes predictions for data with unknown labels (e.g., unassociated sources) based on counts of samples in bins with known labels (e.g., associated sources).
 Thus the three-class prediction for classification of unassociated sources is likely more accurate than the two-class classification with correction for OTHER sources based on ad hoc binning of one of the variables.
-The two-class classification may still be useful in situations, when high recall is necessary for either pulsars or AGNs:
+The two-class classification may still be useful in situations when high recall is necessary for either pulsars or AGNs:
 since OTHER sources are mixed with pulsars and AGNs (cf. Fig. \ref{fig:RF_domains_3class}), 
 some of pulsars and AGNs can be mistakenly classified as OTHER in the three-class case.
 
@@ -1964,9 +1964,9 @@ For the description of rows, see Table \ref{tab:expected_counts_prob_3FGL}.}
 \section{Conclusions}
 \lb{sec:conclusions}
 
-In this paper we determine the probabilities of classification of sources in the 3FGL and 4FGL-DR2 \Fermi-LAT catalogs
-into two (AGNs and pulsars) and three (AGNs, pulsars, and OTHER) classes.
-The probabilities are calculated with eight different ML methods: RF, BDT, LR, and NN -- each algorithm with and without oversampling during training.
+In this paper we determined the probabilities of classification of sources in the 3FGL and 4FGL-DR2 \Fermi-LAT catalogs
+into two (AGNs and PSRs) and three (AGNs, PSRs, and OTHER) classes.
+The probabilities were calculated with eight different ML methods: RF, BDT, LR, and NN -- each algorithm with and without oversampling during training.
 The algorithms were trained and tested with associated sources.
 We optimized the meta-parameters of the algorithms, such as the depth of the trees, the number of trees, the number of neurons, and so on, to avoid any overfitting of data while providing a good accuracy of classification.
 The testing accuracies of the classification of associated sources in the 3FGL catalog for the four algorithms in the two-class case without (with) oversampling are about  97\% (between 93\% and 97\%).
@@ -1974,7 +1974,7 @@ The testing accuracies of the classification of associated sources in the 3FGL c
 We also checked the accuracy of the classification by selecting the unassociated sources in 3FGL that have associations in 4FGL-DR2.
 If we take the 4FGL-DR2 associations as the true classes, then the accuracies of classification in this subset of sources 
 without (with) oversampling are between 90\% and 91\% (85\% and 92\%).
-Most of the misclassified sources in this comparison have spectral parameters in 3FGL that are typical of the OTHER class (Fig. \ref{fig:3FGL_vs_4FGL_classes}); in other words, the misclassification can be due to problems with reconstructing the spectrum of the sources.
+Most of the misclassified sources in this comparison have spectral parameters in 3FGL that are typical of the OTHER class (Fig. \ref{fig:3FGL_vs_4FGL_classes}); in other words, the misclassification may be due to problems with reconstructing the spectrum of the sources.
 In the three-class classification, the testing accuracies for the 3FGL catalog are between 92\% and 94\% (both with and without oversampling), while comparison with 4FGL-DR2 gives accuracies between 82\% and 85\%. For the 4FGL-DR2 classifications, the testing accuracy is between 90\% and 93\% (both with and without oversampling). If one takes into account that all OTHER sources are misclassified in the two-class case, then the three-class case provides an improvement in accuracy of 1\% to 5\%.
 
 We created four catalogs with probabilistic classifications of sources: based on 3FGL and on 4FGL-DR2 with two- and three-class classifications.
@@ -1994,14 +1994,14 @@ are smaller than the estimates based on testing samples.
 For instance, the precision for AGNs (pulsars) estimated from the comparison of the 3FGL and 4FGL-DR2 catalogs is about 93\% (68\%),
 compared to the precision of 97\% (78\%) determined from the testing samples for the two-class classification of 3FGL sources (Table~\ref{tab:3FGL_vs_4FGL_2class}).
 A similar reduction in precision is observed for the three-class classification of the 3FGL sources.
-We notice that many misclassified sources in the 3FGL versus 4FGL-DR2 comparison (Fig. \ref{fig:3FGL_vs_4FGL_classes}) are outside of the expected class domains if we use 4FGL-DR2 features instead of the 3FGL features. This shows that in many cases such a misclassification is due to errors or uncertainties in the input data rather than issues in the classification methods. Such errors in the input data provide an irreducible uncertainty in the analysis. As a result, we find that precision and recall determined from the comparison of the 3FGL and 4FGL-DR2 catalogs provide a more realistic estimate of the true precision and recall than the values based on testing samples.
+We notice that many misclassified sources in the 3FGL versus 4FGL-DR2 comparison (Fig. \ref{fig:3FGL_vs_4FGL_classes}) were outside of the expected class domains when 4FGL-DR2 features were used instead of the 3FGL features. This shows that in many cases such a misclassification is due to errors or uncertainties in the input data rather than issues in the classification methods. Such errors in the input data provide an irreducible uncertainty in the analysis. As a result, we find that precision and recall determined from the comparison of the 3FGL and 4FGL-DR2 catalogs provide a more realistic estimate of the true precision and recall than the values based on testing samples.
 Although a comparison of the 4FGL-DR2 catalog with a newer \Fermi-LAT catalog is not possible at the moment, 
 a similar reduction in precision and recall compared to the values determined from testing samples in the 4FGL-DR2 case can be expected.
 
 We used the all-algorithms-agree method for the general assignment of the candidate classes to the sources (for convenience, we include these classes in the catalogs) and also to create a list of 29 pulsar candidates based on unassociated sources classified as pulsars by all algorithms in both the 3FGL and 4FGL-DR2 catalogs using two-class classification.
 We find that the expected precision for the ``sum of probabilities above 7'' condition is larger than the ``all-methods-agreement'' condition (albeit at the expense of generally smaller recall), and thus the ``sum of probabilities above 7'' condition is stricter.
 In particular, all PSR candidate sources in 3FGL satisfying this condition are associated with pulsars in 4FGL-DR2, while there are no OTHER sources in 3FGL satisfying this condition. In the three-class classification based on the 4FGL-DR2 catalog, there are six pulsar candidates and 30 OTHER source candidates among unassociated sources satisfying  the ``sum of probabilities above 7'' condition. 
-We report these sources in Tables \ref{tab:psr_candidates_3class} and \ref{tab:other_candidates_3class}, respectively (digital versions of the tables are available in the supplementary online materials; \citealt{SOM_material}). We discuss possible associations of the pulsar candidates with pulsars from the Parkes survey \citep{Camilo2015} and OTHER sources candidates with sources in the SIMBAD database.
+We report these sources in Tables \ref{tab:psr_candidates_3class} and \ref{tab:other_candidates_3class}, respectively (digital versions of the tables are available in the supplementary online materials; \citealt{SOM_material}). We discuss possible associations of the pulsar candidates with pulsars from the Parkes survey \citep{Camilo2015} and OTHER source candidates with sources in the SIMBAD database.
 
 As a second example of the application of the probabilistic catalogs, we performed population studies using class probabilities for both associated and unassociated sources.
 In particular, we derived the expected number of sources in the catalog as a function of their flux.
@@ -2038,9 +2038,9 @@ operated at CDS, Strasbourg, France \citep{2000A&AS..143....9W}.
 \lb{sec:app}
 
 In this appendix we discuss tests of some meta-parameters, which had a relatively little effect on the 
-accuracy of the algorithms. For these tests we use the two-class classification in the 3FGL catalog.
+accuracy of the algorithms. For these tests we used the two-class classification in the 3FGL catalog.
 
-For the LR algorithm, we test two additional meta-parameters: regularization and tolerance. 
+For the LR algorithm, we tested two additional meta-parameters: regularization and tolerance. 
 The effect of the choice of these parameters on accuracy is less than 1\% (Fig. \ref{fig:LR_tol_reg}). 
 Therefore, we used the default values for these parameters (tolerance is $10^{-4}$ and regularization parameter is 1)
 both in the two-class and in the three-class classifications.
@@ -2158,11 +2158,11 @@ The features are ordered by decreasing importance in the case of the RF algorith
 
 
 We summarize features and their statistics,
-which we use for probabilistic classification of sources in the 3FGL and 4FGL-DR2 catalogs
+which we used for probabilistic classification of sources in the 3FGL and 4FGL-DR2 catalogs
 in Tables \ref{tab:3FGL_features} and \ref{tab:4FGL_features}, respectively. 
 We show the feature importances for the two-class classification of 4FGL-DR2 sources in Table \ref{tab:feat_imp2}.
-Similarly to feature importances for the 3FGL two-class classification reported in Table \ref{tab:feat_imp}, 
-some of the most important features are significance of curvature in the spectrum, variability index, energy flux above 100 MeV and its uncertainty.
+Similar to feature importances for the 3FGL two-class classification reported in Table \ref{tab:feat_imp}, 
+some of the most important features were significance of curvature in the spectrum, variability index, energy flux above 100 MeV and its uncertainty.
 
 \section{Comparison of oversampling methods}
 \lb{sec:app_O_vs_S}
@@ -2283,14 +2283,14 @@ for oversampling-by-repeating.
 \end{figure*}
 
 In this appendix we compare the method of oversampling by repeating sources described in Sect. \ref{sec:oversampling} 
-with SMOTE \citep{Chawla_2002}. We use SMOTE from the Imbalanced-learn library, which is based on an implementation of \citet{Chawla_2002}. 
-We estimate the probabilities of classification of all sources in the 3FGL and 4FGL-DR2 catalogs using the same algorithms and meta-parameters as in Sect. \ref{sec:oversampling}.
-The only difference in the SMOTE case is the oversampling technique.
+with SMOTE \citep{Chawla_2002}. We used SMOTE from the Imbalanced-learn library, which is based on an implementation of \citet{Chawla_2002}. 
+We estimated the probabilities of classification of all sources in the 3FGL and 4FGL-DR2 catalogs using the same algorithms and meta-parameters as in Sect. \ref{sec:oversampling}.
+The only difference in the SMOTE case was the oversampling technique.
 %SMOTE oversamples by creating synthetic data based on the data points already available. 
 %For a direct comparison we used the associated sources in 3FGL/4FGL-DR2 and compared the probabilities of the individual sources. 
-First, we compare the difference in class probabilities for individual sources relative to the statistical uncertainty due to the random choice of the training samples.
+First, we compared the difference in class probabilities for individual sources relative to the statistical uncertainty due to the random choice of the training samples.
 %We calculate normalized differences of individual probabilities $P_{D}$ by the formula:
-In particular, we calculate the difference in probabilities of belonging to, for example, the PSR class relative to the maximal standard deviation
+In particular, we calculated the difference in probabilities of belonging to, for example, the PSR class relative to the maximal standard deviation
 between oversampling-by-repeating and SMOTE
 
 \be
@@ -2312,11 +2312,11 @@ We plot the histogram of the $\Delta$ for the PSR-like probabilities in the 3FGL
 
 
 The difference between oversampling-by-repeating and SMOTE is illustrated in Fig. \ref{fig:domains_smote_over}.
-The domains are determined by averaging over 100 random choices of the training data.
+The domains were determined by averaging over 100 random choices of the training data.
 One of these choices is shown on the plots: in this case, both oversampling-by-repeating and SMOTE have the same 
 training and testing samples.
-In the oversampling-by-repeating the training sources are oversampled by simply repeating the sources,
-while in SMOTE new sources are created by randomly placing sources in the parameter space along the lines connecting a source
+In the oversampling-by-repeating the training sources were oversampled by simply repeating the sources,
+while in SMOTE new sources were created by randomly placing sources in the parameter space along the lines connecting a source
 and one of its nearest neighbors. In our implementation we chose one out of the five nearest neighbors. 
 
 
@@ -2360,17 +2360,17 @@ In these estimates, we use associated sources; the corresponding class probabili
 %\includegraphics[width=0.55\textwidth]{plots/hist_diff_smote_LR_4FGL-DR2_3class.pdf}
 \caption{Precision and recall for different choices of the threshold for the classification of sources by individual algorithms.
 The all-algorithms-agree method is used for the final classification. 
-The precision and recall are calculated for unassociated 3FGL sources that have associations in the 4FGL-DR2 catalog.
-The classes in the 4FGL-DR2 catalog are considered as the true classes.
+The precision and recall were calculated for unassociated 3FGL sources that have associations in the 4FGL-DR2 catalog.
+The classes in the 4FGL-DR2 catalog were considered as the true classes.
 The points on some precision curves are absent for high thresholds when there are no sources classified as pulsars (OTHER) in the left (right) panel in the three-class case.
 }
 \label{fig:thres_3_vs_4}
 \end{figure*}
 
-In the paper we use the largest probability rule to classify sources by individual algorithms.
+In the paper we used the largest probability rule to classify sources by individual algorithms.
 In particular, this means that in the two-class case a source is classified as an AGN or a pulsar if the corresponding probability
 is larger than 50\%. Similarly, in the three-class case a source may be classified based on a minimum required 33.3\% probability.
-Classification by the largest probability is a common approach in ML and we use it
+Classification by the largest probability is a common approach in ML and we used it
 for the calculation of accuracy of individual algorithms and for the optimization of the meta-parameters. 
 However, one can choose other thresholds for the classification depending on the goals of the analysis.
 For instance, if a list of high-probability pulsars is required one could use a higher threshold, 
@@ -2385,7 +2385,7 @@ but decrease the precision (there will be more false positives).
 In this appendix we study the effect of changing the threshold for the probabilistic classification of sources by the individual
 algorithms on the overall precision and recall of classification using the agreement of all eight algorithms.
 In Fig. \ref{fig:thres} we show precision and recall for the two- and three-class classification of PSR and OTHER sources in the 3FGL and 4FGL-DR2 catalogs.
-In the calculation we use the probabilistic classification of associated sources described in Sect. \ref{sec:3FGLprediction1}: we performed 1000 random splits into training and testing samples and determined the class probabilities for a source by averaging the probabilities when the source is included in the test samples.
+In the calculation we used the probabilistic classification of associated sources described in Sect. \ref{sec:3FGLprediction1}: we performed 1000 random splits into training and testing samples and determined the class probabilities for a source by averaging the probabilities when the source is included in the test samples.
 We note that with increasing threshold the recall is decreasing while the precision is generally increasing  (except for a few high threshold values in the 3FGL PSR and OTHER three-class classification, where the number of candidates is very small).
 The precision in the three-class case is generally better than in the two-class case (see the top panels of Fig. \ref{fig:thres}),
 while the recall is better in the two-class case.
@@ -2432,7 +2432,7 @@ Bottom panels: Three-class classification of 3FGL and 4FGL-DR2 sources.
 
 One of the characteristics of a classification algorithm is the reliability diagram (also known as the calibration curve),
 where one compares predicted probabilities with the true fractions of correct classifications.
-For the calculations we use ``calibration\_curve'' function implemented in scikit-learn.
+For the calculations we used ``calibration\_curve'' function implemented in scikit-learn.
 
 In Fig. \ref{fig:rel_PSR} we show the reliability diagram for PSR classification in the two- and three-class cases
 for the 3FGL and 4FGL-DR2 catalogs.
