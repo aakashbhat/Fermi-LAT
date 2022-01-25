@@ -1,0 +1,43 @@
+Note 1: we've checked the usage of present and past tenses and made corrections in places that we could identify.
+
+Note 2: OK, we have checked that the numbers below 11 are replaced by words.
+
+Note 3: OK
+
+Note 4: this should be 4FGL. Now we use 4FGL to describe common features of the original 4FGL catalog and an updated version 4FGL-DR2 (see also response to Note 7 and footnote on page 2). We have kept only 4FGL in this place.
+
+Note 5: we have replaced PSR in the text with pulsar and use PSR only as a label in tables, plots, and in the catalogs. We comment on the usage in footnote 2 on page 5.
+
+Note 6: OK.
+
+Note 7: PSR is used as a label for pulsars in the Fermi-LAT catalogs. We adopt this notation as well as a label in the catalog and also for shortness of notation in tables and plots. In the text we now use the full word pulsar. We have added footnote 2 on page 5 where PSR is mentioned for the first time with the explanation.
+
+Note 8: OK.
+
+Note 9: OK.
+
+Note 10: OK, also changed TEchnique to Technique, this is a more common way of writing: Synthetic Minority Over-sampling Technique.
+
+Note 11: OK.
+
+Note 12: OK.
+
+Note 13: changed to average significance
+
+Note 14: Figure title added.
+
+Note 15: OK.
+
+Note 16: Changed the sentence:
+"Also, all unassociated 3FGL pulsar candidates, which satisfy the $\sum_a p_a > 7$ condition, are associated with pulsars in the 4FGL-DR2."
+to:
+"In particular all unassociated 3FGL pulsar candidates, which satisfy the $\sum_a p_a > 7$ condition, are associated with pulsars in the 4FGL-DR2."
+as it is supposed to strengthen the statement in the previous sentence.
+
+Note 17, we defined now PWN and SNR.
+
+Note 18: OK.
+
+Note 19: OK.
+
+https://www.aanda.org/for-authors/latex-issues/texnicalbackground-information
