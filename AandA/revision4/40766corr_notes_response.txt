@@ -1,3 +1,5 @@
+Replies to the notes in the latex file:
+
 Note 1: we've checked the usage of present and past tenses and made corrections in places that we could identify.
 
 Note 2: OK, we have checked that the numbers below 11 are replaced by words.
@@ -39,5 +41,3 @@ Note 17, we defined now PWN and SNR.
 Note 18: OK.
 
 Note 19: OK.
-
-https://www.aanda.org/for-authors/latex-issues/texnicalbackground-information
